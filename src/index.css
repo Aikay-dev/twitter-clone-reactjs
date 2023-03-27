@@ -1,3 +1,156 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+:root {
+  --whiteBird: rgb(214, 217, 219);
+  --twitterWtext: rgb(231, 233, 234);
+  --loginButton: rgb(247, 250, 254);
+  --loginContentWidth: 300px;
+  --logBHover: rgb(230, 240, 250);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.authentication {
+  background-color: rgb(36, 45, 52);
+  color: rgb(231, 233, 234);
+}
+
+.app {
+  height: 1000px;
+  width: 100%;
+}
+
+.ex {
+  height: 30px;
+  width: 30px;
+}
+
+.ex:hover {
+  background-color: rgb(24, 25, 25);
+}
+
+.bird {
+  color: var(--whiteBird);
+}
+
+.apple-in-login {
+  font-size: 25px;
+}
+
+.google-butt-login {
+  background-color: var(--loginButton);
+  color: rgb(66, 64, 67);
+}
+
+.apple-butt-login {
+  background-color: var(--loginButton);
+}
+
+.google-butt-login,
+.apple-butt-login {
+  height: 40px;
+  width: var(--loginContentWidth);
+}
+
+.google-butt-login:hover,
+.apple-butt-login:hover,
+.next-signup-button:hover {
+  background-color: var(--logBHover);
+}
+
+.auth-prov-option {
+  border-bottom: 1px solid rgb(51, 54, 57);
+  width: var(--loginContentWidth);
+}
+
+.or-in-login {
+  width: 20px;
+  height: 20px;
+  top: 93%;
+  color: var(--twitterWtext);
+  background-color: black;
+  padding: 0 15px;
+}
+
+.login-sign-in-box {
+  width: var(--loginContentWidth);
+  border: 1px solid rgb(51, 54, 57);
+  padding-bottom: 8px;
+  padding-top: 20px;
+  padding-left: 13px;
+}
+
+.login-sign-in-box:focus {
+  border: 2px solid rgb(64, 147, 255);
+  outline: none;
+  padding-bottom: 7px;
+  padding-top: 19px;
+  padding-left: 12px;
+}
+
+.forgot-pass-siginin {
+  border: solid 1px rgb(83, 100, 113);
+  height: 40px;
+  width: var(--loginContentWidth);
+  font-weight: 700;
+}
+
+.forgot-pass-siginin:hover {
+  background-color: rgb(24, 25, 25);
+}
+
+.signup-link {
+  color: rgb(19, 102, 158);
+}
+
+.signup-link:hover{
+  text-decoration: underline;
+}
+
+.signin-dont-have {
+  color: rgb(93, 95, 97);
+}
+
+.next-signup-button {
+  color: rgb(15, 20, 25);
+}
+
+.apple-in-login {
+  color: rgb(22, 22, 22);
+}
+
+.phemus-label {
+  white-space: nowrap;
+}
+
+.login-sign-in-box:focus + .phemus-label,
+.login-sign-in-box:not(:placeholder-shown) + .phemus-label {
+  animation: identifier 0.1s linear forwards;
+  color: rgb(64, 147, 255);
+}
+
+/* @media screen and (max-width: 705px) {
+  .auth-form{
+    width: 100%;
+    height: 100vh;
+  }
+}
+ */
+
+@keyframes identifier {
+  from {
+  }
+
+  to {
+    scale: 0.8;
+    top: 5%;
+    right: 80%;
+  }
+}

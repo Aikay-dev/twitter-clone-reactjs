@@ -1,16 +1,8 @@
 import "./App.css";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import Main from "./pages/Main";
+import Root from "./pages/Root";
 
 function App() {
-  return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/Home" element={<Main />} />
-        <Route path="/" element={<Navigate replace to="/Home" />} />
-      </Routes>
-    </BrowserRouter>
-  );
+  return <Root />;
 }
 
 export default App;
