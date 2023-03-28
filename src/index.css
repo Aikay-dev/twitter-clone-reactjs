@@ -136,13 +136,9 @@
   color: rgb(64, 147, 255);
 }
 
-/* @media screen and (max-width: 705px) {
-  .auth-form{
-    width: 100%;
-    height: 100vh;
-  }
+.signup-second-section{
+  width: var(--loginContentWidth);
 }
- */
 
 @keyframes identifier {
   from {
@@ -153,4 +149,28 @@
     top: 5%;
     right: 80%;
   }
+}
+
+.signup-info{
+  border-bottom: 1px solid gray;
+  width: var(--loginContentWidth);
+}
+
+.signup-or{
+  width: 20px;
+  height: 20px;
+  top: 96%;
+  color: var(--twitterWtext);
+  background-color: black;
+  padding: 0 15px;
+}
+
+.sign-By-signingup{
+  font-size: 13px;
+  color: rgb(90, 92, 97);
+}
+
+.sign-Have-an{
+  width: var(--loginContentWidth);
+  color: rgb(90, 92, 97);
 }

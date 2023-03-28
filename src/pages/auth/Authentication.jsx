@@ -6,6 +6,7 @@ import { fas } from "@fortawesome/free-solid-svg-icons";
 import { fab } from "@fortawesome/free-brands-svg-icons";
 import { far } from "@fortawesome/free-regular-svg-icons";
 import { Link } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 
 library.add(fas);
 library.add(fab);
@@ -27,7 +28,7 @@ const Authentication = () => {
               <FontAwesomeIcon icon="fab fa-twitter" />
             </div>
           </div>
-            <Login />
+          <Outlet />
         </form>
       </div>
     </>

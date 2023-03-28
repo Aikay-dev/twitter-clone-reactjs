@@ -7,9 +7,13 @@ const Root = () => {
 
   /* const auth = getAuth() */
 
-
+  const percentages = 24+45+31
   return (
-    <Link to = '/Login'>TWITTER</Link>
+    
+    <>
+    <Link to = '/auth/Login'>TWITTER</Link>
+
+    </>
   )
 }
 

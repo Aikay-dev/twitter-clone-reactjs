@@ -1,12 +1,13 @@
 import React, { useRef } from "react";
 import { Link } from "react-router-dom";
 import googleIcon from "../../assets/google_icon.svg";
+import AuthLoginButton from "../../components/Auth-LoginButton";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { fas } from "@fortawesome/free-solid-svg-icons";
 import { fab } from "@fortawesome/free-brands-svg-icons";
 import { far } from "@fortawesome/free-regular-svg-icons";
-import AuthLoginButton from "../../components/Auth-LoginButton";
+
 
 library.add(fas);
 library.add(fab);
@@ -50,7 +51,7 @@ const Login = () => {
               "rounded-full font-semibold flex items-center justify-center apple-butt-login"
             }
           />
-          <div className="or-in-login flex items-center justify-center absolute text-xl">
+          <div className="or-in-login flex items-center justify-center absolute">
             or
           </div>
         </div>
@@ -76,7 +77,7 @@ const Login = () => {
             classes={"rounded-full bg-black forgot-pass-siginin mb-10"}
           />
           <p className="signin-dont-have">
-            Don't have an account? <Link className="signup-link">Sign up</Link>
+            Don't have an account? <Link to = '/auth/Signup' className="signup-link" >Sign up</Link>
           </p>
         </div>
       </div>
