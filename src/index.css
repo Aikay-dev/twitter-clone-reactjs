@@ -8,6 +8,9 @@
   --loginButton: rgb(247, 250, 254);
   --loginContentWidth: 300px;
   --logBHover: rgb(230, 240, 250);
+  --homeBorder: 1px solid rgb(47,51,54);
+  --homeLabelColor: rgb(113,118,123);
+  --inputFocus: 2px solid rgb(64, 147, 255);
 }
 
 * {
@@ -88,7 +91,7 @@
 }
 
 .login-sign-in-box:focus {
-  border: 2px solid rgb(64, 147, 255);
+  border: var(--inputFocus);
   outline: none;
   padding-bottom: 7px;
   padding-top: 19px;
@@ -107,7 +110,7 @@
 }
 
 .signup-link {
-  color: rgb(19, 102, 158);
+  color: rgb(18, 124, 194);
 }
 
 .signup-link:hover{
@@ -173,4 +176,72 @@
 .sign-Have-an{
   width: var(--loginContentWidth);
   color: rgb(90, 92, 97);
+}
+
+.homepage-left{
+  width: 24%;
+  border: none;
+  border-right: var(--homeBorder);
+}
+.homepage-center{
+  border-right: var(--homeBorder);
+  width: 45%;
+}
+.homepage-right{
+
+  width: 31%;
+}
+
+.homepage{
+  width: 1280px;
+  color: var(--twitterWtext);
+
+}
+
+.homepage-bird{
+  display: flex;
+  width:  50px;
+  height: 50px;
+}
+
+
+
+.section1-main-setting {
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 400,
+  'GRAD' 0,
+  'opsz' 48
+}
+
+.homepage-header-searchbox{
+  width: 500px;
+  background-color: rgb(32,35,39);
+  color: var(--homeLabelColor);
+}
+
+.homepage-header-searchbox::placeholder{
+  color: var(--homeLabelColor);
+}
+
+.homepage-header-label{
+  color: var(--homeLabelColor)
+}
+
+.homepage-header-searchbox:focus{
+  border: var(--inputFocus);
+}
+
+.homepage-header-searchbox:focus + .homepage-header-label{
+  color: rgb(64, 147, 255);;
+}
+
+.homepage-right-box{
+  border: var(--homeBorder);
+  width: 350px;
+}
+
+.homepage-right-sign-now, .homepage-right-By-sign{
+  color: var(--homeLabelColor);
+  font-size: 13px;
 }
