@@ -245,3 +245,21 @@
   color: var(--homeLabelColor);
   font-size: 13px;
 }
+
+.homepage-right-navbox{
+  width: var(--loginContentWidth);
+  color: var(--homeLabelColor);
+}
+
+.homepage-right-navbox-link:hover{
+  text-decoration: underline;
+}
+
+.homepage-center-trends{
+  width: 100%;
+}
+
+.homepage-center-info {
+
+  background-color: blue;
+}

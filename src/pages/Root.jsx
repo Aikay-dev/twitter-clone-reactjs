@@ -9,6 +9,7 @@ import { far } from "@fortawesome/free-regular-svg-icons";
 import SettingsTwoToneIcon from "@mui/icons-material/SettingsTwoTone";
 import AuthLoginButton from "../components/Auth-LoginButton";
 import googleIcon from "../assets/google_icon.svg";
+import AdministrativeLinks from "../components/AdministrativeLinks";
 
 library.add(fas);
 library.add(fab);
@@ -28,7 +29,7 @@ const Root = () => {
       <span className="pl-1 text-black">Sign in with Apple</span>
     </>
   );
-
+  let currentDate = new Date();
   const join_create_account = "Create account";
 
   return (
@@ -37,9 +38,12 @@ const Root = () => {
       <div className="bg-black">
         <div className="homepage h-screen bg-black flex m-auto">
           <section className="homepage-left h-screen">
-            <div className="homepage-bird text-white text-3xl pt-3 rounded flex items-center justify-center">
+            <Link
+              to="/auth/Login"
+              className="homepage-bird text-white text-3xl pt-3 rounded flex items-center justify-center"
+            >
               <FontAwesomeIcon icon="fab fa-twitter" />
-            </div>
+            </Link>
             <div className="section1-main flex flex-col gap-5 pt-5">
               <div className="section1-main-explore text-xl font-semibold">
                 <span className="pl-2">
@@ -55,7 +59,7 @@ const Root = () => {
               </div>
             </div>
           </section>
-          <section className="homepage-center h-screen relative ">
+          <section className="homepage-center h-screen relative overflow-hidden">
             <div className="homepage-header sticky py-3 w-full flex h-16 px-5 items-center justify-between">
               <div className="homepage-header-searchbar">
                 <input
@@ -71,11 +75,22 @@ const Root = () => {
                 <SettingsTwoToneIcon fontSize="small" />
               </div>
             </div>
+            <div className="homepage-center-info h-full overflow-y-scroll ">
+              <p>Trends for you</p>
+              <div className="homepage-center-trends bg-slate-500">
+                adsjbjcasbdjBk
+              </div>
+              <div className="homepage-center-whats-happening"></div>
+            </div>
           </section>
           <section className="homepage-right h-screen">
             <div className="homepage-right-box m-auto mt-3 p-5 rounded-2xl">
-              <p className="homepage-right-new-twitter font-black text-xl pb-2">New to Tweeter?</p>
-              <p className="homepage-right-sign-now">Sign up now to get your own personalized timeline!</p>
+              <p className="homepage-right-new-twitter font-black text-xl pb-2">
+                New to Tweeter?
+              </p>
+              <p className="homepage-right-sign-now">
+                Sign up now to get your own personalized timeline!
+              </p>
               <AuthLoginButton
                 logo={googleSignButton}
                 classes={
@@ -90,13 +105,18 @@ const Root = () => {
               />
               <AuthLoginButton
                 logo={join_create_account}
-                classes={"rounded-full google-butt-login mt-5 font-semibold mb-5"}
+                classes={
+                  "rounded-full google-butt-login mt-5 font-semibold mb-5"
+                }
               />
               <p className="homepage-right-By-sign">
-                By signing up, you agree to the <Link className="signup-link">Terms of Service</Link> and <Link className="signup-link">Privacy
-                Policy</Link>, including <Link className="signup-link">Cookie Use.</Link>
+                By signing up, you agree to the{" "}
+                <Link className="signup-link">Terms of Service</Link> and{" "}
+                <Link className="signup-link">Privacy Policy</Link>, including{" "}
+                <Link className="signup-link">Cookie Use.</Link>
               </p>
             </div>
+            <AdministrativeLinks currentDate={currentDate} />
           </section>
         </div>
       </div>
