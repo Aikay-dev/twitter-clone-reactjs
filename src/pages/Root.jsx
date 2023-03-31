@@ -42,18 +42,21 @@ const Root = () => {
           <section className="homepage-left h-screen">
             <Link
               to="/auth/Login"
-              className="homepage-bird text-white text-3xl pt-3 rounded flex items-center justify-center"
+              className="homepage-bird text-white text-3xl w-full pt-3 rounded flex items-center justify-center"
             >
               <FontAwesomeIcon icon="fab fa-twitter" />
             </Link>
             <div className="section1-main flex cursor-pointer flex-col gap-2 pt-5">
-              <div className="section1-main-explore text-xl font-semibold flex justify-center items-center">
+              <div className="section1-main-explore text-2xl font-semibold flex justify-center items-center">
                 <FontAwesomeIcon icon="fa-solid fa-hashtag" />
-                <span className="pl-6">Explore</span>
+                <span className="hidden xl:block xl:pl-6">Explore</span>
               </div>
-              <div className="section1-main-setting cursor-pointer text-xl flex justify-center items-center text-white">
+              <div className="section1-main-search text-xl font-semibold flex justify-center items-center">
+                <FontAwesomeIcon icon="fa-solid fa-magnifying-glass" />
+              </div>
+              <div className="section1-main-setting cursor-pointer text-2xl flex justify-center items-center text-white">
                 <SettingsTwoToneIcon />
-                <span className="pl-5">Settings</span>
+                <span className="hidden xl:block xl:pl-5">Settings</span>
               </div>
             </div>
           </section>
@@ -85,13 +88,15 @@ const Root = () => {
                 <p className="homepage-center-whats-happening-head px-3 font-extrabold">
                   What's happening
                 </p>
-                <Happening/>
-                <div className="mb-40 pl-3 h-14 flex items-center cursor-pointer homepage-center-whats-happening-showmore">Show more</div>
+                <Happening />
+                <div className="mb-40 pl-3 h-14 flex items-center cursor-pointer homepage-center-whats-happening-showmore">
+                  Show more
+                </div>
               </div>
             </div>
           </section>
           <section className="homepage-right h-screen">
-            <div className="homepage-right-box m-auto mt-3 p-5 rounded-2xl">
+            <div className="homepage-right-box mt-3 lg:mt-3 lg:m-auto px-5 py-3 ml-5 rounded-2xl flex flex-col items-center justify-center">
               <p className="homepage-right-new-twitter font-black text-xl pb-2">
                 New to Tweeter?
               </p>
@@ -101,19 +106,19 @@ const Root = () => {
               <AuthLoginButton
                 logo={googleSignButton}
                 classes={
-                  "rounded-full google-butt-login text-black mt-5 mb-3 next-signup-button"
+                  "rounded-full google-butt-login text-black mt-5 mb-3 next-signup-button next-signup-button-home-variant"
                 }
               />
               <AuthLoginButton
                 logo={appleSignButton}
                 classes={
-                  "rounded-full font-semibold flex items-center justify-center apple-butt-login"
+                  "rounded-full font-semibold flex items-center justify-center apple-butt-login apple-butt-login-home-variant"
                 }
               />
               <AuthLoginButton
                 logo={join_create_account}
                 classes={
-                  "rounded-full google-butt-login mt-3 font-semibold mb-5"
+                  "rounded-full google-butt-login mt-3 font-semibold mb-5 create-acc-home"
                 }
               />
               <p className="homepage-right-By-sign">
@@ -128,7 +133,7 @@ const Root = () => {
         </div>
         <div className="homepage-login-banner py-2 absolute bottom-0 w-full flex items-center justify-center">
           <div className="homepage-auth-banner-holder text-white  flex items-center justify-between">
-            <div className="homepage-auth-banner-info">
+            <div className="homepage-auth-banner-info md:block hidden">
               <p className="homepage-auth-banner-dont-miss font-bold text-2xl">
                 Don't miss what's happening
               </p>
@@ -136,11 +141,11 @@ const Root = () => {
                 people on Twitter are the first to know.
               </p>
             </div>
-            <div className="homepage-login-banner-auth flex gap-3">
-              <button className="homepage-login-banner-auth-login px-4 font-bold py-1 rounded-full">
+            <div className="homepage-login-banner-auth flex gap-3 w-full md:w-44">
+              <button className="homepage-login-banner-auth-login px-4 md:w-22 w-1/2 font-bold py-1 rounded-full">
                 Login
               </button>
-              <button className="homepage-login-banner-auth-signup px-4 font-bold py-1 rounded-full bg-white text-black">
+              <button className="homepage-login-banner-auth-signup px-4 md:w-22 w-1/2 font-bold py-1 whitespace-nowrap rounded-full bg-white text-black">
                 Sign up
               </button>
             </div>

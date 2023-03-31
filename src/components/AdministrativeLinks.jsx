@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 
 const AdministrativeLinks = ({currentDate}) => {
   return (
-    <nav className="homepage-right-navbox m-auto pt-5 text-xs flex flex-wrap gap-x-3">
+    <nav className="homepage-right-navbox ml-3 lg:m-auto pt-5 text-xs flex flex-wrap gap-x-3">
               <Link className="homepage-right-navbox-link">
                 {" "}
                 <span>Terms of Service</span>{" "}
