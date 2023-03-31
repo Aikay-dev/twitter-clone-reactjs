@@ -11,7 +11,7 @@ module.exports = {
       medium: "500",
       semibold: "600",
       bold: "700",
-      "extra-bold": "800",
+      extrabold: "800",
       black: "900",
     },
 

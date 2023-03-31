@@ -23,7 +23,7 @@ const SignUp = () => {
   const appleSignButton = (
     <>
       <FontAwesomeIcon icon="fa-brands fa-apple" className="apple-in-login" />
-      <span className="pl-1 text-black">Sign in with Apple</span>
+      <span className="pl-1 text-black">Sign up with Apple</span>
     </>
   );
 

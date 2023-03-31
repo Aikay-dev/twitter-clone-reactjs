@@ -8,9 +8,11 @@
   --loginButton: rgb(247, 250, 254);
   --loginContentWidth: 300px;
   --logBHover: rgb(230, 240, 250);
-  --homeBorder: 1px solid rgb(47,51,54);
-  --homeLabelColor: rgb(113,118,123);
+  --homeBorder: 1px solid rgb(47, 51, 54);
+  --homeLabelColor: rgb(113, 118, 123);
   --inputFocus: 2px solid rgb(64, 147, 255);
+  --faintHover: rgb(8, 8, 8);
+  --blueText: rgb(29,155,240)
 }
 
 * {
@@ -113,7 +115,7 @@
   color: rgb(18, 124, 194);
 }
 
-.signup-link:hover{
+.signup-link:hover {
   text-decoration: underline;
 }
 
@@ -139,7 +141,7 @@
   color: rgb(64, 147, 255);
 }
 
-.signup-second-section{
+.signup-second-section {
   width: var(--loginContentWidth);
 }
 
@@ -154,12 +156,12 @@
   }
 }
 
-.signup-info{
+.signup-info {
   border-bottom: 1px solid gray;
   width: var(--loginContentWidth);
 }
 
-.signup-or{
+.signup-or {
   width: 20px;
   height: 20px;
   top: 96%;
@@ -168,98 +170,172 @@
   padding: 0 15px;
 }
 
-.sign-By-signingup{
+.sign-By-signingup {
   font-size: 13px;
   color: rgb(90, 92, 97);
 }
 
-.sign-Have-an{
+.sign-Have-an {
   width: var(--loginContentWidth);
   color: rgb(90, 92, 97);
 }
 
-.homepage-left{
+.homepage-left {
   width: 24%;
   border: none;
   border-right: var(--homeBorder);
 }
-.homepage-center{
+.homepage-center {
   border-right: var(--homeBorder);
   width: 45%;
 }
-.homepage-right{
-
+.homepage-right {
   width: 31%;
 }
 
-.homepage{
+.homepage {
   width: 1280px;
   color: var(--twitterWtext);
-
 }
 
-.homepage-bird{
+.homepage-bird {
   display: flex;
-  width:  50px;
+  width: 50px;
   height: 50px;
 }
 
-
-
 .section1-main-setting {
-  font-variation-settings:
-  'FILL' 0,
-  'wght' 400,
-  'GRAD' 0,
-  'opsz' 48
+  font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 48;
 }
 
-.homepage-header-searchbox{
+.homepage-header-searchbox {
   width: 500px;
-  background-color: rgb(32,35,39);
+  background-color: rgb(32, 35, 39);
   color: var(--homeLabelColor);
 }
 
-.homepage-header-searchbox::placeholder{
+.homepage-header-searchbox::placeholder {
   color: var(--homeLabelColor);
 }
 
-.homepage-header-label{
-  color: var(--homeLabelColor)
+.homepage-header-label {
+  color: var(--homeLabelColor);
 }
 
-.homepage-header-searchbox:focus{
+.homepage-header-searchbox:focus {
   border: var(--inputFocus);
 }
 
-.homepage-header-searchbox:focus + .homepage-header-label{
-  color: rgb(64, 147, 255);;
+.homepage-header-searchbox:focus + .homepage-header-label {
+  color: rgb(64, 147, 255);
 }
 
-.homepage-right-box{
+.homepage-right-box {
   border: var(--homeBorder);
   width: 350px;
 }
 
-.homepage-right-sign-now, .homepage-right-By-sign{
+.homepage-right-sign-now,
+.homepage-right-By-sign {
   color: var(--homeLabelColor);
   font-size: 13px;
 }
 
-.homepage-right-navbox{
+.homepage-right-navbox {
   width: var(--loginContentWidth);
   color: var(--homeLabelColor);
 }
 
-.homepage-right-navbox-link:hover{
+.homepage-right-navbox-link:hover {
   text-decoration: underline;
 }
 
-.homepage-center-trends{
+.homepage-center-trends {
   width: 100%;
 }
 
 .homepage-center-info {
+  -ms-overflow-style: none; /* hide scrollbar on IE and Edge */
+  scrollbar-width: none;
+}
 
-  background-color: blue;
+.homepage-center-info::-webkit-scrollbar {
+  display: none;
+}
+
+.trend-category,
+.trend-tweets-num,
+.homepage-center-current-trend-more,
+.homepage-center-whats-happening-card-top-info-winner {
+  color: var(--homeLabelColor);
+}
+
+.homepage-center-current-trend-more {
+  width: 30px;
+  height: 30px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.homepage-center-current-trend-more:hover {
+  background-color: rgb(10, 23, 32);
+  color: rgb(29, 155, 240);
+}
+
+.homepage-center-current-trend:hover, .homepage-center-showmoreinfo:hover, .homepage-center-whats-happening-card:hover {
+  background-color: var(--faintHover);
+}
+
+.section1-main-explore,
+.section1-main-setting {
+  width: 150px;
+  height: 50px;
+  border-radius: 40px;
+}
+
+.section1-main-explore:hover,
+.section1-main-setting:hover,
+.homepage-header-settings-icon:hover {
+  background-color: rgb(24, 24, 24);
+}
+
+.homepage-center-showmoreinfo{
+  color: rgb(27,145,225);
+}
+
+.homepage-auth-banner-holder{
+  margin-left: 260px;
+  width: 930px;
+}
+
+
+.homepage-login-banner{
+  background-color: rgb(29,155,240);
+}
+
+.homepage-login-banner-auth-signup{
+  border: 1px solid rgb(255, 255, 255);
+}
+
+.homepage-login-banner-auth-login{
+  border: 1px solid rgb(255, 255, 255);
+  outline: none;
+}
+
+.homepage-center-showmoreinfo{
+  border-bottom: 1px solid gray;
+}
+
+.homepage-center-whats-happening-card-top-info-winner-dot{
+  font-size: 2px;
+}
+
+.homepage-center-whats-happening-showmore{
+  color: var(--blueText);
+}
+
+.homepage-center-whats-happening-showmore:hover{
+  background-color: var(--faintHover);
 }
