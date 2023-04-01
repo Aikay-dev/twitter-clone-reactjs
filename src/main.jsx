@@ -13,6 +13,8 @@ import SignUp from "./pages/auth/SignUp";
 import Login from "./pages/auth/Login";
 import { Provider } from "react-redux";
 import { store } from "./store";
+import SettingsPage from "./pages/settingsPage";
+import Explore from "./pages/Explore";
 
 const router = createBrowserRouter([
   {
@@ -32,6 +34,24 @@ const router = createBrowserRouter([
         path: "Signup",
         element: <SignUp />,
       },
+      {
+        path: "Settings",
+        element: <SettingsPage/>
+      },
+      {
+        path: "Explore",
+        element: <Explore/>,
+        children: [
+          {
+            path: "Login",
+            element: <Login />,
+          },
+          {
+            path: "Signup",
+            element: <SignUp />,
+          },
+        ]
+      },
     ],
   },
   {
@@ -48,6 +68,7 @@ const router = createBrowserRouter([
       },
     ],
   },
+
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(

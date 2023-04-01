@@ -49,7 +49,7 @@ const Login = () => {
             onClick={() => {
               dispatch(changeState({ display: "none" }));
             }}
-            to="/"
+            to="/Home/Explore"
             className="ex flex justify-center items-center cursor-pointer rounded-full"
           >
             <FontAwesomeIcon icon="fas fa-xmark " />
@@ -110,7 +110,7 @@ const Login = () => {
                 to={
                   location.pathname === "/auth/Login"
                     ? "/auth/Signup"
-                    : "/Home/Signup"
+                    : "/Home/Explore/Signup"
                 }
                 className="signup-link"
               >
