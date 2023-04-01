@@ -1,6 +1,12 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { getAuth } from "firebase/auth";
-import { Link, Outlet, useLocation, useNavigate, useParams } from "react-router-dom";
+import {
+  Link,
+  Outlet,
+  useLocation,
+  useNavigate,
+  useParams,
+} from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { fas } from "@fortawesome/free-solid-svg-icons";
@@ -8,22 +14,25 @@ import { fab } from "@fortawesome/free-brands-svg-icons";
 import { far } from "@fortawesome/free-regular-svg-icons";
 import SettingsTwoToneIcon from "@mui/icons-material/SettingsTwoTone";
 
-
 library.add(fas);
 library.add(fab);
 library.add(far);
 
 const Root = () => {
-  const page = useParams()
-  console.log(page)
+  const [exploreNav, setExploreNav] = useState({ fontWeight: "bold" });
+  const [settingsNav, setSettingsNav] = useState({ fontWeight: 100 });
+  const page = useParams();
+  console.log(page);
   const navigate = useNavigate();
   useEffect(() => {
     if (window.location.pathname === "/Home") {
       navigate("/Home/Explore");
+    }else{
+      setSettingsNav({ fontWeight: "bold" })
+      setExploreNav({ fontWeight: 100 })
     }
   }, []);
 
-  
 
 
   return (
@@ -38,28 +47,36 @@ const Root = () => {
               <FontAwesomeIcon icon="fab fa-twitter" />
             </Link>
             <div className="section1-main flex cursor-pointer flex-col gap-2 pt-5">
-              <div
+              <Link
+                to="/Home/Explore"
+                onClick={() => {
+                  setSettingsNav({ fontWeight: 100 });
+                  setExploreNav({ fontWeight: "bold" });
+                }}
                 className="section1-main-explore text-2xl font-semibold flex justify-center items-center"
-                style={{ fontWeight: "bold" }}
+                style={exploreNav}
               >
                 <FontAwesomeIcon icon="fa-solid fa-hashtag" />
                 <span className="hidden xl:block xl:pl-6">Explore</span>
-              </div>
+              </Link>
               <div className="section1-main-search text-xl font-semibold flex justify-center items-center">
                 <FontAwesomeIcon icon="fa-solid fa-magnifying-glass" />
               </div>
-              <div
+              <Link
+                to="/Home/Settings"
+                onClick={() => {
+                  setSettingsNav({ fontWeight: "bold" });
+                  setExploreNav({ fontWeight: 100 });
+                }}
                 className="section1-main-setting cursor-pointer text-2xl flex justify-center items-center text-white"
-                style={{ fontWeight: 100 }}
+                style={settingsNav}
               >
                 <SettingsTwoToneIcon />
-                <Link to="/Home/Settings" className="hidden xl:block xl:pl-5">
-                  Settings
-                </Link>
-              </div>
+                <span className="hidden xl:block xl:pl-5">Settings</span>
+              </Link>
             </div>
           </section>
-          <Outlet/>
+          <Outlet />
         </div>
 
         <div className="homepage-login-banner py-2 absolute bottom-0 w-full flex items-center justify-center">
