@@ -12,14 +12,16 @@ import googleIcon from "../assets/google_icon.svg";
 import AdministrativeLinks from "../components/AdministrativeLinks";
 import Trendstream from "../components/TrendStream";
 import Happening from "../components/Happening";
-
+import { useDispatch, useSelector } from "react-redux";
+import { changeState } from "../store";
 
 library.add(fas);
 library.add(fab);
 library.add(far);
 
 const Root = () => {
-  const [authOverlay, setAuthOverlay] = useState("none")
+  const dispatch = useDispatch();
+  const ifBlur = useSelector((state) => state.user.value.display);
   const googleSignButton = (
     <div className="flex items-center justify-center">
       <img src={googleIcon} alt="" className="h-8 flex w-8" />
@@ -35,7 +37,7 @@ const Root = () => {
   );
   let currentDate = new Date();
   const join_create_account = "Create account";
-  console.log(useLocation())
+  console.log(useLocation());
 
   return (
     <>
@@ -81,9 +83,7 @@ const Root = () => {
                 </label>
               </div>
               <Link
-              onClick={() => {
-                setAuthOverlay("block")
-              }}
+                onClick={() => dispatch(changeState({ display: "block" }))}
                 to="/Home/Login"
                 className="homepage-header-settings-icon text-base p-2 flex justify-center items-center rounded-full cursor-pointer"
               >
@@ -146,7 +146,10 @@ const Root = () => {
           </section>
         </div>
 
-        <div className="absolute inset-0 flex justify-center items-center text-white homepage-auth-overlay" style={{display: authOverlay}}>
+        <div
+          className="absolute inset-0 flex justify-center items-center text-white homepage-auth-overlay"
+          style={{ display: ifBlur }}
+        >
           <Outlet />
         </div>
 

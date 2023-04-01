@@ -7,12 +7,15 @@ import { library } from "@fortawesome/fontawesome-svg-core";
 import { fas } from "@fortawesome/free-solid-svg-icons";
 import { fab } from "@fortawesome/free-brands-svg-icons";
 import { far } from "@fortawesome/free-regular-svg-icons";
+import { changeState } from "../../store";
+import { useDispatch } from "react-redux";
 
 library.add(fas);
 library.add(fab);
 library.add(far);
 
 const Login = () => {
+  const dispatch = useDispatch();
   let focus = useRef(null);
 
   const handleFocusing = () => {
@@ -33,8 +36,8 @@ const Login = () => {
   );
   const nextButton = "Next";
   const forgotpass = "Forgot password?";
-  const location = useLocation()
-  console.log(location)
+  const location = useLocation();
+  console.log(location);
   return (
     <>
       <form
@@ -43,6 +46,9 @@ const Login = () => {
       >
         <div className="top-of-auth flex">
           <Link
+            onClick={() => {
+              dispatch(changeState({ display: "none" }));
+            }}
             to="/"
             className="ex flex justify-center items-center cursor-pointer rounded-full"
           >
@@ -100,7 +106,14 @@ const Login = () => {
             />
             <p className="signin-dont-have">
               Don't have an account?{" "}
-              <Link to={location.pathname === "/auth/Login" ? "/auth/Signup" : '/Home/Signup'} className="signup-link">
+              <Link
+                to={
+                  location.pathname === "/auth/Login"
+                    ? "/auth/Signup"
+                    : "/Home/Signup"
+                }
+                className="signup-link"
+              >
                 Sign up
               </Link>
             </p>
