@@ -40,7 +40,7 @@ const Root = () => {
         <div className="homepage h-screen bg-black flex m-auto">
           <section className="homepage-left h-screen hidden sm:block">
             <Link
-              to="/auth/Login"
+              to="/"
               className="homepage-bird text-white text-3xl w-full pt-3 rounded flex items-center justify-center"
             >
               <FontAwesomeIcon icon="fab fa-twitter" />
@@ -141,12 +141,12 @@ const Root = () => {
               </p>
             </div>
             <div className="homepage-login-banner-auth flex gap-3 w-full md:w-44">
-              <button className="homepage-login-banner-auth-login ml-3 md:px-4 md:w-22 w-1/2 font-bold py-1 rounded-full">
-                Login
-              </button>
-              <button className="homepage-login-banner-auth-signup mr-3 md:px-4 md:w-22 w-1/2 font-bold py-1 whitespace-nowrap rounded-full bg-white text-black">
-                Sign up
-              </button>
+              <Link to="/auth/Login" className="homepage-login-banner-auth-login ml-3 md:px-4 md:w-22 w-1/2 font-bold py-1 rounded-full">
+                <p className="text-center">Login</p>
+              </Link>
+              <Link to="/auth/Signup" className="homepage-login-banner-auth-signup mr-3 md:px-4 md:w-22 w-1/2 font-bold py-1 whitespace-nowrap rounded-full bg-white text-black">
+                <p className="text-center" >Sign up</p>
+              </Link>
             </div>
           </div>
         </div>
