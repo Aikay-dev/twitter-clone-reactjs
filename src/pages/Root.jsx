@@ -36,10 +36,9 @@ const Root = () => {
 
   return (
     <>
-      {/* <Link to = '/auth/Login'>TWITTER</Link> */}
       <div className="bg-black">
         <div className="homepage h-screen bg-black flex m-auto">
-          <section className="homepage-left h-screen">
+          <section className="homepage-left h-screen hidden sm:block">
             <Link
               to="/auth/Login"
               className="homepage-bird text-white text-3xl w-full pt-3 rounded flex items-center justify-center"
@@ -62,7 +61,7 @@ const Root = () => {
           </section>
           <section className="homepage-center h-screen relative overflow-hidden">
             <div className="homepage-header sticky py-3 w-full flex h-16 px-5 items-center justify-between">
-              <div className="homepage-header-searchbar">
+              <div className="homepage-header-searchbar w-full">
                 <input
                   type="text"
                   className="homepage-header-searchbox h-10 rounded-full outline-none pl-16"
@@ -142,10 +141,10 @@ const Root = () => {
               </p>
             </div>
             <div className="homepage-login-banner-auth flex gap-3 w-full md:w-44">
-              <button className="homepage-login-banner-auth-login px-4 md:w-22 w-1/2 font-bold py-1 rounded-full">
+              <button className="homepage-login-banner-auth-login ml-3 md:px-4 md:w-22 w-1/2 font-bold py-1 rounded-full">
                 Login
               </button>
-              <button className="homepage-login-banner-auth-signup px-4 md:w-22 w-1/2 font-bold py-1 whitespace-nowrap rounded-full bg-white text-black">
+              <button className="homepage-login-banner-auth-signup mr-3 md:px-4 md:w-22 w-1/2 font-bold py-1 whitespace-nowrap rounded-full bg-white text-black">
                 Sign up
               </button>
             </div>

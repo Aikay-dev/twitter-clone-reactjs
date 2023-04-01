@@ -30,7 +30,7 @@ const Happening = () => {
     `Team-1: ${matches.goals[0].scoreTeam1}, Team-2 ${matches.goals[0].scoreTeam2}`;
     return (
       <div
-        className="homepage-center-whats-happening-card flex flex-col justify-center  cursor-pointer py-2 px-3 mt-5 mb-5"
+        className="homepage-center-whats-happening-card flex flex-col  justify-center  cursor-pointer py-2 px-3 mt-5 mb-5"
         key={sportData.indexOf(matches)}
       >
         <div className="homepage-center-whats-happening-card-top-info flex items-center justify-between">
@@ -55,7 +55,7 @@ const Happening = () => {
             style={{ backgroundColor: randColor() }}
             className="homepage-center-whats-happening-card-main-team-1 flex items-center justify-between  rounded-t-md"
           >
-            <div className="flex pl-2">
+            <div className="flex pl-2 overflow-hidden">
               <img src={matches.team1.teamIconUrl} alt="" className="h-10 w-10" />
               <p className="homepage-center-whats-happening-card-main-team-1-name px-5 py-3 font-extrabold">
                 {matches.team1.teamName}
@@ -69,7 +69,7 @@ const Happening = () => {
             style={{ backgroundColor: randColor() }}
             className="homepage-center-whats-happening-card-main-team-2 flex items-center justify-between font-extrabold rounded-b-md"
           >
-            <div className="flex pl-2">
+            <div className="flex pl-2 overflow-hidden">
               <img src={matches.team2.teamIconUrl} alt="" className="h-10 w-10" />
               <p className="homepage-center-whats-happening-card-main-team-2-name px-5 py-3">
                 {matches.team2.teamName}
