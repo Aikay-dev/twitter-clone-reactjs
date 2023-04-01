@@ -346,6 +346,11 @@
   background-color: var(--faintHover);
 }
 
+.homepage-auth-overlay{
+  background-color: rgba(77, 91, 102, 0.5);
+  /* display: none; */
+}
+
 /* Media queries */
 
 @media screen and (max-width: 1280px) {

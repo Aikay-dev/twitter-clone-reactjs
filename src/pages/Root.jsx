@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import { getAuth } from "firebase/auth";
-import { Link } from "react-router-dom";
+import { Link, Outlet, useLocation } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { fas } from "@fortawesome/free-solid-svg-icons";
@@ -13,11 +13,13 @@ import AdministrativeLinks from "../components/AdministrativeLinks";
 import Trendstream from "../components/TrendStream";
 import Happening from "../components/Happening";
 
+
 library.add(fas);
 library.add(fab);
 library.add(far);
 
 const Root = () => {
+  const [authOverlay, setAuthOverlay] = useState("none")
   const googleSignButton = (
     <div className="flex items-center justify-center">
       <img src={googleIcon} alt="" className="h-8 flex w-8" />
@@ -33,6 +35,7 @@ const Root = () => {
   );
   let currentDate = new Date();
   const join_create_account = "Create account";
+  console.log(useLocation())
 
   return (
     <>
@@ -46,16 +49,22 @@ const Root = () => {
               <FontAwesomeIcon icon="fab fa-twitter" />
             </Link>
             <div className="section1-main flex cursor-pointer flex-col gap-2 pt-5">
-              <div className="section1-main-explore text-2xl font-semibold flex justify-center items-center">
+              <div
+                className="section1-main-explore text-2xl font-semibold flex justify-center items-center"
+                style={{ fontWeight: "bold" }}
+              >
                 <FontAwesomeIcon icon="fa-solid fa-hashtag" />
                 <span className="hidden xl:block xl:pl-6">Explore</span>
               </div>
               <div className="section1-main-search text-xl font-semibold flex justify-center items-center">
                 <FontAwesomeIcon icon="fa-solid fa-magnifying-glass" />
               </div>
-              <div className="section1-main-setting cursor-pointer text-2xl flex justify-center items-center text-white">
+              <div
+                className="section1-main-setting cursor-pointer text-2xl flex justify-center items-center text-white"
+                style={{ fontWeight: 100 }}
+              >
                 <SettingsTwoToneIcon />
-                <span className="hidden xl:block xl:pl-5">Settings</span>
+                <Link className="hidden xl:block xl:pl-5">Settings</Link>
               </div>
             </div>
           </section>
@@ -71,9 +80,15 @@ const Root = () => {
                   <FontAwesomeIcon icon="fas fa-magnifying-glass" />
                 </label>
               </div>
-              <div className="homepage-header-settings-icon text-base p-2 flex justify-center items-center rounded-full cursor-pointer">
+              <Link
+              onClick={() => {
+                setAuthOverlay("block")
+              }}
+                to="/Home/Login"
+                className="homepage-header-settings-icon text-base p-2 flex justify-center items-center rounded-full cursor-pointer"
+              >
                 <SettingsTwoToneIcon fontSize="small" />
-              </div>
+              </Link>
             </div>
             <div className="homepage-center-info h-full overflow-y-scroll ">
               <p className="homepage-center-info-trends text-xl font-extrabold pb-3 px-3">
@@ -130,6 +145,11 @@ const Root = () => {
             <AdministrativeLinks currentDate={currentDate} />
           </section>
         </div>
+
+        <div className="absolute inset-0 flex justify-center items-center text-white homepage-auth-overlay" style={{display: authOverlay}}>
+          <Outlet />
+        </div>
+
         <div className="homepage-login-banner py-2 absolute bottom-0 w-full flex items-center justify-center">
           <div className="homepage-auth-banner-holder text-white  flex items-center justify-between">
             <div className="homepage-auth-banner-info md:block hidden">
@@ -141,11 +161,17 @@ const Root = () => {
               </p>
             </div>
             <div className="homepage-login-banner-auth flex gap-3 w-full md:w-44">
-              <Link to="/auth/Login" className="homepage-login-banner-auth-login ml-3 md:px-4 md:w-22 w-1/2 font-bold py-1 rounded-full">
+              <Link
+                to="/auth/Login"
+                className="homepage-login-banner-auth-login ml-3 md:px-4 md:w-22 w-1/2 font-bold py-1 rounded-full"
+              >
                 <p className="text-center">Login</p>
               </Link>
-              <Link to="/auth/Signup" className="homepage-login-banner-auth-signup mr-3 md:px-4 md:w-22 w-1/2 font-bold py-1 whitespace-nowrap rounded-full bg-white text-black">
-                <p className="text-center" >Sign up</p>
+              <Link
+                to="/auth/Signup"
+                className="homepage-login-banner-auth-signup mr-3 md:px-4 md:w-22 w-1/2 font-bold py-1 whitespace-nowrap rounded-full bg-white text-black"
+              >
+                <p className="text-center">Sign up</p>
               </Link>
             </div>
           </div>
