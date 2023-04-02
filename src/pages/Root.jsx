@@ -27,13 +27,16 @@ const Root = () => {
   useEffect(() => {
     if (window.location.pathname === "/Home") {
       navigate("/Home/Explore");
-    }else{
-      setSettingsNav({ fontWeight: "bold" })
-      setExploreNav({ fontWeight: 100 })
+    } else if (window.location.pathname === "/Home/Explore") {
+      setSettingsNav({ fontWeight: 100 });
+      setExploreNav({ fontWeight: "bold" });
+      console.log(window.location.pathname);
+    } else {
+      setSettingsNav({ fontWeight: "bold" });
+      setExploreNav({ fontWeight: 100 });
+      console.log(window.location.pathname);
     }
   }, []);
-
-
 
   return (
     <>
