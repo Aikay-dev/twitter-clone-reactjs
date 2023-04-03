@@ -65,7 +65,7 @@ const Root = () => {
                 <FontAwesomeIcon icon="fa-solid fa-magnifying-glass" />
               </div>
               <Link
-                to="/Home/Settings"
+                to="/Home/Settings/personalization"
                 onClick={() => {
                   setSettingsNav({ fontWeight: "bold" });
                   setExploreNav({ fontWeight: 100 });
