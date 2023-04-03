@@ -14,7 +14,6 @@ import SettingsTwoToneIcon from "@mui/icons-material/SettingsTwoTone";
 import googleIcon from "../assets/google_icon.svg";
 import { useLocation, Outlet } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import Login from "./auth/Login";
 
 library.add(fas);
 library.add(fab);

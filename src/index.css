@@ -393,6 +393,16 @@
   }
 }
 
+.settings-page{
+  background-color: red;
+  width: 950px;
+}
+
+.settings-main-tab{
+  width: 360px;
+  background-color: green;
+}
+
 @media screen and (max-width: 1050px) {
   .next-signup-button-home-variant,
   .apple-butt-login-home-variant,

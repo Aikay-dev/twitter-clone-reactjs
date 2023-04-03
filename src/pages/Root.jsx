@@ -3,7 +3,6 @@ import { getAuth } from "firebase/auth";
 import {
   Link,
   Outlet,
-  useLocation,
   useNavigate,
   useParams,
 } from "react-router-dom";
