@@ -13,8 +13,11 @@ import SignUp from "./pages/auth/SignUp";
 import Login from "./pages/auth/Login";
 import { Provider } from "react-redux";
 import { store } from "./store";
-import SettingsPage from "./pages/settingsPage";
+import SettingsPage from "./pages/settingsPage/settingsPage";
 import Explore from "./pages/Explore";
+import PersonalizationAndData from "./pages/settingsPage/PersonalizationAndData";
+import TweeterData from "./pages/settingsPage/TweeterData";
+import AdditionalResources from "./pages/settingsPage/AdditionalResources";
 
 const router = createBrowserRouter([
   {
@@ -36,7 +39,21 @@ const router = createBrowserRouter([
       },
       {
         path: "Settings",
-        element: <SettingsPage/>
+        element: <SettingsPage/>,
+        children: [
+          {
+            path: "personalization",
+            element: <PersonalizationAndData/>
+          },
+          {
+            path: "your_twitter_data",
+            element: <TweeterData/>
+          },
+          {
+            path: "about",
+            element: <AdditionalResources/>
+          },
+        ]
       },
       {
         path: "Explore",
