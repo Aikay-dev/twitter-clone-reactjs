@@ -1,11 +1,11 @@
-import React, { useState, useEffect, useLayoutEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { fas } from "@fortawesome/free-solid-svg-icons";
 import { fab } from "@fortawesome/free-brands-svg-icons";
 import { far } from "@fortawesome/free-regular-svg-icons";
-import { Link, Outlet, useNavigate } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
+import { Link, Outlet } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import { exploreChangeState, settingsChangeState } from "../../store";
 
 library.add(fas);
@@ -13,11 +13,7 @@ library.add(fab);
 library.add(far);
 
 const SettingsPage = () => {
-  const ifboldexp = useSelector((state) => state.exp.value.fontWeight);
-  const ifboldset = useSelector((state) => state.set.value.fontWeight);
-
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   const [rbStyle, setrbStyle] = useState({});
   const [rbStyle1, setrbStyle1] = useState({});
@@ -77,8 +73,8 @@ const SettingsPage = () => {
   }, []);
 
   return (
-    <div className="settings-page flex">
-      <section className="settings-main-tab h-full">
+    <div className="settings-page flex overflow-scroll">
+      <section className="settings-main-tab">
         <p className="pt-3 pl-4 font-semibold text-xl pb-6">Settings</p>
         <p className="pl-4 text-xl font-bold">Privacy</p>
         <Link

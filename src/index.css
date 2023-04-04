@@ -395,7 +395,7 @@
 
 .settings-page{
   width: 950px;
-
+  
 }
 
 .settings-main-tab{
@@ -419,6 +419,14 @@
 
 .settings-chevron-icons, .settings-allow-all{
   color: rgb(113,118,123);
+}
+
+.personalization-and-data-section{
+  width: 600px;
+}
+
+.personalization-and-data-section{
+  border-right: var(--homeBorder);
 }
 @media screen and (max-width: 1050px) {
   .next-signup-button-home-variant,
