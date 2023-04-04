@@ -47,6 +47,8 @@ const SettingsPage = () => {
       });
       setrbStyle1({});
       setrbStyle2({});
+      dispatch(exploreChangeState({ fontWeight: 100 }));
+      dispatch(settingsChangeState({ fontWeight: "Bold" }));
     } else if (
       window.location.pathname === "/Home/Settings/your_twitter_data" ||
       window.location.pathname === "/Home/Settings/your_twitter_data/"
@@ -57,6 +59,8 @@ const SettingsPage = () => {
       });
       setrbStyle({});
       setrbStyle2({});
+      dispatch(exploreChangeState({ fontWeight: 100 }));
+      dispatch(settingsChangeState({ fontWeight: "Bold" }));
     } else if (
       window.location.pathname === "/Home/Settings/about" ||
       window.location.pathname === "/Home/Settings/about/"
@@ -67,6 +71,8 @@ const SettingsPage = () => {
       });
       setrbStyle({});
       setrbStyle1({});
+      dispatch(exploreChangeState({ fontWeight: 100 }));
+      dispatch(settingsChangeState({ fontWeight: "Bold" }));
     }
   }, []);
 
