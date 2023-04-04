@@ -10,10 +10,35 @@ const userSlice = createSlice({
   },
 });
 
-export const { changeState } = userSlice.actions;
+
+const exploreSlice = createSlice({
+  name: "SolidFocus",
+  initialState: { value: { fontWeight: "bold" } },
+  reducers: {
+    changeState: (state, action) => {
+      state.value = action.payload;
+    },
+  },
+});
+
+const settingSlice = createSlice({
+  name: "SolidFocus2",
+  initialState: { value: { fontWeight: 100} },
+  reducers: {
+    changeState: (state, action) => {
+      state.value = action.payload;
+    },
+  },
+});
+
+export const { changeState: blurChangeState } = userSlice.actions;
+export const { changeState: exploreChangeState } = exploreSlice.actions;
+export const { changeState: settingsChangeState } = settingSlice.actions;
 
 export const store = configureStore({
   reducer: {
     user: userSlice.reducer,
+    exp: exploreSlice.reducer,
+    set: settingSlice.reducer
   },
 });

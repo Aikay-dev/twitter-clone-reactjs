@@ -4,13 +4,19 @@ import { library } from "@fortawesome/fontawesome-svg-core";
 import { fas } from "@fortawesome/free-solid-svg-icons";
 import { fab } from "@fortawesome/free-brands-svg-icons";
 import { far } from "@fortawesome/free-regular-svg-icons";
-import { Link, Outlet, useNavigate} from "react-router-dom";
+import { Link, Outlet, useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { exploreChangeState, settingsChangeState } from "../../store";
 
 library.add(fas);
 library.add(fab);
 library.add(far);
 
 const SettingsPage = () => {
+  const ifboldexp = useSelector((state) => state.exp.value.fontWeight);
+  const ifboldset = useSelector((state) => state.set.value.fontWeight);
+
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const [rbStyle, setrbStyle] = useState({});
@@ -19,52 +25,50 @@ const SettingsPage = () => {
 
   window.onpopstate = () => {
     const currentUrl = window.location.pathname;
-    if (currentUrl === '/Home/Settings/' || currentUrl === '/Home/Settings') {
-      navigate("/Home/Explore");
+    if (currentUrl === "/Home/Explore/" || currentUrl === "/Home/Explore") {
+      dispatch(settingsChangeState({ fontWeight: 100 }));
+      dispatch(exploreChangeState({ fontWeight: "Bold" }));
     }
-    console.log(window.location.pathname)
+    console.log(window.location.pathname);
   };
 
-  useEffect(
-    () => {
-      if (
-        window.location.pathname === "/Home/Settings" ||
-        window.location.pathname === "/Home/Settings/" ||
-        window.location.pathname === "/Home/Settings/personalization" ||
-        window.location.pathname === "/Home/Settings/personalization/"
-      ) {
-        /* navigate("/Home/Settings/personalization"); */
-        setrbStyle({
-          borderRight: "2px solid rgb(29, 155, 240)",
-          backgroundColor: "rgb(22,24,28)",
-        });
-        setrbStyle1({});
-        setrbStyle2({});
-      } else if (
-        window.location.pathname === "/Home/Settings/your_twitter_data" ||
-        window.location.pathname === "/Home/Settings/your_twitter_data/"
-      ) {
-        setrbStyle1({
-          borderRight: "2px solid rgb(29, 155, 240)",
-          backgroundColor: "rgb(22,24,28)",
-        });
-        setrbStyle({});
-        setrbStyle2({});
-      } else if (
-        window.location.pathname === "/Home/Settings/about" ||
-        window.location.pathname === "/Home/Settings/about/"
-      ) {
-        setrbStyle2({
-          borderRight: "2px solid rgb(29, 155, 240)",
-          backgroundColor: "rgb(22,24,28)",
-        });
-        setrbStyle({});
-        setrbStyle1({});
-      }
-    },
-
-    []
-  );
+  useEffect(() => {
+    if (
+      window.location.pathname === "/Home/Settings" ||
+      window.location.pathname === "/Home/Settings/" ||
+      window.location.pathname === "/Home/Settings/personalization" ||
+      window.location.pathname === "/Home/Settings/personalization/"
+    ) {
+      dispatch(settingsChangeState({ fontWeight: "Bold" }));
+      dispatch(exploreChangeState({ fontWeight: 100 }));
+      setrbStyle({
+        borderRight: "2px solid rgb(29, 155, 240)",
+        backgroundColor: "rgb(22,24,28)",
+      });
+      setrbStyle1({});
+      setrbStyle2({});
+    } else if (
+      window.location.pathname === "/Home/Settings/your_twitter_data" ||
+      window.location.pathname === "/Home/Settings/your_twitter_data/"
+    ) {
+      setrbStyle1({
+        borderRight: "2px solid rgb(29, 155, 240)",
+        backgroundColor: "rgb(22,24,28)",
+      });
+      setrbStyle({});
+      setrbStyle2({});
+    } else if (
+      window.location.pathname === "/Home/Settings/about" ||
+      window.location.pathname === "/Home/Settings/about/"
+    ) {
+      setrbStyle2({
+        borderRight: "2px solid rgb(29, 155, 240)",
+        backgroundColor: "rgb(22,24,28)",
+      });
+      setrbStyle({});
+      setrbStyle1({});
+    }
+  }, []);
 
   return (
     <div className="settings-page flex">

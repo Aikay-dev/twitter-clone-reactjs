@@ -84,7 +84,6 @@ const Happening = () => {
     );
   });
 
-  console.log(sportData);
   return <>{scoreCards}</>;
 };
 

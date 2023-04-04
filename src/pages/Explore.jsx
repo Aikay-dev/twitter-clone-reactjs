@@ -3,7 +3,7 @@ import AuthLoginButton from "../components/Auth-LoginButton";
 import AdministrativeLinks from "../components/AdministrativeLinks";
 import Trendstream from "../components/TrendStream";
 import Happening from "../components/Happening";
-import { changeState } from "../store";
+import { blurChangeState } from "../store";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { library } from "@fortawesome/fontawesome-svg-core";
@@ -39,7 +39,6 @@ const Explore = () => {
   );
   let currentDate = new Date();
   const join_create_account = "Create account";
-  console.log(useLocation());
   const dispatch = useDispatch();
   return (
     <>
@@ -56,7 +55,7 @@ const Explore = () => {
             </label>
           </div>
           <Link
-            onClick={() => dispatch(changeState({ display: "block" }))}
+            onClick={() => dispatch(blurChangeState({ display: "block" }))}
             to="/Home/Explore/Login"
             className="homepage-header-settings-icon text-base p-2 flex justify-center items-center rounded-full cursor-pointer"
           >

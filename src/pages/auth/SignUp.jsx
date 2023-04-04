@@ -7,7 +7,7 @@ import { fas } from "@fortawesome/free-solid-svg-icons";
 import { fab } from "@fortawesome/free-brands-svg-icons";
 import { far } from "@fortawesome/free-regular-svg-icons";
 import { Link } from "react-router-dom";
-import { changeState } from "../../store";
+import { blurChangeState } from "../../store";
 import { useDispatch } from "react-redux";
 
 library.add(fas);
@@ -40,7 +40,7 @@ const SignUp = () => {
         <div className="top-of-auth flex">
         <Link
             onClick={() => {
-              dispatch(changeState({ display: "none" }));
+              dispatch(blurChangeState({ display: "none" }));
             }}
             to="/Home/Explore"
             className="ex flex justify-center items-center cursor-pointer rounded-full"

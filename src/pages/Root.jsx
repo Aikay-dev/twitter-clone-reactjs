@@ -1,39 +1,35 @@
 import React, { useEffect, useState } from "react";
 import { getAuth } from "firebase/auth";
-import {
-  Link,
-  Outlet,
-  useNavigate,
-  useParams,
-} from "react-router-dom";
+import { Link, Outlet, useNavigate, useParams } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { fas } from "@fortawesome/free-solid-svg-icons";
 import { fab } from "@fortawesome/free-brands-svg-icons";
 import { far } from "@fortawesome/free-regular-svg-icons";
 import SettingsTwoToneIcon from "@mui/icons-material/SettingsTwoTone";
+import { useSelector, useDispatch } from "react-redux";
+import { exploreChangeState, settingsChangeState } from "../store";
 
 library.add(fas);
 library.add(fab);
 library.add(far);
 
 const Root = () => {
-  const [exploreNav, setExploreNav] = useState({ fontWeight: "bold" });
-  const [settingsNav, setSettingsNav] = useState({ fontWeight: 100 });
+  const ifboldexp = useSelector((state) => state.exp.value.fontWeight);
+  const ifboldset = useSelector((state) => state.set.value.fontWeight);
+
+
+  const dispatch = useDispatch();
+
   const page = useParams();
-  console.log(page);
   const navigate = useNavigate();
   useEffect(() => {
     if (window.location.pathname === "/Home") {
       navigate("/Home/Explore");
     } else if (window.location.pathname === "/Home/Explore") {
-      setSettingsNav({ fontWeight: 100 });
-      setExploreNav({ fontWeight: "bold" });
-      console.log(window.location.pathname);
+
     } else {
-      setSettingsNav({ fontWeight: "bold" });
-      setExploreNav({ fontWeight: 100 });
-      console.log(window.location.pathname);
+
     }
   }, []);
 
@@ -52,11 +48,11 @@ const Root = () => {
               <Link
                 to="/Home/Explore"
                 onClick={() => {
-                  setSettingsNav({ fontWeight: 100 });
-                  setExploreNav({ fontWeight: "bold" });
+                  dispatch(settingsChangeState({ fontWeight: 100 }));
+                  dispatch(exploreChangeState({ fontWeight: "Bold" }));
                 }}
-                className="section1-main-explore text-2xl font-semibold flex justify-center items-center"
-                style={exploreNav}
+                className="section1-main-explore text-2xl flex justify-center items-center"
+                style={{fontWeight: ifboldexp}}
               >
                 <FontAwesomeIcon icon="fa-solid fa-hashtag" />
                 <span className="hidden xl:block xl:pl-6">Explore</span>
@@ -67,11 +63,11 @@ const Root = () => {
               <Link
                 to="/Home/Settings/personalization"
                 onClick={() => {
-                  setSettingsNav({ fontWeight: "bold" });
-                  setExploreNav({ fontWeight: 100 });
+                  dispatch(exploreChangeState({ fontWeight: 100 }));
+                  dispatch(settingsChangeState({ fontWeight: "Bold" }));
                 }}
                 className="section1-main-setting cursor-pointer text-2xl flex justify-center items-center text-white"
-                style={settingsNav}
+                style={{fontWeight: ifboldset}}
               >
                 <SettingsTwoToneIcon />
                 <span className="hidden xl:block xl:pl-5">Settings</span>
