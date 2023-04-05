@@ -4,6 +4,7 @@ import { library } from "@fortawesome/fontawesome-svg-core";
 import { fas } from "@fortawesome/free-solid-svg-icons";
 import { fab } from "@fortawesome/free-brands-svg-icons";
 import { far } from "@fortawesome/free-regular-svg-icons";
+import { Link } from "react-router-dom";
 
 library.add(fas);
 library.add(fab);
@@ -45,7 +46,7 @@ const PersonalizationAndData = () => {
           When this setting is enabled, Twitter may further personalize ads from
           Twitter advertisers, on and off Twitter, by combining your Twitter
           activity with other online activity and information from our partners.{" "}
-          <span>Learn more</span>
+          <span><Link>Learn more</Link></span>
         </p>
         <div>
           <p>Personalize based on your inferred identity</p>
