@@ -13,6 +13,7 @@ library.add(fab);
 library.add(far);
 
 const SettingsPage = () => {
+  const[navStyleOnPop, setnavStyleOnPop]  = useState(0)
   const dispatch = useDispatch();
 
   const [rbStyle, setrbStyle] = useState({});
@@ -25,6 +26,7 @@ const SettingsPage = () => {
       dispatch(settingsChangeState({ fontWeight: 100 }));
       dispatch(exploreChangeState({ fontWeight: "Bold" }));
     }
+    setnavStyleOnPop(navStyleOnPop + 1)
     console.log(window.location.pathname);
   };
 
@@ -70,7 +72,8 @@ const SettingsPage = () => {
       dispatch(exploreChangeState({ fontWeight: 100 }));
       dispatch(settingsChangeState({ fontWeight: "Bold" }));
     }
-  }, []);
+    console.log("object")
+  }, [navStyleOnPop]);
 
   return (
     <div className="settings-page flex overflow-scroll">
