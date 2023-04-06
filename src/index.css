@@ -14,6 +14,8 @@
   --inputFocus: 2px solid rgb(64, 147, 255);
   --faintHover: rgb(8, 8, 8);
   --blueText: rgb(29, 155, 240);
+  --buttonHover: rgb(24, 25, 25);
+  --smallButtonColor: rgb(29, 155, 240);
 }
 
 * {
@@ -21,6 +23,7 @@
   margin: 0;
   padding: 0;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: rgb(231,233,234);
 }
 
 .authentication {
@@ -346,7 +349,7 @@
   background-color: var(--faintHover);
 }
 
-.homepage-auth-overlay{
+.homepage-auth-overlay {
   background-color: rgba(77, 91, 102, 0.5);
 }
 
@@ -393,43 +396,98 @@
   }
 }
 
-.settings-page{
-  width: 950px;
-  
+.settings-page {
+  width: 1030px;
+  font-family: Helvetica;
+  color: rgb(231,233,234);
 }
 
-.settings-main-tab{
-  width: 360px;
+.settings-main-tab {
+  width: 420px;
   border-right: var(--homeBorder);
 }
 
-.setting-these-set-text{
+.setting-these-set-text {
   border-bottom: var(--homeBorder);
 }
 
-.settings-additional-resources, .settings-tweet-data, .settings-personalized-data{
-  
+.settings-additional-resources,
+.settings-tweet-data,
+.settings-personalized-data {
   height: 65px;
- 
 }
 
-.settings-additional-resources:hover, .settings-tweet-data:hover, .settings-personalized-data:hover{
-  background-color: rgb(22,24,28);
+.settings-additional-resources:hover,
+.settings-tweet-data:hover,
+.settings-personalized-data:hover {
+  background-color: rgb(22, 24, 28);
 }
 
-.settings-chevron-icons, .settings-allow-all{
-  color: rgb(113,118,123);
+.settings-chevron-icons,
+.settings-allow-all {
+  color: rgb(113, 118, 123);
 }
 
-.personalization-and-data-section{
+.personalization-and-data-section {
   width: 600px;
   border-right: var(--homeBorder);
 }
 
-/* .personalization-and-data-head-nav-arrow-holder{
-  height: 50px;
-  width: 50px;
-} */
+.personalization-and-data-head-nav-arrow-holder:hover {
+  background-color: var(--buttonHover);
+}
+
+.personalization-and-data-head-text-these-settings {
+  color: var(--homeLabelColor);
+  border-bottom: var(--homeBorder);
+}
+
+/* .blue-toggle-holder{
+  position: relative;
+}
+ */
+.toggle-body {
+  height: 15px;
+  width: 40px;
+  background-color: rgb(107, 201, 251);
+  border-radius: 100px;
+}
+
+.toggle-tab {
+  height: 20px;
+  width: 20px;
+  background-color: var(--smallButtonColor);
+  border-radius: 100px;
+}
+
+.personalization-and-data-top-2 {
+  border-bottom: var(--homeBorder);
+}
+
+.personalization-and-data-top-2-text-this-will {
+  color: var(--homeLabelColor);
+}
+
+.personalization-and-data-top-2-top-personalize {
+  font-size: 15px;
+}
+
+.personalization-and-data-person-ad-check {
+  background-color: var(--smallButtonColor);
+  border-radius: 3px;
+}
+
+.personalization-and-data-person-ad-you-will,
+.personalization-and-data-person-text-twitter-will,
+.personalization-and-data-section-data-text,
+.personalization-and-data-person-text-Tweeter-will {
+  color: var(--homeLabelColor);
+  font-size: 14px;
+}
+
+.personalization-and-data-person-text-Tweeter-will{
+  border-bottom: var(--homeBorder);
+}
 
 @media screen and (max-width: 1050px) {
   .next-signup-button-home-variant,
@@ -513,8 +571,6 @@
   .homepage {
     width: 100%;
   }
-
-
 }
 
 @media screen and (max-width: 500px) {
