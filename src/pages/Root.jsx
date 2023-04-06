@@ -37,7 +37,7 @@ const Root = () => {
     <>
       <div className="bg-black">
         <div className="homepage h-screen bg-black flex m-auto">
-          <section className="homepage-left h-screen hidden sm:block">
+          <section className="homepage-left h-screen pl-14 hidden sm:block">
             <Link
               to="/"
               className="homepage-bird text-white text-3xl w-full pt-3 rounded flex items-center justify-center"
@@ -51,7 +51,7 @@ const Root = () => {
                   dispatch(settingsChangeState({ fontWeight: 100 }));
                   dispatch(exploreChangeState({ fontWeight: "Bold" }));
                 }}
-                className="section1-main-explore text-2xl flex justify-center items-center"
+                className="section1-main-explore text-xl flex justify-center items-center"
                 style={{fontWeight: ifboldexp}}
               >
                 <FontAwesomeIcon icon="fa-solid fa-hashtag" />
@@ -66,7 +66,7 @@ const Root = () => {
                   dispatch(exploreChangeState({ fontWeight: 100 }));
                   dispatch(settingsChangeState({ fontWeight: "Bold" }));
                 }}
-                className="section1-main-setting cursor-pointer text-2xl flex justify-center items-center text-white"
+                className="section1-main-setting cursor-pointer text-xl flex justify-center items-center text-white"
                 style={{fontWeight: ifboldset}}
               >
                 <SettingsTwoToneIcon />
@@ -76,7 +76,6 @@ const Root = () => {
           </section>
           <Outlet />
         </div>
-
         <div className="homepage-login-banner py-2 absolute bottom-0 w-full flex items-center justify-center">
           <div className="homepage-auth-banner-holder text-white  flex items-center justify-between">
             <div className="homepage-auth-banner-info md:block hidden">

@@ -2,7 +2,7 @@ import React from 'react'
 
 const TweeterData = () => {
   return (
-    <div>
+    <div className='h-screen'>
       your tweeter data
     </div>
   )

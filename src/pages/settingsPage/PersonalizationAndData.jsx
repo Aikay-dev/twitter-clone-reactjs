@@ -12,13 +12,13 @@ library.add(far);
 
 const PersonalizationAndData = () => {
   return (
-    <div className="personalization-and-data-section">
+    <div className="personalization-and-data-section h-screen">
       <div className="personalization-and-data-top-1">
-        <div className="personalization-and-data-head-nav">
-          <div>
-            <span><FontAwesomeIcon icon="fa-solid fa-arrow-left" /></span>
+        <div className="personalization-and-data-head-nav flex text-lg items-center ">
+          <div className="personalization-and-data-head-nav-arrow-holder flex items-center justify-center cursor-pointer rounded-full bg-slate-600 h-8 w-8 ml-2 mt-2">
+            <span className="text-sm"><FontAwesomeIcon icon="fa-solid fa-arrow-left" /></span>
           </div>
-          <p className="font-bold">Personlization and data</p>
+          <p className="font-black">Personlization and data</p>
         </div>
         <p>
           These settings apply to this browser or device while you’re logged

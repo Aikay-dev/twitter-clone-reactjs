@@ -2,7 +2,7 @@ import React from 'react'
 
 const AdditionalResources = () => {
   return (
-    <div>
+    <div className='h-screen'>
       Additional resources
     </div>
   )
