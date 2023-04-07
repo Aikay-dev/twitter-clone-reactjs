@@ -6,6 +6,7 @@ import { fab } from "@fortawesome/free-brands-svg-icons";
 import { far } from "@fortawesome/free-regular-svg-icons";
 import { Link } from "react-router-dom";
 import CheckButton from "../../components/checkButton";
+import Toggle from "../../components/Toggle";
 
 library.add(fas);
 library.add(fab);
@@ -33,10 +34,7 @@ const PersonalizationAndData = () => {
           <div className="personalization-and-data-top-2-top-personalize">
             Personalization and data
           </div>
-          <div className="blue-toggle-holder relative flex items-center">
-            <div className="toggle-body"></div>
-            <div className="toggle-tab absolute right-0"></div>
-          </div>
+          <Toggle/>
         </div>
         <p className="text-sm personalization-and-data-top-2-text-this-will pt-2">
           This will enable or disable all of the settings on this page.
