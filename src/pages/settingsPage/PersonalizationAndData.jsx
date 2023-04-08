@@ -8,16 +8,20 @@ import { Link } from "react-router-dom";
 import CheckButton from "../../components/checkButton";
 import Toggle from "../../components/Toggle";
 import { useSelector, useDispatch } from "react-redux";
-import { personalizationblurChangeState, checkboxsettingsChangeState } from "../../store";
+import {
+  personalizationblurChangeState,
+  checkboxsettingsChangeState,
+} from "../../store";
 import { useContext } from "react";
 import { SettingsContext } from "./settingsPage";
+import SettingsTopNav from "./SettingsTopNav";
 
 library.add(fas);
 library.add(fab);
 library.add(far);
 
 const PersonalizationAndData = () => {
-  const personalcheckbxs = useSelector((state) => state.setchbx.value)
+  const personalcheckbxs = useSelector((state) => state.setchbx.value);
   const [toggleTab, setToggleTab] = useState({
     height: "20px",
     width: "20px",
@@ -48,14 +52,7 @@ const PersonalizationAndData = () => {
   return (
     <div className="personalization-and-data-section h-full">
       <div className="personalization-and-data-top-1">
-        <div className="personalization-and-data-head-nav flex text-lg items-center mt-1 mb-6">
-          <div className="personalization-and-data-head-nav-arrow-holder flex items-center justify-center cursor-pointer rounded-full h-8 w-8 ml-2 mt-2 mr-8">
-            <span className="text-base">
-              <FontAwesomeIcon icon="fa-solid fa-arrow-left" />
-            </span>
-          </div>
-          <p className="font-black">Personlization and data</p>
-        </div>
+        <SettingsTopNav navText={"Personalization and data"} />
         <p className="personalization-and-data-head-text-these-settings text-sm pl-4 pb-3 pr-10">
           These settings apply to this browser or device while you’re logged
           out. They don’t have any effect when you’re logged in.
@@ -88,7 +85,6 @@ const PersonalizationAndData = () => {
                   borderRadius: "100px",
                 });
                 dispatch(checkboxsettingsChangeState(true));
-                
               }
             }}
           >
