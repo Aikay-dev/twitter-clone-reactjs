@@ -5,7 +5,7 @@ import { fas } from "@fortawesome/free-solid-svg-icons";
 import { fab } from "@fortawesome/free-brands-svg-icons";
 import { far } from "@fortawesome/free-regular-svg-icons";
 import { Link } from "react-router-dom";
-import CheckButton from "../../components/checkButton";
+import CheckButton from "../../components/SettingsCheckButton";
 import Toggle from "../../components/Toggle";
 import { useSelector, useDispatch } from "react-redux";
 import {
