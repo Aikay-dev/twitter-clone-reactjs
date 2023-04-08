@@ -424,7 +424,8 @@
 }
 
 .settings-chevron-icons,
-.settings-allow-all {
+.settings-allow-all, 
+.addres-check-out {
   color: rgb(113, 118, 123);
 }
 
@@ -492,6 +493,10 @@
 
 .settings-personalize-cancel:hover {
   background-color: var(--buttonHover);
+}
+
+.addres-relase-note-tab{
+  border-bottom: var(--homeBorder);
 }
 
 @media screen and (max-width: 1050px) {
