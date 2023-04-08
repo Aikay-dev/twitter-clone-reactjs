@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { fas } from "@fortawesome/free-solid-svg-icons";
@@ -7,12 +7,37 @@ import { far } from "@fortawesome/free-regular-svg-icons";
 import { Link } from "react-router-dom";
 import CheckButton from "../../components/checkButton";
 import Toggle from "../../components/Toggle";
+import { useSelector, useDispatch } from "react-redux";
+import { personalizationblurChangeState } from "../../store";
+import { useContext } from "react";
+import { SettingsContext } from "./settingsPage";
 
 library.add(fas);
 library.add(fab);
 library.add(far);
 
 const PersonalizationAndData = () => {
+  const { togglePermit, setTogglePermit } = useContext(SettingsContext);
+
+  const dispatch = useDispatch();
+  const ifBlur = useSelector((state) => state.peras.value);
+
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    if (mounted) {
+      console.log(togglePermit);
+      if (togglePermit) {
+        setTogglePermit(false);
+      } else {
+        dispatch(personalizationblurChangeState({ display: "flex" }));
+      }
+    }
+  }, [togglePermit, dispatch, mounted]);
+  
+  const permitfunc = async () => {
+    await setTogglePermit(false);
+  };
   return (
     <div className="personalization-and-data-section h-full">
       <div className="personalization-and-data-top-1">
@@ -34,7 +59,12 @@ const PersonalizationAndData = () => {
           <div className="personalization-and-data-top-2-top-personalize">
             Personalization and data
           </div>
-          <Toggle/>
+          <div onClick={() => {
+            permitfunc()
+            setMounted(true)
+          }}>
+            <Toggle permission={togglePermit} />
+          </div>
         </div>
         <p className="text-sm personalization-and-data-top-2-text-this-will pt-2">
           This will enable or disable all of the settings on this page.
@@ -48,7 +78,7 @@ const PersonalizationAndData = () => {
           <div className=" personalization-and-data-person-ad text-sm font-medium">
             Personalized ads
           </div>
-          <CheckButton/>
+          <CheckButton />
         </div>
         <p className="px-4 personalization-and-data-person-ad-you-will pb-6">
           You will always see ads on Tweeter based on your Tweeter activity.
@@ -56,12 +86,16 @@ const PersonalizationAndData = () => {
           Tweeter advertisers, on and off Tweeter, by combining your Tweeter
           activity with other online activity and information from our partners.{" "}
           <span>
-            <Link className=" personalization-and-data-person-ad-link-learn signup-link">Learn more</Link>
+            <Link className=" personalization-and-data-person-ad-link-learn signup-link">
+              Learn more
+            </Link>
           </span>
         </p>
         <div className="px-4 flex items-center justify-between cursor-pointer ">
-          <p className="text-sm font-medium pb-1">Personalize based on your inferred identity</p>
-          <CheckButton/>
+          <p className="text-sm font-medium pb-1">
+            Personalize based on your inferred identity
+          </p>
+          <CheckButton />
         </div>
         <p className="px-4 personalization-and-data-person-text-Tweeter-will pb-5">
           Tweeter will always personalize your experience based on information
@@ -69,12 +103,15 @@ const PersonalizationAndData = () => {
           this setting is enabled, Tweeter may also personalize based on other
           inferences about your identity, like devices and browsers you haven’t
           used to log in to Tweeter or email addresses and phone numbers similar
-          to those linked to your Tweeter account. <span><Link className="signup-link">Learn more</Link></span>
+          to those linked to your Tweeter account.{" "}
+          <span>
+            <Link className="signup-link">Learn more</Link>
+          </span>
         </p>
         <p className="pt-3 pl-4 text-xl font-bold pb-6">Data</p>
         <div className="flex justify-between items-center px-4">
           <p>Allow additional information sharing with business partners</p>
-          <CheckButton/>
+          <CheckButton />
         </div>
         <p className="px-4  personalization-and-data-section-data-text pb-14">
           Tweeter always shares information with business partners as a way to

@@ -10,9 +10,12 @@ import SettingsTwoToneIcon from "@mui/icons-material/SettingsTwoTone";
 import { useSelector, useDispatch } from "react-redux";
 import { exploreChangeState, settingsChangeState } from "../store";
 
+
 library.add(fas);
 library.add(fab);
 library.add(far);
+
+
 
 const Root = () => {
   const ifboldexp = useSelector((state) => state.exp.value.fontWeight);

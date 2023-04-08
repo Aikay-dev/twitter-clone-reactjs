@@ -454,14 +454,14 @@
 }
 
 .personalization-and-data-person-ad-check {
-  background-color: var(--smallButtonColor);
   border-radius: 3px;
 }
 
 .personalization-and-data-person-ad-you-will,
 .personalization-and-data-person-text-twitter-will,
 .personalization-and-data-section-data-text,
-.personalization-and-data-person-text-Tweeter-will {
+.personalization-and-data-person-text-Tweeter-will,
+.settings-personalize-text-this-may {
   color: var(--homeLabelColor);
   font-size: 14px;
 }
@@ -472,6 +472,24 @@
 
 .custom-checkbox:hover{
   background-color: rgb(3,16,24);
+}
+
+.settings-personalize-disable{
+  background-color: rgb(239,243,244);
+  border: none;
+  
+}
+
+.settings-personalize-disable:hover{
+  background-color: var(--logBHover);
+}
+
+.settings-personalize-cancel{
+  border: 1px solid rgb(79,95,107);
+}
+
+.settings-personalize-cancel:hover{
+  background-color: var(--buttonHover);
 }
 
 @media screen and (max-width: 1050px) {
