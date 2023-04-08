@@ -17,6 +17,21 @@ library.add(fab);
 library.add(far);
 
 const PersonalizationAndData = () => {
+  const [toggleTab, setToggleTab] = useState({
+    height: "20px",
+    width: "20px",
+    backgroundColor: "rgb(29, 155, 240)",
+    borderRadius: "100px",
+    right: 0,
+  });
+
+  const [toggleHolder, setToggleHolder] = useState({
+    height: "15px",
+    width: "40px",
+    backgroundColor: "rgb(107, 201, 251)",
+    borderRadius: "100px",
+  });
+
   const { togglePermit, setTogglePermit } = useContext(SettingsContext);
 
   const dispatch = useDispatch();
@@ -26,18 +41,9 @@ const PersonalizationAndData = () => {
 
   useEffect(() => {
     if (mounted) {
-      console.log(togglePermit);
-      if (togglePermit) {
-        setTogglePermit(false);
-      } else {
-        dispatch(personalizationblurChangeState({ display: "flex" }));
-      }
     }
   }, [togglePermit, dispatch, mounted]);
-  
-  const permitfunc = async () => {
-    await setTogglePermit(false);
-  };
+
   return (
     <div className="personalization-and-data-section h-full">
       <div className="personalization-and-data-top-1">
@@ -59,11 +65,36 @@ const PersonalizationAndData = () => {
           <div className="personalization-and-data-top-2-top-personalize">
             Personalization and data
           </div>
-          <div onClick={() => {
-            permitfunc()
-            setMounted(true)
-          }}>
-            <Toggle permission={togglePermit} />
+          <div
+            onClick={() => {
+              if (toggleTab.backgroundColor === "rgb(29, 155, 240)") {
+                dispatch(personalizationblurChangeState({ display: "flex" }));
+              } else {
+                setTogglePermit(false);
+                setToggleTab({
+                  height: "20px",
+                  width: "20px",
+                  backgroundColor: "rgb(29, 155, 240)",
+                  borderRadius: "100px",
+                  right: 0,
+                });
+
+                setToggleHolder({
+                  height: "15px",
+                  width: "40px",
+                  backgroundColor: "rgb(107, 201, 251)",
+                  borderRadius: "100px",
+                });
+              }
+            }}
+          >
+            <Toggle
+              permission={togglePermit}
+              toggleTab={toggleTab}
+              setToggleTab={setToggleTab}
+              toggleHolder={toggleHolder}
+              setToggleHolder={setToggleHolder}
+            />
           </div>
         </div>
         <p className="text-sm personalization-and-data-top-2-text-this-will pt-2">

@@ -1,21 +1,12 @@
 import React, { useState, useEffect } from "react";
 
-const Toggle = ({ permission }) => {
-  const [toggleHolder, setToggleHolder] = useState({
-    height: "15px",
-    width: "40px",
-    backgroundColor: "rgb(107, 201, 251)",
-    borderRadius: "100px",
-  });
-
-  const [toggleTab, setToggleTab] = useState({
-    height: "20px",
-    width: "20px",
-    backgroundColor: "rgb(29, 155, 240)",
-    borderRadius: "100px",
-    right: 0,
-  });
-
+const Toggle = ({
+  permission,
+  toggleTab,
+  setToggleTab,
+  toggleHolder,
+  setToggleHolder,
+}) => {
   useEffect(() => {
     if (permission) {
       if (toggleHolder.backgroundColor === "rgb(107, 201, 251)") {
