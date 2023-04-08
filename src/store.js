@@ -40,10 +40,22 @@ const personalizationConfirmationStyleSlice = createSlice({
   },
 });
 
+const settingsCheckboxStyleSlice = createSlice({
+  name: "checkboxConfirm",
+  initialState: { value: true },
+  reducers: {
+    changeState: (state, action) => {
+      state.value = action.payload;
+    },
+  },
+});
+
+
 export const { changeState: blurChangeState } = userSlice.actions;
 export const { changeState: personalizationblurChangeState } = personalizationConfirmationStyleSlice.actions;
 export const { changeState: exploreChangeState } = exploreSlice.actions;
 export const { changeState: settingsChangeState } = settingSlice.actions;
+export const { changeState: checkboxsettingsChangeState } = settingsCheckboxStyleSlice.actions;
 
 export const store = configureStore({
   reducer: {
@@ -51,5 +63,6 @@ export const store = configureStore({
     exp: exploreSlice.reducer,
     set: settingSlice.reducer,
     peras: personalizationConfirmationStyleSlice.reducer,
+    setchbx: settingsCheckboxStyleSlice.reducer
   },
 });

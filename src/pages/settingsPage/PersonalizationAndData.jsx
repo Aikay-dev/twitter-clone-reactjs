@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 import CheckButton from "../../components/checkButton";
 import Toggle from "../../components/Toggle";
 import { useSelector, useDispatch } from "react-redux";
-import { personalizationblurChangeState } from "../../store";
+import { personalizationblurChangeState, checkboxsettingsChangeState } from "../../store";
 import { useContext } from "react";
 import { SettingsContext } from "./settingsPage";
 
@@ -17,6 +17,7 @@ library.add(fab);
 library.add(far);
 
 const PersonalizationAndData = () => {
+  const personalcheckbxs = useSelector((state) => state.setchbx.value)
   const [toggleTab, setToggleTab] = useState({
     height: "20px",
     width: "20px",
@@ -69,6 +70,7 @@ const PersonalizationAndData = () => {
             onClick={() => {
               if (toggleTab.backgroundColor === "rgb(29, 155, 240)") {
                 dispatch(personalizationblurChangeState({ display: "flex" }));
+                dispatch(checkboxsettingsChangeState(true));
               } else {
                 setTogglePermit(false);
                 setToggleTab({
@@ -85,6 +87,8 @@ const PersonalizationAndData = () => {
                   backgroundColor: "rgb(107, 201, 251)",
                   borderRadius: "100px",
                 });
+                dispatch(checkboxsettingsChangeState(true));
+                
               }
             }}
           >

@@ -10,6 +10,7 @@ import {
   exploreChangeState,
   settingsChangeState,
   personalizationblurChangeState,
+  checkboxsettingsChangeState
 } from "../../store";
 import { createContext } from "react";
 
@@ -28,7 +29,7 @@ const SettingsPage = () => {
   const [rbStyle2, setrbStyle2] = useState({});
 
   const ifBlur = useSelector((state) => state.peras.value);
-
+  
   window.onpopstate = () => {
     const currentUrl = window.location.pathname;
     if (currentUrl === "/Home/Explore/" || currentUrl === "/Home/Explore") {
@@ -83,6 +84,7 @@ const SettingsPage = () => {
     }
     console.log("object");
   }, [navStyleOnPop]);
+  
   const [togglePermit, setTogglePermit] = useState(false);
   return (
     <SettingsContext.Provider value={{ togglePermit, setTogglePermit }}>
@@ -176,6 +178,7 @@ const SettingsPage = () => {
             onClick={() => {
               setTogglePermit(true);
               dispatch(personalizationblurChangeState({ display: "none" }));
+              dispatch(checkboxsettingsChangeState(false));
             }}
           >
             Disable
