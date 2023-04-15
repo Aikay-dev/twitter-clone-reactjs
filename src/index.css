@@ -354,46 +354,7 @@
 
 /* Media queries */
 
-@media screen and (max-width: 1280px) {
-  .homepage-left {
-    width: 10%;
-    border: none;
-    border-right: var(--homeBorder);
-    padding-right: 50px;
-  }
 
-  .section1-main-explore,
-  .section1-main-setting {
-    width: 100%;
-    height: 50px;
-    border-radius: 40px;
-  }
-
-  .homepage-center {
-    border-right: var(--homeBorder);
-    width: 52%;
-  }
-  .homepage-right {
-    width: 38%;
-  }
-
-  .homepage-bird {
-    width: 100%;
-  }
-
-  .homepage {
-    width: 1024px;
-  }
-
-  .homepage-header-searchbox {
-    width: 450px;
-  }
-
-  .homepage-auth-banner-holder {
-    margin-left: 80px;
-    width: 900px;
-  }
-}
 
 .settings-page {
   width: 1030px;
@@ -499,6 +460,55 @@
   border-bottom: var(--homeBorder);
 }
 
+/* @media screen and (max-width: 1280px) {
+  .personalization-and-data-section{
+    width: 500px;
+  }
+} */
+
+@media screen and (max-width: 1280px) {
+  .homepage-left {
+    width: 10%;
+    border: none;
+    border-right: var(--homeBorder);
+    padding-right: 50px;
+  }
+
+  .section1-main-explore,
+  .section1-main-setting {
+    width: 100%;
+    height: 50px;
+    border-radius: 40px;
+  }
+
+  .homepage-center {
+    border-right: var(--homeBorder);
+    width: 52%;
+  }
+  .homepage-right {
+    width: 38%;
+  }
+
+  .homepage-bird {
+    width: 100%;
+  }
+
+  .homepage-header-searchbox {
+    width: 450px;
+  }
+
+  .homepage-auth-banner-holder {
+    margin-left: 80px;
+    width: 900px;
+  }
+}
+
+@media screen and (max-width: 1150px) {
+  .settings-main-tab{
+    width: 320px;
+  }
+}
+
 @media screen and (max-width: 1050px) {
   .next-signup-button-home-variant,
   .apple-butt-login-home-variant,
@@ -521,9 +531,7 @@
     width: 33%;
   }
 
-  .homepage {
-    width: 980px;
-  }
+
 
   .homepage-auth-banner-holder {
     margin-left: 0px;
@@ -545,7 +553,7 @@
   }
 
   .homepage {
-    width: 680px;
+    padding: 0 100px;
   }
 
   .homepage-right {
@@ -565,6 +573,18 @@
     gap: 70px;
     width: 600px;
     margin-left: 100px;
+  }
+}
+
+@media screen and (max-width: 850px) {
+  .homepage {
+    padding: 0 50px;
+  }
+}
+
+@media screen and (max-width: 730px) {
+  .homepage {
+    padding: 0 0px;
   }
 }
 

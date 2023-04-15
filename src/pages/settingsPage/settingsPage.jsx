@@ -21,6 +21,12 @@ library.add(far);
 export const SettingsContext = createContext(null);
 
 const SettingsPage = () => {
+  
+  useEffect(() => {
+    if(window.innerWidth <= 1040){
+      console.log("hey")
+    }
+  }, [])
   const [navStyleOnPop, setnavStyleOnPop] = useState(0);
   const dispatch = useDispatch();
 
@@ -88,9 +94,9 @@ const SettingsPage = () => {
   const [togglePermit, setTogglePermit] = useState(false);
   return (
     <SettingsContext.Provider value={{ togglePermit, setTogglePermit }}>
-      <div className="overflow-scroll w-full">
+      <div className="overflow-scroll xs:w-full">
         <div className="settings-page flex ">
-          <section className="settings-main-tab">
+          <section className="settings-main-tab h-screen">
             <p className="pt-3 pl-4 font-semibold text-xl pb-6">Settings</p>
             <p className="pl-4 text-xl font-bold">Privacy</p>
             <Link
@@ -132,7 +138,7 @@ const SettingsPage = () => {
                 <FontAwesomeIcon icon="fa-solid fa-chevron-right" />
               </p>
             </Link>
-            <p className="pl-4 pt-3 pb-3 mb-3 setting-these-set-text">
+            <p className="pl-4 pr-4 pt-3 pb-3 mb-3 setting-these-set-text">
               These settings apply to this browser or device while you’re logged
               out. They don’t have any effect when you’re logged in.
             </p>

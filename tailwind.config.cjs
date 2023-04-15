@@ -28,7 +28,7 @@ module.exports = {
       sm: "500px",
       md: "700px",
       lg: "1050px",
-      xl: "1280px",
+      xl: "1281px",
       "2xl": "1536px",
       print: { raw: "print" },
     },

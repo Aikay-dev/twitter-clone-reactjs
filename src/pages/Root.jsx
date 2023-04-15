@@ -38,8 +38,8 @@ const Root = () => {
 
   return (
     <>
-      <div className="bg-black">
-        <div className="homepage h-screen bg-black flex m-auto">
+      <div className="bg-black flex justify-center">
+        <div className="homepage h-screen bg-black flex">
           <section className="homepage-left h-screen pl-14 hidden sm:block">
             <Link
               to="/"
