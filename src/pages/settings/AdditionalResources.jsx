@@ -4,6 +4,7 @@ import { library } from "@fortawesome/fontawesome-svg-core";
 import { fas } from "@fortawesome/free-solid-svg-icons";
 import { fab } from "@fortawesome/free-brands-svg-icons";
 import { far } from "@fortawesome/free-regular-svg-icons";
+import SettingsTopNav from "./SettingsTopNav";
 
 library.add(fas);
 library.add(fab);
@@ -85,9 +86,7 @@ const AdditionalResources = () => {
   });
   return (
     <div className="h-full additional-resources-section">
-      <div className="personalization-and-data-head-nav flex text-lg items-center mt-1 mb-6 ml-4">
-        <p className="font-black">Additional resources</p>
-      </div>
+      <SettingsTopNav />
       <p className="ml-4 text-sm addres-check-out mb-5">
         Check out other places for helpful information to learn more about
         Tweeter products and services.
