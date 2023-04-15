@@ -107,9 +107,13 @@ const Root = () => {
         <div className="mobile-settings-call absolute bottom-0 bg-black text-white w-full h-30 px-6 py-4">
           <div className="flex">
             <SettingsTwoToneIcon />
-            <p className="pl-3">Go to settings</p>
+            <Link to = '/Home/Settings/'>
+              <p className="pl-3">Go to settings</p>
+            </Link>
           </div>
-          <button className="mobile-settings-call-cancel rounded-full w-full py-2 mt-5">Cancel</button>
+          <button className="mobile-settings-call-cancel rounded-full w-full py-2 mt-5">
+            Cancel
+          </button>
         </div>
       </div>
     </>
