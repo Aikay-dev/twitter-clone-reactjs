@@ -20,7 +20,7 @@ library.add(far);
 const Root = () => {
   const ifboldexp = useSelector((state) => state.exp.value.fontWeight);
   const ifboldset = useSelector((state) => state.set.value.fontWeight);
-
+  const [windowWidth, SetwindowWidth] = useState(window.innerWidth > 1040 ? '/Home/Settings/personalization' : '/Home/Settings/')
 
   const dispatch = useDispatch();
 
@@ -64,7 +64,7 @@ const Root = () => {
                 <FontAwesomeIcon icon="fa-solid fa-magnifying-glass" />
               </div>
               <Link
-                to="/Home/Settings/personalization"
+                to={windowWidth}
                 onClick={() => {
                   dispatch(exploreChangeState({ fontWeight: 100 }));
                   dispatch(settingsChangeState({ fontWeight: "Bold" }));

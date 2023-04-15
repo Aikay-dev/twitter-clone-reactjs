@@ -4,7 +4,7 @@ import { library } from "@fortawesome/fontawesome-svg-core";
 import { fas } from "@fortawesome/free-solid-svg-icons";
 import { fab } from "@fortawesome/free-brands-svg-icons";
 import { far } from "@fortawesome/free-regular-svg-icons";
-import { Link, Outlet } from "react-router-dom";
+import { Link, useNavigate, Outlet } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {
   exploreChangeState,
@@ -21,12 +21,7 @@ library.add(far);
 export const SettingsContext = createContext(null);
 
 const SettingsPage = () => {
-  
-  useEffect(() => {
-    if(window.innerWidth <= 1040){
-      console.log("hey")
-    }
-  }, [])
+  const navigate = useNavigate();
   const [navStyleOnPop, setnavStyleOnPop] = useState(0);
   const dispatch = useDispatch();
 
