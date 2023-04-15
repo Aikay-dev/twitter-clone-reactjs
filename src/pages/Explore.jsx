@@ -20,7 +20,6 @@ library.add(fab);
 library.add(far);
 
 const Explore = () => {
-
   const ifBlur = useSelector((state) => state.user.value.display);
   console.log(useLocation());
 
@@ -44,6 +43,12 @@ const Explore = () => {
     <>
       <section className="homepage-center h-screen relative overflow-hidden">
         <div className="homepage-header sticky py-3 w-full flex h-16 px-5 items-center justify-between">
+          <Link
+            to="/"
+            className=" mobile-search-box-bird text-white text-3xl rounded mr-3"
+          >
+            <FontAwesomeIcon icon="fab fa-twitter" />
+          </Link>
           <div className="homepage-header-searchbar w-full">
             <input
               type="text"
@@ -60,6 +65,9 @@ const Explore = () => {
             className="homepage-header-settings-icon text-base p-2 flex justify-center items-center rounded-full cursor-pointer"
           >
             <SettingsTwoToneIcon fontSize="small" />
+          </Link>
+          <Link className="ellipses-mobile-explore-header ml-4">
+            <FontAwesomeIcon icon="fa-solid fa-ellipsis" />
           </Link>
         </div>
         <div className="homepage-center-info h-full overflow-y-scroll ">
@@ -117,11 +125,11 @@ const Explore = () => {
         <AdministrativeLinks currentDate={currentDate} />
       </section>
       <div
-          className="absolute inset-0 flex justify-center items-center text-white homepage-auth-overlay"
-          style={{ display: ifBlur }}
-        >
-          <Outlet/>
-        </div>
+        className="absolute inset-0 flex justify-center items-center text-white homepage-auth-overlay"
+        style={{ display: ifBlur }}
+      >
+        <Outlet />
+      </div>
     </>
   );
 };

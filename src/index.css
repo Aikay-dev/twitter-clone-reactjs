@@ -357,13 +357,14 @@
 
 
 .settings-page {
-  width: 1030px;
+  width: 100%;
   font-family: Helvetica;
   color: rgb(231, 233, 234);
 }
 
 .settings-main-tab {
   border-right: var(--homeBorder);
+  width: 350px;
 }
 
 .setting-these-set-text {
@@ -459,11 +460,27 @@
   border-bottom: var(--homeBorder);
 }
 
-/* @media screen and (max-width: 1280px) {
-  .personalization-and-data-section{
-    width: 500px;
-  }
-} */
+.main-settings-navigation-arrow{
+  display: none;
+}
+
+.mobile-search-box-bird{
+  display: none;
+}
+
+.ellipses-mobile-explore-header{
+  display: none;
+}
+
+.mobile-settings-call{
+  border-top-right-radius: 20px;
+  border-top-left-radius: 20px;
+  
+}
+
+.mobile-settings-call-cancel{
+  border: 1px solid var(--homeLabelColor);
+}
 
 @media screen and (max-width: 1280px) {
   .homepage-left {
@@ -506,6 +523,16 @@
   .settings-main-tab{
     width: 320px;
   }
+}
+
+@media screen and (max-width: 1040px) {
+  .settings-main-tab{
+    width: 600px;
+  }
+
+/*   .settings-page {
+    width: 900px;
+  } */
 }
 
 @media screen and (max-width: 1050px) {
@@ -605,5 +632,26 @@
 @media screen and (max-width: 500px) {
   .homepage-center {
     width: 100%;
+  }
+
+  .main-settings-navigation-arrow{
+    display: flex;
+  }
+
+  .mobile-search-box-bird{
+    display: block;
+    font-size: 25px;
+  }
+
+  .homepage-header-label{
+    left: 90px;
+  }
+
+  .ellipses-mobile-explore-header{
+    display: block;
+  }
+
+  .homepage-header-settings-icon{
+    display: none;
   }
 }

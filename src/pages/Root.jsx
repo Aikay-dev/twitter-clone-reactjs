@@ -10,17 +10,18 @@ import SettingsTwoToneIcon from "@mui/icons-material/SettingsTwoTone";
 import { useSelector, useDispatch } from "react-redux";
 import { exploreChangeState, settingsChangeState } from "../store";
 
-
 library.add(fas);
 library.add(fab);
 library.add(far);
 
-
-
 const Root = () => {
   const ifboldexp = useSelector((state) => state.exp.value.fontWeight);
   const ifboldset = useSelector((state) => state.set.value.fontWeight);
-  const [windowWidth, SetwindowWidth] = useState(window.innerWidth > 1040 ? '/Home/Settings/personalization' : '/Home/Settings/')
+  const [windowWidth, SetwindowWidth] = useState(
+    window.innerWidth > 1040
+      ? "/Home/Settings/personalization"
+      : "/Home/Settings/"
+  );
 
   const dispatch = useDispatch();
 
@@ -30,9 +31,7 @@ const Root = () => {
     if (window.location.pathname === "/Home") {
       navigate("/Home/Explore");
     } else if (window.location.pathname === "/Home/Explore") {
-
     } else {
-
     }
   }, []);
 
@@ -55,7 +54,7 @@ const Root = () => {
                   dispatch(exploreChangeState({ fontWeight: "Bold" }));
                 }}
                 className="section1-main-explore text-xl flex justify-center items-center"
-                style={{fontWeight: ifboldexp}}
+                style={{ fontWeight: ifboldexp }}
               >
                 <FontAwesomeIcon icon="fa-solid fa-hashtag" />
                 <span className="hidden xl:block xl:pl-6">Explore</span>
@@ -70,7 +69,7 @@ const Root = () => {
                   dispatch(settingsChangeState({ fontWeight: "Bold" }));
                 }}
                 className="section1-main-setting cursor-pointer text-xl flex justify-center items-center text-white"
-                style={{fontWeight: ifboldset}}
+                style={{ fontWeight: ifboldset }}
               >
                 <SettingsTwoToneIcon />
                 <span className="hidden xl:block xl:pl-5">Settings</span>
@@ -104,6 +103,13 @@ const Root = () => {
               </Link>
             </div>
           </div>
+        </div>
+        <div className="mobile-settings-call absolute bottom-0 bg-black text-white w-full h-30 px-6 py-4">
+          <div className="flex">
+            <SettingsTwoToneIcon />
+            <p className="pl-3">Go to settings</p>
+          </div>
+          <button className="mobile-settings-call-cancel rounded-full w-full py-2 mt-5">Cancel</button>
         </div>
       </div>
     </>

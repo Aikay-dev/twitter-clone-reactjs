@@ -14,7 +14,7 @@ const isColorTooCloseToBlackOrGray = (r, g, b) => {
   return distance < 70;
 };
 
-while (colors.length < 20) {
+while (colors.length < 50) {
   const r = Math.floor(Math.random() * 256);
   const g = Math.floor(Math.random() * 256);
   const b = Math.floor(Math.random() * 256);

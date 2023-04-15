@@ -6,25 +6,17 @@ import { fas } from "@fortawesome/free-solid-svg-icons";
 import { fab } from "@fortawesome/free-brands-svg-icons";
 import { far } from "@fortawesome/free-regular-svg-icons";
 import { useDispatch } from "react-redux";
-import {
-  exploreChangeState,
-  settingsChangeState,
-} from "../../store";
+import { exploreChangeState, settingsChangeState } from "../../store";
 
 library.add(fas);
 library.add(fab);
 library.add(far);
 
-const settingsNavStyle = {
-  width: window.innerWidth > 1040 ? "420px" : "600px",
-};
-
-const SettingsMainNav = ({navStyleOnPop}) => {
+const SettingsMainNav = ({ navStyleOnPop }) => {
   const dispatch = useDispatch();
   const [rbStyle, setrbStyle] = useState({});
   const [rbStyle1, setrbStyle1] = useState({});
   const [rbStyle2, setrbStyle2] = useState({});
-  
 
   useEffect(() => {
     if (
@@ -35,11 +27,11 @@ const SettingsMainNav = ({navStyleOnPop}) => {
     ) {
       dispatch(settingsChangeState({ fontWeight: "Bold" }));
       dispatch(exploreChangeState({ fontWeight: 100 }));
-      if(window.innerWidth > 1040){
+      if (window.innerWidth > 1040) {
         setrbStyle({
-            borderRight: "2px solid rgb(29, 155, 240)",
-            backgroundColor: "rgb(22,24,28)",
-          });
+          borderRight: "2px solid rgb(29, 155, 240)",
+          backgroundColor: "rgb(22,24,28)",
+        });
       }
       setrbStyle1({});
       setrbStyle2({});
@@ -73,8 +65,18 @@ const SettingsMainNav = ({navStyleOnPop}) => {
     console.log("object");
   }, [navStyleOnPop]);
   return (
-    <section style={settingsNavStyle} className="settings-main-tab h-screen">
-      <p className="pt-3 pl-4 font-semibold text-xl pb-6">Settings</p>
+    <section className="settings-main-tab h-screen">
+      <div className="flex ">
+        <div
+          className="personalization-and-data-head-nav-arrow-holder main-settings-navigation-arrow flex items-center justify-center cursor-pointer rounded-full h-8 w-8 ml-2 mt-2 mr-8"
+          onClick={() => window.history.back()}
+        >
+          <span className="text-base">
+            <FontAwesomeIcon icon="fa-solid fa-arrow-left" />
+          </span>
+        </div>
+        <p className="pt-3 pl-4 font-semibold text-xl pb-6">Settings</p>
+      </div>
       <p className="pl-4 text-xl font-bold">Privacy</p>
       <Link
         to="personalization/"
