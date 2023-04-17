@@ -112,7 +112,7 @@ const Root = () => {
             )
           );
         }}>
-          <div className="mobile-settings-call absolute bottom-0 bg-black text-white w-full h-30 px-6 py-4">
+          <div className="mobile-settings-call fixed bottom-0 bg-black text-white w-full h-30 px-6 py-4">
             <div className="flex">
               <SettingsTwoToneIcon />
               <Link to="/Home/Settings/" onClick={() => {
