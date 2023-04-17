@@ -65,7 +65,7 @@ const SettingsMainNav = ({ navStyleOnPop }) => {
     console.log("object");
   }, [navStyleOnPop]);
   return (
-    <section className="settings-main-tab h-screen">
+    <section className="settings-main-tab">
       <div className="flex ">
         <div
           className="personalization-and-data-head-nav-arrow-holder main-settings-navigation-arrow flex items-center justify-center cursor-pointer rounded-full h-8 w-8 ml-2 mt-2 mr-8"
