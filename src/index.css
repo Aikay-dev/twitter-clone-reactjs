@@ -16,6 +16,8 @@
   --blueText: rgb(29, 155, 240);
   --buttonHover: rgb(24, 25, 25);
   --smallButtonColor: rgb(29, 155, 240);
+  --loginspace: 80px;
+  --loginspacesmall: 20px
 }
 
 * {
@@ -146,6 +148,15 @@
 
 .signup-second-section {
   width: var(--loginContentWidth);
+}
+
+.final-login-button{
+  background-color: rgb(239,243,244);
+  color: black;
+}
+
+.final-login-button:hover{
+  background-color: var(--logBHover);
 }
 
 @keyframes identifier {
@@ -486,6 +497,87 @@
   overflow: hidden;
 }
 
+.login-enter-password-email-blur{
+  background-color: rgb(16,18,20);
+  border-radius: 5px;
+}
+
+.disabled-input-text{
+  color: rgb(52,55,57);
+}
+
+.enter-password-login-input{
+  border: var(--homeBorder)
+}
+
+.enter-password-login-input {
+  border: 1px solid rgb(51, 54, 57);
+  padding-bottom: 8px;
+  padding-top: 20px;
+  padding-left: 13px;
+}
+
+.enter-password-login-input:focus {
+  border: var(--inputFocus);
+  outline: none;
+  padding-bottom: 7px;
+  padding-top: 19px;
+  padding-left: 12px;
+}
+
+.phemus-label2 {
+  white-space: nowrap;
+}
+
+.enter-password-login-input:focus + .phemus-label2,
+.enter-password-login-input:not(:placeholder-shown) + .phemus-label2 {
+  animation: identifier 0.1s linear forwards;
+  color: rgb(64, 147, 255);
+}
+
+.login-pass-text-enter-pass{
+  padding-left: var(--loginspace);
+}
+
+.login-enter-password-email-blur{
+  margin-left: var(--loginspace);
+  margin-right: var(--loginspace);
+}
+
+.login-password-input-holder{
+  margin-left: var(--loginspace);
+  margin-right: var(--loginspace);
+}
+
+.final-login-button{
+  margin-left: var(--loginspace);
+  margin-right: var(--loginspace);
+}
+
+.login-password-text-dont-have{
+  margin-left: var(--loginspace);
+  margin-right: var(--loginspace);
+}
+
+.login-password-text-forg-pass{
+  margin-left: 85px;
+  margin-right: 85px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 @media screen and (max-width: 1280px) {
   .homepage-left {
     width: 10%;
@@ -658,6 +750,36 @@
   .homepage-header-settings-icon{
     display: none;
   }
+
+  .login-pass-text-enter-pass{
+    padding-left: var(--loginspacesmall);
+  }
+  
+  .login-enter-password-email-blur{
+    margin-left: var(--loginspacesmall);
+    margin-right: var(--loginspacesmall);
+  }
+  
+  .login-password-input-holder{
+    margin-left: var(--loginspacesmall);
+    margin-right: var(--loginspacesmall);
+  }
+  
+  .final-login-button{
+    margin-left: var(--loginspacesmall);
+    margin-right: var(--loginspacesmall);
+  }
+  
+  .login-password-text-dont-have{
+    margin-left: var(--loginspacesmall);
+    margin-right: var(--loginspacesmall);
+  }
+  
+  .login-password-text-forg-pass{
+    margin-left: 25px;
+    margin-right: 25px;
+  }
+  
   
 }
 
