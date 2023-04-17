@@ -75,7 +75,7 @@ const Explore = () => {
                 "go-2-settings-blur homepage-auth-overlay h-screen fixed w-screen"
               )
             );
-            console.log("hello")
+            document.body.classList.add("overlay-open");
           }}>
             <FontAwesomeIcon icon="fa-solid fa-ellipsis" />
           </Link>

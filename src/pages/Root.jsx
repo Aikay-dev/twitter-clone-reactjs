@@ -18,7 +18,6 @@ const Root = () => {
   const ifboldexp = useSelector((state) => state.exp.value.fontWeight);
   const ifboldset = useSelector((state) => state.set.value.fontWeight);
   const ifsetfeat = useSelector((state) => state.gotosetfeat.value )
-  console.log(ifsetfeat)
   const [windowWidth, SetwindowWidth] = useState(
     window.innerWidth > 1040
       ? "/Home/Settings/personalization"
@@ -111,6 +110,7 @@ const Root = () => {
               "go-2-settings-blur homepage-auth-overlay h-screen hidden fixed w-screen"
             )
           );
+          document.body.classList.remove("overlay-open");
         }}>
           <div className="mobile-settings-call fixed bottom-0 bg-black text-white w-full h-30 px-6 py-4">
             <div className="flex">
@@ -121,6 +121,7 @@ const Root = () => {
                     "go-2-settings-blur homepage-auth-overlay h-screen hidden fixed w-screen"
                   )
                 );
+                document.body.classList.remove("overlay-open");
               }}>
                 <p className="pl-3">Go to settings</p>
               </Link>
@@ -131,6 +132,7 @@ const Root = () => {
                   "go-2-settings-blur homepage-auth-overlay h-screen hidden fixed w-screen"
                 )
               );
+              document.body.classList.remove("overlay-open");
             }}>
               Cancel
             </button>
