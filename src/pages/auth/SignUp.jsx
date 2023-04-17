@@ -9,6 +9,7 @@ import { far } from "@fortawesome/free-regular-svg-icons";
 import { Link } from "react-router-dom";
 import { blurChangeState } from "../../store";
 import { useDispatch } from "react-redux";
+import Step1 from "./createAccount/step1";
 
 library.add(fas);
 library.add(fab);
@@ -37,6 +38,7 @@ const SignUp = () => {
         action=""
         className="auth-form bg-black md:mx-auto md:w-authxlw md:h-authxlh p-2 md:rounded-2xl relative h-screen w-full"
       >
+        {false && <>
         <div className="top-of-auth flex">
         <Link
             onClick={() => {
@@ -53,7 +55,7 @@ const SignUp = () => {
         </div>
         <div className="signup-info m-auto relative flex pb-5 mb-5 items-center justify-center flex-col gap-5">
           <p className="signup-join-twitter text-center my-7 font-black text-2xl">
-            Join Twitter today
+            Join Tweeter today
           </p>
           <AuthLoginButton
             logo={googleSignButton}
@@ -87,6 +89,8 @@ const SignUp = () => {
             </Link>
           </p>
         </div>
+        </>}
+        {true && <Step1 />}
       </form>
     </>
   );
