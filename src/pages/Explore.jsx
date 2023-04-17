@@ -3,7 +3,7 @@ import AuthLoginButton from "../components/Auth-LoginButton";
 import AdministrativeLinks from "../components/AdministrativeLinks";
 import Trendstream from "../components/TrendStream";
 import Happening from "../components/Happening";
-import { blurChangeState } from "../store";
+import { blurChangeState, setGoToSettingsFeat } from "../store";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { library } from "@fortawesome/fontawesome-svg-core";
@@ -60,13 +60,23 @@ const Explore = () => {
             </label>
           </div>
           <Link
-            onClick={() => dispatch(blurChangeState({ display: "block" }))}
+            onClick={() => {
+              dispatch(blurChangeState({ display: "block" }));
+              
+            }}
             to="/Home/Explore/Login"
             className="homepage-header-settings-icon text-base p-2 flex justify-center items-center rounded-full cursor-pointer"
           >
             <SettingsTwoToneIcon fontSize="small" />
           </Link>
-          <Link className="ellipses-mobile-explore-header ml-4">
+          <Link className="ellipses-mobile-explore-header ml-4" onClick={() => {
+            dispatch(
+              setGoToSettingsFeat(
+                "go-2-settings-blur homepage-auth-overlay h-screen fixed w-screen"
+              )
+            );
+            console.log("hello")
+          }}>
             <FontAwesomeIcon icon="fa-solid fa-ellipsis" />
           </Link>
         </div>

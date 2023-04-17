@@ -8,7 +8,7 @@ import { fab } from "@fortawesome/free-brands-svg-icons";
 import { far } from "@fortawesome/free-regular-svg-icons";
 import SettingsTwoToneIcon from "@mui/icons-material/SettingsTwoTone";
 import { useSelector, useDispatch } from "react-redux";
-import { exploreChangeState, settingsChangeState } from "../store";
+import { exploreChangeState, settingsChangeState, setGoToSettingsFeat } from "../store";
 
 library.add(fas);
 library.add(fab);
@@ -17,6 +17,8 @@ library.add(far);
 const Root = () => {
   const ifboldexp = useSelector((state) => state.exp.value.fontWeight);
   const ifboldset = useSelector((state) => state.set.value.fontWeight);
+  const ifsetfeat = useSelector((state) => state.gotosetfeat.value )
+  console.log(ifsetfeat)
   const [windowWidth, SetwindowWidth] = useState(
     window.innerWidth > 1040
       ? "/Home/Settings/personalization"
@@ -31,7 +33,6 @@ const Root = () => {
     if (window.location.pathname === "/Home") {
       navigate("/Home/Explore");
     } else if (window.location.pathname === "/Home/Explore") {
-    } else {
     }
   }, []);
 
@@ -104,16 +105,36 @@ const Root = () => {
             </div>
           </div>
         </div>
-        <div className="mobile-settings-call absolute bottom-0 bg-black text-white w-full h-30 px-6 py-4">
-          <div className="flex">
-            <SettingsTwoToneIcon />
-            <Link to = '/Home/Settings/'>
-              <p className="pl-3">Go to settings</p>
-            </Link>
+        <div className={ifsetfeat} onClick={() => {
+          dispatch(
+            setGoToSettingsFeat(
+              "go-2-settings-blur homepage-auth-overlay h-screen hidden fixed w-screen"
+            )
+          );
+        }}>
+          <div className="mobile-settings-call absolute bottom-0 bg-black text-white w-full h-30 px-6 py-4">
+            <div className="flex">
+              <SettingsTwoToneIcon />
+              <Link to="/Home/Settings/" onClick={() => {
+                dispatch(
+                  setGoToSettingsFeat(
+                    "go-2-settings-blur homepage-auth-overlay h-screen hidden fixed w-screen"
+                  )
+                );
+              }}>
+                <p className="pl-3">Go to settings</p>
+              </Link>
+            </div>
+            <button className="mobile-settings-call-cancel rounded-full w-full py-2 mt-5" onClick={() => {
+              dispatch(
+                setGoToSettingsFeat(
+                  "go-2-settings-blur homepage-auth-overlay h-screen hidden fixed w-screen"
+                )
+              );
+            }}>
+              Cancel
+            </button>
           </div>
-          <button className="mobile-settings-call-cancel rounded-full w-full py-2 mt-5">
-            Cancel
-          </button>
         </div>
       </div>
     </>
