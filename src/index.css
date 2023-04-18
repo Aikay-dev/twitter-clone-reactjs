@@ -17,7 +17,7 @@
   --buttonHover: rgb(24, 25, 25);
   --smallButtonColor: rgb(29, 155, 240);
   --loginspace: 80px;
-  --loginspacesmall: 20px
+  --loginspacesmall: 20px;
 }
 
 * {
@@ -150,12 +150,12 @@
   width: var(--loginContentWidth);
 }
 
-.final-login-button{
-  background-color: rgb(239,243,244);
+.final-login-button {
+  background-color: rgb(239, 243, 244);
   color: black;
 }
 
-.final-login-button:hover{
+.final-login-button:hover {
   background-color: var(--logBHover);
 }
 
@@ -365,8 +365,6 @@
 
 /* Media queries */
 
-
-
 .settings-page {
   width: 100%;
   font-family: Helvetica;
@@ -396,7 +394,7 @@
 }
 
 .settings-chevron-icons,
-.settings-allow-all, 
+.settings-allow-all,
 .addres-check-out {
   color: rgb(113, 118, 123);
 }
@@ -467,29 +465,28 @@
   background-color: var(--buttonHover);
 }
 
-.addres-relase-note-tab{
+.addres-relase-note-tab {
   border-bottom: var(--homeBorder);
 }
 
-.main-settings-navigation-arrow{
+.main-settings-navigation-arrow {
   display: none;
 }
 
-.mobile-search-box-bird{
+.mobile-search-box-bird {
   display: none;
 }
 
-.ellipses-mobile-explore-header{
+.ellipses-mobile-explore-header {
   display: none;
 }
 
-.mobile-settings-call{
+.mobile-settings-call {
   border-top-right-radius: 20px;
   border-top-left-radius: 20px;
-  
 }
 
-.mobile-settings-call-cancel{
+.mobile-settings-call-cancel {
   border: 1px solid var(--homeLabelColor);
 }
 
@@ -497,17 +494,17 @@
   overflow: hidden;
 }
 
-.login-enter-password-email-blur{
-  background-color: rgb(16,18,20);
+.login-enter-password-email-blur {
+  background-color: rgb(16, 18, 20);
   border-radius: 5px;
 }
 
-.disabled-input-text{
-  color: rgb(52,55,57);
+.disabled-input-text {
+  color: rgb(52, 55, 57);
 }
 
-.enter-password-login-input{
-  border: var(--homeBorder)
+.enter-password-login-input {
+  border: var(--homeBorder);
 }
 
 .enter-password-login-input {
@@ -535,34 +532,59 @@
   color: rgb(64, 147, 255);
 }
 
-.login-pass-text-enter-pass{
+.login-pass-text-enter-pass {
   padding-left: var(--loginspace);
 }
 
-.login-enter-password-email-blur{
+.login-enter-password-email-blur,
+.step-one-text-create-account,
+.step-one-text-dob,
+.step-one-age-input-holder,
+.step-one-next {
   margin-left: var(--loginspace);
   margin-right: var(--loginspace);
 }
 
-.login-password-input-holder{
+.login-password-input-holder {
   margin-left: var(--loginspace);
   margin-right: var(--loginspace);
 }
 
-.final-login-button{
+.final-login-button {
   margin-left: var(--loginspace);
   margin-right: var(--loginspace);
 }
 
-.login-password-text-dont-have{
+.login-password-text-dont-have {
   margin-left: var(--loginspace);
   margin-right: var(--loginspace);
 }
 
-.login-password-text-forg-pass{
+.login-password-text-forg-pass {
   margin-left: 85px;
   margin-right: 85px;
 }
+
+.step-one-text-create-account{
+
+}
+
+.step-one-age-input{
+  border: 1px solid rgb(51,54,57);
+  outline: none;
+  width: 100%;
+}
+
+.step-one-age-input:focus{
+  border: var(--inputFocus);
+}
+
+.step-one-next-button{
+  background-color: rgb(120,122,122);
+  
+}
+
+
 
 
 
@@ -614,19 +636,15 @@
 }
 
 @media screen and (max-width: 1150px) {
-  .settings-main-tab{
+  .settings-main-tab {
     width: 320px;
   }
 }
 
 @media screen and (max-width: 1040px) {
-  .settings-main-tab{
+  .settings-main-tab {
     width: 600px;
   }
-
-/*   .settings-page {
-    width: 900px;
-  } */
 }
 
 @media screen and (max-width: 1050px) {
@@ -650,8 +668,6 @@
   .homepage-right {
     width: 33%;
   }
-
-
 
   .homepage-auth-banner-holder {
     margin-left: 0px;
@@ -728,61 +744,63 @@
     width: 100%;
   }
 
-  .main-settings-navigation-arrow{
+  .main-settings-navigation-arrow {
     display: flex;
   }
 
-  .mobile-search-box-bird{
+  .mobile-search-box-bird {
     display: block;
     font-size: 25px;
   }
 
-  .homepage-header-label{
+  .homepage-header-label {
     left: 90px;
   }
 
-  .ellipses-mobile-explore-header{
+  .ellipses-mobile-explore-header {
     display: block;
   }
 
-  .homepage-header-settings-icon{
+  .homepage-header-settings-icon {
     display: none;
   }
 
-  .login-pass-text-enter-pass{
+  .login-pass-text-enter-pass {
     padding-left: var(--loginspacesmall);
   }
-  
-  .login-enter-password-email-blur{
+
+  .login-enter-password-email-blur,
+  .step-one-text-create-account,
+  .step-one-text-dob,
+  .step-one-age-input-holder,
+  .step-one-next {
     margin-left: var(--loginspacesmall);
     margin-right: var(--loginspacesmall);
   }
-  
-  .login-password-input-holder{
+
+  .login-password-input-holder {
     margin-left: var(--loginspacesmall);
     margin-right: var(--loginspacesmall);
   }
-  
-  .final-login-button{
+
+  .final-login-button {
     margin-left: var(--loginspacesmall);
     margin-right: var(--loginspacesmall);
   }
-  
-  .login-password-text-dont-have{
+
+  .login-password-text-dont-have {
     margin-left: var(--loginspacesmall);
     margin-right: var(--loginspacesmall);
   }
-  
-  .login-password-text-forg-pass{
+
+  .login-password-text-forg-pass {
     margin-left: 25px;
     margin-right: 25px;
   }
-  
-  
 }
 
 @media screen and (min-width: 500px) {
-  .go-2-settings-blur{
+  .go-2-settings-blur {
     display: none;
   }
 }
