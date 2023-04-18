@@ -584,6 +584,32 @@
   
 }
 
+.step-2-text-check-your{
+  margin-left: var(--loginspace);
+  margin-right: var(--loginspace);
+}
+
+.signup-box-def-spacing{
+  margin-left: var(--loginspace);
+  margin-right: var(--loginspace);
+}
+
+.signup-step-two-by-signing{
+  color: var(--homeLabelColor);
+  font-size: 15px;
+}
+
+.step2-next{
+  background-color: var(--loginButton);
+}
+
+.step2-next:hover{
+  background-origin: var(--buttonHover);
+}
+
+.default-checkbutton{
+  border-radius: 5px;
+}
 
 
 
@@ -796,6 +822,11 @@
   .login-password-text-forg-pass {
     margin-left: 25px;
     margin-right: 25px;
+  }
+
+  .signup-box-def-spacing{
+    margin-left: var(--loginspacesmall);
+    margin-right: var(--loginspacesmall);
   }
 }
 
