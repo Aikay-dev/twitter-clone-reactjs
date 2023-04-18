@@ -840,7 +840,8 @@
   .step-one-text-create-account,
   .step-one-text-dob,
   .step-one-age-input-holder,
-  .step-one-next {
+  .step-one-next,
+  .step-2-text-check-your {
     margin-left: var(--loginspacesmall);
     margin-right: var(--loginspacesmall);
   }

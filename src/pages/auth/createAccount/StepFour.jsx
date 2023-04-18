@@ -22,13 +22,19 @@ function StepFour({
     <div>
       <div className="flex items-center ">
         <Link
-          onClick={() => {
-            dispatch(blurChangeState({ display: "none" }));
+          onClick={(e) => {
+            e.preventDefault()
+            setshowstepOne(false);
+            setshowStepTwo(false);
+            setshowStepThree(true);
+            setshowStepFour(false);
+            setshowStepFive(false);
+            setshowsignupPage(false);
           }}
           to="/Home/Explore"
           className="ex flex justify-center items-center cursor-pointer rounded-full"
         >
-          <FontAwesomeIcon icon="fas fa-xmark " />
+          <FontAwesomeIcon icon="fa-solid fa-arrow-left" />
         </Link>
         <p className="ml-8 font-bold text-lg">Step 4 of 5</p>
       </div>
@@ -42,12 +48,16 @@ function StepFour({
         <p className="text-3xl mb-5">Welcome to Tweeter 🎊</p>
         <p>
           Tweeter is a dynamic platform that was developed by the talented
-          software developer, <a className="signup-link" href="https://github.com/GeneralAike">👨‍💻 Aikay</a>, as a side project. It is a spinoff of
-          Twitter, but it is based on the React framework, which provides a
-          seamless user experience. With its user-friendly interface and
-          impressive functionality, Tweeter is a great alternative to Twitter.
-          Whether you want to share your thoughts, connect with friends or stay
-          up-to-date on the latest trends, Tweeter has got you covered.
+          software developer,{" "}
+          <a className="signup-link" href="https://github.com/GeneralAike">
+            👨‍💻 Aikay
+          </a>
+          , as a side project. It is a spinoff of Twitter, but it is based on
+          the React framework, which provides a seamless user experience. With
+          its user-friendly interface and impressive functionality, Tweeter is a
+          great alternative to Twitter. Whether you want to share your thoughts,
+          connect with friends or stay up-to-date on the latest trends, Tweeter
+          has got you covered.
         </p>
         <p className="my-3">Have fun and enjoy your stay.</p>
         <button

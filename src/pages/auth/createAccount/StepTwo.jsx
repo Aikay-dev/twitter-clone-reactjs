@@ -23,13 +23,19 @@ const StepTwo = ({
     <div>
       <div className="flex items-center ">
         <Link
-          onClick={() => {
-            dispatch(blurChangeState({ display: "none" }));
+          onClick={(e) => {
+            e.preventDefault()
+            setshowstepOne(true);
+            setshowStepTwo(false);
+            setshowStepThree(false);
+            setshowStepFour(false);
+            setshowStepFive(false);
+            setshowsignupPage(false);
           }}
           to="/Home/Explore"
           className="ex flex justify-center items-center cursor-pointer rounded-full"
         >
-          <FontAwesomeIcon icon="fas fa-xmark " />
+          <FontAwesomeIcon icon="fa-solid fa-arrow-left" />
         </Link>
         <p className="ml-8 font-bold text-lg">Step 2 of 5</p>
       </div>
@@ -48,11 +54,15 @@ const StepTwo = ({
         <div
           style={
             checkboxstate
-              ? { backgroundColor: "rgb(29, 155, 240)", borderLeft: "2px solid rgb(29,155,240)", borderRight: "2px solid rgb(29,155,240)" }
+              ? {
+                  backgroundColor: "rgb(29, 155, 240)",
+                  borderLeft: "2px solid rgb(29,155,240)",
+                  borderRight: "2px solid rgb(29,155,240)",
+                }
               : { border: "2px solid rgb(113,118,123)" }
           }
           onClick={() => {
-            checkboxstate ? setcheckboxstate(false) : setcheckboxstate(true)
+            checkboxstate ? setcheckboxstate(false) : setcheckboxstate(true);
           }}
           className="personalization-and-data-person-ad-check cursor-pointer h-5 w-10 flex items-center justify-center"
         >
@@ -79,15 +89,18 @@ const StepTwo = ({
         </a>
       </p>
       <div className="signup-box-def-spacing">
-        <button onClick={(e) => {
-          e.preventDefault();
-          setshowstepOne(false);
-          setshowStepTwo(false);
-          setshowStepThree(true);
-          setshowStepFour(false);
-          setshowStepFive(false);
-          setshowsignupPage(false);
-        }} className="mt-20 step2-next w-full py-3 flex items-center rounded-full justify-center font-bold text-black">
+        <button
+          onClick={(e) => {
+            e.preventDefault();
+            setshowstepOne(false);
+            setshowStepTwo(false);
+            setshowStepThree(true);
+            setshowStepFour(false);
+            setshowStepFive(false);
+            setshowsignupPage(false);
+          }}
+          className="mt-20 step2-next w-full py-3 flex items-center rounded-full justify-center font-bold text-black"
+        >
           Next
         </button>
       </div>

@@ -63,13 +63,19 @@ const StepOne = ({
     <div>
       <div className="flex items-center ">
         <Link
-          onClick={() => {
-            dispatch(blurChangeState({ display: "none" }));
+          onClick={(e) => {
+            e.preventDefault()
+            setshowstepOne(false);
+            setshowStepTwo(false);
+            setshowStepThree(false);
+            setshowStepFour(false);
+            setshowStepFive(false);
+            setshowsignupPage(true);
           }}
           to="/Home/Explore"
           className="ex flex justify-center items-center cursor-pointer rounded-full"
         >
-          <FontAwesomeIcon icon="fas fa-xmark " />
+          <FontAwesomeIcon icon="fa-solid fa-arrow-left" />
         </Link>
         <p className="ml-8 font-bold text-lg">Step 1 of 5</p>
       </div>

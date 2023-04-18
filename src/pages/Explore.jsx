@@ -23,7 +23,7 @@ library.add(far);
 const Explore = () => {
   const ifBlur = useSelector((state) => state.user.value.display);
   console.log(useLocation());
-  const [showSignUpCard, setshowSignUpCard] = useState(false)
+  const [showSignUpCard, setshowSignUpCard] = useState(false);
   const googleSignButton = (
     <div className="flex items-center justify-center">
       <img src={googleIcon} alt="" className="h-8 flex w-8" />
@@ -42,11 +42,11 @@ const Explore = () => {
   const dispatch = useDispatch();
   return (
     <>
-    {showSignUpCard &&
-      <div className="absolute z-10 explore-signup-card">
-      <SignUp setshowSignUpCard = {setshowSignUpCard}/>
-    </div>
-    }
+      {showSignUpCard && (
+        <div className="absolute z-10 explore-signup-card">
+          <SignUp setshowSignUpCard={setshowSignUpCard} />
+        </div>
+      )}
       <section className="homepage-center h-screen relative overflow-hidden">
         <div className="homepage-header sticky py-3 w-full flex h-16 px-5 items-center justify-between">
           <Link
@@ -127,10 +127,12 @@ const Explore = () => {
               "rounded-full font-semibold flex items-center justify-center apple-butt-login apple-butt-login-home-variant"
             }
           />
-          <div onClick={() => {
+          <div
+            onClick={() => {
               dispatch(blurChangeState({ display: "block" }));
-              setshowSignUpCard(true)
-            }}>
+              setshowSignUpCard(true);
+            }}
+          >
             <AuthLoginButton
               logo={join_create_account}
               classes={

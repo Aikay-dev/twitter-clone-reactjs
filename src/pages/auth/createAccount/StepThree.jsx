@@ -26,13 +26,19 @@ const StepThree = ({
     <div>
       <div className="flex items-center ">
         <Link
-          onClick={() => {
-            dispatch(blurChangeState({ display: "none" }));
+          onClick={(e) => {
+            e.preventDefault();
+            setshowstepOne(false);
+            setshowStepTwo(true);
+            setshowStepThree(false);
+            setshowStepFour(false);
+            setshowStepFive(false);
+            setshowsignupPage(false);
           }}
           to="/Home/Explore"
           className="ex flex justify-center items-center cursor-pointer rounded-full"
         >
-          <FontAwesomeIcon icon="fas fa-xmark " />
+          <FontAwesomeIcon icon="fa-solid fa-arrow-left" />
         </Link>
         <p className="ml-8 font-bold text-lg">Step 3 of 5</p>
       </div>
@@ -43,7 +49,18 @@ const StepThree = ({
           <p className="text-sm" style={{ color: "rgb(113,118,123)" }}>
             Name
           </p>
-          <div className="flex justify-between">
+          <div
+            className="flex justify-between"
+            onClick={(e) => {
+              e.preventDefault();
+              setshowstepOne(true);
+              setshowStepTwo(false);
+              setshowStepThree(false);
+              setshowStepFour(false);
+              setshowStepFive(false);
+              setshowsignupPage(false);
+            }}
+          >
             <p className="font-semibold">Emmanuel Esekhaigbe</p>
             <div
               className="absolute right-2"
@@ -58,7 +75,18 @@ const StepThree = ({
           <p className="text-sm" style={{ color: "rgb(113,118,123)" }}>
             Email
           </p>
-          <div className="flex justify-between">
+          <div
+            className="flex justify-between"
+            onClick={(e) => {
+              e.preventDefault();
+              setshowstepOne(true);
+              setshowStepTwo(false);
+              setshowStepThree(false);
+              setshowStepFour(false);
+              setshowStepFive(false);
+              setshowsignupPage(false);
+            }}
+          >
             <p className="font-semibold">esekhaigbe.emmanuel@lmu.edu.ng</p>
             <div
               className="absolute right-2"
@@ -73,7 +101,18 @@ const StepThree = ({
           <p className="text-sm" style={{ color: "rgb(113,118,123)" }}>
             Date of birth
           </p>
-          <div className="flex justify-between">
+          <div
+            className="flex justify-between"
+            onClick={(e) => {
+              e.preventDefault();
+              setshowstepOne(true);
+              setshowStepTwo(false);
+              setshowStepThree(false);
+              setshowStepFour(false);
+              setshowStepFive(false);
+              setshowsignupPage(false);
+            }}
+          >
             <p className="font-semibold">Sep 15, 2008</p>
             <div
               className="absolute right-2"
