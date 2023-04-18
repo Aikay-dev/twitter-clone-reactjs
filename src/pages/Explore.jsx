@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import AuthLoginButton from "../components/Auth-LoginButton";
 import AdministrativeLinks from "../components/AdministrativeLinks";
 import Trendstream from "../components/TrendStream";
@@ -14,6 +14,7 @@ import SettingsTwoToneIcon from "@mui/icons-material/SettingsTwoTone";
 import googleIcon from "../assets/google_icon.svg";
 import { useLocation, Outlet } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import SignUp from "./auth/SignUp";
 
 library.add(fas);
 library.add(fab);
@@ -22,7 +23,7 @@ library.add(far);
 const Explore = () => {
   const ifBlur = useSelector((state) => state.user.value.display);
   console.log(useLocation());
-
+  const [showSignUpCard, setshowSignUpCard] = useState(false)
   const googleSignButton = (
     <div className="flex items-center justify-center">
       <img src={googleIcon} alt="" className="h-8 flex w-8" />
@@ -41,6 +42,11 @@ const Explore = () => {
   const dispatch = useDispatch();
   return (
     <>
+    {showSignUpCard &&
+      <div className="absolute z-10 explore-signup-card">
+      <SignUp setshowSignUpCard = {setshowSignUpCard}/>
+    </div>
+    }
       <section className="homepage-center h-screen relative overflow-hidden">
         <div className="homepage-header sticky py-3 w-full flex h-16 px-5 items-center justify-between">
           <Link
@@ -62,21 +68,23 @@ const Explore = () => {
           <Link
             onClick={() => {
               dispatch(blurChangeState({ display: "block" }));
-              
             }}
             to="/Home/Explore/Login"
             className="homepage-header-settings-icon text-base p-2 flex justify-center items-center rounded-full cursor-pointer"
           >
             <SettingsTwoToneIcon fontSize="small" />
           </Link>
-          <Link className="ellipses-mobile-explore-header ml-4" onClick={() => {
-            dispatch(
-              setGoToSettingsFeat(
-                "go-2-settings-blur homepage-auth-overlay h-screen fixed w-screen"
-              )
-            );
-            document.body.classList.add("overlay-open");
-          }}>
+          <Link
+            className="ellipses-mobile-explore-header ml-4"
+            onClick={() => {
+              dispatch(
+                setGoToSettingsFeat(
+                  "go-2-settings-blur homepage-auth-overlay h-screen fixed w-screen"
+                )
+              );
+              document.body.classList.add("overlay-open");
+            }}
+          >
             <FontAwesomeIcon icon="fa-solid fa-ellipsis" />
           </Link>
         </div>
@@ -119,12 +127,17 @@ const Explore = () => {
               "rounded-full font-semibold flex items-center justify-center apple-butt-login apple-butt-login-home-variant"
             }
           />
-          <AuthLoginButton
-            logo={join_create_account}
-            classes={
-              "rounded-full google-butt-login mt-3 font-semibold mb-5 create-acc-home"
-            }
-          />
+          <div onClick={() => {
+              dispatch(blurChangeState({ display: "block" }));
+              setshowSignUpCard(true)
+            }}>
+            <AuthLoginButton
+              logo={join_create_account}
+              classes={
+                "rounded-full google-butt-login mt-3 font-semibold mb-5 create-acc-home"
+              }
+            />
+          </div>
           <p className="homepage-right-By-sign">
             By signing up, you agree to the{" "}
             <Link className="signup-link">Terms of Service</Link> and{" "}

@@ -118,6 +118,7 @@
 
 .signup-link {
   color: rgb(18, 124, 194);
+  cursor: pointer;
 }
 
 .signup-link:hover {
@@ -610,6 +611,41 @@
 .default-checkbutton{
   border-radius: 5px;
 }
+
+.step-3-boarder{
+  border: 1px solid rgb(51,54,57);
+  border-radius: 5px;
+}
+
+.step-three-signup{
+  background-color: rgb(29, 155, 240);
+}
+
+.step-three-signup:hover{
+  background-color: rgb(26,140,216);
+}
+
+.step-5-continue-profile{
+  border-bottom: 1px solid var(--homeLabelColor);
+}
+
+.step-5-or{
+  bottom: 43%;
+  right: 50%;
+}
+
+.explore-signup-card{
+  border-radius: 20px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+
+
+
+
+
 
 
 

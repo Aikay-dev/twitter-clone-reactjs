@@ -19,7 +19,7 @@ library.add(fas);
 library.add(fab);
 library.add(far);
 
-const SignUp = () => {
+const SignUp = ({setshowSignUpCard}) => {
   const [showsignupPage, setshowsignupPage] = useState(true);
   const [showstepOne, setshowstepOne] = useState(false);
   const [showStepTwo, setshowStepTwo] = useState(false);
@@ -55,6 +55,7 @@ const SignUp = () => {
               <Link
                 onClick={() => {
                   dispatch(blurChangeState({ display: "none" }));
+                  setshowSignUpCard(false)
                 }}
                 to="/Home/Explore"
                 className="ex flex justify-center items-center cursor-pointer rounded-full"
@@ -163,6 +164,7 @@ const SignUp = () => {
             setshowStepFour={setshowStepFour}
             setshowStepFive={setshowStepFive}
             setshowsignupPage={setshowsignupPage}
+            setshowSignUpCard = {setshowSignUpCard}
           />
         )}
       </form>

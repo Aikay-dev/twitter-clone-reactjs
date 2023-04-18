@@ -10,7 +10,14 @@ library.add(fas);
 library.add(fab);
 library.add(far);
 
-const StepTwo = () => {
+const StepTwo = ({
+  setshowstepOne,
+  setshowStepTwo,
+  setshowStepThree,
+  setshowStepFour,
+  setshowStepFive,
+  setshowsignupPage,
+}) => {
   const [checkboxstate, setcheckboxstate] = useState(true);
   return (
     <div>
@@ -72,7 +79,15 @@ const StepTwo = () => {
         </a>
       </p>
       <div className="signup-box-def-spacing">
-        <button className="mt-20 step2-next w-full py-3 flex items-center rounded-full justify-center font-bold text-black">
+        <button onClick={(e) => {
+          e.preventDefault();
+          setshowstepOne(false);
+          setshowStepTwo(false);
+          setshowStepThree(true);
+          setshowStepFour(false);
+          setshowStepFive(false);
+          setshowsignupPage(false);
+        }} className="mt-20 step2-next w-full py-3 flex items-center rounded-full justify-center font-bold text-black">
           Next
         </button>
       </div>
