@@ -154,6 +154,8 @@ const SignUp = ({setshowSignUpCard}) => {
             setshowStepFour={setshowStepFour}
             setshowStepFive={setshowStepFive}
             setshowsignupPage={setshowsignupPage}
+            stepOneDetails = {stepOneDetails} 
+            setStepOneDetails = {setStepOneDetails}
           />
         )}
         {showStepFour && (

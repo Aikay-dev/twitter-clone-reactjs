@@ -17,11 +17,25 @@ const StepThree = ({
   setshowStepFour,
   setshowStepFive,
   setshowsignupPage,
+  stepOneDetails,
+  setStepOneDetails,
 }) => {
   let focus = useRef(null);
   const handleFocusing = () => {
     focus.current.focus();
   };
+  function getdateFormat() {
+    const dateStr = stepOneDetails.DOB;
+    const date = new Date(dateStr);
+    const month = date.toLocaleString("default", { month: "short" });
+    const day = date.getDate();
+    const year = date.getFullYear();
+    const formattedDate = `${month} ${day}, ${year}`;
+    return formattedDate
+  }
+
+  const formattedDate = getdateFormat();
+  getdateFormat()
   return (
     <div>
       <div className="flex items-center ">
@@ -61,7 +75,7 @@ const StepThree = ({
               setshowsignupPage(false);
             }}
           >
-            <p className="font-semibold">Emmanuel Esekhaigbe</p>
+            <p className="font-semibold">{stepOneDetails.name}</p>
             <div
               className="absolute right-2"
               style={{ color: "rgb(0,186,124)" }}
@@ -87,7 +101,7 @@ const StepThree = ({
               setshowsignupPage(false);
             }}
           >
-            <p className="font-semibold">esekhaigbe.emmanuel@lmu.edu.ng</p>
+            <p className="font-semibold">{stepOneDetails.email}</p>
             <div
               className="absolute right-2"
               style={{ color: "rgb(0,186,124)" }}
@@ -113,7 +127,7 @@ const StepThree = ({
               setshowsignupPage(false);
             }}
           >
-            <p className="font-semibold">Sep 15, 2008</p>
+            <p className="font-semibold">{formattedDate}</p>
             <div
               className="absolute right-2"
               style={{ color: "rgb(0,186,124)" }}
