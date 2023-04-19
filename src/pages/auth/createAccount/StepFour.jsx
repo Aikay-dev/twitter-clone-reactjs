@@ -17,6 +17,8 @@ function StepFour({
   setshowStepFour,
   setshowStepFive,
   setshowsignupPage,
+  stepOneDetails,
+  setStepOneDetails
 }) {
   let focus1 = useRef(null);
 
@@ -36,6 +38,13 @@ function StepFour({
   const [showCanceledEye2, setShowCanceledEye2] = useState(false);
   const [passwordBox1, setPasswordBox1] = useState("password");
   const [passwordBox2, setPasswordBox2] = useState("password");
+  const [errorcolor, seterrorColor] = useState({})
+  
+  function handlePass(e){
+    const currentData = stepOneDetails
+    currentData.password = e
+    setStepOneDetails(currentData)
+  }
   return (
     <div>
       <div className="flex items-center ">
@@ -63,9 +72,12 @@ function StepFour({
         <div className="relative mb-10">
           <input
             type={passwordBox1}
-            className=" p-5 bg-black enter-password-login-input  flex justify-center items-center rounded-md w-full"
+            className="p-5 bg-black enter-password-login-input  flex justify-center items-center rounded-md w-full"
             placeholder=" "
             ref={focus1}
+            onChange={(e) => {
+              handlePass(e.target.value)
+            }}
           />
           <label
             onClick={handleFocusing1}
@@ -108,6 +120,14 @@ function StepFour({
             className=" p-5 bg-black enter-password-login-input  flex justify-center items-center rounded-md w-full"
             placeholder=" "
             ref={focus2}
+            style={errorcolor}
+            onChange={(e) => {
+              if(e.target.value !== stepOneDetails.password){
+                seterrorColor({border: "2px solid red"})
+              } else{
+                seterrorColor({})
+              }
+            }}
           />
           <label
             onClick={handleFocusing2}
