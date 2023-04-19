@@ -54,11 +54,18 @@ const StepOne = ({
     setShow(state);
   };
 
-  let focus = useRef(null);
+  let focus1 = useRef(null);
 
-  const handleFocusing = () => {
-    focus.current.focus();
+  const handleFocusing1 = () => {
+    focus1.current.focus();
   };
+
+  let focus2 = useRef(null);
+
+  const handleFocusing2 = () => {
+    focus2.current.focus();
+  };
+  
   return (
     <div>
       <div className="flex items-center ">
@@ -87,10 +94,10 @@ const StepOne = ({
           type="text"
           className=" p-5 bg-black enter-password-login-input  flex justify-center items-center rounded-md w-full"
           placeholder=" "
-          ref={focus}
+          ref={focus1}
         />
         <label
-          onClick={handleFocusing}
+          onClick={handleFocusing1}
           htmlFor="email"
           className="absolute top-4 left-2 phemus-label2"
         >
@@ -102,10 +109,10 @@ const StepOne = ({
           type="text"
           className=" p-5 bg-black enter-password-login-input  flex justify-center items-center rounded-md w-full"
           placeholder=" "
-          ref={focus}
+          ref={focus2}
         />
         <label
-          onClick={handleFocusing}
+          onClick={handleFocusing2}
           htmlFor="email"
           className="absolute top-4 left-2 phemus-label2"
         >
