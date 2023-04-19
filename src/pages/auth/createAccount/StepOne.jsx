@@ -10,7 +10,7 @@ import Datepicker from "tailwind-datepicker-react";
 library.add(fas);
 library.add(fab);
 library.add(far);
-
+const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const StepOne = ({
   setshowstepOne,
   setshowStepTwo,
@@ -18,6 +18,8 @@ const StepOne = ({
   setshowStepFour,
   setshowStepFive,
   setshowsignupPage,
+  stepOneDetails,
+  setStepOneDetails,
 }) => {
   const options = {
     title: "Date of birth",
@@ -45,11 +47,13 @@ const StepOne = ({
     defaultDate: new Date("2022-01-01"),
     language: "en",
   };
-
+  const [stepOneButton, setstepOneButton] = useState({
+    backgroundColor: "rgb(120,122,122)",
+  });
   const [show, setShow] = useState(false);
-  const handleChange = (selectedDate) => {
-    console.log(selectedDate);
-  };
+  const [redmail, setRedMail] = useState(false);
+  const [redName, setRedName] = useState(false);
+  const [nextStagePass, setNextStagePass] = useState(false);
   const handleClose = (state) => {
     setShow(state);
   };
@@ -62,16 +66,55 @@ const StepOne = ({
 
   let focus2 = useRef(null);
 
+  function checkCompletion() {
+    if (
+      stepOneDetails.DOB === "" ||
+      stepOneDetails.name === "" ||
+      stepOneButton.email === "" ||
+      emailRegex.test(stepOneDetails.email) === false
+    ) {
+      setstepOneButton({ backgroundColor: "rgb(120,122,122)" });
+      setNextStagePass(false);
+    } else {
+      setstepOneButton({ backgroundColor: "rgb(255, 255, 255)" });
+      setNextStagePass(true);
+    }
+  }
+
   const handleFocusing2 = () => {
     focus2.current.focus();
   };
-  
+
+  const handlename = (e) => {
+    let currentInfo = stepOneDetails;
+    currentInfo.name = e;
+    setStepOneDetails(currentInfo);
+    console.log(stepOneDetails);
+    checkCompletion();
+  };
+
+  const handlemail = (e) => {
+    let currentInfo = stepOneDetails;
+    currentInfo.email = e;
+    setStepOneDetails(currentInfo);
+    console.log(stepOneDetails);
+    checkCompletion();
+  };
+
+  const handledob = (e) => {
+    let currentInfo = stepOneDetails;
+    currentInfo.DOB = e;
+    setStepOneDetails(currentInfo);
+    console.log(stepOneDetails);
+    checkCompletion();
+  };
+
   return (
     <div>
       <div className="flex items-center ">
         <Link
           onClick={(e) => {
-            e.preventDefault()
+            e.preventDefault();
             setshowstepOne(false);
             setshowStepTwo(false);
             setshowStepThree(false);
@@ -89,12 +132,18 @@ const StepOne = ({
       <p className="step-one-text-create-account my-8 text-3xl font-bold">
         Create your account
       </p>
-      <div className="relative login-password-input-holder mb-6">
+      <div
+        className="relative login-password-input-holder mb-6"
+        style={redName ? { border: "2px solid red", borderRadius: "5px" } : {}}
+      >
         <input
           type="text"
           className=" p-5 bg-black enter-password-login-input  flex justify-center items-center rounded-md w-full"
           placeholder=" "
           ref={focus1}
+          onChange={(e) => {
+            handlename(e.target.value);
+          }}
         />
         <label
           onClick={handleFocusing1}
@@ -104,12 +153,18 @@ const StepOne = ({
           Name
         </label>
       </div>
-      <div className="relative login-password-input-holder">
+      <div
+        className="relative login-password-input-holder"
+        style={redmail ? { border: "2px solid red", borderRadius: "5px" } : {}}
+      >
         <input
-          type="text"
+          type="email"
           className=" p-5 bg-black enter-password-login-input  flex justify-center items-center rounded-md w-full"
           placeholder=" "
           ref={focus2}
+          onChange={(e) => {
+            handlemail(e.target.value);
+          }}
         />
         <label
           onClick={handleFocusing2}
@@ -127,7 +182,9 @@ const StepOne = ({
       <div className="step-one-age-input-holder">
         <Datepicker
           options={options}
-          onChange={handleChange}
+          onChange={(e) => {
+            handledob(e);
+          }}
           show={show}
           setShow={handleClose}
         />
@@ -136,13 +193,29 @@ const StepOne = ({
         <button
           onClick={(e) => {
             e.preventDefault();
-            setshowstepOne(false);
-            setshowStepTwo(true);
-            setshowStepThree(false);
-            setshowStepFour(false);
-            setshowStepFive(false);
-            setshowsignupPage(false);
+            if (stepOneDetails.name === "") {
+              if (!emailRegex.test(stepOneDetails.email)) {
+                setRedMail(true);
+              }
+              setRedName(true);
+              
+            } else if (!emailRegex.test(stepOneDetails.email)) {
+              setRedMail(true);
+            } else {
+              if (nextStagePass) {
+                setshowstepOne(false);
+                setshowStepTwo(true);
+                setshowStepThree(false);
+                setshowStepFour(false);
+                setshowStepFive(false);
+                setshowsignupPage(false);
+              } else {
+                setRedMail(true);
+              }
+            }
+            
           }}
+          style={stepOneButton}
           className="w-full step-one-next-button rounded-full text-black font-bold py-3 mt-10 flex justify-center items-center"
         >
           Next

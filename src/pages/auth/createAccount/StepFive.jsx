@@ -39,38 +39,42 @@ const StepFive = ({
         </Link>
         <p className="ml-8 font-bold text-lg">Step 5 of 5</p>
       </div>
-      <div className="signup-box-def-spacing relative mt-10">
-        <div className="step-5-continue-profile pb-10">
-          <p className="text-2xl mt-5">Continue to profile</p>
-          <button
-            onClick={(e) => {
-              e.preventDefault();
-              setshowstepOne(false);
-              setshowStepTwo(false);
-              setshowStepThree(false);
-              setshowStepFour(false);
-              setshowStepFive(true);
-              setshowsignupPage(false);
-            }}
-            className="mt-10 step2-next w-full py-3 flex items-center rounded-full justify-center font-bold text-black"
-          >
-            Profile
-          </button>
-          <p className="px-1 bg-black absolute step-5-or">or</p>
+      <div className="signup-box-def-spacing">
+        <div className="flex gap-5 items-center mb-10 mt-8">
+          <p className="text-3xl ">Account created</p>
+          <div className="text-3xl " style={{ color: "rgb(0,186,124)" }}>
+            <FontAwesomeIcon icon="fa-solid fa-circle-check" />
+          </div>
         </div>
-
-        <p className="text-2xl pt-5">Go to Explore</p>
-        <Link
-          onClick={() => {
-            dispatch(blurChangeState({ display: "none" }));
-            setshowSignUpCard(false);
+        <p className="text-3xl mb-5">Welcome to Tweeter 🎊</p>
+        <p>
+          Tweeter is a dynamic platform that was developed by the talented
+          software developer,{" "}
+          <a className="signup-link" href="https://github.com/GeneralAike">
+            👨‍💻 Aikay
+          </a>
+          , as a side project. It is a spinoff of Twitter, but it is based on
+          the React framework, which provides a seamless user experience. With
+          its user-friendly interface and impressive functionality, Tweeter is a
+          great alternative to Twitter. Whether you want to share your thoughts,
+          connect with friends or stay up-to-date on the latest trends, Tweeter
+          has got you covered.
+        </p>
+        <p className="my-3">Have fun and enjoy your stay.</p>
+        <button
+          onClick={(e) => {
+            e.preventDefault();
+            setshowstepOne(false);
+            setshowStepTwo(false);
+            setshowStepThree(false);
+            setshowStepFour(false);
+            setshowStepFive(true);
+            setshowsignupPage(false);
           }}
-          to="/Home/Explore"
-          style={{ backgroundColor: "rgb(26,140,216)" }}
-          className="mt-10 step2-next w-full py-3 flex items-center rounded-full justify-center font-bold"
+          className="mt-10 step2-next w-full py-3 flex items-center rounded-full justify-center font-bold text-black"
         >
-          Explore
-        </Link>
+          Next
+        </button>
       </div>
     </div>
   );

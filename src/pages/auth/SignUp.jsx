@@ -28,6 +28,14 @@ const SignUp = ({setshowSignUpCard}) => {
   const [showStepFive, setshowStepFive] = useState(false);
 
   const dispatch = useDispatch();
+
+  const [stepOneDetails, setStepOneDetails] = useState({
+    name: "",
+    email: "",
+    DOB: "",
+    password: ""
+  })
+
   const googleSignButton = (
     <div className="flex items-center justify-center">
       <img src={googleIcon} alt="" className="h-8 flex w-8" />
@@ -124,6 +132,8 @@ const SignUp = ({setshowSignUpCard}) => {
             setshowStepFour={setshowStepFour}
             setshowStepFive={setshowStepFive}
             setshowsignupPage={setshowsignupPage}
+            stepOneDetails = {stepOneDetails} 
+            setStepOneDetails = {setStepOneDetails}
           />
         )}
         {showStepTwo && (

@@ -580,10 +580,10 @@
   border: var(--inputFocus);
 }
 
-.step-one-next-button{
-  background-color: rgb(120,122,122);
+/* .step-one-next-button{
+  background-color: rgb(255, 255, 255);
   
-}
+} */
 
 .step-2-text-check-your{
   margin-left: var(--loginspace);

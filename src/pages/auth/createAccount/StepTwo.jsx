@@ -47,7 +47,7 @@ const StepTwo = ({
       </p>
       <div className="flex signup-box-def-spacing justify-center items-start gap-5">
         <p className="text-sm mb-12">
-          Twitter uses this data to personalize your experience. This web
+          Tweeter uses this data to personalize your experience. This web
           browsing history will never be stored with your name, email, or phone
           number.
         </p>
@@ -99,7 +99,7 @@ const StepTwo = ({
             setshowStepFive(false);
             setshowsignupPage(false);
           }}
-          className="mt-20 step2-next w-full py-3 flex items-center rounded-full justify-center font-bold text-black"
+          className="mt-16 step2-next w-full py-3 flex items-center rounded-full justify-center font-bold text-black"
         >
           Next
         </button>
