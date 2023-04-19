@@ -18,7 +18,7 @@ function StepFour({
   setshowStepFive,
   setshowsignupPage,
   stepOneDetails,
-  setStepOneDetails
+  setStepOneDetails,
 }) {
   let focus1 = useRef(null);
 
@@ -38,12 +38,15 @@ function StepFour({
   const [showCanceledEye2, setShowCanceledEye2] = useState(false);
   const [passwordBox1, setPasswordBox1] = useState("password");
   const [passwordBox2, setPasswordBox2] = useState("password");
-  const [errorcolor, seterrorColor] = useState({})
-  
-  function handlePass(e){
-    const currentData = stepOneDetails
-    currentData.password = e
-    setStepOneDetails(currentData)
+  const [errorcolor, seterrorColor] = useState({});
+  const [blurcolor, setblurColor] = useState({
+    backgroundColor: "rgb(120,122,122)",
+  });
+
+  function handlePass(e) {
+    const currentData = stepOneDetails;
+    currentData.password = e;
+    setStepOneDetails(currentData);
   }
   return (
     <div>
@@ -76,7 +79,15 @@ function StepFour({
             placeholder=" "
             ref={focus1}
             onChange={(e) => {
-              handlePass(e.target.value)
+              handlePass(e.target.value);
+              if (
+                stepOneDetails.password !== "" &&
+                focus2.current.value === stepOneDetails.password
+              ) {
+                setblurColor({})
+              }else{
+                seterrorColor({ border: "2px solid red" });
+              }
             }}
           />
           <label
@@ -96,7 +107,6 @@ function StepFour({
               htmlFor="password"
               className="absolute right-3 bottom-2 P-5 bg-black cursor-pointer"
             >
-              
               <FontAwesomeIcon icon="fa-regular fa-eye-slash" />
             </label>
           )}
@@ -122,11 +132,21 @@ function StepFour({
             ref={focus2}
             style={errorcolor}
             onChange={(e) => {
-              if(e.target.value !== stepOneDetails.password){
-                seterrorColor({border: "2px solid red"})
-              } else{
-                seterrorColor({})
+              if (e.target.value !== stepOneDetails.password) {
+                seterrorColor({ border: "2px solid red" });
+              } else {
+                seterrorColor({});
               }
+
+              if (
+                stepOneDetails.password !== "" &&
+                focus2.current.value === stepOneDetails.password
+              ) {
+                setblurColor({})
+              }else{
+                seterrorColor({ border: "2px solid red" });
+              }
+
             }}
           />
           <label
@@ -159,7 +179,6 @@ function StepFour({
               htmlFor="password"
               className="absolute right-3 bottom-2 cursor-pointer"
             >
-              
               <FontAwesomeIcon icon="fa-regular fa-eye" />
             </label>
           )}
@@ -168,14 +187,21 @@ function StepFour({
         <button
           onClick={(e) => {
             e.preventDefault();
-            setshowstepOne(false);
-            setshowStepTwo(false);
-            setshowStepThree(false);
-            setshowStepFour(false);
-            setshowStepFive(true);
-            setshowsignupPage(false);
+
+            if (
+              stepOneDetails.password !== "" &&
+              focus2.current.value === stepOneDetails.password
+            ) {
+              setshowstepOne(false);
+              setshowStepTwo(false);
+              setshowStepThree(false);
+              setshowStepFour(false);
+              setshowStepFive(true);
+              setshowsignupPage(false);
+            }
           }}
           className="mt-10 step2-next w-full py-3 flex items-center rounded-full justify-center font-bold text-black"
+          style={blurcolor}
         >
           Next
         </button>

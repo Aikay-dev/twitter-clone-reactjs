@@ -61,20 +61,15 @@ const StepFive = ({
           has got you covered.
         </p>
         <p className="my-3">Have fun and enjoy your stay.</p>
-        <button
-          onClick={(e) => {
-            e.preventDefault();
-            setshowstepOne(false);
-            setshowStepTwo(false);
-            setshowStepThree(false);
-            setshowStepFour(false);
-            setshowStepFive(true);
-            setshowsignupPage(false);
+        <Link
+          onClick={() => {
+            window.location.reload()
           }}
+          to="/Home/Explore"
           className="mt-10 step2-next w-full py-3 flex items-center rounded-full justify-center font-bold text-black"
         >
           Next
-        </button>
+        </Link>
       </div>
     </div>
   );
