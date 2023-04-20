@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import AuthLoginButton from "../../components/Auth-LoginButton";
 import { useDispatch } from "react-redux";
@@ -8,17 +8,52 @@ import { library } from "@fortawesome/fontawesome-svg-core";
 import { fas } from "@fortawesome/free-solid-svg-icons";
 import { fab } from "@fortawesome/free-brands-svg-icons";
 import { far } from "@fortawesome/free-regular-svg-icons";
+import { auth } from "../../config/firebase";
 
 library.add(fas);
 library.add(fab);
 library.add(far);
 
-const LoginEmail = ({ setrenderPassword, setrenderEmail }) => {
+const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const LoginEmail = ({
+  setrenderPassword,
+  setrenderEmail,
+  userAuth,
+  setUserAuth,
+  usersEmail,
+  setrenderLoader,
+}) => {
+  const [errorOutline, setErrorOutline] = useState({});
   const dispatch = useDispatch();
   let focus = useRef(null);
 
   const handleFocusing = () => {
     focus.current.focus();
+  };
+
+  const checkEmailExists = () => {
+    setrenderLoader(true);
+    setrenderEmail(false);
+    setrenderPassword(false);
+
+    setTimeout(function () {
+      let matchFound = false;
+      usersEmail.forEach((element) => {
+        if (element.email === userAuth.email) {
+          setrenderLoader(false);
+          setrenderEmail(false);
+          setrenderPassword(true);
+          matchFound = true;
+          return; // exit from forEach loop
+        }
+      });
+      if (!matchFound) {
+        setrenderLoader(false);
+        setrenderEmail(true);
+        setrenderPassword(false);
+        setErrorOutline((prev) => ({ ...prev, borderColor: "red" }));
+      }
+    }, 1000);
   };
 
   const googleSignButton = (
@@ -36,7 +71,14 @@ const LoginEmail = ({ setrenderPassword, setrenderEmail }) => {
   const nextButton = "Next";
   const forgotpass = "Forgot password?";
   const location = useLocation();
-  console.log(location);
+
+  function handlemail(e) {
+    let currentData = userAuth;
+    currentData.email = e;
+    setUserAuth(currentData);
+    console.log(userAuth);
+  }
+
   return (
     <div className="login-info">
       <p className="text-center mt-7 text-3xl font-bold">Sign in to Tweeter</p>
@@ -63,6 +105,10 @@ const LoginEmail = ({ setrenderPassword, setrenderEmail }) => {
             className=" login-sign-in-box bg-black  flex justify-center items-center rounded-md"
             placeholder=" "
             ref={focus}
+            onChange={(e) => {
+              handlemail(e.target.value);
+            }}
+            style={errorOutline}
           />
           <label
             onClick={handleFocusing}
@@ -72,11 +118,17 @@ const LoginEmail = ({ setrenderPassword, setrenderEmail }) => {
             Phone, email, or username
           </label>
         </div>
-        <div onClick={(e) => {
-            e.preventDefault()
-            setrenderEmail(false)
-            setrenderPassword(true)
-        }}>
+        <div
+          onClick={(e) => {
+            e.preventDefault();
+
+            if (emailRegex.test(userAuth.email)) {
+              checkEmailExists();
+            } else {
+              setErrorOutline({ borderColor: "red" });
+            }
+          }}
+        >
           <AuthLoginButton
             logo={nextButton}
             classes={

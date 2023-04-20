@@ -160,6 +160,36 @@
   background-color: var(--logBHover);
 }
 
+.ldio-02vutb3eyc03 div {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  border: 5px solid #1d9bf0;
+  border-top-color: transparent;
+  border-radius: 50%;
+}
+.ldio-02vutb3eyc03 div {
+  animation: ldio-02vutb3eyc03 1s linear infinite;
+  top: 50%;
+  left: 50%;
+}
+.loadingio-spinner-rolling-clkv9s806ok {
+  width: 200px;
+  height: 200px;
+  display: inline-block;
+  overflow: hidden;
+  background: rgba(NaN, NaN, NaN, 0);
+}
+.ldio-02vutb3eyc03 {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transform: translateZ(0) scale(1);
+  backface-visibility: hidden;
+  transform-origin: 0 0; /* see note above */
+}
+.ldio-02vutb3eyc03 div { box-sizing: content-box; }
+
 @keyframes identifier {
   from {
   }
@@ -169,6 +199,11 @@
     top: 5%;
     right: 80%;
   }
+}
+
+@keyframes ldio-02vutb3eyc03 {
+  0% { transform: translate(-50%,-50%) rotate(0deg); }
+  100% { transform: translate(-50%,-50%) rotate(360deg); }
 }
 
 .signup-info {
