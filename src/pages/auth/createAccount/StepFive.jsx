@@ -4,7 +4,7 @@ import { library } from "@fortawesome/fontawesome-svg-core";
 import { fas } from "@fortawesome/free-solid-svg-icons";
 import { fab } from "@fortawesome/free-brands-svg-icons";
 import { far } from "@fortawesome/free-regular-svg-icons";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 library.add(fas);
 library.add(fab);
@@ -19,12 +19,13 @@ const StepFive = ({
   setshowsignupPage,
   setshowSignUpCard,
 }) => {
+  const navigate = useNavigate()
   return (
     <div>
       <div className="flex items-center ">
         <Link
           onClick={(e) => {
-            e.preventDefault()
+            e.preventDefault();
             setshowstepOne(false);
             setshowStepTwo(false);
             setshowStepThree(false);
@@ -62,10 +63,14 @@ const StepFive = ({
         </p>
         <p className="my-3">Have fun and enjoy your stay.</p>
         <Link
-          onClick={() => {
-            window.location.reload()
-          }}
           to="/Home/Explore"
+          onClick={(e) => {
+            e.preventDefault()
+            if(window.location.pathname === "/Home/Explore" || window.location.pathname === "/Home/Explore/"){
+              window.location.reload();
+            }
+            console.log(window.location)
+          }}
           className="mt-10 step2-next w-full py-3 flex items-center rounded-full justify-center font-bold text-black"
         >
           Next

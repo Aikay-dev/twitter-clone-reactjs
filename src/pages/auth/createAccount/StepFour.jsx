@@ -5,6 +5,8 @@ import { fas } from "@fortawesome/free-solid-svg-icons";
 import { fab } from "@fortawesome/free-brands-svg-icons";
 import { far } from "@fortawesome/free-regular-svg-icons";
 import { Link } from "react-router-dom";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import {auth} from "../../../config/firebase"
 
 library.add(fas);
 library.add(fab);
@@ -43,11 +45,23 @@ function StepFour({
     backgroundColor: "rgb(120,122,122)",
   });
 
+  function AddNewUser(){
+    createUserWithEmailAndPassword(auth, stepOneDetails.email, stepOneDetails.password)
+    .then((cred) => {
+      console.log("user created:", cred)
+    })
+    .catch((error) => {
+      console.log(error.message)
+
+    })
+  }
+
   function handlePass(e) {
     const currentData = stepOneDetails;
     currentData.password = e;
     setStepOneDetails(currentData);
   }
+
   return (
     <div>
       <div className="flex items-center ">
@@ -82,10 +96,13 @@ function StepFour({
               handlePass(e.target.value);
               if (
                 stepOneDetails.password !== "" &&
-                focus2.current.value === stepOneDetails.password
+                focus2.current.value === stepOneDetails.password && stepOneDetails.password.length > 5
               ) {
                 setblurColor({})
               }else{
+                setblurColor({
+                  backgroundColor: "rgb(120,122,122)",
+                })
                 seterrorColor({ border: "2px solid red" });
               }
             }}
@@ -140,10 +157,13 @@ function StepFour({
 
               if (
                 stepOneDetails.password !== "" &&
-                focus2.current.value === stepOneDetails.password
+                focus2.current.value === stepOneDetails.password && stepOneDetails.password.length > 5
               ) {
                 setblurColor({})
               }else{
+                setblurColor({
+                  backgroundColor: "rgb(120,122,122)",
+                })
                 seterrorColor({ border: "2px solid red" });
               }
 
@@ -190,7 +210,7 @@ function StepFour({
 
             if (
               stepOneDetails.password !== "" &&
-              focus2.current.value === stepOneDetails.password
+              focus2.current.value === stepOneDetails.password && stepOneDetails.password.length > 5
             ) {
               setshowstepOne(false);
               setshowStepTwo(false);
@@ -198,6 +218,7 @@ function StepFour({
               setshowStepFour(false);
               setshowStepFive(true);
               setshowsignupPage(false);
+              AddNewUser()
             }
           }}
           className="mt-10 step2-next w-full py-3 flex items-center rounded-full justify-center font-bold text-black"

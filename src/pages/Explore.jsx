@@ -22,7 +22,6 @@ library.add(far);
 
 const Explore = () => {
   const ifBlur = useSelector((state) => state.user.value.display);
-  console.log(useLocation());
   const [showSignUpCard, setshowSignUpCard] = useState(false);
   const googleSignButton = (
     <div className="flex items-center justify-center">
