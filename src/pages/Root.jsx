@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { getAuth } from "firebase/auth";
 import { Link, Outlet, useNavigate, useParams } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { library } from "@fortawesome/fontawesome-svg-core";
@@ -8,16 +7,35 @@ import { fab } from "@fortawesome/free-brands-svg-icons";
 import { far } from "@fortawesome/free-regular-svg-icons";
 import SettingsTwoToneIcon from "@mui/icons-material/SettingsTwoTone";
 import { useSelector, useDispatch } from "react-redux";
-import { exploreChangeState, settingsChangeState, setGoToSettingsFeat } from "../store";
+import {
+  exploreChangeState,
+  settingsChangeState,
+  setGoToSettingsFeat,
+} from "../store";
+import { auth } from "../config/firebase";
 
 library.add(fas);
 library.add(fab);
 library.add(far);
 
 const Root = () => {
+  const [authState, setAuthState] = useState(null);
+  useEffect(() => {
+    const currentUser = auth.currentUser;
+
+    if (currentUser) {
+      // User is signed in.
+      console.log(currentUser.email);
+      setAuthState(currentUser);
+    } else {
+      // No user is signed in.
+      console.log("No user is signed in");
+    }
+  }, []);
+
   const ifboldexp = useSelector((state) => state.exp.value.fontWeight);
   const ifboldset = useSelector((state) => state.set.value.fontWeight);
-  const ifsetfeat = useSelector((state) => state.gotosetfeat.value )
+  const ifsetfeat = useSelector((state) => state.gotosetfeat.value);
   const [windowWidth, SetwindowWidth] = useState(
     window.innerWidth > 1040
       ? "/Home/Settings/personalization"
@@ -78,62 +96,75 @@ const Root = () => {
           </section>
           <Outlet />
         </div>
-        <div className="homepage-login-banner py-2 absolute bottom-0 w-full flex items-center justify-center">
-          <div className="homepage-auth-banner-holder text-white  flex items-center justify-between">
-            <div className="homepage-auth-banner-info md:block hidden">
-              <p className="homepage-auth-banner-dont-miss font-bold text-2xl">
-                Don't miss what's happening
-              </p>
-              <p className="homepage-login-banner-people-on">
-                people on Twitter are the first to know.
-              </p>
-            </div>
-            <div className="homepage-login-banner-auth flex gap-3 w-full md:w-44">
-              <Link
-                to="/auth/Login"
-                className="homepage-login-banner-auth-login ml-3 md:px-4 md:w-22 w-1/2 font-bold py-1 rounded-full"
-              >
-                <p className="text-center">Login</p>
-              </Link>
-              <Link
-                to="/auth/Signup"
-                className="homepage-login-banner-auth-signup mr-3 md:px-4 md:w-22 w-1/2 font-bold py-1 whitespace-nowrap rounded-full bg-white text-black"
-              >
-                <p className="text-center">Sign up</p>
-              </Link>
+        {authState === null ? (
+          <div className="homepage-login-banner py-2 absolute bottom-0 w-full flex items-center justify-center">
+            <div className="homepage-auth-banner-holder text-white  flex items-center justify-between">
+              <div className="homepage-auth-banner-info md:block hidden">
+                <p className="homepage-auth-banner-dont-miss font-bold text-2xl">
+                  Don't miss what's happening
+                </p>
+                <p className="homepage-login-banner-people-on">
+                  people on Twitter are the first to know.
+                </p>
+              </div>
+              <div className="homepage-login-banner-auth flex gap-3 w-full md:w-44">
+                <Link
+                  to="/auth/Login"
+                  className="homepage-login-banner-auth-login ml-3 md:px-4 md:w-22 w-1/2 font-bold py-1 rounded-full"
+                >
+                  <p className="text-center">Login</p>
+                </Link>
+                <Link
+                  to="/auth/Signup"
+                  className="homepage-login-banner-auth-signup mr-3 md:px-4 md:w-22 w-1/2 font-bold py-1 whitespace-nowrap rounded-full bg-white text-black"
+                >
+                  <p className="text-center">Sign up</p>
+                </Link>
+              </div>
             </div>
           </div>
-        </div>
-        <div className={ifsetfeat} onClick={() => {
-          dispatch(
-            setGoToSettingsFeat(
-              "go-2-settings-blur homepage-auth-overlay h-screen hidden fixed w-screen"
-            )
-          );
-          document.body.classList.remove("overlay-open");
-        }}>
+        ) : (
+          ""
+        )}
+        <div
+          className={ifsetfeat}
+          onClick={() => {
+            dispatch(
+              setGoToSettingsFeat(
+                "go-2-settings-blur homepage-auth-overlay h-screen hidden fixed w-screen"
+              )
+            );
+            document.body.classList.remove("overlay-open");
+          }}
+        >
           <div className="mobile-settings-call fixed bottom-0 bg-black text-white w-full h-30 px-6 py-4">
             <div className="flex">
               <SettingsTwoToneIcon />
-              <Link to="/Home/Settings/" onClick={() => {
+              <Link
+                to="/Home/Settings/"
+                onClick={() => {
+                  dispatch(
+                    setGoToSettingsFeat(
+                      "go-2-settings-blur homepage-auth-overlay h-screen hidden fixed w-screen"
+                    )
+                  );
+                  document.body.classList.remove("overlay-open");
+                }}
+              >
+                <p className="pl-3">Go to settings</p>
+              </Link>
+            </div>
+            <button
+              className="mobile-settings-call-cancel rounded-full w-full py-2 mt-5"
+              onClick={() => {
                 dispatch(
                   setGoToSettingsFeat(
                     "go-2-settings-blur homepage-auth-overlay h-screen hidden fixed w-screen"
                   )
                 );
                 document.body.classList.remove("overlay-open");
-              }}>
-                <p className="pl-3">Go to settings</p>
-              </Link>
-            </div>
-            <button className="mobile-settings-call-cancel rounded-full w-full py-2 mt-5" onClick={() => {
-              dispatch(
-                setGoToSettingsFeat(
-                  "go-2-settings-blur homepage-auth-overlay h-screen hidden fixed w-screen"
-                )
-              );
-              document.body.classList.remove("overlay-open");
-            }}>
+              }}
+            >
               Cancel
             </button>
           </div>
