@@ -22,6 +22,8 @@ const LoginEmail = ({
   setUserAuth,
   usersEmail,
   setrenderLoader,
+  emailError,
+  setEmailError
 }) => {
   const [errorOutline, setErrorOutline] = useState({});
   const dispatch = useDispatch();
@@ -51,7 +53,7 @@ const LoginEmail = ({
         setrenderLoader(false);
         setrenderEmail(true);
         setrenderPassword(false);
-        setErrorOutline((prev) => ({ ...prev, borderColor: "red" }));
+        setEmailError({})
       }
     }, 1000);
   };
@@ -117,6 +119,7 @@ const LoginEmail = ({
           >
             Phone, email, or username
           </label>
+          <p className="f text-sm text-red-600" style={emailError}>Sorry, we could not find your account.</p>
         </div>
         <div
           onClick={(e) => {

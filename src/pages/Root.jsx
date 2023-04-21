@@ -162,21 +162,23 @@ const Root = () => {
                 </Link>
               )}
             </div>
-            <button>Tweet</button>
-            <div>
+            {authState && <button>Tweet</button>}
+            {authState && (
               <div>
                 <div>
-                  <img src="" alt="" />
+                  <div>
+                    <img src="" alt="" />
+                  </div>
+                  <div>
+                    <p>Hail Hydra</p>
+                    <p>@general ik</p>
+                  </div>
                 </div>
                 <div>
-                  <p>Hail Hydra</p>
-                  <p>@general ik</p>
+                  <FontAwesomeIcon icon="fa-solid fa-ellipsis" />
                 </div>
               </div>
-              <div>
-                <FontAwesomeIcon icon="fa-solid fa-ellipsis" />
-              </div>
-            </div>
+            )}
           </section>
           {authState && <Home />}
           <Outlet />

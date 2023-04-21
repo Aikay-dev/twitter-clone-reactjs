@@ -19,6 +19,7 @@ library.add(far);
 
 const Login = () => {
   const [usersEmail, setUsersEmail] = useState([]);
+  const [emailError, setEmailError] = useState({ display: "none" });
 
   useEffect(() => {
     getDocs(colRef)
@@ -87,8 +88,10 @@ const Login = () => {
             userAuth={userAuth}
             setUserAuth={setUserAuth}
             usersEmail={usersEmail}
-            setrenderLoader = {setrenderLoader}
-            renderLoader = {renderLoader}
+            setrenderLoader={setrenderLoader}
+            renderLoader={renderLoader}
+            emailError={emailError}
+            setEmailError={setEmailError}
           />
         )}
         {renderPassword && (
