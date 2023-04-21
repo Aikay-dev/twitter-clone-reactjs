@@ -74,7 +74,7 @@ const Root = () => {
             </Link>
 
             
-              <div className="section1-main flex cursor-pointer flex-col gap-2 pt-5">
+              <div className="section1-main flex cursor-pointer flex-col pt-5">
                 {authState && (
                   <Link className="flex section1-main-home-icon-long-home text-xl  justify-center">
                     <div>
