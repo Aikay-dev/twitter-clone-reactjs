@@ -1,5 +1,15 @@
 import { configureStore, createSlice } from "@reduxjs/toolkit";
 
+const userAuthStateSlice = createSlice({
+  name: "UserAuthState",
+  initialState: { value: null },
+  reducers: {
+    changeState: (state, action) => {
+      state.value = action.payload;
+    },
+  },
+});
+
 const userSlice = createSlice({
   name: "blurHomeBackground",
   initialState: { value: { display: "none" } },
@@ -67,6 +77,7 @@ export const { changeState: exploreChangeState } = exploreSlice.actions;
 export const { changeState: settingsChangeState } = settingSlice.actions;
 export const { changeState: checkboxsettingsChangeState } = settingsCheckboxStyleSlice.actions;
 export const { changeState: setGoToSettingsFeat } = goToSettingsFeatSlice.actions;
+export const { changeState: checkAuthState } = userAuthStateSlice.actions;
 
 export const store = configureStore({
   reducer: {
@@ -75,6 +86,7 @@ export const store = configureStore({
     set: settingSlice.reducer,
     peras: personalizationConfirmationStyleSlice.reducer,
     setchbx: settingsCheckboxStyleSlice.reducer,
-    gotosetfeat: goToSettingsFeatSlice.reducer
+    gotosetfeat: goToSettingsFeatSlice.reducer,
+    userAuth: userAuthStateSlice.reducer
   },
 });

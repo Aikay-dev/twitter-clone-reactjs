@@ -11,27 +11,42 @@ import {
   exploreChangeState,
   settingsChangeState,
   setGoToSettingsFeat,
+  checkAuthState,
 } from "../store";
 import { auth } from "../config/firebase";
+import Home from "./Home/Home";
 
 library.add(fas);
 library.add(fab);
 library.add(far);
 
 const Root = () => {
-  const [authState, setAuthState] = useState(null);
-  useEffect(() => {
-    const currentUser = auth.currentUser;
+  const dispatch = useDispatch();
+  const [authState, setAuthState] = useState(
+    useSelector((state) => state.userAuth.value)
+  );
 
-    if (currentUser) {
-      // User is signed in.
-      console.log(currentUser.email);
-      setAuthState(currentUser);
-    } else {
-      // No user is signed in.
-      console.log("No user is signed in");
-    }
-  }, []);
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged((userAuthState) => {
+      if (userAuthState !== null) {
+        console.log("New authentication state:", userAuthState.email);
+        setAuthState(userAuthState.email);
+        dispatch(checkAuthState(userAuthState.email));
+      } else {
+        if (
+          window.location.pathname === "/Home" ||
+          window.location.pathname === "/Home/"
+        ) {
+          navigate("/Home/Explore");
+        } else if (window.location.pathname === "/Home/Explore") {
+        }
+        console.log("No user is signed in");
+        console.log("object");
+      }
+    });
+
+    return () => unsubscribe();
+  }, [dispatch]);
 
   const ifboldexp = useSelector((state) => state.exp.value.fontWeight);
   const ifboldset = useSelector((state) => state.set.value.fontWeight);
@@ -42,16 +57,8 @@ const Root = () => {
       : "/Home/Settings/"
   );
 
-  const dispatch = useDispatch();
-
   const page = useParams();
   const navigate = useNavigate();
-  useEffect(() => {
-    if (window.location.pathname === "/Home") {
-      navigate("/Home/Explore");
-    } else if (window.location.pathname === "/Home/Explore") {
-    }
-  }, []);
 
   return (
     <>
@@ -64,7 +71,17 @@ const Root = () => {
             >
               <FontAwesomeIcon icon="fab fa-twitter" />
             </Link>
+
             <div className="section1-main flex cursor-pointer flex-col gap-2 pt-5">
+              {authState && (
+                <Link>
+                  <div>
+                    <FontAwesomeIcon icon="fa-solid fa-house" />
+                  </div>
+                  <p>Home</p>
+                </Link>
+              )}
+
               <Link
                 to="/Home/Explore"
                 onClick={() => {
@@ -77,23 +94,76 @@ const Root = () => {
                 <FontAwesomeIcon icon="fa-solid fa-hashtag" />
                 <span className="hidden xl:block xl:pl-6">Explore</span>
               </Link>
+
               <div className="section1-main-search text-xl font-semibold flex justify-center items-center">
                 <FontAwesomeIcon icon="fa-solid fa-magnifying-glass" />
               </div>
-              <Link
-                to={windowWidth}
-                onClick={() => {
-                  dispatch(exploreChangeState({ fontWeight: 100 }));
-                  dispatch(settingsChangeState({ fontWeight: "Bold" }));
-                }}
-                className="section1-main-setting cursor-pointer text-xl flex justify-center items-center text-white"
-                style={{ fontWeight: ifboldset }}
-              >
-                <SettingsTwoToneIcon />
-                <span className="hidden xl:block xl:pl-5">Settings</span>
-              </Link>
+
+              {!authState && (
+                <Link
+                  to={windowWidth}
+                  onClick={() => {
+                    dispatch(exploreChangeState({ fontWeight: 100 }));
+                    dispatch(settingsChangeState({ fontWeight: "Bold" }));
+                  }}
+                  className="section1-main-setting cursor-pointer text-xl flex justify-center items-center text-white"
+                  style={{ fontWeight: ifboldset }}
+                >
+                  <SettingsTwoToneIcon />
+                  <span className="hidden xl:block xl:pl-5">Settings</span>
+                </Link>
+              )}
+              {authState && (
+                <Link>
+                  <div>
+                    <FontAwesomeIcon icon="fa-solid fa-house" />
+                  </div>
+                  <p>Notifications</p>
+                </Link>
+              )}
+              {authState && (
+                <Link>
+                  <div>
+                    <FontAwesomeIcon icon="fa-solid fa-house" />
+                  </div>
+                  <p>Messages</p>
+                </Link>
+              )}
+              {authState && (
+                <Link>
+                  <div>
+                    <FontAwesomeIcon icon="fa-solid fa-house" />
+                  </div>
+                  <p>Bookmarks</p>
+                </Link>
+              )}
+              {authState && (
+                <Link>
+                  <div>
+                    <FontAwesomeIcon icon="fa-solid fa-house" />
+                  </div>
+                  <p>Tweeter Blue</p>
+                </Link>
+              )}
+              {authState && (
+                <Link>
+                  <div>
+                    <FontAwesomeIcon icon="fa-solid fa-house" />
+                  </div>
+                  <p>Profile</p>
+                </Link>
+              )}
+              {authState && (
+                <Link>
+                  <div>
+                    <FontAwesomeIcon icon="fa-solid fa-house" />
+                  </div>
+                  <p>More</p>
+                </Link>
+              )}
             </div>
           </section>
+          {authState && <Home />}
           <Outlet />
         </div>
         {authState === null ? (
