@@ -73,18 +73,19 @@ const Root = () => {
               <FontAwesomeIcon icon="fab fa-twitter" />
             </Link>
 
-            
-              <div className="section1-main flex cursor-pointer flex-col pt-5">
-                {authState && (
-                  <Link className="flex section1-main-home-icon-long-home text-xl  justify-center">
-                    <div>
-                      <FontAwesomeIcon icon="fa-solid fa-house" />
-                    </div>
-                    <p className="hidden xl:block xl:pl-6 ">Home</p>
-                  </Link>
-                )}
+            <div className="section1-main flex cursor-pointer flex-col pt-5">
+              {authState && (
+                <Link className="flex section1-main-home-icon-long-home text-xl  justify-center" aria-label="Home">
+                  <div>
+                    <FontAwesomeIcon icon="fa-solid fa-house" />
+                  </div>
+                  <p className="hidden xl:block xl:pl-6 ">Home</p>
+                </Link>
+              )}
 
-                {showExplore && <Link
+              {showExplore && (
+                <Link
+                aria-label="Explore"
                   to="/Home/Explore"
                   onClick={() => {
                     dispatch(settingsChangeState({ fontWeight: 100 }));
@@ -95,95 +96,115 @@ const Root = () => {
                 >
                   <FontAwesomeIcon icon="fa-solid fa-hashtag" />
                   <span className="hidden xl:block xl:pl-6">Explore</span>
-                </Link>}
+                </Link>
+              )}
 
-                {!authState && <div className="section1-main-search text-xl font-semibold flex justify-center items-center">
+              {!authState && (
+                <div aria-label="Search" className="section1-main-search text-xl font-semibold flex justify-center items-center">
                   <FontAwesomeIcon icon="fa-solid fa-magnifying-glass" />
-                </div>}
+                </div>
+              )}
 
-                {!authState && (
-                  <Link
-                    to={windowWidth}
-                    onClick={() => {
-                      dispatch(exploreChangeState({ fontWeight: 100 }));
-                      dispatch(settingsChangeState({ fontWeight: "Bold" }));
-                    }}
-                    className="section1-main-setting cursor-pointer text-xl flex justify-center items-center text-white"
-                    style={{ fontWeight: ifboldset }}
-                  >
-                    <SettingsTwoToneIcon />
-                    <span className="hidden xl:block xl:pl-5">Settings</span>
-                  </Link>
-                )}
-                {authState && (
-                  <Link className="flex section1-main-home-icon-long-notif text-xl  justify-center items-center">
-                    <div>
-                      <FontAwesomeIcon icon="fa-regular fa-bell" />
-                    </div>
-                    <p className="hidden xl:block xl:pl-6">Notifications</p>
-                  </Link>
-                )}
-                {authState && (
-                  <Link className="flex section1-main-home-icon-long-messge text-xl  justify-center items-center">
-                    <div>
-                      <FontAwesomeIcon icon="fa-regular fa-envelope" />
-                    </div>
-                    <p className="hidden xl:block xl:pl-6">Messages</p>
-                  </Link>
-                )}
-                {authState && (
-                  <Link className="flex section1-main-home-icon-long-bkmrk text-xl  justify-center items-center">
-                    <div>
-                      <FontAwesomeIcon icon="fa-regular fa-bookmark" />
-                    </div>
-                    <p className="hidden xl:block xl:pl-6">Bookmarks</p>
-                  </Link>
-                )}
-                {authState && (
-                  <Link className="flex section1-main-home-icon-long text-xl  justify-center items-center">
-                    <div>
-                      <FontAwesomeIcon icon="fa-brands fa-square-twitter" />
-                    </div>
-                    <p className="hidden xl:block xl:pl-6 whitespace-nowrap">
-                      Tweeter Blue
-                    </p>
-                  </Link>
-                )}
-                {authState && (
-                  <Link className="flex section1-main-home-icon-profile text-xl  justify-center items-center">
-                    <div>
-                      <FontAwesomeIcon icon="fa-regular fa-user" />
-                    </div>
-                    <p className="hidden xl:block xl:pl-6">Profile</p>
-                  </Link>
-                )}
-                {authState && (
-                  <Link className="flex section1-main-home-icon text-xl  justify-center items-center">
-                    <div>
-                      <FontAwesomeIcon icon="fa-solid fa-ellipsis" />
-                    </div>
-                    <p className="hidden xl:block xl:pl-6">More</p>
-                  </Link>
-                )}
-              </div>
-
-            {authState && <button>Tweet</button>}
-            {authState && (
-              <div className="flex">
-                <div>
+              {!authState && (
+                <Link
+                aria-label="Settings"
+                  to={windowWidth}
+                  onClick={() => {
+                    dispatch(exploreChangeState({ fontWeight: 100 }));
+                    dispatch(settingsChangeState({ fontWeight: "Bold" }));
+                  }}
+                  className="section1-main-setting cursor-pointer text-xl flex justify-center items-center text-white"
+                  style={{ fontWeight: ifboldset }}
+                >
+                  <SettingsTwoToneIcon />
+                  <span className="hidden xl:block xl:pl-5">Settings</span>
+                </Link>
+              )}
+              {authState && (
+                <Link aria-label="Notifications" className="flex section1-main-home-icon-long-notif text-xl  justify-center items-center">
                   <div>
-                    <img src="" alt="" />
+                    <FontAwesomeIcon icon="fa-regular fa-bell" />
                   </div>
+                  <p className="hidden xl:block xl:pl-6">Notifications</p>
+                </Link>
+              )}
+              {authState && (
+                <Link aria-label="Messages" className="flex section1-main-home-icon-long-messge text-xl  justify-center items-center">
                   <div>
-                    <p>Hail Hydra</p>
-                    <p>@general ik</p>
+                    <FontAwesomeIcon icon="fa-regular fa-envelope" />
+                  </div>
+                  <p className="hidden xl:block xl:pl-6">Messages</p>
+                </Link>
+              )}
+              {authState && (
+                <Link aria-label="Bookmarks" className="flex section1-main-home-icon-long-bkmrk text-xl  justify-center items-center">
+                  <div>
+                    <FontAwesomeIcon icon="fa-regular fa-bookmark" />
+                  </div>
+                  <p className="hidden xl:block xl:pl-6">Bookmarks</p>
+                </Link>
+              )}
+              {authState && (
+                <Link aria-label="Tweeter Blue" className="flex section1-main-home-icon-long text-xl  justify-center items-center">
+                  <div>
+                    <FontAwesomeIcon icon="fa-brands fa-square-twitter" />
+                  </div>
+                  <p className="hidden xl:block xl:pl-6 whitespace-nowrap">
+                    Tweeter Blue
+                  </p>
+                </Link>
+              )}
+              {authState && (
+                <Link aria-label="Profile" className="flex section1-main-home-icon-profile text-xl  justify-center items-center">
+                  <div>
+                    <FontAwesomeIcon icon="fa-regular fa-user" />
+                  </div>
+                  <p className="hidden xl:block xl:pl-6">Profile</p>
+                </Link>
+              )}
+              {authState && (
+                <Link aria-label="More" className="flex section1-main-home-icon text-xl  justify-center items-center">
+                  <div>
+                    <FontAwesomeIcon icon="fa-solid fa-ellipsis" />
+                  </div>
+                  <p className="hidden xl:block xl:pl-6">More</p>
+                </Link>
+              )}
+            </div>
+
+            <div className="home-bottom-nav-holder">
+              {authState && (
+                <button aria-label="Tweet" className="home-nav-tweet-button rounded-full font-semibold">
+                  <FontAwesomeIcon
+                    icon="fa-solid fa-feather-pointed"
+                    className="home-nav-tweet-quil"
+                  />
+                  <span className="home-nav-tweet-tweet">Tweet</span>
+                </button>
+              )}
+              {authState && (
+                <div className="flex mt-8 cursor-pointer items-center p-2 rounded-full home-nav-acc-button">
+                  <div className="flex items-center">
+                    <div className="home-nav-profile-image">
+                      <img
+                        src="https://picsum.photos/200/300"
+                        alt="user profile image"
+                        className="rounded-full h-10 w-10"
+                      />
+                    </div>
+                    <div className="home-nav-acc-button-user">
+                      <p className="home-nav-displayname font-semibold">
+                        Hail Hydra
+                      </p>
+                      <p className="home-nav-username">@general ik</p>
+                    </div>
+                  </div>
+                  <div className="home-nav-acc-button-ellips">
+                    <FontAwesomeIcon icon="fa-solid fa-ellipsis" />
                   </div>
                 </div>
-                <div>
-                  <FontAwesomeIcon icon="fa-solid fa-ellipsis" />
-                </div>
-              </div>
-            )}
+              )}
+            </div>
           </section>
           {authState && <Home />}
           <Outlet />

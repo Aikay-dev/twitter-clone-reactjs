@@ -330,6 +330,11 @@
   color: var(--homeLabelColor);
 }
 
+.home-nav-username {
+  color: var(--homeLabelColor);
+  font-size: 14px;
+}
+
 .homepage-center-current-trend-more {
   width: 30px;
   height: 30px;
@@ -417,8 +422,14 @@
 .section1-main-home-icon-long-notif:hover,
 .section1-main-home-icon-long-bkmrk:hover,
 .section1-main-home-icon-long-home:hover,
-.section1-main-home-icon-profile:hover {
+.section1-main-home-icon-profile:hover,
+.home-nav-acc-button:hover {
   background-color: rgb(24, 24, 24);
+}
+
+.home-nav-acc-button{
+  width: 240px;
+  justify-content: space-between;
 }
 
 .homepage-center-showmoreinfo {
@@ -739,12 +750,64 @@
   transform: translate(-50%, -50%);
 }
 
+.home-nav-tweet-button {
+  background: var(--blueText);
+  padding: 8px 80px;
+}
+
+.home-nav-tweet-quil{
+  display: none;
+}
+
+.home-nav-profile-image{
+  margin-right: 12px;
+}
+
 @media screen and (max-width: 1280px) {
   .homepage-left {
     width: 10%;
     border: none;
     border-right: var(--homeBorder);
     padding-right: 50px;
+  }
+
+  .home-nav-acc-button{
+    width: 60px;
+  }
+
+  .home-nav-profile-image{
+    margin-right: 0px;
+  }
+
+  .home-nav-acc-button{
+    justify-content: center;
+  }
+
+  .home-bottom-nav-holder{
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 20px;
+  }
+
+  .home-nav-tweet-button {
+    background: var(--blueText);
+    padding: 18px;
+    
+  }
+
+  .home-nav-tweet-tweet{
+    display: none;
+  }
+
+  .home-nav-tweet-quil{
+    display: block;
+  }
+
+  .home-nav-acc-button-ellips,
+  .home-nav-acc-button-user {
+    display: none;
   }
 
   .section1-main-explore,
