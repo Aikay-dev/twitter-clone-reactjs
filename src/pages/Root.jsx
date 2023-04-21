@@ -116,7 +116,7 @@ const Root = () => {
               {authState && (
                 <Link>
                   <div>
-                    <FontAwesomeIcon icon="fa-solid fa-house" />
+                    <FontAwesomeIcon icon="fa-regular fa-bell" />
                   </div>
                   <p>Notifications</p>
                 </Link>
@@ -124,7 +124,7 @@ const Root = () => {
               {authState && (
                 <Link>
                   <div>
-                    <FontAwesomeIcon icon="fa-solid fa-house" />
+                    <FontAwesomeIcon icon="fa-regular fa-envelope" />
                   </div>
                   <p>Messages</p>
                 </Link>
@@ -132,7 +132,7 @@ const Root = () => {
               {authState && (
                 <Link>
                   <div>
-                    <FontAwesomeIcon icon="fa-solid fa-house" />
+                    <FontAwesomeIcon icon="fa-regular fa-bookmark" />
                   </div>
                   <p>Bookmarks</p>
                 </Link>
@@ -140,7 +140,7 @@ const Root = () => {
               {authState && (
                 <Link>
                   <div>
-                    <FontAwesomeIcon icon="fa-solid fa-house" />
+                    <FontAwesomeIcon icon="fa-brands fa-square-twitter" />
                   </div>
                   <p>Tweeter Blue</p>
                 </Link>
@@ -148,7 +148,7 @@ const Root = () => {
               {authState && (
                 <Link>
                   <div>
-                    <FontAwesomeIcon icon="fa-solid fa-house" />
+                    <FontAwesomeIcon icon="fa-regular fa-user" />
                   </div>
                   <p>Profile</p>
                 </Link>
@@ -156,11 +156,26 @@ const Root = () => {
               {authState && (
                 <Link>
                   <div>
-                    <FontAwesomeIcon icon="fa-solid fa-house" />
+                    <FontAwesomeIcon icon="fa-solid fa-ellipsis" />
                   </div>
                   <p>More</p>
                 </Link>
               )}
+            </div>
+            <button>Tweet</button>
+            <div>
+              <div>
+                <div>
+                  <img src="" alt="" />
+                </div>
+                <div>
+                  <p>Hail Hydra</p>
+                  <p>@general ik</p>
+                </div>
+              </div>
+              <div>
+                <FontAwesomeIcon icon="fa-solid fa-ellipsis" />
+              </div>
             </div>
           </section>
           {authState && <Home />}
