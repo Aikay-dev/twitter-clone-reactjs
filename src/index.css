@@ -188,7 +188,9 @@
   backface-visibility: hidden;
   transform-origin: 0 0; /* see note above */
 }
-.ldio-02vutb3eyc03 div { box-sizing: content-box; }
+.ldio-02vutb3eyc03 div {
+  box-sizing: content-box;
+}
 
 @keyframes identifier {
   from {
@@ -202,8 +204,12 @@
 }
 
 @keyframes ldio-02vutb3eyc03 {
-  0% { transform: translate(-50%,-50%) rotate(0deg); }
-  100% { transform: translate(-50%,-50%) rotate(360deg); }
+  0% {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  100% {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
 }
 
 .signup-info {
@@ -345,15 +351,73 @@
 }
 
 .section1-main-explore,
-.section1-main-setting {
+.section1-main-setting,
+.section1-main-home-icon {
   width: 150px;
   height: 50px;
   border-radius: 40px;
+  padding: 10px 30px;
+}
+
+.section1-main-home-icon {
+  width: 130px;
+  height: 50px;
+  border-radius: 40px;
+  padding: 10px 30px;
+}
+
+.section1-main-home-icon-long {
+  width: 195px;
+  height: 50px;
+  border-radius: 40px;
+  padding: 10px 30px;
+}
+
+.section1-main-home-icon-long-messge {
+  width: 170px;
+  height: 50px;
+  border-radius: 40px;
+  padding: 10px 30px;
+}
+
+.section1-main-home-icon-long-notif {
+  width: 185px;
+  height: 50px;
+  border-radius: 40px;
+  padding: 10px 30px;
+}
+
+.section1-main-home-icon-long-bkmrk {
+  width: 175px;
+  height: 50px;
+  border-radius: 40px;
+  padding: 10px 30px;
+}
+
+.section1-main-home-icon-profile {
+  width: 135px;
+  height: 50px;
+  border-radius: 40px;
+  padding: 10px 30px;
+}
+
+.section1-main-home-icon-long-home {
+  width: 130px;
+  height: 50px;
+  border-radius: 40px;
+  padding: 10px 30px;
 }
 
 .section1-main-explore:hover,
 .section1-main-setting:hover,
-.homepage-header-settings-icon:hover {
+.section1-main-home-icon:hover,
+.homepage-header-settings-icon:hover,
+.section1-main-home-icon-long:hover:hover,
+.section1-main-home-icon-long-messge:hover,
+.section1-main-home-icon-long-notif:hover,
+.section1-main-home-icon-long-bkmrk:hover,
+.section1-main-home-icon-long-home:hover,
+.section1-main-home-icon-profile:hover {
   background-color: rgb(24, 24, 24);
 }
 
@@ -601,17 +665,16 @@
   margin-right: 85px;
 }
 
-.step-one-text-create-account{
-
+.step-one-text-create-account {
 }
 
-.step-one-age-input{
-  border: 1px solid rgb(51,54,57);
+.step-one-age-input {
+  border: 1px solid rgb(51, 54, 57);
   outline: none;
   width: 100%;
 }
 
-.step-one-age-input:focus{
+.step-one-age-input:focus {
   border: var(--inputFocus);
 }
 
@@ -620,80 +683,61 @@
   
 } */
 
-.step-2-text-check-your{
+.step-2-text-check-your {
   margin-left: var(--loginspace);
   margin-right: var(--loginspace);
 }
 
-.signup-box-def-spacing{
+.signup-box-def-spacing {
   margin-left: var(--loginspace);
   margin-right: var(--loginspace);
 }
 
-.signup-step-two-by-signing{
+.signup-step-two-by-signing {
   color: var(--homeLabelColor);
   font-size: 15px;
 }
 
-.step2-next{
+.step2-next {
   background-color: var(--loginButton);
 }
 
-.step2-next:hover{
+.step2-next:hover {
   background-origin: var(--buttonHover);
 }
 
-.default-checkbutton{
+.default-checkbutton {
   border-radius: 5px;
 }
 
-.step-3-boarder{
-  border: 1px solid rgb(51,54,57);
+.step-3-boarder {
+  border: 1px solid rgb(51, 54, 57);
   border-radius: 5px;
 }
 
-.step-three-signup{
+.step-three-signup {
   background-color: rgb(29, 155, 240);
 }
 
-.step-three-signup:hover{
-  background-color: rgb(26,140,216);
+.step-three-signup:hover {
+  background-color: rgb(26, 140, 216);
 }
 
-.step-5-continue-profile{
+.step-5-continue-profile {
   border-bottom: 1px solid var(--homeLabelColor);
 }
 
-.step-5-or{
+.step-5-or {
   bottom: 43%;
   right: 50%;
 }
 
-.explore-signup-card{
+.explore-signup-card {
   border-radius: 20px;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 @media screen and (max-width: 1280px) {
   .homepage-left {
@@ -704,10 +748,22 @@
   }
 
   .section1-main-explore,
-  .section1-main-setting {
+  .section1-main-setting,
+  .section1-main-home-icon,
+  .section1-main-home-icon-long,
+  .section1-main-home-icon-long:hover:hover,
+  .section1-main-home-icon-long-messge:hover,
+  .section1-main-home-icon-long-notif:hover,
+  .section1-main-home-icon-long-bkmrk:hover,
+  .section1-main-home-icon-long-home:hover,
+  .section1-main-home-icon-profile:hover {
     width: 100%;
     height: 50px;
     border-radius: 40px;
+  }
+
+  .section1-main {
+    align-items: center;
   }
 
   .homepage-center {
@@ -835,7 +891,7 @@
     width: 100%;
   }
 
-  .explore-signup-card{
+  .explore-signup-card {
     width: 100%;
     height: 100%;
   }
@@ -901,7 +957,7 @@
     margin-right: 25px;
   }
 
-  .signup-box-def-spacing{
+  .signup-box-def-spacing {
     margin-left: var(--loginspacesmall);
     margin-right: var(--loginspacesmall);
   }

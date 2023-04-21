@@ -25,6 +25,7 @@ const Root = () => {
   const [authState, setAuthState] = useState(
     useSelector((state) => state.userAuth.value)
   );
+  const [showExplore, setShowExplore] = useState(true);
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((userAuthState) => {
@@ -72,99 +73,103 @@ const Root = () => {
               <FontAwesomeIcon icon="fab fa-twitter" />
             </Link>
 
-            <div className="section1-main flex cursor-pointer flex-col gap-2 pt-5">
-              {authState && (
-                <Link>
-                  <div>
-                    <FontAwesomeIcon icon="fa-solid fa-house" />
-                  </div>
-                  <p>Home</p>
-                </Link>
-              )}
+            
+              <div className="section1-main flex cursor-pointer flex-col gap-2 pt-5">
+                {authState && (
+                  <Link className="flex section1-main-home-icon-long-home text-xl  justify-center">
+                    <div>
+                      <FontAwesomeIcon icon="fa-solid fa-house" />
+                    </div>
+                    <p className="hidden xl:block xl:pl-6 ">Home</p>
+                  </Link>
+                )}
 
-              <Link
-                to="/Home/Explore"
-                onClick={() => {
-                  dispatch(settingsChangeState({ fontWeight: 100 }));
-                  dispatch(exploreChangeState({ fontWeight: "Bold" }));
-                }}
-                className="section1-main-explore text-xl flex justify-center items-center"
-                style={{ fontWeight: ifboldexp }}
-              >
-                <FontAwesomeIcon icon="fa-solid fa-hashtag" />
-                <span className="hidden xl:block xl:pl-6">Explore</span>
-              </Link>
+                {showExplore && <Link
+                  to="/Home/Explore"
+                  onClick={() => {
+                    dispatch(settingsChangeState({ fontWeight: 100 }));
+                    dispatch(exploreChangeState({ fontWeight: "Bold" }));
+                  }}
+                  className="section1-main-explore flex text-xl  justify-center items-center"
+                  style={{ fontWeight: ifboldexp }}
+                >
+                  <FontAwesomeIcon icon="fa-solid fa-hashtag" />
+                  <span className="hidden xl:block xl:pl-6">Explore</span>
+                </Link>}
 
-              <div className="section1-main-search text-xl font-semibold flex justify-center items-center">
-                <FontAwesomeIcon icon="fa-solid fa-magnifying-glass" />
+                {!authState && <div className="section1-main-search text-xl font-semibold flex justify-center items-center">
+                  <FontAwesomeIcon icon="fa-solid fa-magnifying-glass" />
+                </div>}
+
+                {!authState && (
+                  <Link
+                    to={windowWidth}
+                    onClick={() => {
+                      dispatch(exploreChangeState({ fontWeight: 100 }));
+                      dispatch(settingsChangeState({ fontWeight: "Bold" }));
+                    }}
+                    className="section1-main-setting cursor-pointer text-xl flex justify-center items-center text-white"
+                    style={{ fontWeight: ifboldset }}
+                  >
+                    <SettingsTwoToneIcon />
+                    <span className="hidden xl:block xl:pl-5">Settings</span>
+                  </Link>
+                )}
+                {authState && (
+                  <Link className="flex section1-main-home-icon-long-notif text-xl  justify-center items-center">
+                    <div>
+                      <FontAwesomeIcon icon="fa-regular fa-bell" />
+                    </div>
+                    <p className="hidden xl:block xl:pl-6">Notifications</p>
+                  </Link>
+                )}
+                {authState && (
+                  <Link className="flex section1-main-home-icon-long-messge text-xl  justify-center items-center">
+                    <div>
+                      <FontAwesomeIcon icon="fa-regular fa-envelope" />
+                    </div>
+                    <p className="hidden xl:block xl:pl-6">Messages</p>
+                  </Link>
+                )}
+                {authState && (
+                  <Link className="flex section1-main-home-icon-long-bkmrk text-xl  justify-center items-center">
+                    <div>
+                      <FontAwesomeIcon icon="fa-regular fa-bookmark" />
+                    </div>
+                    <p className="hidden xl:block xl:pl-6">Bookmarks</p>
+                  </Link>
+                )}
+                {authState && (
+                  <Link className="flex section1-main-home-icon-long text-xl  justify-center items-center">
+                    <div>
+                      <FontAwesomeIcon icon="fa-brands fa-square-twitter" />
+                    </div>
+                    <p className="hidden xl:block xl:pl-6 whitespace-nowrap">
+                      Tweeter Blue
+                    </p>
+                  </Link>
+                )}
+                {authState && (
+                  <Link className="flex section1-main-home-icon-profile text-xl  justify-center items-center">
+                    <div>
+                      <FontAwesomeIcon icon="fa-regular fa-user" />
+                    </div>
+                    <p className="hidden xl:block xl:pl-6">Profile</p>
+                  </Link>
+                )}
+                {authState && (
+                  <Link className="flex section1-main-home-icon text-xl  justify-center items-center">
+                    <div>
+                      <FontAwesomeIcon icon="fa-solid fa-ellipsis" />
+                    </div>
+                    <p className="hidden xl:block xl:pl-6">More</p>
+                  </Link>
+                )}
               </div>
 
-              {!authState && (
-                <Link
-                  to={windowWidth}
-                  onClick={() => {
-                    dispatch(exploreChangeState({ fontWeight: 100 }));
-                    dispatch(settingsChangeState({ fontWeight: "Bold" }));
-                  }}
-                  className="section1-main-setting cursor-pointer text-xl flex justify-center items-center text-white"
-                  style={{ fontWeight: ifboldset }}
-                >
-                  <SettingsTwoToneIcon />
-                  <span className="hidden xl:block xl:pl-5">Settings</span>
-                </Link>
-              )}
-              {authState && (
-                <Link>
-                  <div>
-                    <FontAwesomeIcon icon="fa-regular fa-bell" />
-                  </div>
-                  <p>Notifications</p>
-                </Link>
-              )}
-              {authState && (
-                <Link>
-                  <div>
-                    <FontAwesomeIcon icon="fa-regular fa-envelope" />
-                  </div>
-                  <p>Messages</p>
-                </Link>
-              )}
-              {authState && (
-                <Link>
-                  <div>
-                    <FontAwesomeIcon icon="fa-regular fa-bookmark" />
-                  </div>
-                  <p>Bookmarks</p>
-                </Link>
-              )}
-              {authState && (
-                <Link>
-                  <div>
-                    <FontAwesomeIcon icon="fa-brands fa-square-twitter" />
-                  </div>
-                  <p>Tweeter Blue</p>
-                </Link>
-              )}
-              {authState && (
-                <Link>
-                  <div>
-                    <FontAwesomeIcon icon="fa-regular fa-user" />
-                  </div>
-                  <p>Profile</p>
-                </Link>
-              )}
-              {authState && (
-                <Link>
-                  <div>
-                    <FontAwesomeIcon icon="fa-solid fa-ellipsis" />
-                  </div>
-                  <p>More</p>
-                </Link>
-              )}
-            </div>
             {authState && <button>Tweet</button>}
             {authState && (
-              <div>
+              <div className="flex">
                 <div>
                   <div>
                     <img src="" alt="" />
