@@ -75,6 +75,10 @@
   background-color: var(--logBHover);
 }
 
+.homepage-center-top-nav{
+  border-bottom: var(--homeBorder);
+}
+
 .auth-prov-option {
   border-bottom: 1px solid rgb(51, 54, 57);
   width: var(--loginContentWidth);
@@ -413,6 +417,19 @@
   padding: 10px 30px;
 }
 
+.home-main-tweet-section-button{
+  background-color: var(--blueText);
+  
+}
+
+.home-main-tweet-section-bottom{
+  color: var(--blueText);
+}
+
+.home-main-tweet-section{
+  border-bottom: var(--homeBorder);
+}
+
 .section1-main-explore:hover,
 .section1-main-setting:hover,
 .section1-main-home-icon:hover,
@@ -423,7 +440,9 @@
 .section1-main-home-icon-long-bkmrk:hover,
 .section1-main-home-icon-long-home:hover,
 .section1-main-home-icon-profile:hover,
-.home-nav-acc-button:hover {
+.home-nav-acc-button:hover,
+.homepage-center-top-nav-foryou:hover,
+.homepage-center-top-nav-following:hover {
   background-color: rgb(24, 24, 24);
 }
 
