@@ -75,7 +75,7 @@
   background-color: var(--logBHover);
 }
 
-.homepage-center-top-nav{
+.homepage-center-top-nav {
   border-bottom: var(--homeBorder);
 }
 
@@ -278,7 +278,18 @@
   color: var(--homeLabelColor);
 }
 
-.homepage-header-searchbox::placeholder {
+.home-main-trends-for-you{
+  border-radius: 20px;
+}
+
+.homemain-head-search, .home-main-trends-for-you {
+  width: 300px;
+  background-color: rgb(32, 35, 39);
+  color: var(--homeLabelColor);
+}
+
+.homepage-header-searchbox::placeholder,
+.homemain-head-search::placeholder {
   color: var(--homeLabelColor);
 }
 
@@ -286,11 +297,16 @@
   color: var(--homeLabelColor);
 }
 
-.homepage-header-searchbox:focus {
+.homepage-header-searchbox:focus,
+.homemain-head-search:focus{
   border: var(--inputFocus);
 }
 
 .homepage-header-searchbox:focus + .homepage-header-label {
+  color: rgb(64, 147, 255);
+}
+
+.homemain-head-search:focus + .homepage-header-label {
   color: rgb(64, 147, 255);
 }
 
@@ -417,16 +433,19 @@
   padding: 10px 30px;
 }
 
-.home-main-tweet-section-button{
+.home-main-tweet-section-button {
   background-color: var(--blueText);
-  
 }
 
-.home-main-tweet-section-bottom{
+.main-tweeter-loading {
   color: var(--blueText);
 }
 
-.home-main-tweet-section{
+.home-main-tweet-section-bottom {
+  color: var(--blueText);
+}
+
+.home-main-tweet-section {
   border-bottom: var(--homeBorder);
 }
 
@@ -446,7 +465,7 @@
   background-color: rgb(24, 24, 24);
 }
 
-.home-nav-acc-button{
+.home-nav-acc-button {
   width: 240px;
   justify-content: space-between;
 }
@@ -774,11 +793,11 @@
   padding: 8px 80px;
 }
 
-.home-nav-tweet-quil{
+.home-nav-tweet-quil {
   display: none;
 }
 
-.home-nav-profile-image{
+.home-nav-profile-image {
   margin-right: 12px;
 }
 
@@ -790,19 +809,19 @@
     padding-right: 50px;
   }
 
-  .home-nav-acc-button{
+  .home-nav-acc-button {
     width: 60px;
   }
 
-  .home-nav-profile-image{
+  .home-nav-profile-image {
     margin-right: 0px;
   }
 
-  .home-nav-acc-button{
+  .home-nav-acc-button {
     justify-content: center;
   }
 
-  .home-bottom-nav-holder{
+  .home-bottom-nav-holder {
     justify-content: center;
     display: flex;
     flex-direction: column;
@@ -813,14 +832,13 @@
   .home-nav-tweet-button {
     background: var(--blueText);
     padding: 18px;
-    
   }
 
-  .home-nav-tweet-tweet{
+  .home-nav-tweet-tweet {
     display: none;
   }
 
-  .home-nav-tweet-quil{
+  .home-nav-tweet-quil {
     display: block;
   }
 

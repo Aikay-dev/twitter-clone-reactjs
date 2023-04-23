@@ -20,7 +20,7 @@ library.add(fas);
 library.add(fab);
 library.add(far);
 
-const Root = () => {
+const Root = ({setLoadBird}) => {
   const dispatch = useDispatch();
   const [authState, setAuthState] = useState(
     useSelector((state) => state.userAuth.value)
@@ -38,7 +38,9 @@ const Root = () => {
           window.location.pathname === "/Home" ||
           window.location.pathname === "/Home/"
         ) {
+          setLoadBird(false)
           navigate("/Home/Explore");
+
         } else if (window.location.pathname === "/Home/Explore") {
         }
         console.log("No user is signed in");

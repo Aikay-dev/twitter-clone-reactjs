@@ -4,6 +4,9 @@ import { library } from "@fortawesome/fontawesome-svg-core";
 import { fas } from "@fortawesome/free-solid-svg-icons";
 import { fab } from "@fortawesome/free-brands-svg-icons";
 import { far } from "@fortawesome/free-regular-svg-icons";
+import SearchBar from "../../components/SearchBar";
+import Trendstream from "../../components/TrendStream";
+import HomeRight from "./HomeRight";
 
 library.add(fas);
 library.add(fab);
@@ -33,7 +36,11 @@ const Home = () => {
                 className="rounded-full h-14 w-14 mr-3 cursor-pointer"
               />
             </div>
-            <input type="text" placeholder="What's happening?" className="w-full text-xl pl-3 outline-none bg-black"/>
+            <input
+              type="text"
+              placeholder="What's happening?"
+              className="w-full text-xl pl-3 outline-none bg-black"
+            />
           </div>
           <div className="flex mt-6 justify-between items-center home-main-tweet-section-bottom">
             <div className="flex pl-16 gap-3">
@@ -44,11 +51,13 @@ const Home = () => {
                 <FontAwesomeIcon icon="fa-regular fa-calendar-days" />
               </div>
             </div>
-            <button className="home-main-tweet-section-button text-white px-4 rounded-full py-1 font-semibold">Tweet</button>
+            <button className="home-main-tweet-section-button text-white px-4 rounded-full py-1 font-semibold">
+              Tweet
+            </button>
           </div>
         </section>
       </section>
-      <section className="homepage-right h-screen"></section>
+      <HomeRight/>
     </>
   );
 };

@@ -15,6 +15,7 @@ import googleIcon from "../assets/google_icon.svg";
 import { useLocation, Outlet } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import SignUp from "./auth/SignUp";
+import SearchBar from "../components/SearchBar";
 
 library.add(fas);
 library.add(fab);
@@ -54,16 +55,7 @@ const Explore = () => {
           >
             <FontAwesomeIcon icon="fab fa-twitter" />
           </Link>
-          <div className="homepage-header-searchbar w-full">
-            <input
-              type="text"
-              className="homepage-header-searchbox h-10 rounded-full outline-none pl-16"
-              placeholder="Search Tweeter"
-            />
-            <label className="homepage-header-label absolute left-12 top-5 outline-none">
-              <FontAwesomeIcon icon="fas fa-magnifying-glass" />
-            </label>
-          </div>
+          <SearchBar/>
           <Link
             onClick={() => {
               dispatch(blurChangeState({ display: "block" }));
