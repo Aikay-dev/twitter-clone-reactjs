@@ -37,7 +37,7 @@ function App() {
   }, [dispatch]);
   return (
     <>
-      {loadBird ? <LoadingSite/> : <Root loadBird = {loadBird} setLoadBird = {setLoadBird}/>}
+      {loadBird ? <LoadingSite loadBird = {loadBird} setLoadBird ={setLoadBird}/> : <Root authState = {authState} setAuthState = {setAuthState}/>}
     </>
   );
 }

@@ -20,11 +20,8 @@ library.add(fas);
 library.add(fab);
 library.add(far);
 
-const Root = ({setLoadBird}) => {
+const Root = ({ authState, setAuthState }) => {
   const dispatch = useDispatch();
-  const [authState, setAuthState] = useState(
-    useSelector((state) => state.userAuth.value)
-  );
   const [showExplore, setShowExplore] = useState(true);
 
   useEffect(() => {
@@ -33,18 +30,11 @@ const Root = ({setLoadBird}) => {
         console.log("New authentication state:", userAuthState.email);
         setAuthState(userAuthState.email);
         dispatch(checkAuthState(userAuthState.email));
-      } else {
-        if (
-          window.location.pathname === "/Home" ||
-          window.location.pathname === "/Home/"
-        ) {
-          setLoadBird(false)
-          navigate("/Home/Explore");
-
-        } else if (window.location.pathname === "/Home/Explore") {
-        }
-        console.log("No user is signed in");
-        console.log("object");
+      } else if (
+        window.location.pathname === "/Home" ||
+        window.location.pathname === "/Home/"
+      ) {
+        navigate("/Home/Explore");
       }
     });
 
@@ -77,7 +67,10 @@ const Root = ({setLoadBird}) => {
 
             <div className="section1-main flex cursor-pointer flex-col pt-5">
               {authState && (
-                <Link className="flex section1-main-home-icon-long-home text-xl  justify-center" aria-label="Home">
+                <Link
+                  className="flex section1-main-home-icon-long-home text-xl  justify-center"
+                  aria-label="Home"
+                >
                   <div>
                     <FontAwesomeIcon icon="fa-solid fa-house" />
                   </div>
@@ -87,7 +80,7 @@ const Root = ({setLoadBird}) => {
 
               {showExplore && (
                 <Link
-                aria-label="Explore"
+                  aria-label="Explore"
                   to="/Home/Explore"
                   onClick={() => {
                     dispatch(settingsChangeState({ fontWeight: 100 }));
@@ -102,14 +95,17 @@ const Root = ({setLoadBird}) => {
               )}
 
               {!authState && (
-                <div aria-label="Search" className="section1-main-search text-xl font-semibold flex justify-center items-center">
+                <div
+                  aria-label="Search"
+                  className="section1-main-search text-xl font-semibold flex justify-center items-center"
+                >
                   <FontAwesomeIcon icon="fa-solid fa-magnifying-glass" />
                 </div>
               )}
 
               {!authState && (
                 <Link
-                aria-label="Settings"
+                  aria-label="Settings"
                   to={windowWidth}
                   onClick={() => {
                     dispatch(exploreChangeState({ fontWeight: 100 }));
@@ -123,7 +119,10 @@ const Root = ({setLoadBird}) => {
                 </Link>
               )}
               {authState && (
-                <Link aria-label="Notifications" className="flex section1-main-home-icon-long-notif text-xl  justify-center items-center">
+                <Link
+                  aria-label="Notifications"
+                  className="flex section1-main-home-icon-long-notif text-xl  justify-center items-center"
+                >
                   <div>
                     <FontAwesomeIcon icon="fa-regular fa-bell" />
                   </div>
@@ -131,7 +130,10 @@ const Root = ({setLoadBird}) => {
                 </Link>
               )}
               {authState && (
-                <Link aria-label="Messages" className="flex section1-main-home-icon-long-messge text-xl  justify-center items-center">
+                <Link
+                  aria-label="Messages"
+                  className="flex section1-main-home-icon-long-messge text-xl  justify-center items-center"
+                >
                   <div>
                     <FontAwesomeIcon icon="fa-regular fa-envelope" />
                   </div>
@@ -139,7 +141,10 @@ const Root = ({setLoadBird}) => {
                 </Link>
               )}
               {authState && (
-                <Link aria-label="Bookmarks" className="flex section1-main-home-icon-long-bkmrk text-xl  justify-center items-center">
+                <Link
+                  aria-label="Bookmarks"
+                  className="flex section1-main-home-icon-long-bkmrk text-xl  justify-center items-center"
+                >
                   <div>
                     <FontAwesomeIcon icon="fa-regular fa-bookmark" />
                   </div>
@@ -147,7 +152,10 @@ const Root = ({setLoadBird}) => {
                 </Link>
               )}
               {authState && (
-                <Link aria-label="Tweeter Blue" className="flex section1-main-home-icon-long text-xl  justify-center items-center">
+                <Link
+                  aria-label="Tweeter Blue"
+                  className="flex section1-main-home-icon-long text-xl  justify-center items-center"
+                >
                   <div>
                     <FontAwesomeIcon icon="fa-brands fa-square-twitter" />
                   </div>
@@ -157,7 +165,10 @@ const Root = ({setLoadBird}) => {
                 </Link>
               )}
               {authState && (
-                <Link aria-label="Profile" className="flex section1-main-home-icon-profile text-xl  justify-center items-center">
+                <Link
+                  aria-label="Profile"
+                  className="flex section1-main-home-icon-profile text-xl  justify-center items-center"
+                >
                   <div>
                     <FontAwesomeIcon icon="fa-regular fa-user" />
                   </div>
@@ -165,7 +176,10 @@ const Root = ({setLoadBird}) => {
                 </Link>
               )}
               {authState && (
-                <Link aria-label="More" className="flex section1-main-home-icon text-xl  justify-center items-center">
+                <Link
+                  aria-label="More"
+                  className="flex section1-main-home-icon text-xl  justify-center items-center"
+                >
                   <div>
                     <FontAwesomeIcon icon="fa-solid fa-ellipsis" />
                   </div>
@@ -176,7 +190,10 @@ const Root = ({setLoadBird}) => {
 
             <div className="home-bottom-nav-holder">
               {authState && (
-                <button aria-label="Tweet" className="home-nav-tweet-button rounded-full font-semibold">
+                <button
+                  aria-label="Tweet"
+                  className="home-nav-tweet-button rounded-full font-semibold"
+                >
                   <FontAwesomeIcon
                     icon="fa-solid fa-feather-pointed"
                     className="home-nav-tweet-quil"
