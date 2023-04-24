@@ -52,7 +52,7 @@ const Root = ({ authState, setAuthState }) => {
 
   const page = useParams();
   const navigate = useNavigate();
-
+   const currentLocation = window.location.pathname
   return (
     <>
       <div className="bg-black flex justify-center">
@@ -68,6 +68,7 @@ const Root = ({ authState, setAuthState }) => {
             <div className="section1-main flex cursor-pointer flex-col pt-5">
               {authState && (
                 <Link
+                to = "/Home"
                   className="flex section1-main-home-icon-long-home text-xl  justify-center"
                   aria-label="Home"
                 >
@@ -225,8 +226,8 @@ const Root = ({ authState, setAuthState }) => {
               )}
             </div>
           </section>
-          {authState && <Home />}
-          <Outlet />
+          {authState && (currentLocation === "/Home/" || currentLocation === "/Home") && <Home />}
+          {<Outlet />}
         </div>
         {authState === null ? (
           <div className="homepage-login-banner py-2 absolute bottom-0 w-full flex items-center justify-center">

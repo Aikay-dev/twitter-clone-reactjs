@@ -249,6 +249,7 @@
   border-right: var(--homeBorder);
   width: 45%;
 }
+
 .homepage-right {
   width: 31%;
 }
@@ -272,6 +273,34 @@
   display: none;
 }
 
+.main-tweet-card{
+  height: 600px;
+  border-bottom: var(--homeBorder);
+  border-top: var(--homeBorder);
+  margin-bottom: 300px;
+}
+
+.main-tweet-card:hover{
+  background-color: rgb(8,8,8);
+}
+
+.main-tweet-card-display-name:hover{
+  text-decoration: underline;
+}
+
+.main-tweet-card-holder {
+  left: 15%;
+  top: 8%;
+}
+
+.main-tweet-image{
+  max-height: 1000px;
+  border: var(--homeBorder);
+  border-radius: 10px;
+  overflow: hidden;
+  max-width: 500px;
+}
+
 .homepage-header-searchbox {
   width: 500px;
   background-color: rgb(32, 35, 39);
@@ -290,6 +319,10 @@
 
 .homepage-header-searchbox::placeholder,
 .homemain-head-search::placeholder {
+  color: var(--homeLabelColor);
+}
+
+.main-tweet-card-username{
   color: var(--homeLabelColor);
 }
 

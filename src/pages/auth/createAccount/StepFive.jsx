@@ -19,7 +19,7 @@ const StepFive = ({
   setshowsignupPage,
   setshowSignUpCard,
 }) => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   return (
     <div>
       <div className="flex items-center ">
@@ -63,14 +63,11 @@ const StepFive = ({
         </p>
         <p className="my-3">Have fun and enjoy your stay.</p>
         <Link
-          to="/Home/Explore"
-          onClick={(e) => {
-            e.preventDefault()
-            if(window.location.pathname === "/Home/Explore" || window.location.pathname === "/Home/Explore/"){
-              window.location.reload();
-            }
-            console.log(window.location)
+          onClick={() => {
+            dispatch(blurChangeState({ display: "none" }));
+            setshowSignUpCard(false);
           }}
+          to="/Home"
           className="mt-10 step2-next w-full py-3 flex items-center rounded-full justify-center font-bold text-black"
         >
           Next
