@@ -1091,6 +1091,10 @@
     left: 20%;
     top: 8%;
   }
+
+  .main-tweet-card-second-half{
+   width: 300px;
+  }
 }
 
 @media screen and (max-width: 500px) {

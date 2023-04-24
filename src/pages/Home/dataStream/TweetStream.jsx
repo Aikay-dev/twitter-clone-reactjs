@@ -21,11 +21,11 @@ const TweetStream = () => {
         <img
           src="https://picsum.photos/200/300"
           alt="user profile image"
-          className="rounded-full h-14 w-14 mr-5 cursor-pointer"
+          className="rounded-full h-14 min-w-14 w-14 max-w-14 mr-5 cursor-pointer"
         />
       </div>
 
-      <div className="w-full">
+      <div className="w-full main-tweet-card-second-half">
         <div className="flex justify-between w-full pr-2 mt-3">
           <div className="flex ">
             <p className="main-tweet-card-display-name font-semibold mr-2 ">
@@ -48,7 +48,7 @@ const TweetStream = () => {
           alt=""
           className="main-tweet-image"
         />
-          <div className="main-tweet-card-user-actions flex w-full pt-2 gap-6">
+          <div className="main-tweet-card-user-actions flex w-full pt-2 gap-6 overflow-x-scroll">
             <Link
               className="flex gap-3 items-center main-tweet-comment-icon"
               aria-label="Comments"
