@@ -6,7 +6,9 @@ import { fab } from "@fortawesome/free-brands-svg-icons";
 import { far } from "@fortawesome/free-regular-svg-icons";
 import { Link } from "react-router-dom";
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import {auth} from "../../../config/firebase"
+import { auth } from "../../../config/firebase";
+import { colRef } from "../../../config/firebase";
+import { addDoc } from "firebase/firestore";
 
 library.add(fas);
 library.add(fab);
@@ -23,7 +25,7 @@ function StepFour({
   setStepOneDetails,
 }) {
   let focus1 = useRef(null);
-
+  const [nextLoad, setNextLoad] = useState(false);
   const handleFocusing1 = () => {
     focus1.current.focus();
   };
@@ -45,15 +47,28 @@ function StepFour({
     backgroundColor: "rgb(120,122,122)",
   });
 
-  function AddNewUser(){
-    createUserWithEmailAndPassword(auth, stepOneDetails.email, stepOneDetails.password)
-    .then((cred) => {
-      console.log("user created:", cred)
-    })
-    .catch((error) => {
-      console.log(error.message)
-
-    })
+  function AddNewUser() {
+    createUserWithEmailAndPassword(
+      auth,
+      stepOneDetails.email,
+      stepOneDetails.password
+    )
+      .then((cred) => {
+        addDoc(colRef, {
+          email : stepOneDetails.email
+        })
+        setshowstepOne(false);
+        setshowStepTwo(false);
+        setshowStepThree(false);
+        setshowStepFour(false);
+        setshowStepFive(true);
+        setshowsignupPage(false);
+        setNextLoad(false);
+        console.log("user created:", cred);
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
   }
 
   function handlePass(e) {
@@ -63,6 +78,7 @@ function StepFour({
   }
 
   return (
+    <>
     <div>
       <div className="flex items-center ">
         <Link
@@ -96,13 +112,14 @@ function StepFour({
               handlePass(e.target.value);
               if (
                 stepOneDetails.password !== "" &&
-                focus2.current.value === stepOneDetails.password && stepOneDetails.password.length > 5
+                focus2.current.value === stepOneDetails.password &&
+                stepOneDetails.password.length > 5
               ) {
-                setblurColor({})
-              }else{
+                setblurColor({});
+              } else {
                 setblurColor({
                   backgroundColor: "rgb(120,122,122)",
-                })
+                });
                 seterrorColor({ border: "2px solid red" });
               }
             }}
@@ -157,16 +174,16 @@ function StepFour({
 
               if (
                 stepOneDetails.password !== "" &&
-                focus2.current.value === stepOneDetails.password && stepOneDetails.password.length > 5
+                focus2.current.value === stepOneDetails.password &&
+                stepOneDetails.password.length > 5
               ) {
-                setblurColor({})
-              }else{
+                setblurColor({});
+              } else {
                 setblurColor({
                   backgroundColor: "rgb(120,122,122)",
-                })
+                });
                 seterrorColor({ border: "2px solid red" });
               }
-
             }}
           />
           <label
@@ -207,27 +224,41 @@ function StepFour({
         <button
           onClick={(e) => {
             e.preventDefault();
-
+            setNextLoad(true);
             if (
               stepOneDetails.password !== "" &&
-              focus2.current.value === stepOneDetails.password && stepOneDetails.password.length > 5
+              focus2.current.value === stepOneDetails.password &&
+              stepOneDetails.password.length > 5
             ) {
-              setshowstepOne(false);
-              setshowStepTwo(false);
-              setshowStepThree(false);
-              setshowStepFour(false);
-              setshowStepFive(true);
-              setshowsignupPage(false);
-              AddNewUser()
+              AddNewUser();
             }
           }}
           className="mt-10 step2-next w-full py-3 flex items-center rounded-full justify-center font-bold text-black"
           style={blurcolor}
         >
-          Next
+          {!nextLoad && <p>Next</p>}
+          {nextLoad && (
+            <div class="loadingio-spinner-spinner-fh0bp1jsv8o">
+              <div class="ldio-zcjeuetn0iq">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+              </div>
+            </div>
+          )}
         </button>
       </div>
     </div>
+    </>
   );
 }
 
