@@ -279,8 +279,8 @@
   margin-bottom: 300px;
 }
 
-.main-tweet-card-content{
- 
+.main-tweet-card-user-actions::-webkit-scrollbar{
+ display: none;
 }
 
 .main-tweet-card-user-actions{
