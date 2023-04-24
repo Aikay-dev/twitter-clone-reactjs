@@ -293,6 +293,41 @@
   text-decoration: underline;
 }
 
+.main-tweet-comment-icon:hover{
+  color: var(--blueText);
+}
+.main-tweet-retweet-icon:hover{
+  color: rgb(1,161,108);
+}
+.main-tweet-like-icon:hover{
+  color: rgb(249,24,128);
+}
+.main-tweet-trend-icon:hover{
+  color: var(--blueText);
+}
+
+.tweet-scroll-section::-webkit-scrollbar{
+  background-color: #000000;
+  position: absolute;
+  right: 10%;
+  display: none;
+}
+
+
+.main-tweet-trend-icon:hover .main-trend-icon-surround{
+  background-color: rgb(10,23,31);
+}
+.main-tweet-comment-icon:hover .main-comment-icon-surround{
+  background-color: rgb(7,26,20);
+}
+.main-tweet-retweet-icon:hover .main-retweet-icon-surround{
+  background-color: rgb(10,23,31);
+}
+.main-tweet-like-icon:hover .main-like-icon-surround{
+  background-color: rgb(32,9,20);
+}
+
+
 .main-tweet-card-holder {
   left: 15%;
   top: 8%;

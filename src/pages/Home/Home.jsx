@@ -18,11 +18,11 @@ const Home = () => {
         <header className="pt-4">
           <p className="text text-lg font-semibold pl-4 mb-3">Home</p>
           <div className="flex w-full h-14 homepage-center-top-nav">
-            <button className="w-1/2 homepage-center-top-nav-foryou">
-              For you
+            <button className="w-1/2 homepage-center-top-nav-foryou flex justify-center items-center">
+              <div style={{borderBottom: "2px solid rgb(29, 155, 240)"}} className="h-full flex justify-center items-center">For you</div>
             </button>
-            <button className="w-1/2 homepage-center-top-nav-following">
-              Following
+            <button className="w-1/2 homepage-center-top-nav-following flex justify-center items-center">
+              <div  style={{borderBottom: "2px solid rgb(29, 155, 240)"}} className="h-full flex justify-center items-center" >Following</div>
             </button>
           </div>
         </header>
