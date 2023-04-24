@@ -440,6 +440,10 @@
   justify-content: center;
 }
 
+.home-mobile-navbar-bottom-section{
+  border-top: var(--homeBorder);
+}
+
 .homepage-center-current-trend-more:hover {
   background-color: rgb(10, 23, 32);
   color: rgb(29, 155, 240);
@@ -790,7 +794,14 @@
   margin-right: 85px;
 }
 
-.step-one-text-create-account {
+
+.home-main-bird-header{
+  
+  color: var(--blueText);
+}
+
+.home-navbar-mobile{
+display: none;
 }
 
 .step-one-age-input {
@@ -933,7 +944,6 @@
   border-radius: 5px;
 }
 
-
 .step-3-boarder {
   border: 1px solid rgb(51, 54, 57);
   border-radius: 5px;
@@ -967,7 +977,6 @@
   background: var(--blueText);
   padding: 8px 80px;
 }
-
 
 .home-nav-tweet-quil {
   display: none;
@@ -1015,8 +1024,6 @@
     background: var(--blueText);
     padding: 18px;
   }
-
-
 
   .home-nav-tweet-tweet {
     display: none;
@@ -1081,7 +1088,7 @@
     margin-right: 15px;
   }
 
-  .home-nav-acc-button{
+  .home-nav-acc-button {
     margin-right: 15px;
   }
 }
@@ -1166,7 +1173,7 @@
     margin-right: 25px;
   }
 
-  .home-nav-acc-button{
+  .home-nav-acc-button {
     margin-right: 25px;
   }
 }
@@ -1217,6 +1224,11 @@
     width: 100%;
   }
 
+  .home-navbar-mobile{
+    display: block;
+    width: 350px;
+    }
+
   .main-settings-navigation-arrow {
     display: flex;
   }
@@ -1226,7 +1238,7 @@
     font-size: 25px;
   }
 
-  .home-main-header-text-home{
+  .home-main-header-text-home {
     display: none;
   }
 
