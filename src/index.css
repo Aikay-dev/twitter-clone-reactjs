@@ -933,6 +933,7 @@
   border-radius: 5px;
 }
 
+
 .step-3-boarder {
   border: 1px solid rgb(51, 54, 57);
   border-radius: 5px;
@@ -1223,6 +1224,10 @@
   .mobile-search-box-bird {
     display: block;
     font-size: 25px;
+  }
+
+  .home-main-header-text-home{
+    display: none;
   }
 
   .homepage-header-label {

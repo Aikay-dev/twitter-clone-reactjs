@@ -16,7 +16,7 @@ const Home = () => {
     <>
       <section className="homepage-center h-screen relative overflow-hidden">
         <header className="pt-4">
-          <p className="text text-lg font-semibold pl-4 mb-3">Home</p>
+          <p className="text text-lg font-semibold pl-4 mb-3 home-main-header-text-home">Home</p>
           <div className="flex w-full h-14 homepage-center-top-nav">
             <button className="w-1/2 homepage-center-top-nav-foryou flex justify-center items-center">
               <div style={{borderBottom: "2px solid rgb(29, 155, 240)"}} className="h-full flex justify-center items-center">For you</div>

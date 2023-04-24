@@ -14,9 +14,9 @@ library.add(fab);
 library.add(far);
 
 const LoginPassword = ({ userAuth, setUserAuth }) => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   let focus = useRef(null);
-
+  const [nextLoad, setNextLoad] = useState(false);
   const handleFocusing = () => {
     focus.current.focus();
   };
@@ -51,8 +51,8 @@ const LoginPassword = ({ userAuth, setUserAuth }) => {
             console.log(userAuth);
             if (userAuth.password.length < 6) {
               setErrorOutline({ borderColor: "red" });
-            }else{
-              setErrorOutline({})
+            } else {
+              setErrorOutline({});
             }
           }}
           style={errorOutline}
@@ -99,19 +99,39 @@ const LoginPassword = ({ userAuth, setUserAuth }) => {
           if (userAuth.password.length < 6) {
             setErrorOutline({ borderColor: "red" });
           } else {
+            setNextLoad(true);
             signInWithEmailAndPassword(auth, userAuth.email, userAuth.password)
-            .then((cred) => {
-              console.log("user logged in:", cred.user)
-              navigate("/Home/")
-            })
-            .catch((err) => {
-              console.log(err.message)
-            })
+              .then((cred) => {
+                console.log("user logged in:", cred.user);
+                navigate("/Home/");
+                setNextLoad(false);
+              })
+              .catch((err) => {
+                console.log(err.message);
+              });
           }
         }}
         className=" mt-32 mb-3 py-3 rounded-full flex items-center justify-center final-login-button cursor-pointer font-bold"
       >
-        Log in
+        {!nextLoad && <p>Log in</p>}
+        {nextLoad && (
+          <div class="loadingio-spinner-spinner-fh0bp1jsv8o">
+            <div class="ldio-zcjeuetn0iq">
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+            </div>
+          </div>
+        )}
       </div>
       <p className="p-3 login-password-text-dont-have">
         Don't have an account?{" "}
