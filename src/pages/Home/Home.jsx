@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { fas } from "@fortawesome/free-solid-svg-icons";
@@ -23,13 +23,17 @@ library.add(fab);
 library.add(far);
 
 const Home = () => {
-  const [setNdpriv, setSetNdpriv] = useState(false)
+  const [setNdpriv, setSetNdpriv] = useState(false);
+  const [showNav, setShowNav] = useState(false)
+
   return (
     <>
       <section className="homepage-center h-screen relative overflow-hidden">
         <header className="pt-4">
           <div className="pl-3 w-full mobileheader flex gap-1 sm:hidden">
-            <div className="home-nav-profile-image w-12 flex justify-center items-center">
+            <div className="home-nav-profile-image w-12 flex justify-center items-center" onClick={() =>{
+              setShowNav(true)
+            }}>
               <img
                 src="https://picsum.photos/200/300"
                 alt="user profile image"
@@ -100,110 +104,125 @@ const Home = () => {
           </section>
         </div>
       </section>
-      <section className="absolute h-screen home-navbar-mobile bg-black">
-        <nav className="">
-          <div className="flex px-3 justify-between items-center pt-3 pb-5">
-            <p className="t text-lg font-semibold">Account info</p>
-            <div>
-              <FontAwesomeIcon icon="fas fa-xmark " />
-            </div>
-          </div>
-          <div className="home-nav-profile-image w-12 flex mx-3 justify-center items-center">
-            <img
-              src="https://picsum.photos/200/300"
-              alt="user profile image"
-              className="rounded-full w-10 h-10 max-h-10"
-            />
-          </div>
-          <p className="mx-3 font-semibold text-lg mt-2">Hail Hydra</p>
-          <p className="mx-3 home-nav-username mb-3">@general ik</p>
-          <div className="flex items-center gap-4 ml-3">
-            <p>
-              <span className="font-semibold">167</span>{" "}
-              <span className="home-nav-username">Following</span>
-            </p>
-            <p>
-              <span className="font-semibold">14</span>{" "}
-              <span className="home-nav-username">Followers</span>
-            </p>
-          </div>
-          <div className="flex flex-col gap-6 ml-3 mt-5">
-            <Link className="flex gap-6 text-2xl">
-              <div>
-                <FontAwesomeIcon icon="fa-regular fa-user" />
+      {showNav &&
+        <>
+          <section className="absolute z-10 h-screen home-navbar-mobile bg-black">
+            <nav className="">
+              <div className="flex px-3 justify-between items-center pt-3 pb-5">
+                <p className="t text-lg font-semibold">Account info</p>
+                <div onClick={() => {
+                  setShowNav(false)
+                }}>
+                  <FontAwesomeIcon icon="fas fa-xmark " />
+                </div>
               </div>
-              <p className="">Profile</p>
-            </Link>
-            <Link className="flex gap-6 text-2xl">
-              <div>
-                <FontAwesomeIcon icon="fa-brands fa-square-twitter" />
+              <div className="home-nav-profile-image w-12 flex mx-3 justify-center items-center">
+                <img
+                  src="https://picsum.photos/200/300"
+                  alt="user profile image"
+                  className="rounded-full w-10 h-10 max-h-10"
+                />
               </div>
-              <p className="">Tweeter Blue</p>
-            </Link>
-            <Link className="flex gap-6 text-2xl">
-              <div>
-                <FontAwesomeIcon icon="fa-regular fa-user" />
+              <p className="mx-3 font-semibold text-lg mt-2">Hail Hydra</p>
+              <p className="mx-3 home-nav-username mb-3">@general ik</p>
+              <div className="flex items-center gap-4 ml-3">
+                <p>
+                  <span className="font-semibold">167</span>{" "}
+                  <span className="home-nav-username">Following</span>
+                </p>
+                <p>
+                  <span className="font-semibold">14</span>{" "}
+                  <span className="home-nav-username">Followers</span>
+                </p>
               </div>
-              <p className="">Topics</p>
-            </Link>
-            <Link className="flex gap-6 text-2xl">
-              <div>
-                <FontAwesomeIcon icon="fa-regular fa-bookmark" />
+              <div className="flex flex-col gap-6 ml-3 mt-5">
+                <Link className="flex gap-6 text-2xl">
+                  <div>
+                    <FontAwesomeIcon icon="fa-regular fa-user" />
+                  </div>
+                  <p className="">Profile</p>
+                </Link>
+                <Link className="flex gap-6 text-2xl">
+                  <div>
+                    <FontAwesomeIcon icon="fa-brands fa-square-twitter" />
+                  </div>
+                  <p className="">Tweeter Blue</p>
+                </Link>
+                <Link className="flex gap-6 text-2xl">
+                  <div>
+                    <FontAwesomeIcon icon="fa-regular fa-user" />
+                  </div>
+                  <p className="">Topics</p>
+                </Link>
+                <Link className="flex gap-6 text-2xl">
+                  <div>
+                    <FontAwesomeIcon icon="fa-regular fa-bookmark" />
+                  </div>
+                  <p className="">Bookmarks</p>
+                </Link>
+                <Link className="flex gap-6 text-2xl">
+                  <div>
+                    <CgNotes />
+                  </div>
+                  <p className="">Lists</p>
+                </Link>
+                <Link className="flex gap-6 text-2xl">
+                  <div>
+                    <TiSocialTwitterCircular />
+                  </div>
+                  <p className="">Tweeter Circle</p>
+                </Link>
+                <Link className="flex gap-6 text-2xl">
+                  <div>
+                    <MdOutlineVerified />
+                  </div>
+                  <p className="">Verified Organizations</p>
+                </Link>
               </div>
-              <p className="">Bookmarks</p>
-            </Link>
-            <Link className="flex gap-6 text-2xl">
-              <div>
-                <CgNotes />
+              <div className="home-mobile-navbar-bottom-section mx-3 mt-4 pt-3">
+                <div
+                  className="flex justify-between items-center py-3 px-1"
+                  onClick={() => {
+                    setNdpriv ? setSetNdpriv(false) : setSetNdpriv(true);
+                  }}
+                >
+                  <p>Settings and Support</p>
+                  {setNdpriv && <MdKeyboardArrowUp />}
+                  {!setNdpriv && <MdKeyboardArrowDown />}
+                </div>
+                {setNdpriv && (
+                  <nav>
+                    <ul className="flex flex-col gap-3 mt-1">
+                      <li className="flex gap-6 text-xl items-center">
+                        <span>
+                          <AiOutlineSetting />
+                        </span>{" "}
+                        <p>Settings and privacy</p>
+                      </li>
+                      <li className="flex gap-6 text-xl items-center">
+                        <span>
+                          <BiHelpCircle />
+                        </span>{" "}
+                        <p>Help Center</p>
+                      </li>
+                      <li className="flex gap-6 text-xl items-center">
+                        <span>
+                          <FiLogOut />
+                        </span>{" "}
+                        <p>Log out</p>
+                      </li>
+                    </ul>
+                  </nav>
+                )}
               </div>
-              <p className="">Lists</p>
-            </Link>
-            <Link className="flex gap-6 text-2xl">
-              <div>
-                <TiSocialTwitterCircular />
-              </div>
-              <p className="">Tweeter Circle</p>
-            </Link>
-            <Link className="flex gap-6 text-2xl">
-              <div>
-                <MdOutlineVerified />
-              </div>
-              <p className="">Verified Organizations</p>
-            </Link>
-          </div>
-          <div className="home-mobile-navbar-bottom-section mx-3 mt-4 pt-3">
-            <div className="flex justify-between items-center py-3 px-1" onClick={() => {
-              setNdpriv ? setSetNdpriv(false) : setSetNdpriv(true)
-            }}>
-              <p>Settings and Support</p>
-              {setNdpriv && <MdKeyboardArrowUp />}
-              {!setNdpriv && <MdKeyboardArrowDown />}
-            </div>
-            {setNdpriv && <nav >
-              <ul className="flex flex-col gap-3 mt-1">
-                <li className="flex gap-6 text-xl items-center">
-                  <span>
-                    <AiOutlineSetting />
-                  </span>{" "}
-                  <p>Settings and privacy</p>
-                </li>
-                <li className="flex gap-6 text-xl items-center">
-                  <span>
-                    <BiHelpCircle />
-                  </span>{" "}
-                  <p>Help Center</p>
-                </li>
-                <li className="flex gap-6 text-xl items-center">
-                  <span>
-                    <FiLogOut />
-                  </span>{" "}
-                  <p>Log out</p>
-                </li>
-              </ul>
-            </nav>}
-          </div>
-        </nav>
-      </section>
+            </nav>
+          </section>
+          <div
+            className="absolute h-screen w-screen"
+            style={{ backgroundColor: "rgba(77, 91, 102, 0.5)" }}
+          ></div>
+        </>
+      }
       <HomeRight />
     </>
   );
