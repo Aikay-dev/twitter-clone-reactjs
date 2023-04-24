@@ -274,10 +274,15 @@
 }
 
 .main-tweet-card{
-  height: 600px;
+  height: 620px;
   border-bottom: var(--homeBorder);
   border-top: var(--homeBorder);
   margin-bottom: 300px;
+}
+
+.main-tweet-card-user-actions{
+  bottom: 2%;
+  color: rgb(113,118,123);
 }
 
 .main-tweet-card:hover{
