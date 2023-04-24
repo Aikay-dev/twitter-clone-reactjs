@@ -1058,12 +1058,18 @@
   .settings-main-tab {
     width: 320px;
   }
+
+  .home-nav-tweet-button{
+      margin-right: 15px;
+  }
 }
 
 @media screen and (max-width: 1040px) {
   .settings-main-tab {
     width: 600px;
   }
+
+  
 }
 
 @media screen and (max-width: 1050px) {
@@ -1135,6 +1141,10 @@
   .homepage {
     padding: 0 50px;
   }
+
+  .home-nav-tweet-button{
+    margin-right: 25px;
+}
 }
 
 @media screen and (max-width: 730px) {
@@ -1247,5 +1257,17 @@
 @media screen and (min-width: 500px) {
   .go-2-settings-blur {
     display: none;
+  }
+
+  
+}
+
+@media screen and (max-width: 400px) {
+  .main-tweet-card-second-half{
+    width: 250px;
+  }
+
+  .main-tweet-image{
+    width: 250px;
   }
 }
