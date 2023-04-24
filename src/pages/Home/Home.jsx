@@ -6,6 +6,7 @@ import { fab } from "@fortawesome/free-brands-svg-icons";
 import { far } from "@fortawesome/free-regular-svg-icons";
 import HomeRight from "./HomeRight";
 import TweetStream from "./dataStream/TweetStream";
+import { Link } from "react-router-dom";
 
 library.add(fas);
 library.add(fab);
@@ -16,13 +17,40 @@ const Home = () => {
     <>
       <section className="homepage-center h-screen relative overflow-hidden">
         <header className="pt-4">
-          <p className="text text-lg font-semibold pl-4 mb-3 home-main-header-text-home">Home</p>
+          <div className="pl-3 w-full mobileheader flex gap-1 sm:hidden">
+            <div className="home-nav-profile-image w-12 flex justify-center items-center">
+              <img
+                src="https://picsum.photos/200/300"
+                alt="user profile image"
+                className="rounded-full w-10 h-10 max-h-10"
+              />
+            </div>
+            <Link
+              to="/"
+              className=" home-main-bird-header w-full text-white text-2xl  pr-16 flex items-center justify-center"
+            >
+              <FontAwesomeIcon icon="fab fa-twitter" />
+            </Link>
+          </div>
+          <p className="text text-lg font-semibold pl-4 mb-3 home-main-header-text-home">
+            Home
+          </p>
           <div className="flex w-full h-14 homepage-center-top-nav">
             <button className="w-1/2 homepage-center-top-nav-foryou flex justify-center items-center">
-              <div style={{borderBottom: "2px solid rgb(29, 155, 240)"}} className="h-full flex justify-center items-center">For you</div>
+              <div
+                style={{ borderBottom: "2px solid rgb(29, 155, 240)" }}
+                className="h-full flex justify-center items-center"
+              >
+                For you
+              </div>
             </button>
             <button className="w-1/2 homepage-center-top-nav-following flex justify-center items-center">
-              <div  style={{borderBottom: "2px solid rgb(29, 155, 240)"}} className="h-full flex justify-center items-center" >Following</div>
+              <div
+                style={{ borderBottom: "2px solid rgb(29, 155, 240)" }}
+                className="h-full flex justify-center items-center"
+              >
+                Following
+              </div>
             </button>
           </div>
         </header>
@@ -57,7 +85,7 @@ const Home = () => {
             </div>
           </section>
           <section className="main-tweet-flow-section">
-            <TweetStream/>
+            <TweetStream />
           </section>
         </div>
       </section>

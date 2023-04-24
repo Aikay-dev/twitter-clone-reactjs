@@ -179,7 +179,7 @@ const Root = ({ authState, setAuthState }) => {
               {authState && (
                 <Link
                   aria-label="More"
-                  className="flex section1-main-home-icon text-xl  justify-center items-center"
+                  className="flex section1-main-home-icon text-xl mb-2 justify-center items-center"
                 >
                   <div>
                     <FontAwesomeIcon icon="fa-solid fa-ellipsis" />

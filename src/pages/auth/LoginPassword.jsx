@@ -115,8 +115,8 @@ const LoginPassword = ({ userAuth, setUserAuth }) => {
       >
         {!nextLoad && <p>Log in</p>}
         {nextLoad && (
-          <div class="loadingio-spinner-spinner-fh0bp1jsv8o">
-            <div class="ldio-zcjeuetn0iq">
+          <div className="loadingio-spinner-spinner-fh0bp1jsv8o">
+            <div className="ldio-zcjeuetn0iq">
               <div></div>
               <div></div>
               <div></div>
