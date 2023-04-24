@@ -274,15 +274,18 @@
 }
 
 .main-tweet-card{
-  height: 620px;
   border-bottom: var(--homeBorder);
   border-top: var(--homeBorder);
   margin-bottom: 300px;
 }
 
+.main-tweet-card-content{
+ 
+}
+
 .main-tweet-card-user-actions{
-  bottom: 2%;
   color: rgb(113,118,123);
+  padding-bottom: 5px;
 }
 
 .main-tweet-card:hover{
@@ -328,10 +331,11 @@
 }
 
 
-.main-tweet-card-holder {
+/* .main-tweet-card-holder {
+  height: 0;
   left: 15%;
   top: 8%;
-}
+} */
 
 .main-tweet-image{
   max-height: 1000px;
@@ -874,6 +878,14 @@
   margin-right: 12px;
 }
 
+
+
+@media screen and (max-width: 1330px) {
+  .main-tweet-image{
+    max-width: 400px;
+  }
+}
+
 @media screen and (max-width: 1280px) {
   .homepage-left {
     width: 10%;
@@ -1067,6 +1079,17 @@
   .explore-signup-card {
     width: 100%;
     height: 100%;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .main-tweet-image{
+    max-width: 300px;
+  }
+
+  .main-tweet-card-holder {
+    left: 20%;
+    top: 8%;
   }
 }
 
