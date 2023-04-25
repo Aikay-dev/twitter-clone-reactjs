@@ -12,11 +12,14 @@ import { TiSocialTwitterCircular } from "react-icons/ti";
 import {
   MdKeyboardArrowDown,
   MdKeyboardArrowUp,
+  MdMailOutline,
   MdOutlineVerified,
 } from "react-icons/md";
 import { AiOutlineSetting } from "react-icons/ai";
-import { BiHelpCircle } from "react-icons/bi";
+import { BiHelpCircle, BiSearch } from "react-icons/bi";
 import { FiLogOut } from "react-icons/fi";
+import { RiHome7Fill } from "react-icons/ri";
+/* import { HiOutlineBell } from "react-icons/hi"; */
 
 library.add(fas);
 library.add(fab);
@@ -223,6 +226,12 @@ const Home = () => {
           ></div>
         </>
       }
+      <nav className="w-screen absolute mobile-bottom-nav justify-around bottom-0 py-3 text-3xl items-center">
+        <button><RiHome7Fill/></button>
+        <button><BiSearch/></button>
+        <button><FontAwesomeIcon icon="fa-regular fa-bell" /></button>
+        <button><MdMailOutline/></button>
+      </nav>
       <HomeRight />
     </>
   );

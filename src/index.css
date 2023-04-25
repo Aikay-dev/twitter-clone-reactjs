@@ -600,6 +600,10 @@
   color: rgb(231, 233, 234);
 }
 
+.mobile-bottom-nav{
+  display: none;
+}
+
 .settings-main-tab {
   border-right: var(--homeBorder);
   width: 350px;
@@ -1291,6 +1295,11 @@ display: none;
   .signup-box-def-spacing {
     margin-left: var(--loginspacesmall);
     margin-right: var(--loginspacesmall);
+  }
+
+  .mobile-bottom-nav{
+    display: flex;
+    border-top: var(--homeBorder);
   }
 }
 
