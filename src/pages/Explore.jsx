@@ -24,7 +24,7 @@ library.add(fab);
 library.add(far);
 
 const Explore = () => {
-  console.log(auth.currentUser.email)
+  console.log(auth.currentUser)
   const ifBlur = useSelector((state) => state.user.value.display);
   const [showSignUpCard, setshowSignUpCard] = useState(false);
   const googleSignButton = (
@@ -53,13 +53,13 @@ const Explore = () => {
       )}
       <section className="homepage-center h-screen relative overflow-hidden">
         <div className="homepage-header sticky py-3 w-full flex h-16 px-4 gap-1 items-center justify-between">
-          {auth.currentUser.email === null && <Link
+          {auth.currentUser === null && <Link
             to="/"
             className=" mobile-search-box-bird text-white text-3xl rounded mr-3"
           >
             <FontAwesomeIcon icon="fab fa-twitter" />
           </Link>}
-          {auth.currentUser.email !== null && <div className="home-nav-profile-image mr-2 w-12 flex justify-center items-center" onClick={() =>{
+          {auth.currentUser !== null && <div className="home-nav-profile-image mr-2 w-12 flex justify-center items-center" onClick={() =>{
               dispatch(mobileNavLeftState(true));
               document.body.classList.add("overlay-open");
             }}>
