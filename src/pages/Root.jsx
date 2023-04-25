@@ -28,6 +28,7 @@ import {
   MdMailOutline,
   MdOutlineVerified,
 } from "react-icons/md";
+import { signOut } from "firebase/auth";
 
 library.add(fas);
 library.add(fab);
@@ -35,7 +36,20 @@ library.add(far);
 
 const Root = ({ authState, setAuthState }) => {
   const dispatch = useDispatch();
+
+  /* STATE MANAGEMENT */
   const [showExplore, setShowExplore] = useState(true);
+  const [setNdpriv, setSetNdpriv] = useState(false);
+  const [logoutspinner, setLogoutspinner] = useState(false);
+  const ifboldexp = useSelector((state) => state.exp.value.fontWeight);
+  const ifboldset = useSelector((state) => state.set.value.fontWeight);
+  const ifsetfeat = useSelector((state) => state.gotosetfeat.value);
+  const [windowWidth, SetwindowWidth] = useState(
+    window.innerWidth > 1040
+      ? "/Home/Settings/personalization"
+      : "/Home/Settings/"
+  );
+
   const mobNavleft = useSelector((state) => state.mobNavleft.value);
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((userAuthState) => {
@@ -53,18 +67,6 @@ const Root = ({ authState, setAuthState }) => {
 
     return () => unsubscribe();
   }, [dispatch]);
-
-  const [setNdpriv, setSetNdpriv] = useState(false);
-  const [showNav, setShowNav] = useState(false);
-
-  const ifboldexp = useSelector((state) => state.exp.value.fontWeight);
-  const ifboldset = useSelector((state) => state.set.value.fontWeight);
-  const ifsetfeat = useSelector((state) => state.gotosetfeat.value);
-  const [windowWidth, SetwindowWidth] = useState(
-    window.innerWidth > 1040
-      ? "/Home/Settings/personalization"
-      : "/Home/Settings/"
-  );
 
   const page = useParams();
   const navigate = useNavigate();
@@ -462,7 +464,29 @@ const Root = ({ authState, setAuthState }) => {
                         <span>
                           <FiLogOut />
                         </span>{" "}
-                        <p>Log out</p>
+                        <p
+                          onClick={() => {
+                            setLogoutspinner(true);
+                            signOut(auth)
+                              .then(() => {
+                                setLogoutspinner(false);
+                                window.location.reload();
+                                console.log("user: signed out");
+                              })
+                              .catch((err) => {
+                                console.log(err.message);
+                              });
+                          }}
+                        >
+                          Log out
+                        </p>
+                        {logoutspinner && (
+                          <div class="loadingio-spinner-rolling-o8a0fs8tskj">
+                            <div class="ldio-t5x32ssrll9">
+                              <div></div>
+                            </div>
+                          </div>
+                        )}
                       </li>
                     </ul>
                   </nav>

@@ -744,6 +744,41 @@
   color: rgb(52, 55, 57);
 }
 
+@keyframes ldio-t5x32ssrll9 {
+  0% { transform: translate(-50%,-50%) rotate(0deg); }
+  100% { transform: translate(-50%,-50%) rotate(360deg); }
+}
+
+.ldio-t5x32ssrll9 div {
+  position: absolute;
+  width: 60px;
+  height: 60px;
+  border: 10px solid var(--blueText);
+  border-top-color: transparent;
+  border-radius: 50%;
+}
+.ldio-t5x32ssrll9 div {
+  animation: ldio-t5x32ssrll9 1s linear infinite;
+  top: 50px;
+  left: 50px
+}
+.loadingio-spinner-rolling-o8a0fs8tskj {
+  width: 24px;
+  height: 24px;
+  display: inline-block;
+  overflow: hidden;
+  background: rgba(NaN, NaN, NaN, 0);
+}
+.ldio-t5x32ssrll9 {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transform: translateZ(0) scale(0.24);
+  backface-visibility: hidden;
+  transform-origin: 0 0; /* see note above */
+}
+.ldio-t5x32ssrll9 div { box-sizing: content-box; }
+
 .enter-password-login-input {
   border: var(--homeBorder);
 }
