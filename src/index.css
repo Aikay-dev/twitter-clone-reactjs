@@ -814,6 +814,11 @@
 
 .home-navbar-mobile{
 display: none;
+
+}
+
+.home-navbar-mobile::-webkit-scrollbar{
+  display: none;
 }
 
 .step-one-age-input {
