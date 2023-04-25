@@ -356,7 +356,7 @@ const Root = ({ authState, setAuthState }) => {
       {mobNavleft && (
         <>
           <section
-            className="absolute top-0 z-10 overflow-y-scroll h-screen home-navbar-mobile bg-black"
+            className="absolute top-0 z-10 overflow-y-scroll z-50 h-screen home-navbar-mobile bg-black"
             style={{ color: "rgb(240, 240, 240)" }}
           >
             <nav className="">
