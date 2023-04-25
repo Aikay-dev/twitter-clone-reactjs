@@ -276,7 +276,6 @@
 .main-tweet-card {
   border-bottom: var(--homeBorder);
   border-top: var(--homeBorder);
-  margin-bottom: 300px;
 }
 
 .main-tweet-card-user-actions::-webkit-scrollbar {
