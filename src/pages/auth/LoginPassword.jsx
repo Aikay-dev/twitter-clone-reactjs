@@ -104,6 +104,7 @@ const LoginPassword = ({ userAuth, setUserAuth }) => {
               .then((cred) => {
                 console.log("user logged in:", cred.user);
                 navigate("/Home/");
+                window.location.reload()
                 setNextLoad(false);
               })
               .catch((err) => {
