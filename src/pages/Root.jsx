@@ -17,7 +17,7 @@ import {
 import { auth } from "../config/firebase";
 import Home from "./Home/Home";
 import { AiOutlineSetting } from "react-icons/ai";
-import { BiHelpCircle, BiSearch } from "react-icons/bi";
+import { BiHelpCircle, BiHomeCircle, BiSearch } from "react-icons/bi";
 import { FiLogOut } from "react-icons/fi";
 import { RiHome7Fill } from "react-icons/ri";
 import { CgNotes } from "react-icons/cg";
@@ -29,6 +29,9 @@ import {
   MdOutlineVerified,
 } from "react-icons/md";
 import { signOut } from "firebase/auth";
+import { FaSearch } from "react-icons/fa";
+import {BsBellFill} from "react-icons/bs";
+import {MdMail} from "react-icons/md";
 
 library.add(fas);
 library.add(fab);
@@ -41,14 +44,21 @@ const Root = ({ authState, setAuthState }) => {
   const [showExplore, setShowExplore] = useState(true);
   const [setNdpriv, setSetNdpriv] = useState(false);
   const [logoutspinner, setLogoutspinner] = useState(false);
-  const ifboldexp = useSelector((state) => state.exp.value.fontWeight);
-  const ifboldset = useSelector((state) => state.set.value.fontWeight);
-  const ifsetfeat = useSelector((state) => state.gotosetfeat.value);
   const [windowWidth, SetwindowWidth] = useState(
     window.innerWidth > 1040
       ? "/Home/Settings/personalization"
       : "/Home/Settings/"
   );
+  const [homeClicked, setHomeClicked] = useState(true)
+  const [searchClicked, setsearchClicked] = useState(false)
+  const [bellClicked, setbellClicked] = useState(false)
+  const [messageClicked, setmessageClicked] = useState(false)
+
+
+
+  const ifboldexp = useSelector((state) => state.exp.value.fontWeight);
+  const ifboldset = useSelector((state) => state.set.value.fontWeight);
+  const ifsetfeat = useSelector((state) => state.gotosetfeat.value);
 
   const mobNavleft = useSelector((state) => state.mobNavleft.value);
   useEffect(() => {
@@ -325,30 +335,52 @@ const Root = ({ authState, setAuthState }) => {
           </div>
         </div>
         {authState !== null && (
-          <nav className="w-screen bg-black fixed mobile-bottom-nav justify-around bottom-0 py-3 text-2xl items-center">
+          <nav className="w-screen bg-black fixed mobile-bottom-nav h-14 justify-around bottom-0 text-2xl items-center">
             <Link
               to="/Home"
               onClick={() => {
                 dispatch(settingsChangeState({ fontWeight: 100 }));
                 dispatch(exploreChangeState({ fontWeight: "Bold" }));
+                setHomeClicked(true)
+                setsearchClicked(false)
+                setbellClicked(false)
+                setmessageClicked(false)
               }}
             >
-              <RiHome7Fill />
+              {!homeClicked && <BiHomeCircle/>}
+              {homeClicked &&<RiHome7Fill />}           
             </Link>
             <Link
               to="/Home/Explore"
               onClick={() => {
                 dispatch(settingsChangeState({ fontWeight: 100 }));
                 dispatch(exploreChangeState({ fontWeight: "Bold" }));
+                setHomeClicked(false)
+                setsearchClicked(true)
+                setbellClicked(false)
+                setmessageClicked(false)
               }}
             >
-              <BiSearch />
+              {!searchClicked && <BiSearch />}
+              {searchClicked &&<FaSearch/>}
             </Link>
-            <button>
-              <FontAwesomeIcon icon="fa-regular fa-bell" />
+            <button onClick={() => {
+              setHomeClicked(false)
+              setsearchClicked(false)
+              setbellClicked(true)
+              setmessageClicked(false)
+            }}>
+              {!bellClicked && <FontAwesomeIcon icon="fa-regular fa-bell" />}
+             {bellClicked && <BsBellFill/>}
             </button>
-            <button>
-              <MdMailOutline />
+            <button onClick={() => {
+              setHomeClicked(false)
+              setsearchClicked(false)
+              setbellClicked(false)
+              setmessageClicked(true)
+            }}>
+              {!messageClicked && <MdMailOutline />}
+              {messageClicked && <MdMail/>}
             </button>
           </nav>
         )}
