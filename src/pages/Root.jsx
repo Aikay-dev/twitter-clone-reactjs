@@ -323,7 +323,7 @@ const Root = ({ authState, setAuthState }) => {
           </div>
         </div>
         {authState !== null && (
-          <nav className="w-screen bg-black absolute mobile-bottom-nav justify-around bottom-0 py-3 text-3xl items-center">
+          <nav className="w-screen bg-black absolute mobile-bottom-nav justify-around bottom-0 py-3 text-2xl items-center">
             <Link
               to="/Home"
               onClick={() => {
