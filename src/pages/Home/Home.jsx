@@ -101,7 +101,7 @@ const Home = () => {
             <TweetStream />
           </section>
         </div>
-        <button className="floating-tweet-button text-white w-10 h-10 absolute justify-center items-center rounded-full">
+        <button className="floating-tweet-button text-white w-10 h-10 fixed justify-center items-center rounded-full">
               <FaFeatherAlt/>
         </button>
       </section>
