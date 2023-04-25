@@ -1300,6 +1300,7 @@ display: none;
   .mobile-bottom-nav{
     display: flex;
     border-top: var(--homeBorder);
+    color: white;
   }
 }
 
@@ -1317,4 +1318,14 @@ display: none;
   .main-tweet-image {
     width: 250px;
   }
+
+  .home-navbar-mobile{
+    width: 300px;
+    }
+}
+
+@media screen and (max-width: 300px) {
+  .home-navbar-mobile{
+    width: 100vw;
+    }
 }

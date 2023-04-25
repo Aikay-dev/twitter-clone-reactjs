@@ -10,6 +10,16 @@ const userAuthStateSlice = createSlice({
   },
 });
 
+const mobileNavLeftSlice = createSlice({
+  name: "mobileNavLeftState",
+  initialState: { value: false },
+  reducers: {
+    changeState: (state, action) => {
+      state.value = action.payload;
+    },
+  },
+});
+
 const userSlice = createSlice({
   name: "blurHomeBackground",
   initialState: { value: { display: "none" } },
@@ -78,6 +88,7 @@ export const { changeState: settingsChangeState } = settingSlice.actions;
 export const { changeState: checkboxsettingsChangeState } = settingsCheckboxStyleSlice.actions;
 export const { changeState: setGoToSettingsFeat } = goToSettingsFeatSlice.actions;
 export const { changeState: checkAuthState } = userAuthStateSlice.actions;
+export const { changeState: mobileNavLeftState } = mobileNavLeftSlice.actions;
 
 export const store = configureStore({
   reducer: {
@@ -87,6 +98,7 @@ export const store = configureStore({
     peras: personalizationConfirmationStyleSlice.reducer,
     setchbx: settingsCheckboxStyleSlice.reducer,
     gotosetfeat: goToSettingsFeatSlice.reducer,
-    userAuth: userAuthStateSlice.reducer
+    userAuth: userAuthStateSlice.reducer,
+    mobNavleft: mobileNavLeftSlice.reducer
   },
 });

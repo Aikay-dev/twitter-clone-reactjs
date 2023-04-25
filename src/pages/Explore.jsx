@@ -48,13 +48,22 @@ const Explore = () => {
         </div>
       )}
       <section className="homepage-center h-screen relative overflow-hidden">
-        <div className="homepage-header sticky py-3 w-full flex h-16 px-5 items-center justify-between">
-          <Link
+        <div className="homepage-header sticky py-3 w-full flex h-16 px-4 gap-1 items-center justify-between">
+          { <Link
             to="/"
             className=" mobile-search-box-bird text-white text-3xl rounded mr-3"
           >
             <FontAwesomeIcon icon="fab fa-twitter" />
-          </Link>
+          </Link>}
+          {false && <div className="home-nav-profile-image mr-2 w-12 flex justify-center items-center" onClick={() =>{
+              setShowNav(true)
+            }}>
+              <img
+                src="https://picsum.photos/200/300"
+                alt="user profile image"
+                className="rounded-full w-10 h-10 max-h-10"
+              />
+          </div>}
           <SearchBar/>
           <Link
             onClick={() => {
