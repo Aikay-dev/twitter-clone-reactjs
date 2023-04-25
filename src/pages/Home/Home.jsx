@@ -9,6 +9,7 @@ import TweetStream from "./dataStream/TweetStream";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { mobileNavLeftState } from "../../store";
+import { FaFeatherAlt } from "react-icons/fa";
 
 library.add(fas);
 library.add(fab);
@@ -100,6 +101,9 @@ const Home = () => {
             <TweetStream />
           </section>
         </div>
+        <button className="floating-tweet-button text-white w-10 h-10 absolute justify-center items-center rounded-full">
+              <FaFeatherAlt/>
+        </button>
       </section>
 
       <HomeRight />

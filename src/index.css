@@ -273,6 +273,13 @@
   display: none;
 }
 
+.floating-tweet-button{
+  display: none;
+  background-color: var(--blueText);
+  bottom: 12%;
+  right: 8%;
+}
+
 .main-tweet-card {
   border-bottom: var(--homeBorder);
   border-top: var(--homeBorder);
@@ -1282,6 +1289,10 @@
 @media screen and (max-width: 500px) {
   .homepage-center {
     width: 100%;
+  }
+
+  .floating-tweet-button{
+    display: flex;
   }
 
   .home-navbar-mobile {
