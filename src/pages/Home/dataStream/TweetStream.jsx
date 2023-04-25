@@ -191,7 +191,7 @@ const TweetStream = () => {
           <div className="main-tweet-card-content overflow-x-hidden">
             <p>hello world</p>
             <img
-              src="https://pbs.twimg.com/media/FuWY7lpX0AAu-LH?format=jpg&name=small"
+              src="https://pbs.twimg.com/media/Fui5wNbWYAEVRwq?format=jpg&name=small"
               alt=""
               className="main-tweet-image"
             />
@@ -249,10 +249,10 @@ const TweetStream = () => {
           <div className="flex justify-between w-full pr-2 mt-3">
             <div className="flex items-center">
               <p className="main-tweet-card-display-name font-semibold mr-2 whitespace-nowrap flex-wrap ">
-                Elon Musk
+                B.O.D
               </p>
               <p className="text-sm main-tweet-card-username whitespace-nowrap">
-                @elonmusk . Apr 22
+              @bod_republic · 11h
               </p>
             </div>
             <div className="">
@@ -262,12 +262,8 @@ const TweetStream = () => {
             </div>
           </div>
           <div className="main-tweet-card-content overflow-x-hidden">
-            <p>hello world</p>
-            <img
-              src="https://pbs.twimg.com/media/FuWY7lpX0AAu-LH?format=jpg&name=small"
-              alt=""
-              className="main-tweet-image"
-            />
+            <p>The most common name in Nigeria?</p>
+            
             <div className="main-tweet-card-user-actions flex w-full pt-2 gap-6 overflow-x-scroll">
               <Link
                 className="flex gap-3 items-center main-tweet-comment-icon"

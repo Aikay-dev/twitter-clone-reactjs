@@ -22,7 +22,7 @@ const Home = () => {
   return (
     <>
       <section className="homepage-center h-screen relative overflow-hidden">
-        <header className="pt-4 fixed z-30 bg-black w-full">
+        <header className="pt-4 fixed z-30 top-mobile-nav w-full">
           <div className="pl-3 w-full mobileheader flex gap-1 sm:hidden">
             <div
               className="home-nav-profile-image w-12 flex justify-center items-center"
