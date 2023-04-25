@@ -12,6 +12,7 @@ import {
   settingsChangeState,
   setGoToSettingsFeat,
   checkAuthState,
+  mobileNavLeftState
 } from "../store";
 import { auth } from "../config/firebase";
 import Home from "./Home/Home";
@@ -35,7 +36,7 @@ library.add(far);
 const Root = ({ authState, setAuthState }) => {
   const dispatch = useDispatch();
   const [showExplore, setShowExplore] = useState(true);
-
+  const mobNavleft = useSelector(state => state.mobNavleft.value);
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((userAuthState) => {
       if (userAuthState !== null) {
@@ -54,7 +55,7 @@ const Root = ({ authState, setAuthState }) => {
   }, [dispatch]);
 
   const [setNdpriv, setSetNdpriv] = useState(false);
-  const [showNav, setShowNav] = useState(false)
+  const [showNav, setShowNav] = useState(false);
 
   const ifboldexp = useSelector((state) => state.exp.value.fontWeight);
   const ifboldset = useSelector((state) => state.set.value.fontWeight);
@@ -68,7 +69,7 @@ const Root = ({ authState, setAuthState }) => {
   const page = useParams();
   const navigate = useNavigate();
   const currentLocation = window.location.pathname;
-  console.log(authState)
+  console.log(authState);
   return (
     <>
       <div className="bg-black flex justify-center">
@@ -321,148 +322,157 @@ const Root = ({ authState, setAuthState }) => {
             </button>
           </div>
         </div>
-        {authState !== null && <nav className="w-screen bg-black absolute mobile-bottom-nav justify-around bottom-0 py-3 text-3xl items-center">
-          <Link to="/Home"
-                  onClick={() => {
-                    dispatch(settingsChangeState({ fontWeight: 100 }));
-                    dispatch(exploreChangeState({ fontWeight: "Bold" }));
-                  }}>
-            <RiHome7Fill />
-          </Link>
-          <Link to="/Home/Explore"
-                  onClick={() => {
-                    dispatch(settingsChangeState({ fontWeight: 100 }));
-                    dispatch(exploreChangeState({ fontWeight: "Bold" }));
-                  }}>
-            <BiSearch />
-          </Link>
-          <button>
-            <FontAwesomeIcon icon="fa-regular fa-bell" />
-          </button>
-          <button>
-            <MdMailOutline />
-          </button>
-        </nav>}
-        {showNav &&
-        <>
-          <section className="absolute z-10 h-screen home-navbar-mobile bg-black">
-            <nav className="">
-              <div className="flex px-3 justify-between items-center pt-3 pb-5">
-                <p className="t text-lg font-semibold">Account info</p>
-                <div onClick={() => {
-                  setShowNav(false)
-                }}>
-                  <FontAwesomeIcon icon="fas fa-xmark " />
-                </div>
-              </div>
-              <div className="home-nav-profile-image w-12 flex mx-3 justify-center items-center">
-                <img
-                  src="https://picsum.photos/200/300"
-                  alt="user profile image"
-                  className="rounded-full w-10 h-10 max-h-10"
-                />
-              </div>
-              <p className="mx-3 font-semibold text-lg mt-2">Hail Hydra</p>
-              <p className="mx-3 home-nav-username mb-3">@general ik</p>
-              <div className="flex items-center gap-4 ml-3">
-                <p>
-                  <span className="font-semibold">167</span>{" "}
-                  <span className="home-nav-username">Following</span>
-                </p>
-                <p>
-                  <span className="font-semibold">14</span>{" "}
-                  <span className="home-nav-username">Followers</span>
-                </p>
-              </div>
-              <div className="flex flex-col gap-6 ml-3 mt-5">
-                <Link className="flex gap-6 text-2xl">
-                  <div>
-                    <FontAwesomeIcon icon="fa-regular fa-user" />
-                  </div>
-                  <p className="">Profile</p>
-                </Link>
-                <Link className="flex gap-6 text-2xl">
-                  <div>
-                    <FontAwesomeIcon icon="fa-brands fa-square-twitter" />
-                  </div>
-                  <p className="">Tweeter Blue</p>
-                </Link>
-                <Link className="flex gap-6 text-2xl">
-                  <div>
-                    <FontAwesomeIcon icon="fa-regular fa-user" />
-                  </div>
-                  <p className="">Topics</p>
-                </Link>
-                <Link className="flex gap-6 text-2xl">
-                  <div>
-                    <FontAwesomeIcon icon="fa-regular fa-bookmark" />
-                  </div>
-                  <p className="">Bookmarks</p>
-                </Link>
-                <Link className="flex gap-6 text-2xl">
-                  <div>
-                    <CgNotes />
-                  </div>
-                  <p className="">Lists</p>
-                </Link>
-                <Link className="flex gap-6 text-2xl">
-                  <div>
-                    <TiSocialTwitterCircular />
-                  </div>
-                  <p className="">Tweeter Circle</p>
-                </Link>
-                <Link className="flex gap-6 text-2xl">
-                  <div>
-                    <MdOutlineVerified />
-                  </div>
-                  <p className="">Verified Organizations</p>
-                </Link>
-              </div>
-              <div className="home-mobile-navbar-bottom-section mx-3 mt-4 pt-3">
-                <div
-                  className="flex justify-between items-center py-3 px-1"
-                  onClick={() => {
-                    setNdpriv ? setSetNdpriv(false) : setSetNdpriv(true);
-                  }}
-                >
-                  <p>Settings and Support</p>
-                  {setNdpriv && <MdKeyboardArrowUp />}
-                  {!setNdpriv && <MdKeyboardArrowDown />}
-                </div>
-                {setNdpriv && (
-                  <nav>
-                    <ul className="flex flex-col gap-3 mt-1">
-                      <li className="flex gap-6 text-xl items-center">
-                        <span>
-                          <AiOutlineSetting />
-                        </span>{" "}
-                        <p>Settings and privacy</p>
-                      </li>
-                      <li className="flex gap-6 text-xl items-center">
-                        <span>
-                          <BiHelpCircle />
-                        </span>{" "}
-                        <p>Help Center</p>
-                      </li>
-                      <li className="flex gap-6 text-xl items-center">
-                        <span>
-                          <FiLogOut />
-                        </span>{" "}
-                        <p>Log out</p>
-                      </li>
-                    </ul>
-                  </nav>
-                )}
-              </div>
-            </nav>
-          </section>
-          <div
-            className="absolute h-screen w-screen"
-            style={{ backgroundColor: "rgba(77, 91, 102, 0.5)" }}
-          ></div>
-        </>
-      }
+        {authState !== null && (
+          <nav className="w-screen bg-black absolute mobile-bottom-nav justify-around bottom-0 py-3 text-3xl items-center">
+            <Link
+              to="/Home"
+              onClick={() => {
+                dispatch(settingsChangeState({ fontWeight: 100 }));
+                dispatch(exploreChangeState({ fontWeight: "Bold" }));
+              }}
+            >
+              <RiHome7Fill />
+            </Link>
+            <Link
+              to="/Home/Explore"
+              onClick={() => {
+                dispatch(settingsChangeState({ fontWeight: 100 }));
+                dispatch(exploreChangeState({ fontWeight: "Bold" }));
+              }}
+            >
+              <BiSearch />
+            </Link>
+            <button>
+              <FontAwesomeIcon icon="fa-regular fa-bell" />
+            </button>
+            <button>
+              <MdMailOutline />
+            </button>
+          </nav>
+        )}
+        
       </div>
+      {mobNavleft && (
+          <>
+            <section className="absolute top-0 z-10 h-screen home-navbar-mobile bg-black" style={{color: "rgb(240, 240, 240)"}}>
+              <nav className="">
+                <div className="flex px-3 justify-between items-center pt-3 pb-5">
+                  <p className="t text-lg font-semibold">Account info</p>
+                  <div
+                    onClick={() => {
+                      dispatch(mobileNavLeftState(false));
+                    }}
+                  >
+                    <FontAwesomeIcon icon="fas fa-xmark " />
+                  </div>
+                </div>
+                <div className="home-nav-profile-image w-12 flex mx-3 justify-center items-center">
+                  <img
+                    src="https://picsum.photos/200/300"
+                    alt="user profile image"
+                    className="rounded-full w-10 h-10 max-h-10"
+                  />
+                </div>
+                <p className="mx-3 font-semibold text-lg mt-2">Hail Hydra</p>
+                <p className="mx-3 home-nav-username mb-3">@general ik</p>
+                <div className="flex items-center gap-4 ml-3">
+                  <p>
+                    <span className="font-semibold">167</span>{" "}
+                    <span className="home-nav-username">Following</span>
+                  </p>
+                  <p>
+                    <span className="font-semibold">14</span>{" "}
+                    <span className="home-nav-username">Followers</span>
+                  </p>
+                </div>
+                <div className="flex flex-col gap-6 ml-3 mt-5">
+                  <Link className="flex gap-6 text-2xl">
+                    <div>
+                      <FontAwesomeIcon icon="fa-regular fa-user" />
+                    </div>
+                    <p className="">Profile</p>
+                  </Link>
+                  <Link className="flex gap-6 text-2xl">
+                    <div>
+                      <FontAwesomeIcon icon="fa-brands fa-square-twitter" />
+                    </div>
+                    <p className="">Tweeter Blue</p>
+                  </Link>
+                  <Link className="flex gap-6 text-2xl">
+                    <div>
+                      <FontAwesomeIcon icon="fa-regular fa-user" />
+                    </div>
+                    <p className="">Topics</p>
+                  </Link>
+                  <Link className="flex gap-6 text-2xl">
+                    <div>
+                      <FontAwesomeIcon icon="fa-regular fa-bookmark" />
+                    </div>
+                    <p className="">Bookmarks</p>
+                  </Link>
+                  <Link className="flex gap-6 text-2xl">
+                    <div>
+                      <CgNotes />
+                    </div>
+                    <p className="">Lists</p>
+                  </Link>
+                  <Link className="flex gap-6 text-2xl">
+                    <div>
+                      <TiSocialTwitterCircular />
+                    </div>
+                    <p className="">Tweeter Circle</p>
+                  </Link>
+                  <Link className="flex gap-6 text-2xl">
+                    <div>
+                      <MdOutlineVerified />
+                    </div>
+                    <p className="">Verified Organizations</p>
+                  </Link>
+                </div>
+                <div className="home-mobile-navbar-bottom-section mx-3 mt-4 pt-3">
+                  <div
+                    className="flex justify-between items-center py-3 px-1"
+                    onClick={() => {
+                      setNdpriv ? setSetNdpriv(false) : setSetNdpriv(true);
+                    }}
+                  >
+                    <p>Settings and Support</p>
+                    {setNdpriv && <MdKeyboardArrowUp />}
+                    {!setNdpriv && <MdKeyboardArrowDown />}
+                  </div>
+                  {setNdpriv && (
+                    <nav>
+                      <ul className="flex flex-col gap-3 mt-1">
+                        <li className="flex gap-6 text-xl items-center">
+                          <span>
+                            <AiOutlineSetting />
+                          </span>{" "}
+                          <p>Settings and privacy</p>
+                        </li>
+                        <li className="flex gap-6 text-xl items-center">
+                          <span>
+                            <BiHelpCircle />
+                          </span>{" "}
+                          <p>Help Center</p>
+                        </li>
+                        <li className="flex gap-6 text-xl items-center">
+                          <span>
+                            <FiLogOut />
+                          </span>{" "}
+                          <p>Log out</p>
+                        </li>
+                      </ul>
+                    </nav>
+                  )}
+                </div>
+              </nav>
+            </section>
+            <div
+              className="absolute top-0 h-screen w-screen"
+              style={{ backgroundColor: "rgba(77, 91, 102, 0.5)" }}
+            ></div>
+          </>
+        )}
     </>
   );
 };

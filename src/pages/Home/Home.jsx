@@ -7,23 +7,29 @@ import { far } from "@fortawesome/free-regular-svg-icons";
 import HomeRight from "./HomeRight";
 import TweetStream from "./dataStream/TweetStream";
 import { Link } from "react-router-dom";
-
+import { useSelector, useDispatch } from "react-redux";
+import { mobileNavLeftState } from "../../store";
 
 library.add(fas);
 library.add(fab);
 library.add(far);
 
 const Home = () => {
-  const [showNav, setShowNav] = useState(false)
+  const dispatch = useDispatch();
+  const mobNavleft = useSelector(state => state.mobNavleft.value);
 
   return (
     <>
       <section className="homepage-center h-screen relative overflow-hidden">
         <header className="pt-4">
           <div className="pl-3 w-full mobileheader flex gap-1 sm:hidden">
-            <div className="home-nav-profile-image w-12 flex justify-center items-center" onClick={() =>{
-              setShowNav(true)
-            }}>
+            <div
+              className="home-nav-profile-image w-12 flex justify-center items-center"
+              onClick={() => {
+                dispatch(mobileNavLeftState(true));
+                console.log(mobNavleft)
+              }}
+            >
               <img
                 src="https://picsum.photos/200/300"
                 alt="user profile image"
@@ -94,8 +100,7 @@ const Home = () => {
           </section>
         </div>
       </section>
-      
-      
+
       <HomeRight />
     </>
   );

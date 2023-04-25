@@ -343,6 +343,14 @@
   max-width: 500px;
 }
 
+.main-tweet-card-first-half{
+  width: 10%;
+}
+
+.main-tweet-card-second-half{
+  width: 90%;
+}
+
 .homepage-header-searchbox {
   width: 500px;
   background-color: rgb(32, 35, 39);
@@ -916,10 +924,7 @@ display: none;
   box-sizing: content-box;
 }
 
-/* .step-one-next-button{
-  background-color: rgb(255, 255, 255);
-  
-} */
+
 
 .step-2-text-check-your {
   margin-left: var(--loginspace);
@@ -991,9 +996,7 @@ display: none;
 }
 
 @media screen and (max-width: 1330px) {
-  .main-tweet-image {
-    max-width: 400px;
-  }
+  
 }
 
 @media screen and (max-width: 1280px) {
@@ -1094,6 +1097,14 @@ display: none;
 
   .home-nav-acc-button {
     margin-right: 15px;
+  }
+
+  .main-tweet-image{
+    width: 100%;
+  }
+
+  .main-tweet-card{
+    padding-right: 10px;
   }
 }
 
@@ -1206,20 +1217,32 @@ display: none;
     width: 100%;
     height: 100%;
   }
+
+  .main-card-profile-pic{
+    min-width: 50px;
+    margin-right: 20px;
+  }
+
+  .main-tweet-card-second-half{
+    width: 100%;
+  }
+
+  .main-tweet-card-first-half{
+    min-width: 50px;
+    display: flex;
+    justify-content: center;
+  }
 }
 
 @media screen and (max-width: 600px) {
-  .main-tweet-image {
-    max-width: 300px;
-  }
 
   .main-tweet-card-holder {
     left: 20%;
     top: 8%;
   }
 
-  .main-tweet-card-second-half {
-    width: 300px;
+  .main-tweet-card-second-half{
+    width: 80%;
   }
 }
 
@@ -1311,13 +1334,6 @@ display: none;
 }
 
 @media screen and (max-width: 400px) {
-  .main-tweet-card-second-half {
-    width: 250px;
-  }
-
-  .main-tweet-image {
-    width: 250px;
-  }
 
   .home-navbar-mobile{
     width: 300px;

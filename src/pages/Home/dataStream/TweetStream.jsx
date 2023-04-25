@@ -17,11 +17,11 @@ library.add(far);
 const TweetStream = () => {
   return (
     <div className="main-tweet-card w-full relative cursor-pointer flex">
-      <div className="mt-3 ml-4">
+      <div className="mt-3 ml-4 main-tweet-card-first-half">
         <img
           src="https://picsum.photos/200/300"
           alt="user profile image"
-          className="rounded-full h-12 min-w-12 w-12 max-w-14 mr-5 cursor-pointer"
+          className="rounded-full h-12 min-w-12 w-12 max-w-14 mr-5 cursor-pointer main-card-profile-pic"
         />
       </div>
 
@@ -31,7 +31,7 @@ const TweetStream = () => {
             <p className="main-tweet-card-display-name font-semibold mr-2 whitespace-nowrap flex-wrap ">
               Elon Musk
             </p>
-            <p className="text-sm main-tweet-card-username">
+            <p className="text-sm main-tweet-card-username whitespace-nowrap">
               @elonmusk . Apr 22
             </p>
           </div>
