@@ -389,50 +389,50 @@ const Root = ({ authState, setAuthState }) => {
                 </p>
               </div>
               <div className="flex flex-col gap-6 ml-3 mt-5">
-                <Link className="flex gap-6 text-2xl">
+                <Link className="flex gap-6 text-xl">
                   <div>
                     <FontAwesomeIcon icon="fa-regular fa-user" />
                   </div>
-                  <p className="">Profile</p>
+                  <p className="f font-semibold">Profile</p>
                 </Link>
-                <Link className="flex gap-6 text-2xl">
+                <Link className="flex gap-6 text-xl">
                   <div>
                     <FontAwesomeIcon icon="fa-brands fa-square-twitter" />
                   </div>
-                  <p className="">Tweeter Blue</p>
+                  <p className="f font-semibold">Tweeter Blue</p>
                 </Link>
-                <Link className="flex gap-6 text-2xl">
+                <Link className="flex gap-6 text-xl">
                   <div>
                     <FontAwesomeIcon icon="fa-regular fa-user" />
                   </div>
-                  <p className="">Topics</p>
+                  <p className="f font-semibold">Topics</p>
                 </Link>
-                <Link className="flex gap-6 text-2xl">
+                <Link className="flex gap-6 text-xl">
                   <div>
                     <FontAwesomeIcon icon="fa-regular fa-bookmark" />
                   </div>
-                  <p className="">Bookmarks</p>
+                  <p className="f font-semibold">Bookmarks</p>
                 </Link>
-                <Link className="flex gap-6 text-2xl">
+                <Link className="flex gap-6 text-xl">
                   <div>
                     <CgNotes />
                   </div>
-                  <p className="">Lists</p>
+                  <p className="f font-semibold">Lists</p>
                 </Link>
-                <Link className="flex gap-6 text-2xl">
+                <Link className="flex gap-6 text-xl">
                   <div>
                     <TiSocialTwitterCircular />
                   </div>
-                  <p className="">Tweeter Circle</p>
+                  <p className="f font-semibold">Tweeter Circle</p>
                 </Link>
-                <Link className="flex gap-6 text-2xl">
+                <Link className="flex gap-6 text-xl">
                   <div>
                     <MdOutlineVerified />
                   </div>
-                  <p className="">Verified Organizations</p>
+                  <p className="f font-semibold">Verified Organizations</p>
                 </Link>
               </div>
-              <div className="home-mobile-navbar-bottom-section mx-3 mt-4 pt-3">
+              <div className="home-mobile-navbar-bottom-section mx-3 mt-4 mb-20 pt-3">
                 <div
                   className="flex justify-between items-center py-3 px-1"
                   onClick={() => {
