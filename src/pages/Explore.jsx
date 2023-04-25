@@ -16,12 +16,15 @@ import { useLocation, Outlet } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import SignUp from "./auth/SignUp";
 import SearchBar from "../components/SearchBar";
+import { auth } from "../config/firebase";
+import { mobileNavLeftState } from "../store";
 
 library.add(fas);
 library.add(fab);
 library.add(far);
 
 const Explore = () => {
+  console.log(auth.currentUser.email)
   const ifBlur = useSelector((state) => state.user.value.display);
   const [showSignUpCard, setshowSignUpCard] = useState(false);
   const googleSignButton = (
@@ -40,6 +43,7 @@ const Explore = () => {
   let currentDate = new Date();
   const join_create_account = "Create account";
   const dispatch = useDispatch();
+  const mobNavleft = useSelector(state => state.mobNavleft.value);
   return (
     <>
       {showSignUpCard && (
@@ -49,14 +53,15 @@ const Explore = () => {
       )}
       <section className="homepage-center h-screen relative overflow-hidden">
         <div className="homepage-header sticky py-3 w-full flex h-16 px-4 gap-1 items-center justify-between">
-          { <Link
+          {auth.currentUser.email === null && <Link
             to="/"
             className=" mobile-search-box-bird text-white text-3xl rounded mr-3"
           >
             <FontAwesomeIcon icon="fab fa-twitter" />
           </Link>}
-          {false && <div className="home-nav-profile-image mr-2 w-12 flex justify-center items-center" onClick={() =>{
-              setShowNav(true)
+          {auth.currentUser.email !== null && <div className="home-nav-profile-image mr-2 w-12 flex justify-center items-center" onClick={() =>{
+              dispatch(mobileNavLeftState(true));
+              document.body.classList.add("overlay-open");
             }}>
               <img
                 src="https://picsum.photos/200/300"

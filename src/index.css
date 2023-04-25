@@ -343,11 +343,11 @@
   max-width: 500px;
 }
 
-.main-tweet-card-first-half{
+.main-tweet-card-first-half {
   width: 10%;
 }
 
-.main-tweet-card-second-half{
+.main-tweet-card-second-half {
   width: 90%;
 }
 
@@ -448,7 +448,7 @@
   justify-content: center;
 }
 
-.home-mobile-navbar-bottom-section{
+.home-mobile-navbar-bottom-section {
   border-top: var(--homeBorder);
 }
 
@@ -608,7 +608,7 @@
   color: rgb(231, 233, 234);
 }
 
-.mobile-bottom-nav{
+.mobile-bottom-nav {
   display: none;
 }
 
@@ -806,19 +806,16 @@
   margin-right: 85px;
 }
 
-
-.home-main-bird-header{
-  
+.home-main-bird-header {
   color: var(--blueText);
 }
 
-.home-navbar-mobile{
-display: none;
-padding-bottom: 20px;
-
+.home-navbar-mobile {
+  display: none;
+  padding-bottom: 20px;
 }
 
-.home-navbar-mobile::-webkit-scrollbar{
+.home-navbar-mobile::-webkit-scrollbar {
   display: none;
 }
 
@@ -930,8 +927,6 @@ padding-bottom: 20px;
   box-sizing: content-box;
 }
 
-
-
 .step-2-text-check-your {
   margin-left: var(--loginspace);
   margin-right: var(--loginspace);
@@ -1002,7 +997,6 @@ padding-bottom: 20px;
 }
 
 @media screen and (max-width: 1330px) {
-  
 }
 
 @media screen and (max-width: 1280px) {
@@ -1105,11 +1099,11 @@ padding-bottom: 20px;
     margin-right: 15px;
   }
 
-  .main-tweet-image{
+  .main-tweet-image {
     width: 100%;
   }
 
-  .main-tweet-card{
+  .main-tweet-card {
     padding-right: 10px;
   }
 }
@@ -1224,16 +1218,16 @@ padding-bottom: 20px;
     height: 100%;
   }
 
-  .main-card-profile-pic{
+  .main-card-profile-pic {
     min-width: 50px;
     margin-right: 20px;
   }
 
-  .main-tweet-card-second-half{
+  .main-tweet-card-second-half {
     width: 100%;
   }
 
-  .main-tweet-card-first-half{
+  .main-tweet-card-first-half {
     min-width: 50px;
     display: flex;
     justify-content: center;
@@ -1241,13 +1235,12 @@ padding-bottom: 20px;
 }
 
 @media screen and (max-width: 600px) {
-
   .main-tweet-card-holder {
     left: 20%;
     top: 8%;
   }
 
-  .main-tweet-card-second-half{
+  .main-tweet-card-second-half {
     width: 80%;
   }
 }
@@ -1257,10 +1250,10 @@ padding-bottom: 20px;
     width: 100%;
   }
 
-  .home-navbar-mobile{
+  .home-navbar-mobile {
     display: block;
     width: 350px;
-    }
+  }
 
   .main-settings-navigation-arrow {
     display: flex;
@@ -1326,7 +1319,7 @@ padding-bottom: 20px;
     margin-right: var(--loginspacesmall);
   }
 
-  .mobile-bottom-nav{
+  .mobile-bottom-nav {
     display: flex;
     border-top: var(--homeBorder);
     color: white;
@@ -1340,14 +1333,13 @@ padding-bottom: 20px;
 }
 
 @media screen and (max-width: 400px) {
-
-  .home-navbar-mobile{
+  .home-navbar-mobile {
     width: 300px;
-    }
+  }
 }
 
 @media screen and (max-width: 300px) {
-  .home-navbar-mobile{
+  .home-navbar-mobile {
     width: 100vw;
-    }
+  }
 }

@@ -362,6 +362,7 @@ const Root = ({ authState, setAuthState }) => {
                 <p className="t text-lg font-semibold">Account info</p>
                 <div
                   onClick={() => {
+                    document.body.classList.remove("overlay-open");
                     dispatch(mobileNavLeftState(false));
                   }}
                 >

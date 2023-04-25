@@ -27,6 +27,7 @@ const Home = () => {
               className="home-nav-profile-image w-12 flex justify-center items-center"
               onClick={() => {
                 dispatch(mobileNavLeftState(true));
+                document.body.classList.add("overlay-open");
                 console.log(mobNavleft)
               }}
             >
