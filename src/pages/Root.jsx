@@ -231,6 +231,7 @@ const Root = ({ authState, setAuthState }) => {
                 <Link
                   aria-label="Notifications"
                   className="flex section1-main-home-icon-long-notif text-xl  justify-center items-center"
+                  to= "/Home/Notifications"
                 >
                   <div>
                     <FontAwesomeIcon icon="fa-regular fa-bell" />
@@ -242,6 +243,7 @@ const Root = ({ authState, setAuthState }) => {
                 <Link
                   aria-label="Messages"
                   className="flex section1-main-home-icon-long-messge text-xl  justify-center items-center"
+                  to= "/Home/Messages"
                 >
                   <div>
                     <FontAwesomeIcon icon="fa-regular fa-envelope" />
@@ -253,6 +255,7 @@ const Root = ({ authState, setAuthState }) => {
                 <Link
                   aria-label="Bookmarks"
                   className="flex section1-main-home-icon-long-bkmrk text-xl  justify-center items-center"
+                  to= "/Home/Bookmarks"
                 >
                   <div>
                     <FontAwesomeIcon icon="fa-regular fa-bookmark" />
@@ -264,6 +267,7 @@ const Root = ({ authState, setAuthState }) => {
                 <Link
                   aria-label="Tweeter Blue"
                   className="flex section1-main-home-icon-long text-xl  justify-center items-center"
+                  to= "/Home/Tweeter Blue"
                 >
                   <div>
                     <FontAwesomeIcon icon="fa-brands fa-square-twitter" />
@@ -277,6 +281,7 @@ const Root = ({ authState, setAuthState }) => {
                 <Link
                   aria-label="Profile"
                   className="flex section1-main-home-icon-profile text-xl  justify-center items-center"
+                  to= "/Home/Profile"
                 >
                   <div>
                     <FontAwesomeIcon icon="fa-regular fa-user" />

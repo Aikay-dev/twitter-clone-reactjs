@@ -17,7 +17,7 @@ const SearchBar = () => {
         className="homepage-header-searchbox h-10 rounded-full outline-none pl-16"
         placeholder="Search Tweeter"
       />
-      <label className="homepage-header-label absolute left-12 top-5 outline-none">
+      <label className="homepage-header-label absolute left-28 top-5 outline-none">
         <FontAwesomeIcon icon="fas fa-magnifying-glass" />
       </label>
     </div>

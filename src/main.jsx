@@ -18,6 +18,11 @@ import Explore from "./pages/Explore";
 import PersonalizationAndData from "./pages/settings/PersonalizationAndData";
 import TweeterData from "./pages/settings/TweeterData";
 import AdditionalResources from "./pages/settings/AdditionalResources";
+import TweeterBluePage from "./pages/TweeterBluePage";
+import ProfilePage from "./pages/ProfilePage";
+import NotificationPage from "./pages/NotificationPage";
+import MessagesPage from "./pages/MessagesPage";
+import BookmarksPage from "./pages/BookmarksPage";
 
 const router = createBrowserRouter([
   {
@@ -68,6 +73,21 @@ const router = createBrowserRouter([
             element: <SignUp />,
           },
         ]
+      },{
+        path: "Bookmarks",
+        element: <BookmarksPage />,
+      },{
+        path: "Messages",
+        element: <MessagesPage />,
+      },{
+        path: "Notifications",
+        element: <NotificationPage />,
+      },{
+        path: "Profile",
+        element: <ProfilePage />,
+      },{
+        path: "Tweeter Blue",
+        element: <TweeterBluePage />,
       },
     ],
   },

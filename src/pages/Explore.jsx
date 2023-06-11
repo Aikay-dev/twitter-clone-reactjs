@@ -24,7 +24,7 @@ library.add(fab);
 library.add(far);
 
 const Explore = () => {
-  console.log(auth.currentUser)
+  console.log(auth.currentUser);
   const ifBlur = useSelector((state) => state.user.value.display);
   const [showSignUpCard, setshowSignUpCard] = useState(false);
   const googleSignButton = (
@@ -43,7 +43,7 @@ const Explore = () => {
   let currentDate = new Date();
   const join_create_account = "Create account";
   const dispatch = useDispatch();
-  const mobNavleft = useSelector(state => state.mobNavleft.value);
+  const mobNavleft = useSelector((state) => state.mobNavleft.value);
   return (
     <>
       {showSignUpCard && (
@@ -53,23 +53,30 @@ const Explore = () => {
       )}
       <section className="homepage-center h-screen relative overflow-hidden">
         <div className="homepage-header sticky py-3 w-full flex h-16 px-4 gap-1 items-center justify-between">
-          {auth.currentUser === null && <Link
-            to="/"
-            className=" mobile-search-box-bird text-white text-3xl rounded mr-3"
-          >
-            <FontAwesomeIcon icon="fab fa-twitter" />
-          </Link>}
-          {auth.currentUser !== null && <div className="home-nav-profile-image mr-2 w-12 flex justify-center items-center" onClick={() =>{
-              dispatch(mobileNavLeftState(true));
-              document.body.classList.add("overlay-open");
-            }}>
+          {auth.currentUser === null && (
+            <Link
+              to="/"
+              className=" mobile-search-box-bird text-white text-3xl rounded mr-3"
+            >
+              <FontAwesomeIcon icon="fab fa-twitter" />
+            </Link>
+          )}
+          {auth.currentUser !== null && (
+            <div
+              className="home-nav-profile-image exploreProfileDiv mr-2 w-14 h-14 flex justify-center items-center"
+              onClick={() => {
+                dispatch(mobileNavLeftState(true));
+                document.body.classList.add("overlay-open");
+              }}
+            >
               <img
                 src="https://picsum.photos/200/300"
                 alt="user profile image"
-                className="rounded-full w-10 h-10 max-h-10"
+                className="rounded-full w-10 h-10"
               />
-          </div>}
-          <SearchBar/>
+            </div>
+          )}
+          <SearchBar />
           <Link
             onClick={() => {
               dispatch(blurChangeState({ display: "block" }));

@@ -1046,6 +1046,10 @@
   margin-right: 12px;
 }
 
+.exploreProfileDiv{
+  min-width: 40px;
+}
+
 .profileHoverCard{
   top: -380%;
 }
