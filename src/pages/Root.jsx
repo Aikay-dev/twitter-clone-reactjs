@@ -63,6 +63,50 @@ const Root = ({ authState, setAuthState }) => {
     useState(false);
   const [profileTabButtonClicked, setprofileTabButtonClicked] = useState(false);
 
+  useEffect(() => {
+    // Code to run when the component mounts and when the URL changes
+    console.log(window.location.pathname);
+    if (
+      window.location.pathname === "/Home" ||
+      window.location.pathname === "/Home/"
+    ) {
+      setHomeClicked(true);
+      setsearchClicked(false);
+      setbellClicked(false);
+      setmessageClicked(false);
+    } else if (
+      window.location.pathname === "/Home/Explore" ||
+      window.location.pathname === "/Home/Explore/"
+    ) {
+      setHomeClicked(false);
+      setsearchClicked(true);
+      setbellClicked(false);
+      setmessageClicked(false);
+    } else if (
+      window.location.pathname === "/Home/Notifications" ||
+      window.location.pathname === "/Home/Notifications/"
+    ) {
+      setHomeClicked(false);
+      setsearchClicked(false);
+      setbellClicked(true);
+      setmessageClicked(false);
+    } else if (
+      window.location.pathname === "/Home/Messages" ||
+      window.location.pathname === "/Home/Messages/"
+    ) {
+      setHomeClicked(false);
+      setsearchClicked(false);
+      setbellClicked(false);
+      setmessageClicked(true);
+    }
+
+    // Clean up function for when the component unmounts or when the URL changes again
+    return () => {
+      // Code to run when the component unmounts or when the URL changes again
+      console.log("Component unmounted or URL changed again");
+    };
+  }, [window.location.href]);
+
   const ifboldexp = useSelector((state) => state.exp.value.fontWeight);
   const ifboldset = useSelector((state) => state.set.value.fontWeight);
   const ifsetfeat = useSelector((state) => state.gotosetfeat.value);
@@ -592,9 +636,7 @@ const Root = ({ authState, setAuthState }) => {
               {!searchClicked && <BiSearch />}
               {searchClicked && <FaSearch />}
             </Link>
-            <Link 
-            to = '/Home/Notifications'
-            >
+            <Link to="/Home/Notifications">
               <button
                 onClick={() => {
                   setHomeClicked(false);
@@ -607,9 +649,7 @@ const Root = ({ authState, setAuthState }) => {
                 {bellClicked && <BsBellFill />}
               </button>
             </Link>
-            <Link
-            to='/Home/Messages'
-            >
+            <Link to="/Home/Messages">
               <button
                 onClick={() => {
                   setHomeClicked(false);

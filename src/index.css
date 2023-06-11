@@ -671,6 +671,10 @@
   color: var(--homeLabelColor);
 }
 
+.notificationUserImage{
+  min-width: 50px;
+}
+
 .personalization-and-data-head-nav-arrow-holder:hover {
   background-color: var(--buttonHover);
 }
