@@ -46,6 +46,10 @@
   background-color: rgb(24, 25, 25);
 }
 
+.homelogouthovercancel{
+  border: 2px solid rgb(113, 118, 123);
+}
+
 .bird {
   color: var(--whiteBird);
 }
@@ -1040,6 +1044,10 @@
 
 .home-nav-profile-image {
   margin-right: 12px;
+}
+
+.profileHoverCard{
+  top: -380%;
 }
 
 @media screen and (max-width: 1330px) {

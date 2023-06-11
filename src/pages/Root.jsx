@@ -16,7 +16,7 @@ import {
 } from "../store";
 import { auth } from "../config/firebase";
 import Home from "./Home/Home";
-import { AiOutlineSetting } from "react-icons/ai";
+import { AiOutlineSetting, AiOutlineUserAdd } from "react-icons/ai";
 import { BiHelpCircle, BiHomeCircle, BiSearch } from "react-icons/bi";
 import { FiLogOut } from "react-icons/fi";
 import { RiHome7Fill } from "react-icons/ri";
@@ -32,6 +32,7 @@ import { signOut } from "firebase/auth";
 import { FaSearch } from "react-icons/fa";
 import { BsBellFill } from "react-icons/bs";
 import { MdMail } from "react-icons/md";
+
 
 library.add(fas);
 library.add(fab);
@@ -78,33 +79,32 @@ const Root = ({ authState, setAuthState }) => {
 
   /* Manage states based on height */
   const [windowHeight, setWindowHeight] = useState(window.innerHeight);
-  const [leftNavScrollState, setLeftNavScrollState] = useState('');
+  const [leftNavScrollState, setLeftNavScrollState] = useState("");
 
   useEffect(() => {
     function handleResize() {
       setWindowHeight(window.innerHeight);
     }
 
-    window.addEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
 
     return () => {
-      window.removeEventListener('resize', handleResize);
+      window.removeEventListener("resize", handleResize);
     };
   }, []);
 
   useEffect(() => {
     if (windowHeight > 630) {
-      setLeftNavScrollState('homepage-left h-screen pl-14 hidden sm:block');
+      setLeftNavScrollState("homepage-left h-screen pl-14 hidden sm:block");
     } else {
       setLeftNavScrollState(
-        'homepage-left h-screen pl-14 hidden sm:block overflow-x-hidden overflow-y-scroll'
+        "homepage-left h-screen pl-14 hidden sm:block overflow-y-scroll overflow-x-hidden"
       );
     }
   }, [windowHeight]);
 
   /* Manage states based on height */
 
-  
   const page = useParams();
   const navigate = useNavigate();
   const currentLocation = window.location.pathname;
@@ -113,9 +113,57 @@ const Root = ({ authState, setAuthState }) => {
     authState === null
       ? "mobile-settings-call fixed bottom-0 bg-black text-white w-full h-30 px-6 py-4"
       : "mobile-settings-call fixed bottom-10 bg-black text-white w-full h-30 px-6 py-4";
+  const [homeLogoutCard, sethomeLogoutCard] = useState(false);
+
   return (
     <>
-      <div className="bg-black flex justify-center">
+      {homeLogoutCard && (
+        <div className=" flex justify-center items-center homepage-auth-overlay h-full w-full absolute z-50">
+          <div className="bg-black flex flex-col text-white  w-80 rounded-2xl p-5 ">
+            <div className="text-xl mb-6 flex items-center cursor-pointer" 
+            onClick={() => {
+              navigate('/auth/Login')
+            }}
+            >
+              <AiOutlineUserAdd />
+              <p className="ml-3">Add an existing account</p>
+            </div>
+            <div
+              className="text-xl flex items-center cursor-pointer"
+              onClick={() => {
+                signOut(auth)
+                  .then(() => {
+                    setLogoutspinner(false);
+                    window.location.reload();
+                    console.log("user: signed out");
+                  })
+                  .catch((err) => {
+                    console.log(err.message);
+                  });
+              }}
+            >
+              <FiLogOut />
+              <p className="m ml-3">Logout account</p>
+              {logoutspinner && (
+                <div class="ml-3 loadingio-spinner-rolling-o8a0fs8tskj">
+                  <div class="ldio-t5x32ssrll9">
+                    <div></div>
+                  </div>
+                </div>
+              )}
+            </div>
+            <button
+              className="text text-xl mt-16 p-3 flex justify-center items-center rounded-full homelogouthovercancel"
+              onClick={() => {
+                sethomeLogoutCard(false);
+              }}
+            >
+              <p>Cancel</p>
+            </button>
+          </div>
+        </div>
+      )}
+      <div className=" bg-black flex justify-center">
         <div className="homepage h-screen bg-black flex">
           <section className={leftNavScrollState}>
             <Link
@@ -172,7 +220,7 @@ const Root = ({ authState, setAuthState }) => {
                     dispatch(exploreChangeState({ fontWeight: 100 }));
                     dispatch(settingsChangeState({ fontWeight: "Bold" }));
                   }}
-                  className="section1-main-setting cursor-pointer text-xl flex justify-center items-center text-white"
+                  className=" overscroll-x-none section1-main-setting cursor-pointer text-xl flex justify-center items-center text-white"
                   style={{ fontWeight: ifboldset }}
                 >
                   <SettingsTwoToneIcon />
@@ -263,9 +311,14 @@ const Root = ({ authState, setAuthState }) => {
                 </button>
               )}
               {authState && (
-                <div className="flex mt-8 cursor-pointer items-center p-2 rounded-full home-nav-acc-button">
+                <div
+                  className="flex mt-8 cursor-pointer items-center p-2 rounded-full home-nav-acc-button"
+                  onClick={() => {
+                    sethomeLogoutCard(true);
+                  }}
+                >
                   <div className="flex items-center">
-                    <div className="home-nav-profile-image">
+                    <div className="home-nav-profile-image relative">
                       <img
                         src="https://picsum.photos/200/300"
                         alt="user profile image"

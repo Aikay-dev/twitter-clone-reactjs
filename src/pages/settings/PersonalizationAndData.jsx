@@ -58,7 +58,7 @@ const PersonalizationAndData = () => {
           out. They don’t have any effect when you’re logged in.
         </p>
       </div>
-      <div className="personalization-and-data-top-2 py-4 px-4">
+      <div className=" personalization-and-data-top-2 py-4 px-4">
         <div className="personalization-and-data-top-2-top-holder flex items-center justify-between">
           <div className="personalization-and-data-top-2-top-personalize">
             Personalization and data
