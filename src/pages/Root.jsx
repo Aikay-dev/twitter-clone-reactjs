@@ -75,6 +75,30 @@ const Root = ({ authState, setAuthState }) => {
 
     return () => unsubscribe();
   }, [dispatch]);
+  const [windowHeight, setWindowHeight] = useState(window.innerHeight);
+  const [leftNavScrollState, setLeftNavScrollState] = useState('');
+
+  useEffect(() => {
+    function handleResize() {
+      setWindowHeight(window.innerHeight);
+    }
+
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (windowHeight > 630) {
+      setLeftNavScrollState('homepage-left h-screen pl-14 hidden sm:block');
+    } else {
+      setLeftNavScrollState(
+        'homepage-left h-screen pl-14 hidden sm:block overflow-x-hidden overflow-y-scroll'
+      );
+    }
+  }, [windowHeight]);
 
   const page = useParams();
   const navigate = useNavigate();
@@ -88,7 +112,7 @@ const Root = ({ authState, setAuthState }) => {
     <>
       <div className="bg-black flex justify-center">
         <div className="homepage h-screen bg-black flex">
-          <section className="homepage-left h-screen pl-14 hidden sm:block">
+          <section className={leftNavScrollState}>
             <Link
               to="/"
               className="homepage-bird text-white text-3xl w-full pt-3 rounded flex items-center justify-center"
@@ -304,7 +328,7 @@ const Root = ({ authState, setAuthState }) => {
             document.body.classList.remove("overlay-open");
           }}
         >
-          <div className= {settingsClassState}>
+          <div className={settingsClassState}>
             <div className="flex">
               <SettingsTwoToneIcon />
               <Link
