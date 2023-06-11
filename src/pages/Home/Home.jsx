@@ -10,6 +10,7 @@ import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { mobileNavLeftState } from "../../store";
 import { FaFeatherAlt } from "react-icons/fa";
+import FollowingTweetStream from "./dataStream/FollowingTweetStream";
 
 library.add(fas);
 library.add(fab);
@@ -17,7 +18,9 @@ library.add(far);
 
 const Home = () => {
   const dispatch = useDispatch();
-  const mobNavleft = useSelector(state => state.mobNavleft.value);
+  const mobNavleft = useSelector((state) => state.mobNavleft.value);
+  const [ForyouTab, setForyouTab] = useState(true);
+  const [FollowingTab, setFollowingTab] = useState(false);
 
   return (
     <>
@@ -29,7 +32,7 @@ const Home = () => {
               onClick={() => {
                 dispatch(mobileNavLeftState(true));
                 document.body.classList.add("overlay-open");
-                console.log(mobNavleft)
+                console.log(mobNavleft);
               }}
             >
               <img
@@ -49,17 +52,37 @@ const Home = () => {
             Home
           </p>
           <div className="flex w-full h-14 homepage-center-top-nav">
-            <button className="w-1/2 homepage-center-top-nav-foryou flex justify-center items-center">
+            <button
+              className="w-1/2 homepage-center-top-nav-foryou flex justify-center items-center"
+              onClick={() => {
+                setFollowingTab(!FollowingTab);
+                setForyouTab(!ForyouTab);
+              }}
+            >
               <div
-                style={{ borderBottom: "2px solid rgb(29, 155, 240)" }}
+                style={
+                  ForyouTab
+                    ? { borderBottom: "2px solid rgb(29, 155, 240)" }
+                    : {}
+                }
                 className="h-full flex justify-center items-center"
               >
                 For you
               </div>
             </button>
-            <button className="w-1/2 homepage-center-top-nav-following flex justify-center items-center">
+            <button
+              className="w-1/2 homepage-center-top-nav-following flex justify-center items-center"
+              onClick={() => {
+                setFollowingTab(!FollowingTab);
+                setForyouTab(!ForyouTab);
+              }}
+            >
               <div
-                style={{ borderBottom: "2px solid rgb(29, 155, 240)" }}
+                style={
+                  FollowingTab
+                    ? { borderBottom: "2px solid rgb(29, 155, 240)" }
+                    : {}
+                }
                 className="h-full flex justify-center items-center"
               >
                 Following
@@ -98,11 +121,12 @@ const Home = () => {
             </div>
           </section>
           <section className="main-tweet-flow-section">
-            <TweetStream />
+            {ForyouTab && <TweetStream />}
+            {FollowingTab && <FollowingTweetStream />}
           </section>
         </div>
         <button className="floating-tweet-button text-white w-10 h-10 fixed justify-center items-center rounded-full">
-              <FaFeatherAlt/>
+          <FaFeatherAlt />
         </button>
       </section>
 

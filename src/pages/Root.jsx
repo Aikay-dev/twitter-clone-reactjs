@@ -75,6 +75,8 @@ const Root = ({ authState, setAuthState }) => {
 
     return () => unsubscribe();
   }, [dispatch]);
+
+  /* Manage states based on height */
   const [windowHeight, setWindowHeight] = useState(window.innerHeight);
   const [leftNavScrollState, setLeftNavScrollState] = useState('');
 
@@ -100,6 +102,9 @@ const Root = ({ authState, setAuthState }) => {
     }
   }, [windowHeight]);
 
+  /* Manage states based on height */
+
+  
   const page = useParams();
   const navigate = useNavigate();
   const currentLocation = window.location.pathname;

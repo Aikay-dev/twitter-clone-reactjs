@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import AuthLoginButton from "../../components/Auth-LoginButton";
 import googleIcon from "../../assets/google_icon.svg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -14,6 +14,7 @@ import StepTwo from "./createAccount/StepTwo";
 import StepFive from "./createAccount/StepFive";
 import StepFour from "./createAccount/StepFour";
 import StepThree from "./createAccount/StepThree";
+
 
 library.add(fas);
 library.add(fab);
@@ -50,12 +51,40 @@ const SignUp = ({setshowSignUpCard}) => {
     </>
   );
 
+    /* Manage states based on height */
+    const [windowHeight, setWindowHeight] = useState(window.innerHeight);
+    const [signupScrollState, setsignupScrollState] = useState('');
+  
+    useEffect(() => {
+      function handleResize() {
+        setWindowHeight(window.innerHeight);
+      }
+  
+      window.addEventListener('resize', handleResize);
+  
+      return () => {
+        window.removeEventListener('resize', handleResize);
+      };
+    }, []);
+  
+    useEffect(() => {
+      if (windowHeight > 450) {
+        setsignupScrollState('auth-form bg-black md:mx-auto md:w-authxlw md:h-authxlh p-2 md:rounded-2xl relative h-screen w-full');
+      } else {
+        setsignupScrollState(
+          'auth-form overflow-y-scroll bg-black md:mx-auto md:w-authxlw md:h-authxlh p-2 md:rounded-2xl relative h-screen w-full'
+        );
+      }
+    }, [windowHeight]);
+  
+    /* Manage states based on height */
+
   const join_create_account = "Create account";
   return (
     <>
       <form
         action=""
-        className="auth-form bg-black md:mx-auto md:w-authxlw md:h-authxlh p-2 md:rounded-2xl relative h-screen w-full"
+        className={signupScrollState}
       >
         {showsignupPage && (
           <>
