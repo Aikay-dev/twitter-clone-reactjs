@@ -663,6 +663,14 @@
   border-left: var(--homeBorder);
 }
 
+.bookmarkElips:hover{
+  background-color: var(--buttonHover);
+}
+
+.bookmarkUserName{
+  color: var(--homeLabelColor);
+}
+
 .personalization-and-data-head-nav-arrow-holder:hover {
   background-color: var(--buttonHover);
 }
