@@ -22,7 +22,7 @@ const Home = () => {
   return (
     <>
       <section className="homepage-center h-screen relative overflow-hidden">
-        <header className="pt-4 fixed z-30 top-mobile-nav w-full">
+        <header className="pt-4 absolute z-30 top-mobile-nav w-full ">
           <div className="pl-3 w-full mobileheader flex gap-1 sm:hidden">
             <div
               className="home-nav-profile-image w-12 flex justify-center items-center"
@@ -67,14 +67,14 @@ const Home = () => {
             </button>
           </div>
         </header>
-        <div className="h-full w-full tweet-scroll-section overflow-y-scroll overflow-x-hidden">
-          <section className="py-3 px-5 home-main-tweet-section">
+        <div className="h-full pt-40 w-full tweet-scroll-section overflow-y-scroll overflow-x-hidden">
+          <section className="py-3 px-3 home-main-tweet-section">
             <div className="flex">
               <div>
                 <img
                   src="https://picsum.photos/200/300"
                   alt="user profile image"
-                  className="rounded-full h-14 w-14 mr-3 cursor-pointer"
+                  className="rounded-full h-10 w-10 mr-3 cursor-pointer"
                 />
               </div>
               <input

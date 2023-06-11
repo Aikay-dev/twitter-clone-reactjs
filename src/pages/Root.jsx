@@ -30,8 +30,8 @@ import {
 } from "react-icons/md";
 import { signOut } from "firebase/auth";
 import { FaSearch } from "react-icons/fa";
-import {BsBellFill} from "react-icons/bs";
-import {MdMail} from "react-icons/md";
+import { BsBellFill } from "react-icons/bs";
+import { MdMail } from "react-icons/md";
 
 library.add(fas);
 library.add(fab);
@@ -49,12 +49,10 @@ const Root = ({ authState, setAuthState }) => {
       ? "/Home/Settings/personalization"
       : "/Home/Settings/"
   );
-  const [homeClicked, setHomeClicked] = useState(true)
-  const [searchClicked, setsearchClicked] = useState(false)
-  const [bellClicked, setbellClicked] = useState(false)
-  const [messageClicked, setmessageClicked] = useState(false)
-
-
+  const [homeClicked, setHomeClicked] = useState(true);
+  const [searchClicked, setsearchClicked] = useState(false);
+  const [bellClicked, setbellClicked] = useState(false);
+  const [messageClicked, setmessageClicked] = useState(false);
 
   const ifboldexp = useSelector((state) => state.exp.value.fontWeight);
   const ifboldset = useSelector((state) => state.set.value.fontWeight);
@@ -82,6 +80,10 @@ const Root = ({ authState, setAuthState }) => {
   const navigate = useNavigate();
   const currentLocation = window.location.pathname;
   console.log(authState);
+  const settingsClassState =
+    authState === null
+      ? "mobile-settings-call fixed bottom-0 bg-black text-white w-full h-30 px-6 py-4"
+      : "mobile-settings-call fixed bottom-10 bg-black text-white w-full h-30 px-6 py-4";
   return (
     <>
       <div className="bg-black flex justify-center">
@@ -302,7 +304,7 @@ const Root = ({ authState, setAuthState }) => {
             document.body.classList.remove("overlay-open");
           }}
         >
-          <div className="mobile-settings-call fixed bottom-0 bg-black text-white w-full h-30 px-6 py-4">
+          <div className= {settingsClassState}>
             <div className="flex">
               <SettingsTwoToneIcon />
               <Link
@@ -341,46 +343,50 @@ const Root = ({ authState, setAuthState }) => {
               onClick={() => {
                 dispatch(settingsChangeState({ fontWeight: 100 }));
                 dispatch(exploreChangeState({ fontWeight: "Bold" }));
-                setHomeClicked(true)
-                setsearchClicked(false)
-                setbellClicked(false)
-                setmessageClicked(false)
+                setHomeClicked(true);
+                setsearchClicked(false);
+                setbellClicked(false);
+                setmessageClicked(false);
               }}
             >
-              {!homeClicked && <BiHomeCircle/>}
-              {homeClicked &&<RiHome7Fill />}           
+              {!homeClicked && <BiHomeCircle />}
+              {homeClicked && <RiHome7Fill />}
             </Link>
             <Link
               to="/Home/Explore"
               onClick={() => {
                 dispatch(settingsChangeState({ fontWeight: 100 }));
                 dispatch(exploreChangeState({ fontWeight: "Bold" }));
-                setHomeClicked(false)
-                setsearchClicked(true)
-                setbellClicked(false)
-                setmessageClicked(false)
+                setHomeClicked(false);
+                setsearchClicked(true);
+                setbellClicked(false);
+                setmessageClicked(false);
               }}
             >
               {!searchClicked && <BiSearch />}
-              {searchClicked &&<FaSearch/>}
+              {searchClicked && <FaSearch />}
             </Link>
-            <button onClick={() => {
-              setHomeClicked(false)
-              setsearchClicked(false)
-              setbellClicked(true)
-              setmessageClicked(false)
-            }}>
+            <button
+              onClick={() => {
+                setHomeClicked(false);
+                setsearchClicked(false);
+                setbellClicked(true);
+                setmessageClicked(false);
+              }}
+            >
               {!bellClicked && <FontAwesomeIcon icon="fa-regular fa-bell" />}
-             {bellClicked && <BsBellFill/>}
+              {bellClicked && <BsBellFill />}
             </button>
-            <button onClick={() => {
-              setHomeClicked(false)
-              setsearchClicked(false)
-              setbellClicked(false)
-              setmessageClicked(true)
-            }}>
+            <button
+              onClick={() => {
+                setHomeClicked(false);
+                setsearchClicked(false);
+                setbellClicked(false);
+                setmessageClicked(true);
+              }}
+            >
               {!messageClicked && <MdMailOutline />}
-              {messageClicked && <MdMail/>}
+              {messageClicked && <MdMail />}
             </button>
           </nav>
         )}

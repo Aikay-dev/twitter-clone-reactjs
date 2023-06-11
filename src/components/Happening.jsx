@@ -55,7 +55,7 @@ const Happening = () => {
             style={{ backgroundColor: randColor() }}
             className="homepage-center-whats-happening-card-main-team-1 flex items-center justify-between  rounded-t-md"
           >
-            <div className="flex pl-2 overflow-hidden">
+            <div className="flex pl-2 overflow-hidden items-center">
               <img src={matches.team1.teamIconUrl} alt="" className="h-10 w-10" />
               <p className="homepage-center-whats-happening-card-main-team-1-name px-5 py-3 font-extrabold">
                 {matches.team1.teamName}
@@ -69,7 +69,7 @@ const Happening = () => {
             style={{ backgroundColor: randColor() }}
             className="homepage-center-whats-happening-card-main-team-2 flex items-center justify-between font-extrabold rounded-b-md"
           >
-            <div className="flex pl-2 overflow-hidden">
+            <div className="flex pl-2 overflow-hidden items-center">
               <img src={matches.team2.teamIconUrl} alt="" className="h-10 w-10" />
               <p className="homepage-center-whats-happening-card-main-team-2-name px-5 py-3">
                 {matches.team2.teamName}

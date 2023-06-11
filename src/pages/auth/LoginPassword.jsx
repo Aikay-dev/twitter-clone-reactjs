@@ -108,6 +108,8 @@ const LoginPassword = ({ userAuth, setUserAuth }) => {
                 setNextLoad(false);
               })
               .catch((err) => {
+                setNextLoad(false);
+                setErrorOutline({ borderColor: "red" });wv 
                 console.log(err.message);
               });
           }

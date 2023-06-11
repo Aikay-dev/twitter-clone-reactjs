@@ -22,7 +22,7 @@ const TweetStream = () => {
           <img
             src="https://picsum.photos/200/300"
             alt="user profile image"
-            className="rounded-full h-12 min-w-12 w-12 max-w-14 mr-5 cursor-pointer main-card-profile-pic"
+            className="rounded-full min-w-10 h-10 mr-5 cursor-pointer main-card-profile-pic"
           />
         </div>
 
