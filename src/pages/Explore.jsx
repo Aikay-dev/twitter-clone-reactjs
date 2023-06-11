@@ -76,7 +76,7 @@ const Explore = () => {
               />
             </div>
           )}
-          <SearchBar />
+          <SearchBar currentUser = {auth.currentUser} />
           <Link
             onClick={() => {
               dispatch(blurChangeState({ display: "block" }));

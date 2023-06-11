@@ -33,7 +33,6 @@ import { FaSearch } from "react-icons/fa";
 import { BsBellFill } from "react-icons/bs";
 import { MdMail } from "react-icons/md";
 
-
 library.add(fas);
 library.add(fab);
 library.add(far);
@@ -54,6 +53,16 @@ const Root = ({ authState, setAuthState }) => {
   const [searchClicked, setsearchClicked] = useState(false);
   const [bellClicked, setbellClicked] = useState(false);
   const [messageClicked, setmessageClicked] = useState(false);
+  const [homeTabButtonClicked, sethomeTabButtonClicked] = useState(true);
+  const [notificationTabButtonClicked, setnotificationTabButtonClicked] =
+    useState(false);
+  const [messagesTabButtonClicked, setmessagesTabButtonClicked] =
+    useState(false);
+  const [bookmarkTabButtonClicked, setbookmarkTabButtonClicked] =
+    useState(false);
+  const [tweeterBlueTabButtonClicked, settweeterBlueTabButtonClicked] =
+    useState(false);
+  const [profileTabButtonClicked, setprofileTabButtonClicked] = useState(false);
 
   const ifboldexp = useSelector((state) => state.exp.value.fontWeight);
   const ifboldset = useSelector((state) => state.set.value.fontWeight);
@@ -68,14 +77,114 @@ const Root = ({ authState, setAuthState }) => {
         dispatch(checkAuthState(userAuthState.email));
       } else if (
         window.location.pathname === "/Home" ||
-        window.location.pathname === "/Home/"
+        window.location.pathname === "/Home/" ||
+        window.location.pathname === "/Home/Notifications" ||
+        window.location.pathname === "/Home/Notifications/" ||
+        window.location.pathname === "/Home/Messages" ||
+        window.location.pathname === "/Home/Messages/" ||
+        window.location.pathname === "/Home/Bookmarks" ||
+        window.location.pathname === "/Home/Bookmarks/" ||
+        window.location.pathname === "/Home/Tweeter%20Blue" ||
+        window.location.pathname === "/Home/Tweeter%20Blue/" ||
+        window.location.pathname === "/Home/Profile" ||
+        window.location.pathname === "/Home/Profile"
       ) {
         navigate("/Home/Explore");
       }
     });
 
     return () => unsubscribe();
-  }, [dispatch]);
+  }, [dispatch, window.location.href]);
+
+  useEffect(() => {
+    // Code to run when the component mounts and when the URL changes
+    if (
+      window.location.pathname === "/Home" ||
+      window.location.pathname === "/Home/"
+    ) {
+      sethomeTabButtonClicked(true);
+      setnotificationTabButtonClicked(false);
+      setmessagesTabButtonClicked(false);
+      setbookmarkTabButtonClicked(false);
+      settweeterBlueTabButtonClicked(false);
+      setprofileTabButtonClicked(false);
+      dispatch(exploreChangeState({ fontWeight: 100 }));
+    } else if (
+      window.location.pathname === "/Home/Notifications" ||
+      window.location.pathname === "/Home/Notifications/"
+    ) {
+      sethomeTabButtonClicked(false);
+      setnotificationTabButtonClicked(true);
+      setmessagesTabButtonClicked(false);
+      setbookmarkTabButtonClicked(false);
+      settweeterBlueTabButtonClicked(false);
+      setprofileTabButtonClicked(false);
+      dispatch(exploreChangeState({ fontWeight: 100 }));
+    } else if (
+      window.location.pathname === "/Home/Messages" ||
+      window.location.pathname === "/Home/Messages/"
+    ) {
+      sethomeTabButtonClicked(false);
+      setnotificationTabButtonClicked(false);
+      setmessagesTabButtonClicked(true);
+      setbookmarkTabButtonClicked(false);
+      settweeterBlueTabButtonClicked(false);
+      setprofileTabButtonClicked(false);
+      dispatch(exploreChangeState({ fontWeight: 100 }));
+    } else if (
+      window.location.pathname === "/Home/Bookmarks" ||
+      window.location.pathname === "/Home/Bookmarks/"
+    ) {
+      sethomeTabButtonClicked(false);
+      setnotificationTabButtonClicked(false);
+      setmessagesTabButtonClicked(false);
+      setbookmarkTabButtonClicked(true);
+      settweeterBlueTabButtonClicked(false);
+      setprofileTabButtonClicked(false);
+      dispatch(exploreChangeState({ fontWeight: 100 }));
+    } else if (
+      window.location.pathname === "/Home/Tweeter%20Blue" ||
+      window.location.pathname === "/Home/Tweeter%20Blue/"
+    ) {
+      sethomeTabButtonClicked(false);
+      setnotificationTabButtonClicked(false);
+      setmessagesTabButtonClicked(false);
+      setbookmarkTabButtonClicked(false);
+      settweeterBlueTabButtonClicked(true);
+      setprofileTabButtonClicked(false);
+      dispatch(exploreChangeState({ fontWeight: 100 }));
+    } else if (
+      window.location.pathname === "/Home/Profile" ||
+      window.location.pathname === "/Home/Profile"
+    ) {
+      sethomeTabButtonClicked(false);
+      setnotificationTabButtonClicked(false);
+      setmessagesTabButtonClicked(false);
+      setbookmarkTabButtonClicked(false);
+      settweeterBlueTabButtonClicked(false);
+      setprofileTabButtonClicked(true);
+      dispatch(exploreChangeState({ fontWeight: 100 }));
+    } else if (
+      window.location.pathname === "/Home/Explore" ||
+      window.location.pathname === "/Home/Explore"
+    ) {
+      dispatch(exploreChangeState({ fontWeight: "Bold" }));
+      sethomeTabButtonClicked(false);
+      setnotificationTabButtonClicked(false);
+      setmessagesTabButtonClicked(false);
+      setbookmarkTabButtonClicked(false);
+      settweeterBlueTabButtonClicked(false);
+      setprofileTabButtonClicked(false);
+    }
+
+    console.log(window.location.pathname);
+
+    // Clean up function for when the component unmounts or when the URL changes again
+    return () => {
+      // Code to run when the component unmounts or when the URL changes again
+      console.log("Component unmounted or URL changed again");
+    };
+  }, [window.location.href]);
 
   /* Manage states based on height */
   const [windowHeight, setWindowHeight] = useState(window.innerHeight);
@@ -120,10 +229,11 @@ const Root = ({ authState, setAuthState }) => {
       {homeLogoutCard && (
         <div className=" flex justify-center items-center homepage-auth-overlay h-full w-full absolute z-50">
           <div className="bg-black flex flex-col text-white  w-80 rounded-2xl p-5 ">
-            <div className="text-xl mb-6 flex items-center cursor-pointer" 
-            onClick={() => {
-              navigate('/auth/Login')
-            }}
+            <div
+              className="text-xl mb-6 flex items-center cursor-pointer"
+              onClick={() => {
+                navigate("/auth/Login");
+              }}
             >
               <AiOutlineUserAdd />
               <p className="ml-3">Add an existing account</p>
@@ -179,11 +289,16 @@ const Root = ({ authState, setAuthState }) => {
                   to="/Home"
                   className="flex section1-main-home-icon-long-home text-xl  justify-center"
                   aria-label="Home"
+                  style={
+                    homeTabButtonClicked
+                      ? { fontWeight: "Bold" }
+                      : { fontWeight: 100 }
+                  }
                 >
                   <div>
                     <FontAwesomeIcon icon="fa-solid fa-house" />
                   </div>
-                  <p className="hidden xl:block xl:pl-6 ">Home</p>
+                  <p className="hidden xl:block xl:pl-6">Home</p>
                 </Link>
               )}
 
@@ -231,7 +346,12 @@ const Root = ({ authState, setAuthState }) => {
                 <Link
                   aria-label="Notifications"
                   className="flex section1-main-home-icon-long-notif text-xl  justify-center items-center"
-                  to= "/Home/Notifications"
+                  to="/Home/Notifications"
+                  style={
+                    notificationTabButtonClicked
+                      ? { fontWeight: "Bold" }
+                      : { fontWeight: 100 }
+                  }
                 >
                   <div>
                     <FontAwesomeIcon icon="fa-regular fa-bell" />
@@ -243,7 +363,12 @@ const Root = ({ authState, setAuthState }) => {
                 <Link
                   aria-label="Messages"
                   className="flex section1-main-home-icon-long-messge text-xl  justify-center items-center"
-                  to= "/Home/Messages"
+                  to="/Home/Messages"
+                  style={
+                    messagesTabButtonClicked
+                      ? { fontWeight: "Bold" }
+                      : { fontWeight: 100 }
+                  }
                 >
                   <div>
                     <FontAwesomeIcon icon="fa-regular fa-envelope" />
@@ -255,7 +380,12 @@ const Root = ({ authState, setAuthState }) => {
                 <Link
                   aria-label="Bookmarks"
                   className="flex section1-main-home-icon-long-bkmrk text-xl  justify-center items-center"
-                  to= "/Home/Bookmarks"
+                  to="/Home/Bookmarks"
+                  style={
+                    bookmarkTabButtonClicked
+                      ? { fontWeight: "Bold" }
+                      : { fontWeight: 100 }
+                  }
                 >
                   <div>
                     <FontAwesomeIcon icon="fa-regular fa-bookmark" />
@@ -267,7 +397,12 @@ const Root = ({ authState, setAuthState }) => {
                 <Link
                   aria-label="Tweeter Blue"
                   className="flex section1-main-home-icon-long text-xl  justify-center items-center"
-                  to= "/Home/Tweeter Blue"
+                  to="/Home/Tweeter Blue"
+                  style={
+                    tweeterBlueTabButtonClicked
+                      ? { fontWeight: "Bold" }
+                      : { fontWeight: 100 }
+                  }
                 >
                   <div>
                     <FontAwesomeIcon icon="fa-brands fa-square-twitter" />
@@ -281,7 +416,12 @@ const Root = ({ authState, setAuthState }) => {
                 <Link
                   aria-label="Profile"
                   className="flex section1-main-home-icon-profile text-xl  justify-center items-center"
-                  to= "/Home/Profile"
+                  to="/Home/Profile"
+                  style={
+                    profileTabButtonClicked
+                      ? { fontWeight: "Bold" }
+                      : { fontWeight: 100 }
+                  }
                 >
                   <div>
                     <FontAwesomeIcon icon="fa-regular fa-user" />
@@ -453,28 +593,36 @@ const Root = ({ authState, setAuthState }) => {
               {!searchClicked && <BiSearch />}
               {searchClicked && <FaSearch />}
             </Link>
-            <button
-              onClick={() => {
-                setHomeClicked(false);
-                setsearchClicked(false);
-                setbellClicked(true);
-                setmessageClicked(false);
-              }}
+            <Link 
+            to = '/Home/Notifications'
             >
-              {!bellClicked && <FontAwesomeIcon icon="fa-regular fa-bell" />}
-              {bellClicked && <BsBellFill />}
-            </button>
-            <button
-              onClick={() => {
-                setHomeClicked(false);
-                setsearchClicked(false);
-                setbellClicked(false);
-                setmessageClicked(true);
-              }}
+              <button
+                onClick={() => {
+                  setHomeClicked(false);
+                  setsearchClicked(false);
+                  setbellClicked(true);
+                  setmessageClicked(false);
+                }}
+              >
+                {!bellClicked && <FontAwesomeIcon icon="fa-regular fa-bell" />}
+                {bellClicked && <BsBellFill />}
+              </button>
+            </Link>
+            <Link
+            to='/Home/Messages'
             >
-              {!messageClicked && <MdMailOutline />}
-              {messageClicked && <MdMail />}
-            </button>
+              <button
+                onClick={() => {
+                  setHomeClicked(false);
+                  setsearchClicked(false);
+                  setbellClicked(false);
+                  setmessageClicked(true);
+                }}
+              >
+                {!messageClicked && <MdMailOutline />}
+                {messageClicked && <MdMail />}
+              </button>
+            </Link>
           </nav>
         )}
       </div>
@@ -516,47 +664,88 @@ const Root = ({ authState, setAuthState }) => {
                 </p>
               </div>
               <div className="flex flex-col gap-6 ml-3 mt-5">
-                <Link className="flex gap-6 text-xl">
+                <Link
+                  className="flex gap-6 text-xl"
+                  to="Profile"
+                  onClick={() => {
+                    document.body.classList.remove("overlay-open");
+                    dispatch(mobileNavLeftState(false));
+                  }}
+                >
                   <div>
                     <FontAwesomeIcon icon="fa-regular fa-user" />
                   </div>
-                  <p className="f font-semibold">Profile</p>
+                  <p className="font-semibold">Profile</p>
                 </Link>
-                <Link className="flex gap-6 text-xl">
+                <Link
+                  className="flex gap-6 text-xl"
+                  to="Explore"
+                  onClick={() => {
+                    document.body.classList.remove("overlay-open");
+                    dispatch(mobileNavLeftState(false));
+                  }}
+                >
                   <div>
-                    <FontAwesomeIcon icon="fa-brands fa-square-twitter" />
+                    <FontAwesomeIcon icon="fa-solid fa-hashtag" />
                   </div>
-                  <p className="f font-semibold">Tweeter Blue</p>
+                  <p className="font-semibold">Explore</p>
                 </Link>
-                <Link className="flex gap-6 items-center text-xl">
+                <Link
+                  className="flex gap-6 items-center text-xl"
+                  to="Notifications"
+                  onClick={() => {
+                    document.body.classList.remove("overlay-open");
+                    dispatch(mobileNavLeftState(false));
+                  }}
+                >
                   <div>
-                    <FontAwesomeIcon icon="fa-regular fa-user" />
+                    <FontAwesomeIcon icon="fa-regular fa-bell" />
                   </div>
-                  <p className="f font-semibold">Topics</p>
+                  <p className="font-semibold">Notifications</p>
                 </Link>
-                <Link className="flex gap-6 items-center text-xl">
+                <Link
+                  className="flex gap-6 items-center text-xl"
+                  to="Bookmarks"
+                  onClick={() => {
+                    document.body.classList.remove("overlay-open");
+                    dispatch(mobileNavLeftState(false));
+                  }}
+                >
                   <div>
                     <FontAwesomeIcon icon="fa-regular fa-bookmark" />
                   </div>
-                  <p className="f font-semibold">Bookmarks</p>
+                  <p className="font-semibold">Bookmarks</p>
                 </Link>
                 <Link className="flex gap-6 items-center text-xl">
                   <div>
                     <CgNotes />
                   </div>
-                  <p className="f font-semibold">Lists</p>
+                  <p className="font-semibold">Lists</p>
                 </Link>
-                <Link className="flex gap-6 items-center text-xl">
+                <Link
+                  className="flex gap-6 items-center text-xl"
+                  to="Messages"
+                  onClick={() => {
+                    document.body.classList.remove("overlay-open");
+                    dispatch(mobileNavLeftState(false));
+                  }}
+                >
                   <div>
-                    <TiSocialTwitterCircular />
+                    <FontAwesomeIcon icon="fa-regular fa-envelope" />
                   </div>
-                  <p className="f font-semibold ">Tweeter Circle</p>
+                  <p className="font-semibold ">Messages</p>
                 </Link>
-                <Link className="flex items-center gap-6 text-xl">
+                <Link
+                  className="flex items-center gap-6 text-xl"
+                  onClick={() => {
+                    document.body.classList.remove("overlay-open");
+                    dispatch(mobileNavLeftState(false));
+                  }}
+                >
                   <div>
                     <MdOutlineVerified />
                   </div>
-                  <p className="f font-semibold">Verified Organizations</p>
+                  <p className="font-semibold">Verified Organizations</p>
                 </Link>
               </div>
               <div className="home-mobile-navbar-bottom-section mx-3 mt-4 mb-20 pt-3">

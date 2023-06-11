@@ -9,7 +9,8 @@ library.add(fas);
 library.add(fab);
 library.add(far)
 
-const SearchBar = () => {
+const SearchBar = ({currentUser}) => {
+  console.log(currentUser)
   return (
     <div className="homepage-header-searchbar w-full">
       <input
@@ -17,7 +18,7 @@ const SearchBar = () => {
         className="homepage-header-searchbox h-10 rounded-full outline-none pl-16"
         placeholder="Search Tweeter"
       />
-      <label className="homepage-header-label absolute left-28 top-5 outline-none">
+      <label className={currentUser === null? "homepage-header-label absolute left-12 top-5 outline-none" : 'homepage-header-label absolute left-28 top-5 outline-none'}>
         <FontAwesomeIcon icon="fas fa-magnifying-glass" />
       </label>
     </div>
