@@ -262,7 +262,7 @@ const Root = ({ authState, setAuthState }) => {
           {<Outlet />}
         </div>
         {authState === null ? (
-          <div className="homepage-login-banner py-2 absolute bottom-0 w-full flex items-center justify-center">
+          <div className="homepage-login-banner py-2 bottom-0 w-full fixed flex items-center justify-center">
             <div className="homepage-auth-banner-holder text-white  flex items-center justify-between">
               <div className="homepage-auth-banner-info md:block hidden">
                 <p className="homepage-auth-banner-dont-miss font-bold text-2xl">
@@ -388,7 +388,7 @@ const Root = ({ authState, setAuthState }) => {
       {mobNavleft && (
         <>
           <section
-            className="absolute top-0 z-10 overflow-y-scroll z-50 h-screen home-navbar-mobile bg-black"
+            className="absolute top-0 overflow-y-scroll z-50 h-screen home-navbar-mobile bg-black"
             style={{ color: "rgb(240, 240, 240)" }}
           >
             <nav className="">
@@ -435,31 +435,31 @@ const Root = ({ authState, setAuthState }) => {
                   </div>
                   <p className="f font-semibold">Tweeter Blue</p>
                 </Link>
-                <Link className="flex gap-6 text-xl">
+                <Link className="flex gap-6 items-center text-xl">
                   <div>
                     <FontAwesomeIcon icon="fa-regular fa-user" />
                   </div>
                   <p className="f font-semibold">Topics</p>
                 </Link>
-                <Link className="flex gap-6 text-xl">
+                <Link className="flex gap-6 items-center text-xl">
                   <div>
                     <FontAwesomeIcon icon="fa-regular fa-bookmark" />
                   </div>
                   <p className="f font-semibold">Bookmarks</p>
                 </Link>
-                <Link className="flex gap-6 text-xl">
+                <Link className="flex gap-6 items-center text-xl">
                   <div>
                     <CgNotes />
                   </div>
                   <p className="f font-semibold">Lists</p>
                 </Link>
-                <Link className="flex gap-6 text-xl">
+                <Link className="flex gap-6 items-center text-xl">
                   <div>
                     <TiSocialTwitterCircular />
                   </div>
-                  <p className="f font-semibold">Tweeter Circle</p>
+                  <p className="f font-semibold ">Tweeter Circle</p>
                 </Link>
-                <Link className="flex gap-6 text-xl">
+                <Link className="flex items-center gap-6 text-xl">
                   <div>
                     <MdOutlineVerified />
                   </div>
