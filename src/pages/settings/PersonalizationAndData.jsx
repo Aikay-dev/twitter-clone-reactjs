@@ -50,7 +50,7 @@ const PersonalizationAndData = () => {
   }, [togglePermit, dispatch, mounted]);
 
   return (
-    <div className="personalization-and-data-section h-screen">
+    <div className="personalization-and-data-section h-full">
       <div className="personalization-and-data-top-1">
         <SettingsTopNav navText={"Personalization and data"} />
         <p className="personalization-and-data-head-text-these-settings text-sm pl-4 pb-3 pr-10">

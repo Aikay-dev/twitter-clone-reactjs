@@ -660,6 +660,7 @@
 .additional-resources-section {
   width: 600px;
   border-right: var(--homeBorder);
+  border-left: var(--homeBorder);
 }
 
 .personalization-and-data-head-nav-arrow-holder:hover {
@@ -698,6 +699,24 @@
 
 .personalization-and-data-person-text-Tweeter-will {
   border-bottom: var(--homeBorder);
+}
+
+.notificationheaderBorder{
+  border-bottom: var(--homeBorder);
+
+}
+
+.notificationcard:hover{
+  background-color: var(--faintHover)
+}
+
+.notificationSettingsButton:hover{
+  background-color: var(--buttonHover);
+}
+
+.notificationcard{
+  border-bottom: var(--homeBorder);
+  border-top: var(--homeBorder);
 }
 
 .custom-checkbox:hover {
@@ -1015,6 +1034,10 @@
 
 .step-three-signup:hover {
   background-color: rgb(26, 140, 216);
+}
+
+.notificationHeaderAll{
+  border-bottom: 4px solid #1d9bf0;
 }
 
 .step-5-continue-profile {

@@ -21,7 +21,6 @@ import { BiHelpCircle, BiHomeCircle, BiSearch } from "react-icons/bi";
 import { FiLogOut } from "react-icons/fi";
 import { RiHome7Fill } from "react-icons/ri";
 import { CgNotes } from "react-icons/cg";
-import { TiSocialTwitterCircular } from "react-icons/ti";
 import {
   MdKeyboardArrowDown,
   MdKeyboardArrowUp,
