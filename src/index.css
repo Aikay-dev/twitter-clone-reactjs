@@ -763,6 +763,10 @@
   left: 3%;
 }
 
+.bookmarkBackArrow{
+  display: none;
+}
+
 .profilepagetabholder {
   border-bottom: 1px solid var(--homeLabelColor);
 }
@@ -1452,6 +1456,10 @@
 @media screen and (max-width: 500px) {
   .homepage-center {
     width: 100%;
+  }
+
+  .bookmarkBackArrow{
+    display: block;
   }
 
   .notificationUserImage {

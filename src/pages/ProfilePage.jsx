@@ -36,7 +36,9 @@ function ProfilePage() {
           </div>
         </header>
         <section className=" overflow-y-scroll h-full profilepagemainsection">
-          <div className=" h-48 w-full bg-slate-500 profilebacdropimage"></div>
+          <div className=" h-48 w-full bg-slate-500 profilebacdropimage">
+            <img src="https://picsum.photos/300/100" alt="" style={{ width: '100%', height: '100%' }}/>
+          </div>
           <div className="flex flex-col relative">
             <div className="p-1 bg-black absolute rounded-full flex justify-center items-center profileimageinproflepage">
               <img
