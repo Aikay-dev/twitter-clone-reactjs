@@ -626,6 +626,7 @@
 
 .mobile-bottom-nav {
   display: none;
+  touch-action: none;
 }
 
 .settings-main-tab {
