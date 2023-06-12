@@ -28,7 +28,7 @@ const Home = () => {
         <header className="pt-4 absolute z-30 top-mobile-nav w-full ">
           <div className="pl-3 w-full mobileheader flex gap-1 sm:hidden">
             <div
-              className="home-nav-profile-image w-12 flex justify-center items-center"
+              className="home-nav-profile-image w-14 pl-1 pt-1 flex justify-center items-center"
               onClick={() => {
                 dispatch(mobileNavLeftState(true));
                 document.body.classList.add("overlay-open");
@@ -38,7 +38,7 @@ const Home = () => {
               <img
                 src="https://picsum.photos/200/300"
                 alt="user profile image"
-                className="rounded-full w-10 h-10 max-h-10"
+                className="rounded-full w-8 h-8 max-h-8"
               />
             </div>
             <Link

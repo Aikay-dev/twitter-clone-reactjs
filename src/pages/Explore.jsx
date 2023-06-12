@@ -63,7 +63,7 @@ const Explore = () => {
           )}
           {auth.currentUser !== null && (
             <div
-              className="home-nav-profile-image exploreProfileDiv mr-2 w-14 h-14 flex justify-center items-center"
+              className="home-nav-profile-image exploreProfileDiv pt-2 w-14 h-14  flex justify-center items-center"
               onClick={() => {
                 dispatch(mobileNavLeftState(true));
                 document.body.classList.add("overlay-open");
@@ -72,7 +72,7 @@ const Explore = () => {
               <img
                 src="https://picsum.photos/200/300"
                 alt="user profile image"
-                className="rounded-full w-10 h-10"
+                className="rounded-full w-8 h-8"
               />
             </div>
           )}

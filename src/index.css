@@ -616,6 +616,10 @@
   background-color: rgba(77, 91, 102, 0.5);
 }
 
+.notificationUserImage{
+  display: none;
+}
+
 /* Media queries */
 
 .settings-page {
@@ -1081,6 +1085,7 @@
 
 .home-nav-profile-image {
   margin-right: 12px;
+  padding-right: 5px;
 }
 
 .exploreProfileDiv{
@@ -1343,6 +1348,10 @@
 @media screen and (max-width: 500px) {
   .homepage-center {
     width: 100%;
+  }
+
+  .notificationUserImage{
+    display: flex;
   }
 
   .floating-tweet-button{
