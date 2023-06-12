@@ -41,7 +41,7 @@ const SettingsPage = () => {
   const [togglePermit, setTogglePermit] = useState(false);
   return (
     <SettingsContext.Provider value={{ togglePermit, setTogglePermit }}>
-      <div className="overflow-scroll xs:w-full">
+      <div className=" overflow-y-scroll xs:w-full">
         <div className="settings-page flex ">
           {window.innerWidth > 1040 || window.location.pathname === "/Home/Settings/" ? (
             <SettingsMainNav navStyleOnPop={navStyleOnPop} /> 

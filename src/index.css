@@ -574,6 +574,7 @@
 
 .main-tweeter-loading {
   color: var(--blueText);
+  touch-action: none;
 }
 
 .home-main-tweet-section-bottom {
