@@ -1,11 +1,11 @@
-import React from 'react'
+import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { fas } from "@fortawesome/free-solid-svg-icons";
 import { fab } from "@fortawesome/free-brands-svg-icons";
 import { far } from "@fortawesome/free-regular-svg-icons";
 import TweetStream from "./Home/dataStream/TweetStream";
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 import SettingsTwoToneIcon from "@mui/icons-material/SettingsTwoTone";
 
 library.add(fas);
@@ -47,46 +47,18 @@ function MessagesPage() {
           </div>
         </header>
         <section>
-          <div className="notificationcard flex justify-center items-center py-3 px-6 gap-4 cursor-pointer">
-            <div className="text text-3xl">
-              <FontAwesomeIcon icon="fab fa-twitter" />
-            </div>
-            <div>
-              There was a login to your account @general_ik from a new device on
-              Jun 11, 2023.
-            </div>
-          </div>
-          <div className="notificationcard flex items-center py-3 px-6 gap-4 cursor-pointer">
-            <div className="text text-2xl text-blue-500">
-              <FontAwesomeIcon icon="fa-solid fa-user" />
-            </div>
-            <div>
-              <img
-                src="https://picsum.photos/200/300"
-                alt="user profile image"
-                className="rounded-full h-8 min-w-8 w-8 mb-2 max-w-14 mr-5 cursor-pointer"
-              />
-              <p>Kandis Beninato followed you</p>
-            </div>
-          </div>
-          <div className="notificationcard flex items-center py-3 px-6 gap-4 cursor-pointer">
-            <div className="text text-2xl text-pink-600">
-              <FontAwesomeIcon icon="fa-solid fa-heart" />
-            </div>
-            <div>
-              <img
-                src="https://picsum.photos/200/300"
-                alt="user profile image"
-                className="rounded-full h-8 min-w-8 w-8 mb-2 max-w-14 mr-5 cursor-pointer"
-              />
-              <p>Andrew Bello liked your post</p>
-            </div>
+          <div className="px-10 pt-5">
+            <p className=" text-3xl font-black pb-2">Welcome to your inbox!</p>
+            <p className="messageTextDropaline mb-3">
+              Drop a line, share Tweets and more with private conversations
+              between you and others on Tweeter.{" "}
+            </p>
+            <button className=" bg-orange-400 px-10 py-4 rounded-full messageWriteMessageButton font-semibold">Write your message</button>
           </div>
         </section>
       </section>
-
     </>
-  )
+  );
 }
 
-export default MessagesPage
+export default MessagesPage;

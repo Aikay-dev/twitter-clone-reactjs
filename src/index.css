@@ -1088,8 +1088,20 @@
   padding-right: 5px;
 }
 
+.messageTextDropaline{
+  color: var(--homeLabelColor);
+}
+
 .exploreProfileDiv{
   min-width: 40px;
+}
+
+.messageWriteMessageButton{
+  background-color: var(--blueText);
+}
+
+.messageWriteMessageButton:hover{
+  background-color: rgb(29, 144, 221);
 }
 
 .profileHoverCard{
