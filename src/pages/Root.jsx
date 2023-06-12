@@ -456,7 +456,7 @@ const Root = ({ authState, setAuthState }) => {
                     <FontAwesomeIcon icon="fa-brands fa-square-twitter" />
                   </div>
                   <p className="hidden xl:block xl:pl-6 whitespace-nowrap">
-                    Tweeter Blue
+                    Tweeter Dev
                   </p>
                 </Link>
               )}
@@ -760,12 +760,6 @@ const Root = ({ authState, setAuthState }) => {
                   </div>
                   <p className="font-semibold">Bookmarks</p>
                 </Link>
-                <Link className="flex gap-6 items-center text-xl">
-                  <div>
-                    <CgNotes />
-                  </div>
-                  <p className="font-semibold">Lists</p>
-                </Link>
                 <Link
                   className="flex gap-6 items-center text-xl"
                   to="Messages"
@@ -780,6 +774,7 @@ const Root = ({ authState, setAuthState }) => {
                   <p className="font-semibold ">Messages</p>
                 </Link>
                 <Link
+                to="/Home/Tweeter%20Blue"
                   className="flex items-center gap-6 text-xl"
                   onClick={() => {
                     document.body.classList.remove("overlay-open");
@@ -789,7 +784,7 @@ const Root = ({ authState, setAuthState }) => {
                   <div>
                     <MdOutlineVerified />
                   </div>
-                  <p className="font-semibold">Verified Organizations</p>
+                  <p className="font-semibold">Tweeter Dev</p>
                 </Link>
               </div>
               <div className="home-mobile-navbar-bottom-section mx-3 mt-4 mb-20 pt-3">
