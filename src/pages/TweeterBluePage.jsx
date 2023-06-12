@@ -15,6 +15,8 @@ library.add(fab);
 library.add(far);
 
 function TweeterBluePage() {
+  const dispatch = useDispatch();
+  const mobNavleft = useSelector((state) => state.mobNavleft.value);
   return (
     <>
       <section className="homepage-center h-screen relative overflow-hidden">
