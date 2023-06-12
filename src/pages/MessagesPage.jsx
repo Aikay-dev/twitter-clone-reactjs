@@ -7,12 +7,16 @@ import { far } from "@fortawesome/free-regular-svg-icons";
 import TweetStream from "./Home/dataStream/TweetStream";
 import { Link } from "react-router-dom";
 import SettingsTwoToneIcon from "@mui/icons-material/SettingsTwoTone";
+import { useSelector, useDispatch } from "react-redux";
+import { mobileNavLeftState } from "../store";
 
 library.add(fas);
 library.add(fab);
 library.add(far);
 
 function MessagesPage() {
+  const dispatch = useDispatch();
+    const mobNavleft = useSelector((state) => state.mobNavleft.value);
   return (
     <>
       <section className="homepage-center h-screen relative overflow-hidden">

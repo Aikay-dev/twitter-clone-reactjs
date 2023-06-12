@@ -801,12 +801,14 @@ const Root = ({ authState, setAuthState }) => {
                 {setNdpriv && (
                   <nav>
                     <ul className="flex flex-col gap-3 mt-1">
-                      <li className="flex gap-6 text-xl items-center">
+                      <Link to="/Home/Settings/" onClick={() => {
+                        dispatch(mobileNavLeftState(false));
+                      }} className="flex gap-6 text-xl items-center">
                         <span>
                           <AiOutlineSetting />
                         </span>{" "}
                         <p>Settings and privacy</p>
-                      </li>
+                      </Link>
                       <li className="flex gap-6 text-xl items-center">
                         <span>
                           <BiHelpCircle />
