@@ -12,7 +12,7 @@ library.add(far);
 
 const HomeRight = () => {
   return (
-    <section className="homepage-right h-screen px-7">
+    <section className="homepage-right h-screen px-7 overflow-y-scroll">
         <div className="homepage-header-searchbar w-full relative mt-2">
           <input
             type="text"

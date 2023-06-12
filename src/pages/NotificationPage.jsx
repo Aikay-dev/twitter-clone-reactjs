@@ -50,7 +50,7 @@ function NotificationPage() {
             <p className="fo font-semibold text-sm">All</p>
           </div>
         </header>
-        <section>
+        <section className=" overflow-y-scroll h-screen notificationmainsection">
           <div className="notificationcard flex justify-center items-center py-3 px-6 gap-4 cursor-pointer">
             <div className="text text-3xl">
               <FontAwesomeIcon icon="fab fa-twitter" />

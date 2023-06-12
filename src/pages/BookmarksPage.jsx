@@ -24,7 +24,7 @@ function BookmarksPage() {
             <FontAwesomeIcon icon="fa-solid fa-ellipsis" />
           </div>
         </header>
-        <section>
+        <section className=" overflow-y-scroll bookmarkmainsection">
             <TweetStream/>
         </section>
       </section>
