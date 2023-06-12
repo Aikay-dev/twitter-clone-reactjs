@@ -90,7 +90,7 @@ const Home = () => {
             </button>
           </div>
         </header>
-        <div className="h-full pt-40 w-full tweet-scroll-section overflow-y-scroll overflow-x-hidden">
+        <div className="h-full pt-32 w-full tweet-scroll-section overflow-y-scroll overflow-x-hidden">
           <section className="py-3 px-3 home-main-tweet-section">
             <div className="flex">
               <div>
