@@ -98,6 +98,11 @@ const Root = ({ authState, setAuthState }) => {
       setsearchClicked(false);
       setbellClicked(false);
       setmessageClicked(true);
+    } else{
+      setHomeClicked(false);
+      setsearchClicked(false);
+      setbellClicked(false);
+      setmessageClicked(false);
     }
 
     // Clean up function for when the component unmounts or when the URL changes again

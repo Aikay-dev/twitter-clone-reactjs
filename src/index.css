@@ -46,7 +46,7 @@
   background-color: rgb(24, 25, 25);
 }
 
-.homelogouthovercancel{
+.homelogouthovercancel {
   border: 2px solid rgb(113, 118, 123);
 }
 
@@ -277,7 +277,7 @@
   display: none;
 }
 
-.floating-tweet-button{
+.floating-tweet-button {
   display: none;
   background-color: var(--blueText);
   bottom: 12%;
@@ -289,7 +289,7 @@
   border-top: var(--homeBorder);
 }
 
-.top-mobile-nav{
+.top-mobile-nav {
   background-color: rgba(0, 0, 0, 0.7);
   backdrop-filter: blur(10px);
   touch-action: none;
@@ -336,6 +336,27 @@
 .tweet-scroll-section::-webkit-scrollbar-thumb {
   background-color: var(--blueText);
   border-radius: 30px;
+}
+
+.profilepagemainsection::-webkit-scrollbar {
+  width: 10px;
+}
+
+.profilepagemainsection::-webkit-scrollbar-track {
+  background-color: rgb(20, 20, 20);
+}
+
+.profilepagemainsection::-webkit-scrollbar-thumb {
+  background-color: var(--blueText);
+  border-radius: 30px;
+}
+
+.profileMainEditButton {
+  border: 1px solid var(--homeLabelColor);
+}
+
+.profileMainEditButton:hover {
+  background-color: var(--buttonHover);
 }
 
 .main-tweet-trend-icon:hover .main-trend-icon-surround {
@@ -452,8 +473,6 @@
   background-color: var(--blueText);
   border-radius: 30px;
 }
-
-
 
 .trend-category,
 .trend-tweets-num,
@@ -628,7 +647,7 @@
   background-color: rgba(77, 91, 102, 0.5);
 }
 
-.notificationUserImage{
+.notificationUserImage {
   display: none;
 }
 
@@ -681,15 +700,15 @@
   border-left: var(--homeBorder);
 }
 
-.bookmarkElips:hover{
+.bookmarkElips:hover {
   background-color: var(--buttonHover);
 }
 
-.bookmarkUserName{
+.bookmarkUserName {
   color: var(--homeLabelColor);
 }
 
-.notificationUserImage{
+.notificationUserImage {
   min-width: 50px;
 }
 
@@ -731,20 +750,53 @@
   border-bottom: var(--homeBorder);
 }
 
-.notificationheaderBorder{
-  border-bottom: var(--homeBorder);
-
+.profilePageHeader {
+  border-bottom: 1px solid var(--homeLabelColor);
 }
 
-.notificationcard:hover{
-  background-color: var(--faintHover)
+.homelabelcolor {
+  color: var(--homeLabelColor);
 }
 
-.notificationSettingsButton:hover{
+.profileimageinproflepage {
+  bottom: 180px;
+  left: 3%;
+}
+
+.profilepagetabholder {
+  border-bottom: 1px solid var(--homeLabelColor);
+}
+
+.profilepageTweetsTab {
+  border-bottom: 3px solid var(--blueText);
+}
+
+.profilepageLikesTab {
+  border-bottom: 3px solid var(--blueText);
+}
+
+.profilepageTweetsbigTab:hover {
   background-color: var(--buttonHover);
 }
 
-.notificationcard{
+.profilepageLikesbigTab:hover {
+  background-color: var(--buttonHover);
+}
+
+.notificationheaderBorder {
+  border-bottom: var(--homeBorder);
+  touch-action: none;
+}
+
+.notificationcard:hover {
+  background-color: var(--faintHover);
+}
+
+.notificationSettingsButton:hover {
+  background-color: var(--buttonHover);
+}
+
+.notificationcard {
   border-bottom: var(--homeBorder);
   border-top: var(--homeBorder);
 }
@@ -809,8 +861,12 @@
 }
 
 @keyframes ldio-t5x32ssrll9 {
-  0% { transform: translate(-50%,-50%) rotate(0deg); }
-  100% { transform: translate(-50%,-50%) rotate(360deg); }
+  0% {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  100% {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
 }
 
 .ldio-t5x32ssrll9 div {
@@ -824,7 +880,7 @@
 .ldio-t5x32ssrll9 div {
   animation: ldio-t5x32ssrll9 1s linear infinite;
   top: 50px;
-  left: 50px
+  left: 50px;
 }
 .loadingio-spinner-rolling-o8a0fs8tskj {
   width: 24px;
@@ -841,7 +897,9 @@
   backface-visibility: hidden;
   transform-origin: 0 0; /* see note above */
 }
-.ldio-t5x32ssrll9 div { box-sizing: content-box; }
+.ldio-t5x32ssrll9 div {
+  box-sizing: content-box;
+}
 
 .enter-password-login-input {
   border: var(--homeBorder);
@@ -1062,7 +1120,7 @@
   background-color: rgb(26, 140, 216);
 }
 
-.notificationHeaderAll{
+.notificationHeaderAll {
   border-bottom: 4px solid #1d9bf0;
 }
 
@@ -1096,27 +1154,27 @@
   padding-right: 5px;
 }
 
-.messageTextDropaline{
+.messageTextDropaline {
   color: var(--homeLabelColor);
 }
 
-.exploreProfileDiv{
+.exploreProfileDiv {
   min-width: 40px;
 }
 
-.messageWriteMessageButton{
+.messageWriteMessageButton {
   background-color: var(--blueText);
 }
 
-.messageWriteMessageButton:hover{
+.messageWriteMessageButton:hover {
   background-color: rgb(29, 144, 221);
 }
 
-.profileHoverCard{
+.profileHoverCard {
   top: -380%;
 }
 
-.notificationmainsection::-webkit-scrollbar{
+.notificationmainsection::-webkit-scrollbar {
   width: 10px;
 }
 
@@ -1129,9 +1187,7 @@
   border-radius: 30px;
 }
 
-
-
-.bookmarkmainsection::-webkit-scrollbar{
+.bookmarkmainsection::-webkit-scrollbar {
   width: 10px;
 }
 
@@ -1398,11 +1454,11 @@
     width: 100%;
   }
 
-  .notificationUserImage{
+  .notificationUserImage {
     display: flex;
   }
 
-  .floating-tweet-button{
+  .floating-tweet-button {
     display: flex;
   }
 
@@ -1497,5 +1553,21 @@
 @media screen and (max-width: 300px) {
   .home-navbar-mobile {
     width: 100vw;
+  }
+
+  .profilebacdropimage{
+    height: 100px;
+  }
+
+  .profileimageinproflepage{
+    height: 81px;
+    width: 81px;
+    bottom: 80%;
+  }
+
+  .profileimageinproflepageimage{
+    height: 70px;
+    width: 70px;
+    
   }
 }
