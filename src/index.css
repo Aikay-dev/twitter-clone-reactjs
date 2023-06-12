@@ -291,7 +291,8 @@
 
 .top-mobile-nav{
   background-color: rgba(0, 0, 0, 0.7);
-  backdrop-filter: blur(10px)
+  backdrop-filter: blur(10px);
+  overflow:hidden;
 }
 
 .main-tweet-card-user-actions::-webkit-scrollbar {
