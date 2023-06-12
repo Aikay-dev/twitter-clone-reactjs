@@ -37,7 +37,11 @@ function ProfilePage() {
         </header>
         <section className=" overflow-y-scroll h-full profilepagemainsection">
           <div className=" h-48 w-full bg-slate-500 profilebacdropimage">
-            <img src="https://picsum.photos/300/100" alt="" style={{ width: '100%', height: '100%' }}/>
+            <img
+              src="https://picsum.photos/300/100"
+              alt=""
+              style={{ width: "100%", height: "100%" }}
+            />
           </div>
           <div className="flex flex-col relative">
             <div className="p-1 bg-black absolute rounded-full flex justify-center items-center profileimageinproflepage">
@@ -79,17 +83,20 @@ function ProfilePage() {
           </div>
           <div className="flex justify-between profilepagetabholder mt-3">
             <div className="h-16 w-full flex items-center justify-center cursor-pointer profilepageTweetsbigTab">
-              <div className=" h-full flex justify-center items-center profilepageTweetsTab">Tweets</div>
+              <div className=" h-full flex justify-center items-center profilepageTweetsTab">
+                Tweets
+              </div>
             </div>
             <div className="h-16 w-full flex items-center justify-center cursor-pointer profilepageLikesbigTab">
-              <div className="h-full flex justify-center items-center profilepageLikesTab">Likes</div>
+              <div className="h-full flex justify-center items-center profilepageLikesTab">
+                Likes
+              </div>
             </div>
           </div>
           <section className=" h-96 w-full">
-          <TweetStream/>
+            <TweetStream />
+          </section>
         </section>
-        </section>
-        
       </section>
 
       <HomeRight />

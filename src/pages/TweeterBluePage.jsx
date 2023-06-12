@@ -46,9 +46,30 @@ function TweeterBluePage() {
               </Link>
             </div>
           </div>
-          <div className="w-14 pb-3 flex justify-center items-center mt-8 notificationHeaderAll">
-            <p className="fo font-semibold text-sm">All</p>
-          </div>
+          <div className="flex justify-between mt-3 overflow-x-scroll devpagetabholder">
+            <div className="minwidthprofiletab whitespace-nowrap h-16 w-full flex items-center justify-center cursor-pointer profilepageTweetsbigTab">
+              <div className=" h-full flex justify-center items-center profilepageTweetsTab">
+                About Dev
+              </div>
+            </div>
+            <div className="minwidthprofiletab whitespace-nowrap h-16 w-full flex items-center justify-center cursor-pointer profilepageLikesbigTab">
+              <div className="h-full flex justify-center items-center profilepageLikesTab">
+                Services
+              </div>
+            </div>
+            <div className=" minwidthprofiletab h-16 w-full flex items-center justify-center cursor-pointer profilepageLikesbigTab">
+              <div className=" whitespace-nowrap h-full flex justify-center items-center profilepageLikesTab">
+                Blog
+              </div>
+            </div>
+            <div className="minwidthprofiletab h-16 w-full flex items-center justify-center cursor-pointer profilepageLikesbigTab">
+              <div className=" whitespace-nowrap h-full flex justify-center items-center profilepageLikesTab">
+                Contact me
+              </div>
+            </div>
+            
+          </div>  
+          
         </header>
         <section className=" overflow-y-scroll h-screen notificationmainsection">
           

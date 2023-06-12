@@ -771,6 +771,14 @@
   border-bottom: 1px solid var(--homeLabelColor);
 }
 
+.minwidthprofiletab{
+  min-width: 100px;
+}
+
+.devpagetabholder::-webkit-scrollbar{
+  display: none;
+}
+
 .profilepageTweetsTab {
   border-bottom: 3px solid var(--blueText);
 }
