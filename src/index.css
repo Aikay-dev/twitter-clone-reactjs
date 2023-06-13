@@ -1576,6 +1576,11 @@
   .home-navbar-mobile {
     width: 300px;
   }
+
+  .profileimageintweetdevpage {
+    bottom: 190px;
+    left: 3%;
+  }
 }
 
 @media screen and (max-width: 300px) {
