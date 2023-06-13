@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import SettingsTwoToneIcon from "@mui/icons-material/SettingsTwoTone";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -16,6 +16,8 @@ library.add(fab);
 library.add(far);
 
 function ProfilePage() {
+  const [profileTweetsTab, setprofileTweetsTab] = useState(true);
+  const [profileLikesTab, setprofileLikesTab] = useState(false)
   const dispatch = useDispatch();
   const mobNavleft = useSelector((state) => state.mobNavleft.value);
   return (
@@ -82,19 +84,25 @@ function ProfilePage() {
             </div>
           </div>
           <div className="flex justify-between profilepagetabholder mt-3">
-            <div className="h-16 w-full flex items-center justify-center cursor-pointer profilepageTweetsbigTab">
-              <div className=" h-full flex justify-center items-center profilepageTweetsTab">
+            <div onClick={() => {
+              setprofileTweetsTab(true);
+              setprofileLikesTab(false);
+            }} className="h-16 w-full flex items-center justify-center cursor-pointer profilepageTweetsbigTab">
+              <div style={profileTweetsTab? { borderBottom: "3px solid var(--blueText)" }: {}} className=" h-full flex justify-center items-center profilepageTweetsTab">
                 Tweets
               </div>
             </div>
-            <div className="h-16 w-full flex items-center justify-center cursor-pointer profilepageLikesbigTab">
-              <div className="h-full flex justify-center items-center profilepageLikesTab">
+            <div onClick={() => {
+              setprofileTweetsTab(false);
+              setprofileLikesTab(true);
+            }} className="h-16 w-full flex items-center justify-center cursor-pointer profilepageLikesbigTab">
+              <div style={profileLikesTab? { borderBottom: "3px solid var(--blueText)" }: {}} className="h-full flex justify-center items-center profilepageLikesTab">
                 Likes
               </div>
             </div>
           </div>
           <section className=" h-96 w-full">
-            <TweetStream />
+            {profileTweetsTab && <TweetStream />}
           </section>
         </section>
       </section>

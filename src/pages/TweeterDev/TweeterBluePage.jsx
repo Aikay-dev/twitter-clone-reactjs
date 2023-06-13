@@ -4,11 +4,15 @@ import { library } from "@fortawesome/fontawesome-svg-core";
 import { fas } from "@fortawesome/free-solid-svg-icons";
 import { fab } from "@fortawesome/free-brands-svg-icons";
 import { far } from "@fortawesome/free-regular-svg-icons";
-import HomeRight from "./Home/HomeRight";
+import HomeRight from "../Home/HomeRight";
 import SettingsTwoToneIcon from "@mui/icons-material/SettingsTwoTone";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { mobileNavLeftState } from "../store";
+import { mobileNavLeftState } from "../../store";
+import AboutDevTab from "./AboutDevTab";
+import BlogTab from "./BlogTab";
+import ServicesTab from "./ServicesTab";
+import ContactTab from "./ContactTab";
 
 library.add(fas);
 library.add(fab);
@@ -125,7 +129,12 @@ function TweeterBluePage() {
             </div>
           </div>
         </header>
-        <section className=" overflow-y-scroll h-screen notificationmainsection"></section>
+        <section className=" overflow-y-scroll h-screen notificationmainsection">
+          {aboutdevTab && <AboutDevTab/>}
+          {blogTab && <BlogTab/>}
+          {contactTab && <ContactTab/>}
+          {servicesTab && <ServicesTab/>}
+        </section>
       </section>
 
       <HomeRight />

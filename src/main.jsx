@@ -18,7 +18,7 @@ import Explore from "./pages/Explore";
 import PersonalizationAndData from "./pages/settings/PersonalizationAndData";
 import TweeterData from "./pages/settings/TweeterData";
 import AdditionalResources from "./pages/settings/AdditionalResources";
-import TweeterBluePage from "./pages/TweeterBluePage";
+import TweeterBluePage from "./pages/TweeterDev/TweeterBluePage";
 import ProfilePage from "./pages/ProfilePage";
 import NotificationPage from "./pages/NotificationPage";
 import MessagesPage from "./pages/MessagesPage";
