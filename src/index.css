@@ -312,6 +312,14 @@
   text-decoration: underline;
 }
 
+.devprofilepagelink:hover{
+  text-decoration: underline;
+}
+
+.devprofileheader{
+  border-bottom: 1px solid var(--homeLabelColor);
+}
+
 .main-tweet-comment-icon:hover {
   color: var(--blueText);
 }
@@ -762,6 +770,11 @@
 
 .profileimageinproflepage {
   bottom: 180px;
+  left: 3%;
+}
+
+.profileimageintweetdevpage{
+  bottom: 170px;
   left: 3%;
 }
 
@@ -1579,5 +1592,11 @@
     height: 70px;
     width: 70px;
     
+  }
+
+  .profileimageintweetdevpage{
+    height: 81px;
+    width: 81px;
+    bottom: 80%;
   }
 }

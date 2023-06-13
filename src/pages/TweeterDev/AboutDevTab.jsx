@@ -1,9 +1,126 @@
-import React from 'react'
+import React from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { fas } from "@fortawesome/free-solid-svg-icons";
+import { fab } from "@fortawesome/free-brands-svg-icons";
+import { far } from "@fortawesome/free-regular-svg-icons";
+import profilePic from "../../assets/profilepic.jpg";
+
+library.add(fas);
+library.add(fab);
+library.add(far);
 
 function AboutDevTab() {
+  const skillImages = [
+    "https://raw.githubusercontent.com/devicons/devicon/master/icons/angularjs/angularjs-original-wordmark.svg",
+    "https://camo.githubusercontent.com/bbb327d6ba7708520eaafd13396fed64d73bf5df5c4cdd0ba03cf0843f7a9340/68747470733a2f2f7777772e766563746f726c6f676f2e7a6f6e652f6c6f676f732f676e755f626173682f676e755f626173682d69636f6e2e737667",
+    "https://raw.githubusercontent.com/devicons/devicon/master/icons/typescript/typescript-original.svg",
+    "https://camo.githubusercontent.com/5734d0669fe22ce04a1cb989a156cd32c379875f6bca56d5210c9432824856d9/68747470733a2f2f7777772e766563746f726c6f676f2e7a6f6e652f6c6f676f732f7461696c77696e646373732f7461696c77696e646373732d69636f6e2e737667",
+    "https://raw.githubusercontent.com/devicons/devicon/master/icons/sass/sass-original.svg",
+    "https://raw.githubusercontent.com/devicons/devicon/master/icons/react/react-original-wordmark.svg",
+    "https://raw.githubusercontent.com/devicons/devicon/master/icons/postgresql/postgresql-original-wordmark.svg",
+    "https://raw.githubusercontent.com/devicons/devicon/master/icons/nodejs/nodejs-original-wordmark.svg",
+    "https://raw.githubusercontent.com/devicons/devicon/master/icons/mongodb/mongodb-original-wordmark.svg",
+    "https://camo.githubusercontent.com/76ae44a94388e048be2d8f5730d221c844f291162e6c5cdd632b1623a1b859f8/68747470733a2f2f7777772e766563746f726c6f676f2e7a6f6e652f6c6f676f732f6b6f746c696e6c616e672f6b6f746c696e6c616e672d69636f6e2e737667",
+    "https://raw.githubusercontent.com/devicons/devicon/master/icons/javascript/javascript-original.svg",
+    "https://raw.githubusercontent.com/devicons/devicon/master/icons/html5/html5-original-wordmark.svg",
+    "https://camo.githubusercontent.com/07c382b68200c1a86d52d1682346e73e038b2f160c9afbc0af773fb3646882c8/68747470733a2f2f7777772e766563746f726c6f676f2e7a6f6e652f6c6f676f732f6772617068716c2f6772617068716c2d69636f6e2e737667",
+    "https://camo.githubusercontent.com/fbfcb9e3dc648adc93bef37c718db16c52f617ad055a26de6dc3c21865c3321d/68747470733a2f2f7777772e766563746f726c6f676f2e7a6f6e652f6c6f676f732f6769742d73636d2f6769742d73636d2d69636f6e2e737667",
+    "https://camo.githubusercontent.com/ed93c2b000a76ceaad1503e7eb9356591b885227e82a36a005b9d3498b303ba5/68747470733a2f2f7777772e766563746f726c6f676f2e7a6f6e652f6c6f676f732f6669676d612f6669676d612d69636f6e2e737667",
+    "https://camo.githubusercontent.com/dd4b2422ed3bfc9da88c43d18550375c66f9584327dff7ecc19315ce50b96f07/68747470733a2f2f7777772e766563746f726c6f676f2e7a6f6e652f6c6f676f732f66697265626173652f66697265626173652d69636f6e2e737667",
+  ];
+
+  const skills = skillImages.map((images)=> {
+    return <img src={images} alt="" key={skillImages.indexOf(images)} className="h-10"/>
+  })
+
   return (
-    <div>AboutDevTab</div>
-  )
+    <>
+      <section className="h-full profilepagemainsection">
+        <div className=" h-48 w-full bg-slate-500 profilebacdropimage">
+          <img
+            src="https://picsum.photos/300/100"
+            alt=""
+            style={{ width: "100%", height: "100%" }}
+          />
+        </div>
+        <div className="flex flex-col relative h-60 devprofileheader">
+          <div className="p-1 bg-black absolute rounded-full flex justify-center items-center  profileimageintweetdevpage ">
+            <img
+              src={profilePic}
+              alt="profile pic"
+              className="rounded-full profileimageinproflepageimage relative h-32 w-32"
+            />
+          </div>
+          <div className="pl-4 pt-24">
+            <p className=" font-black text-xl">Emmanuel Ikpomosa Esekhaigbe</p>
+            <div className="flex gap-2 pt-2 items-center">
+              <img
+                src="https://em-content.zobj.net/thumbs/120/twitter/322/flag-nigeria_1f1f3-1f1ec.png"
+                alt=""
+                className="h-4"
+              />
+              <p className="text-sm homelabelcolor">Akwa ibom, Nigeria</p>
+            </div>
+            <div className="flex gap-2 text-sm mt-1">
+              <span className="text-white">
+                <FontAwesomeIcon icon="fa-solid fa-link" />
+              </span>
+              <a
+                href="https://emmanuelfestus.netlify.app/"
+                className="homelabelcolor devprofilepagelink"
+              >
+                https://emmanuelfestus.netlify.app/
+              </a>
+            </div>
+            <div className="flex gap-2 mt-1">
+              <span>
+                <FontAwesomeIcon icon="fa-brands fa-github" />
+              </span>
+              <a
+                href="https://github.com/GeneralAike"
+                className="homelabelcolor devprofilepagelink text-sm"
+              >
+                @GeneralAike
+              </a>
+            </div>
+            <div className="flex gap-2 mt-1">
+              <span className="text-sm">
+                <FontAwesomeIcon icon="fa-solid fa-code" />
+              </span>
+              <p className=" text-slate-300">Front-end web developer</p>
+            </div>
+          </div>
+        </div>
+        <div className="p-3 pb-60">
+          <div>
+            <FontAwesomeIcon icon="fa-solid fa-code" />
+          </div>
+          <p>
+            Hey guys, Emmanuel here. I have been working in the tech industry
+            for a number of years, and in that time I have gained a wealth of
+            experience and knowledge in a variety of programming languages and
+            frameworks. I am always eager to learn more and stay up-to-date on
+            the latest technologies.
+          </p>
+          <div className="flex flex-row-reverse">
+            <FontAwesomeIcon icon="fa-solid fa-code" />
+          </div>
+          <div className="mt-4">
+            <p className=" text-2xl homelabelcolor">Skills</p>
+            <p className="mb-3 mt-3">Programming language & tools</p>
+            <div className="flex gap-5 flex-wrap">
+              {skills}
+            </div>
+          </div>
+          <div className="mt-6">
+            <p className=" text-2xl homelabelcolor">Education</p>
+            
+          </div>
+        </div>
+      </section>
+    </>
+  );
 }
 
-export default AboutDevTab
+export default AboutDevTab;

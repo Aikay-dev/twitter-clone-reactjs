@@ -29,7 +29,7 @@ function TweeterBluePage() {
     <>
       <section className="homepage-center h-screen relative overflow-hidden">
         <header className="flex flex-col  pt-5 notificationheaderBorder">
-          <div className="flex justify-between items-center">
+          <div className="flex px-5 justify-between items-center">
             <div
               className="notificationUserImage flex items-center"
               onClick={() => {
@@ -44,7 +44,7 @@ function TweeterBluePage() {
                 className=" rounded-full w-8 h-8 max-h-8"
               />
             </div>
-            <div className="flex px-5 justify-between w-full items-center">
+            <div className="flex  justify-between w-full items-center">
               <p className="t text-xl  font-bold">Tweeter Dev</p>
               <Link
                 to="/Home/Settings/"
