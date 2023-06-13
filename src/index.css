@@ -617,6 +617,7 @@
 
 .homepage-login-banner {
   background-color: rgb(29, 155, 240);
+  touch-action: none;
 }
 
 .homepage-login-banner-auth-signup {
