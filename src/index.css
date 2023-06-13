@@ -781,14 +781,6 @@
   display: none;
 }
 
-.profilepageTweetsTab {
-  border-bottom: 3px solid var(--blueText);
-}
-
-.profilepageLikesTab {
-  border-bottom: 3px solid var(--blueText);
-}
-
 .profilepageTweetsbigTab:hover {
   background-color: var(--buttonHover);
 }
