@@ -312,11 +312,11 @@
   text-decoration: underline;
 }
 
-.devprofilepagelink:hover{
+.devprofilepagelink:hover {
   text-decoration: underline;
 }
 
-.devprofileheader{
+.devprofileheader {
   border-bottom: 1px solid var(--homeLabelColor);
 }
 
@@ -773,12 +773,12 @@
   left: 3%;
 }
 
-.profileimageintweetdevpage{
-  bottom: 170px;
+.profileimageintweetdevpage {
+  bottom: 160px;
   left: 3%;
 }
 
-.bookmarkBackArrow{
+.bookmarkBackArrow {
   display: none;
 }
 
@@ -786,11 +786,11 @@
   border-bottom: 1px solid var(--homeLabelColor);
 }
 
-.minwidthprofiletab{
+.minwidthprofiletab {
   min-width: 100px;
 }
 
-.devpagetabholder::-webkit-scrollbar{
+.devpagetabholder::-webkit-scrollbar {
   display: none;
 }
 
@@ -1152,6 +1152,11 @@
   right: 50%;
 }
 
+.profilebacdropimage {
+  width: 100%;
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' version='1.1' xmlns:xlink='http://www.w3.org/1999/xlink' xmlns:svgjs='http://svgjs.dev/svgjs' width='1440' height='560' preserveAspectRatio='none' viewBox='0 0 1440 560'%3e%3cg mask='url(%26quot%3b%23SvgjsMask1000%26quot%3b)' fill='none'%3e%3crect width='1440' height='560' x='0' y='0' fill='%230e2a47'%3e%3c/rect%3e%3cpath d='M1250.5 43.9 a29.76 29.76 0 1 0 59.52 0 a29.76 29.76 0 1 0 -59.52 0z' fill='%23037b0b'%3e%3c/path%3e%3cpath d='M66.42 289.12L91.89 289.12L91.89 314.59L66.42 314.59z' stroke='%23e73635'%3e%3c/path%3e%3cpath d='M1174.2 115.4 a11.6 11.6 0 1 0 23.2 0 a11.6 11.6 0 1 0 -23.2 0z' fill='%23d3b714'%3e%3c/path%3e%3cpath d='M281.93 507.34L321.82 507.34L321.82 547.23L281.93 547.23z' fill='%23d3b714'%3e%3c/path%3e%3cpath d='M1338.47 243.95 a49.45 49.45 0 1 0 98.9 0 a49.45 49.45 0 1 0 -98.9 0z' stroke='%23037b0b'%3e%3c/path%3e%3cpath d='M806.53 266.24L822.24 266.24L822.24 281.95L806.53 281.95z' fill='%23d3b714'%3e%3c/path%3e%3cpath d='M640.93 393.79 a13.64 13.64 0 1 0 27.28 0 a13.64 13.64 0 1 0 -27.28 0z' fill='%23e73635'%3e%3c/path%3e%3cpath d='M1381.85 89.6L1420.02 89.6L1420.02 135.25L1381.85 135.25z' fill='%23037b0b'%3e%3c/path%3e%3cpath d='M1200.3 114.57L1216.28 114.57L1216.28 128.37L1200.3 128.37z' fill='%23037b0b'%3e%3c/path%3e%3cpath d='M1372.16 171.06a39.6 39.6 0 1 0-57.18-54.8z' stroke='%23037b0b'%3e%3c/path%3e%3cpath d='M215.47 294.3a33.65 33.65 0 1 0 48.22-46.96z' fill='%23e73635'%3e%3c/path%3e%3cpath d='M1128.05 281.26L1129.92 281.26L1129.92 283.13L1128.05 283.13z' stroke='%23037b0b'%3e%3c/path%3e%3cpath d='M609.71 349.1 a24.5 24.5 0 1 0 49 0 a24.5 24.5 0 1 0 -49 0z' stroke='%23e73635'%3e%3c/path%3e%3cpath d='M1142.3 417.55 a28.43 28.43 0 1 0 56.86 0 a28.43 28.43 0 1 0 -56.86 0z' fill='%23e73635'%3e%3c/path%3e%3cpath d='M1118.86 102.75L1166.14 102.75L1166.14 150.03L1118.86 150.03z' fill='%23d3b714'%3e%3c/path%3e%3cpath d='M735.59 2.29L755.04 2.29L755.04 40.49L735.59 40.49z' fill='%23037b0b'%3e%3c/path%3e%3cpath d='M223.35 195.25 a5.62 5.62 0 1 0 11.24 0 a5.62 5.62 0 1 0 -11.24 0z' fill='%23e73635'%3e%3c/path%3e%3cpath d='M-1.19 10.26a32.75 32.75 0 1 0 57.2 31.91z' stroke='%23037b0b'%3e%3c/path%3e%3cpath d='M1338.67 80.76L1342.43 80.76L1342.43 84.52L1338.67 84.52z' stroke='%23037b0b'%3e%3c/path%3e%3cpath d='M670.68 437.65L681.49 437.65L681.49 448.46L670.68 448.46z' fill='%23d3b714'%3e%3c/path%3e%3cpath d='M311.5 273.11L365.64 273.11L365.64 327.25L311.5 327.25z' stroke='%23e73635'%3e%3c/path%3e%3cpath d='M666.69 281.9a11.42 11.42 0 1 0 9.23-20.89z' fill='%23037b0b'%3e%3c/path%3e%3cpath d='M112.35 12.11a24.1 24.1 0 1 0-38.87 28.51z' stroke='%23e73635'%3e%3c/path%3e%3cpath d='M439.26 432.51L466.04 432.51L466.04 462.18L439.26 462.18z' stroke='%23e73635'%3e%3c/path%3e%3cpath d='M766.66 301.64 a16.44 16.44 0 1 0 32.88 0 a16.44 16.44 0 1 0 -32.88 0z' fill='%23037b0b'%3e%3c/path%3e%3cpath d='M1281.03 421.31 a25.7 25.7 0 1 0 51.4 0 a25.7 25.7 0 1 0 -51.4 0z' fill='%23037b0b'%3e%3c/path%3e%3cpath d='M989.19 544.68L1035.12 544.68L1035.12 590.61L989.19 590.61z' fill='%23d3b714'%3e%3c/path%3e%3cpath d='M706.47 386.71 a50.05 50.05 0 1 0 100.1 0 a50.05 50.05 0 1 0 -100.1 0z' stroke='%23e73635'%3e%3c/path%3e%3cpath d='M446.88 540.43 a27.9 27.9 0 1 0 55.8 0 a27.9 27.9 0 1 0 -55.8 0z' fill='%23d3b714'%3e%3c/path%3e%3cpath d='M390.51 11.88L438.85 11.88L438.85 60.22L390.51 60.22z' fill='%23e73635'%3e%3c/path%3e%3cpath d='M1043.71 381.6 a7.72 7.72 0 1 0 15.44 0 a7.72 7.72 0 1 0 -15.44 0z' fill='%23037b0b'%3e%3c/path%3e%3cpath d='M110.43 491.96L143.51 491.96L143.51 501.87L110.43 501.87z' fill='%23d3b714'%3e%3c/path%3e%3cpath d='M1311.49 303.66a49.65 49.65 0 1 0 66.16-74.05z' fill='%23037b0b'%3e%3c/path%3e%3c/g%3e%3cdefs%3e%3cmask id='SvgjsMask1000'%3e%3crect width='1440' height='560' fill='white'%3e%3c/rect%3e%3c/mask%3e%3c/defs%3e%3c/svg%3e");
+}
+
 .explore-signup-card {
   border-radius: 20px;
   top: 50%;
@@ -1473,7 +1478,7 @@
     width: 100%;
   }
 
-  .bookmarkBackArrow{
+  .bookmarkBackArrow {
     display: block;
   }
 
@@ -1578,23 +1583,22 @@
     width: 100vw;
   }
 
-  .profilebacdropimage{
+  .profilebacdropimage {
     height: 100px;
   }
 
-  .profileimageinproflepage{
+  .profileimageinproflepage {
     height: 81px;
     width: 81px;
     bottom: 80%;
   }
 
-  .profileimageinproflepageimage{
+  .profileimageinproflepageimage {
     height: 70px;
     width: 70px;
-    
   }
 
-  .profileimageintweetdevpage{
+  .profileimageintweetdevpage {
     height: 81px;
     width: 81px;
     bottom: 80%;

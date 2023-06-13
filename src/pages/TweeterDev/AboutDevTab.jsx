@@ -5,6 +5,7 @@ import { fas } from "@fortawesome/free-solid-svg-icons";
 import { fab } from "@fortawesome/free-brands-svg-icons";
 import { far } from "@fortawesome/free-regular-svg-icons";
 import profilePic from "../../assets/profilepic.jpg";
+import devwallpaper from '../../assets/devwallpaper.svg';
 
 library.add(fas);
 library.add(fab);
@@ -30,29 +31,33 @@ function AboutDevTab() {
     "https://camo.githubusercontent.com/dd4b2422ed3bfc9da88c43d18550375c66f9584327dff7ecc19315ce50b96f07/68747470733a2f2f7777772e766563746f726c6f676f2e7a6f6e652f6c6f676f732f66697265626173652f66697265626173652d69636f6e2e737667",
   ];
 
-  const skills = skillImages.map((images)=> {
-    return <img src={images} alt="" key={skillImages.indexOf(images)} className="h-10"/>
-  })
+  const skills = skillImages.map((images) => {
+    return (
+      <img
+        src={images}
+        alt=""
+        key={skillImages.indexOf(images)}
+        className="h-10"
+      />
+    );
+  });
 
   return (
     <>
       <section className="h-full profilepagemainsection">
         <div className=" h-48 w-full bg-slate-500 profilebacdropimage">
-          <img
-            src="https://picsum.photos/300/100"
-            alt=""
-            style={{ width: "100%", height: "100%" }}
-          />
         </div>
-        <div className="flex flex-col relative h-60 devprofileheader">
+        <div className="flex flex-col relative h-68 devprofileheader">
           <div className="p-1 bg-black absolute rounded-full flex justify-center items-center  profileimageintweetdevpage ">
             <img
               src={profilePic}
               alt="profile pic"
               className="rounded-full profileimageinproflepageimage relative h-32 w-32"
+              height="100%"
+              width="100%"
             />
           </div>
-          <div className="pl-4 pt-24">
+          <div className="pl-4 pt-28">
             <p className=" font-black text-xl">Emmanuel Ikpomosa Esekhaigbe</p>
             <div className="flex gap-2 pt-2 items-center">
               <img
@@ -109,13 +114,44 @@ function AboutDevTab() {
           <div className="mt-4">
             <p className=" text-2xl homelabelcolor">Skills</p>
             <p className="mb-3 mt-3">Programming language & tools</p>
-            <div className="flex gap-5 flex-wrap">
-              {skills}
-            </div>
+            <div className="flex gap-5 flex-wrap">{skills}</div>
           </div>
           <div className="mt-6">
-            <p className=" text-2xl homelabelcolor">Education</p>
-            
+            <p className=" text-2xl mb-3 homelabelcolor">Education</p>
+            <div>
+              <p>LANDMARK UNIVERSITY</p>
+              <p className="text-sm homelabelcolor">
+                100 level to 500 level where i studied mechanical engineering
+              </p>
+              <p className="text-sm homelabelcolor">
+                <span>
+                  <FontAwesomeIcon icon="fa-solid fa-calendar-days" />
+                </span>{" "}
+                2017 to 2022
+              </p>
+            </div>
+            <div className="mt-3">
+              <p>RAY-FIELD SECONDARY SCHOOL</p>
+              <p className="text-sm homelabelcolor">
+                Jss1 to SS3 where i majored in Science
+              </p>
+              <p className="text-sm homelabelcolor">
+                <span>
+                  <FontAwesomeIcon icon="fa-solid fa-calendar-days" />
+                </span>{" "}
+                2011 to 2017
+              </p>
+            </div>
+            <div className="mt-3">
+              <p>RAY-FIELD PRIMARY SCHOOL</p>
+              <p className="text-sm homelabelcolor">Primary 1 to Primary 4</p>
+              <p className="text-sm homelabelcolor">
+                <span>
+                  <FontAwesomeIcon icon="fa-solid fa-calendar-days" />
+                </span>{" "}
+                2007 to 2011
+              </p>
+            </div>
           </div>
         </div>
       </section>

@@ -55,14 +55,16 @@ function TweeterBluePage() {
             </div>
           </div>
           <div className="flex justify-between mt-3 overflow-x-scroll devpagetabholder">
-            <div onClick={() => {
-                  aboutdevTab ? setaboutdevTab(true) : setaboutdevTab(true);
-                  setservicesTab(false);
-                  setblogTab(false);
-                  setcontactTab(false);
-                }} className="minwidthprofiletab whitespace-nowrap h-16 w-full flex items-center justify-center cursor-pointer profilepageTweetsbigTab">
+            <div
+              onClick={() => {
+                aboutdevTab ? setaboutdevTab(true) : setaboutdevTab(true);
+                setservicesTab(false);
+                setblogTab(false);
+                setcontactTab(false);
+              }}
+              className="minwidthprofiletab whitespace-nowrap h-16 w-full flex items-center justify-center cursor-pointer profilepageTweetsbigTab"
+            >
               <div
-                
                 style={
                   aboutdevTab
                     ? { borderBottom: "3px solid var(--blueText)" }
@@ -73,14 +75,16 @@ function TweeterBluePage() {
                 About Dev
               </div>
             </div>
-            <div className="minwidthprofiletab whitespace-nowrap h-16 w-full flex items-center justify-center cursor-pointer profilepageLikesbigTab">
+            <div
+              onClick={() => {
+                setaboutdevTab(false);
+                servicesTab ? setservicesTab(true) : setservicesTab(true);
+                setblogTab(false);
+                setcontactTab(false);
+              }}
+              className="minwidthprofiletab whitespace-nowrap h-16 w-full flex items-center justify-center cursor-pointer profilepageLikesbigTab"
+            >
               <div
-                onClick={() => {
-                  setaboutdevTab(false);
-                  servicesTab ? setservicesTab(true) : setservicesTab(true);
-                  setblogTab(false);
-                  setcontactTab(false);
-                }}
                 style={
                   servicesTab
                     ? { borderBottom: "3px solid var(--blueText)" }
@@ -91,14 +95,16 @@ function TweeterBluePage() {
                 Services
               </div>
             </div>
-            <div onClick={() => {
-                  setaboutdevTab(false);
-                  setservicesTab(false);
-                  blogTab ? setblogTab(true) : setblogTab(true);
-                  setcontactTab(false);
-                }} className=" minwidthprofiletab h-16 w-full flex items-center justify-center cursor-pointer profilepageLikesbigTab">
+            <div
+              onClick={() => {
+                setaboutdevTab(false);
+                setservicesTab(false);
+                blogTab ? setblogTab(true) : setblogTab(true);
+                setcontactTab(false);
+              }}
+              className=" minwidthprofiletab h-16 w-full flex items-center justify-center cursor-pointer profilepageLikesbigTab"
+            >
               <div
-                
                 style={
                   blogTab ? { borderBottom: "3px solid var(--blueText)" } : {}
                 }
@@ -130,10 +136,10 @@ function TweeterBluePage() {
           </div>
         </header>
         <section className=" overflow-y-scroll h-screen notificationmainsection">
-          {aboutdevTab && <AboutDevTab/>}
-          {blogTab && <BlogTab/>}
-          {contactTab && <ContactTab/>}
-          {servicesTab && <ServicesTab/>}
+          {aboutdevTab && <AboutDevTab />}
+          {blogTab && <BlogTab />}
+          {contactTab && <ContactTab />}
+          {servicesTab && <ServicesTab />}
         </section>
       </section>
 
