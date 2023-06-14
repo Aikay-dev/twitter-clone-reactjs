@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { Link } from "react-router-dom";
 import SettingsTwoToneIcon from "@mui/icons-material/SettingsTwoTone";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -10,6 +10,7 @@ import HomeRight from "./Home/HomeRight";
 import { useSelector, useDispatch } from "react-redux";
 import { mobileNavLeftState } from "../store";
 import TweetStream from "./Home/dataStream/TweetStream";
+import AuthLoginButton from "../components/Auth-LoginButton";
 
 library.add(fas);
 library.add(fab);
@@ -17,11 +18,130 @@ library.add(far);
 
 function ProfilePage() {
   const [profileTweetsTab, setprofileTweetsTab] = useState(true);
-  const [profileLikesTab, setprofileLikesTab] = useState(false)
+  const [profileLikesTab, setprofileLikesTab] = useState(false);
+  const [profileBlur, setprofileBlur] = useState(false)
   const dispatch = useDispatch();
   const mobNavleft = useSelector((state) => state.mobNavleft.value);
+
+  let focusName = useRef(null);
+  let focusBio = useRef(null);
+  let focusLocation = useRef(null);
+  let focusWebsite = useRef(null);
+
+  const handleFocusingName = () => {
+    focusName.current.focus();
+  };
+  const handleFocusingBio = () => {
+    focusBio.current.focus();
+  };
+  const handleFocusingLocation = () => {
+    focusLocation.current.focus();
+  };
+  const handleFocusingWebsite = () => {
+    focusWebsite.current.focus();
+  };
+
   return (
     <>
+      {profileBlur && <div onClick={(e) => {
+        e.stopPropagation
+        setprofileBlur(false)
+      }} className=" flex justify-center items-center h-full w-full homepage-auth-overlay fixed z-50">
+        <div onClick={(e) => {
+            e.stopPropagation()
+        }} className=" bg-black inputprofiledetailbox">
+          <div className="flex justify-between p-3">
+            <div className="flex gap-10 pl-2 items-center">
+              <button onClick={() => {
+                setprofileBlur(false)
+              }} className="text-xl cursor-pointer p-1 rounded-full px-2 flex profileEx">
+                <FontAwesomeIcon icon="fa-solid fa-xmark" />
+              </button>
+              <p className="font-semibold text-xl">Edit profile</p>
+            </div>
+            <button className="bg-white text-black saveprofilebuttton rounded-full px-4 py-1 font-semibold">
+              Save
+            </button>
+          </div>
+          <div className=" overflow-y-scroll">
+            <div className="px-3">
+              <img
+                src="https://picsum.photos/200/300"
+                alt="user profile image"
+                className="rounded-full h-24 w-24 mt-10"
+              />
+            </div>
+            <div className="sign-in-box px-3 flex pt-5 flex-col items-center justify-center ">
+              <div className="relative w-full">
+                <input
+                  type="text"
+                  className=" namefillboxprofile bg-black  flex justify-center items-center rounded-md"
+                  placeholder=" "
+                  ref={focusName}
+                />
+                <label
+                  onClick={handleFocusingName}
+                  htmlFor="Name"
+                  className="absolute top-4 left-2 phemus-label"
+                >
+                  Name
+                </label>
+              </div>
+            </div>
+            <div className="sign-in-box px-3 flex pt-5 flex-col items-center justify-center ">
+              <div className="relative w-full">
+                <input
+                  type="text"
+                  className=" namefillboxprofile biofillboxprofile bg-black  flex justify-center items-center rounded-md"
+                  placeholder=" "
+                  ref={focusBio}
+                />
+                <label
+                  onClick={handleFocusingBio}
+                  htmlFor="text"
+                  className="absolute top-4 left-2 phemus-label"
+                >
+                  Bio
+                </label>
+              </div>
+            </div>
+            <div className="sign-in-box px-3 flex pt-5 flex-col items-center justify-center ">
+              <div className="relative w-full">
+                <input
+                  type="text"
+                  className=" namefillboxprofile bg-black  flex justify-center items-center rounded-md"
+                  placeholder=" "
+                  ref={focusLocation}
+                />
+                <label
+                  onClick={handleFocusingLocation}
+                  htmlFor="email"
+                  className="absolute top-4 left-2 phemus-label"
+                >
+                  Location
+                </label>
+              </div>
+            </div>
+            <div className="sign-in-box px-3 flex pt-5 flex-col items-center justify-center ">
+              <div className="relative w-full">
+                <input
+                  type="text"
+                  className=" namefillboxprofile bg-black  flex justify-center items-center rounded-md"
+                  placeholder=" "
+                  ref={focusWebsite}
+                />
+                <label
+                  onClick={handleFocusingWebsite}
+                  htmlFor="email"
+                  className="absolute top-4 left-2 phemus-label"
+                >
+                  Website
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>}
       <section className="homepage-center h-screen relative overflow-hidden">
         <header className="flex pt-1 pb-1 profilePageHeader">
           <div
@@ -54,7 +174,9 @@ function ProfilePage() {
               />
             </div>
             <div className=" flex flex-row-reverse pt-3 pb-4  pr-5">
-              <button className=" font-semibold px-4 py-1 bg-black rounded-full profileMainEditButton">
+              <button onClick={() => {
+                setprofileBlur(true)
+              }} className=" font-semibold px-4 py-1 bg-black rounded-full profileMainEditButton">
                 Edit Profile
               </button>
             </div>
@@ -84,19 +206,39 @@ function ProfilePage() {
             </div>
           </div>
           <div className="flex justify-between profilepagetabholder mt-3">
-            <div onClick={() => {
-              setprofileTweetsTab(true);
-              setprofileLikesTab(false);
-            }} className="h-16 w-full flex items-center justify-center cursor-pointer profilepageTweetsbigTab">
-              <div style={profileTweetsTab? { borderBottom: "3px solid var(--blueText)" }: {}} className=" h-full flex justify-center items-center profilepageTweetsTab">
+            <div
+              onClick={() => {
+                setprofileTweetsTab(true);
+                setprofileLikesTab(false);
+              }}
+              className="h-16 w-full flex items-center justify-center cursor-pointer profilepageTweetsbigTab"
+            >
+              <div
+                style={
+                  profileTweetsTab
+                    ? { borderBottom: "3px solid var(--blueText)" }
+                    : {}
+                }
+                className=" h-full flex justify-center items-center profilepageTweetsTab"
+              >
                 Tweets
               </div>
             </div>
-            <div onClick={() => {
-              setprofileTweetsTab(false);
-              setprofileLikesTab(true);
-            }} className="h-16 w-full flex items-center justify-center cursor-pointer profilepageLikesbigTab">
-              <div style={profileLikesTab? { borderBottom: "3px solid var(--blueText)" }: {}} className="h-full flex justify-center items-center profilepageLikesTab">
+            <div
+              onClick={() => {
+                setprofileTweetsTab(false);
+                setprofileLikesTab(true);
+              }}
+              className="h-16 w-full flex items-center justify-center cursor-pointer profilepageLikesbigTab"
+            >
+              <div
+                style={
+                  profileLikesTab
+                    ? { borderBottom: "3px solid var(--blueText)" }
+                    : {}
+                }
+                className="h-full flex justify-center items-center profilepageLikesTab"
+              >
                 Likes
               </div>
             </div>
