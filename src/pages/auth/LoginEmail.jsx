@@ -8,6 +8,7 @@ import { library } from "@fortawesome/fontawesome-svg-core";
 import { fas } from "@fortawesome/free-solid-svg-icons";
 import { fab } from "@fortawesome/free-brands-svg-icons";
 import { far } from "@fortawesome/free-regular-svg-icons";
+import { signInWithGoogle } from "../../config/firebase";
 import { auth } from "../../config/firebase";
 
 library.add(fas);
@@ -59,7 +60,11 @@ const LoginEmail = ({
   };
 
   const googleSignButton = (
-    <div className="flex items-center justify-center">
+    <div onClick={(e) => {
+      e.preventDefault()
+      signInWithGoogle()
+      
+    }} className="flex items-center justify-center">
       <img src={googleIcon} alt="" className="h-8 flex w-8" />
       Sign in with Google
     </div>
