@@ -28,8 +28,8 @@ function TweeterBluePage() {
   return (
     <>
       <section className="homepage-center h-screen relative overflow-hidden">
-        <header className="flex flex-col  pt-5 notificationheaderBorder">
-          <div className="flex px-5 justify-between items-center">
+        <header className="flex flex-col touch-none w-full absolute pt-5 notificationheaderBorder">
+          <div className="flex bg-black px-5 justify-between items-center">
             <div
               className="notificationUserImage flex items-center"
               onClick={() => {
@@ -99,7 +99,7 @@ function TweeterBluePage() {
               onClick={() => {
                 setaboutdevTab(false);
                 setservicesTab(false);
-                blogTab ? setblogTab(true) : setblogTab(true);
+                setblogTab(true)
                 setcontactTab(false);
               }}
               className=" minwidthprofiletab h-16 w-full flex items-center justify-center cursor-pointer profilepageLikesbigTab"
@@ -135,7 +135,7 @@ function TweeterBluePage() {
             </div>
           </div>
         </header>
-        <section className=" overflow-y-scroll h-screen notificationmainsection">
+        <section className="pb-60 devpageblogtab overflow-y-scroll h-screen notificationmainsection">
           {aboutdevTab && <AboutDevTab />}
           {blogTab && <BlogTab />}
           {contactTab && <ContactTab />}

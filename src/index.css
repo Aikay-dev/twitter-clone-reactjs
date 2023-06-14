@@ -1198,8 +1198,17 @@
   top: -380%;
 }
 
+.devpageblogtab{
+  margin-top: 124px;
+}
+
 .notificationmainsection::-webkit-scrollbar {
   width: 10px;
+}
+
+.linkdevpagepost{
+  border-radius: 10px;
+  border: var(--homeBorder);
 }
 
 .notificationmainsection::-webkit-scrollbar-track {
@@ -1476,6 +1485,10 @@
 @media screen and (max-width: 500px) {
   .homepage-center {
     width: 100%;
+  }
+
+  .devpageblogtab{
+    margin-top: 128px;
   }
 
   .bookmarkBackArrow {
