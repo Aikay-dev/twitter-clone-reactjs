@@ -16,7 +16,7 @@ import { useLocation, Outlet } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import SignUp from "./auth/SignUp";
 import SearchBar from "../components/SearchBar";
-import { auth } from "../config/firebase";
+import { auth, signInWithGoogle } from "../config/firebase";
 import { mobileNavLeftState } from "../store";
 
 library.add(fas);
@@ -76,7 +76,7 @@ const Explore = () => {
               />
             </div>
           )}
-          <SearchBar currentUser = {auth.currentUser} />
+          <SearchBar currentUser={auth.currentUser} />
           <Link
             onClick={() => {
               dispatch(blurChangeState({ display: "block" }));
@@ -127,12 +127,16 @@ const Explore = () => {
           <p className="homepage-right-sign-now">
             Sign up now to get your own personalized timeline!
           </p>
-          <AuthLoginButton
-            logo={googleSignButton}
-            classes={
-              "rounded-full google-butt-login text-black mt-5 mb-3 next-signup-button next-signup-button-home-variant"
-            }
-          />
+          <div onClick={() => {
+            signInWithGoogle()
+          }}>
+            <AuthLoginButton
+              logo={googleSignButton}
+              classes={
+                "rounded-full google-butt-login text-black mt-5 mb-3 next-signup-button next-signup-button-home-variant"
+              }
+            />
+          </div>
           <AuthLoginButton
             logo={appleSignButton}
             classes={
