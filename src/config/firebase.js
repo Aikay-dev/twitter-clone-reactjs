@@ -1,7 +1,7 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
-import { GoogleAuthProvider, getAuth, signInWithPopup } from "firebase/auth";
+import { GoogleAuthProvider, getAuth, signInWithPopup, signInWithRedirect } from "firebase/auth";
 import {getFirestore, collection, } from 'firebase/firestore'
 
 const firebaseConfig = {
@@ -37,3 +37,15 @@ export const signInWithGoogle = () => {
     console.log(error)
   })
 }
+
+export const signInWithGoogleOnMobile = () => {
+  signInWithRedirect(auth, Provider)
+  .then((result) => {
+    console.log(result)
+    window.location.href ="/Home"
+  })
+  .catch((error) => {
+    console.log(error)
+  })
+}
+

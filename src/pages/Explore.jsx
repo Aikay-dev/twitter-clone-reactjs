@@ -16,7 +16,11 @@ import { useLocation, Outlet } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import SignUp from "./auth/SignUp";
 import SearchBar from "../components/SearchBar";
-import { auth, signInWithGoogle } from "../config/firebase";
+import {
+  auth,
+  signInWithGoogle,
+  signInWithGoogleOnMobile,
+} from "../config/firebase";
 import { mobileNavLeftState } from "../store";
 
 library.add(fas);
@@ -44,6 +48,17 @@ const Explore = () => {
   const join_create_account = "Create account";
   const dispatch = useDispatch();
   const mobNavleft = useSelector((state) => state.mobNavleft.value);
+  const HandleSignIn = () => {
+    const screenWidth = window.innerWidth;
+
+    if (screenWidth <= 500) {
+      signInWithGoogleOnMobile();
+      window.location.href ="/Home"
+    } else {
+      signInWithGoogle();
+    }
+  };
+
   return (
     <>
       {showSignUpCard && (
@@ -127,9 +142,11 @@ const Explore = () => {
           <p className="homepage-right-sign-now">
             Sign up now to get your own personalized timeline!
           </p>
-          <div onClick={() => {
-            signInWithGoogle()
-          }}>
+          <div
+            onClick={() => {
+              HandleSignIn
+            }}
+          >
             <AuthLoginButton
               logo={googleSignButton}
               classes={

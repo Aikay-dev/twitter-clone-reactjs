@@ -8,7 +8,7 @@ import { library } from "@fortawesome/fontawesome-svg-core";
 import { fas } from "@fortawesome/free-solid-svg-icons";
 import { fab } from "@fortawesome/free-brands-svg-icons";
 import { far } from "@fortawesome/free-regular-svg-icons";
-import { signInWithGoogle } from "../../config/firebase";
+import { signInWithGoogle, signInWithGoogleOnMobile } from "../../config/firebase";
 import { auth } from "../../config/firebase";
 
 library.add(fas);
@@ -24,7 +24,7 @@ const LoginEmail = ({
   usersEmail,
   setrenderLoader,
   emailError,
-  setEmailError
+  setEmailError,
 }) => {
   const [errorOutline, setErrorOutline] = useState({});
   const dispatch = useDispatch();
@@ -54,17 +54,15 @@ const LoginEmail = ({
         setrenderLoader(false);
         setrenderEmail(true);
         setrenderPassword(false);
-        setEmailError({})
+        setEmailError({});
       }
     }, 1000);
   };
 
   const googleSignButton = (
-    <div onClick={(e) => {
-      e.preventDefault()
-      signInWithGoogle()
-      
-    }} className="flex items-center justify-center">
+    <div
+      className="flex items-center justify-center"
+    >
       <img src={googleIcon} alt="" className="h-8 flex w-8" />
       Sign in with Google
     </div>
@@ -86,14 +84,30 @@ const LoginEmail = ({
     console.log(userAuth);
   }
 
+  const HandleSignIn = () => {
+    console.log("hi")
+    const screenWidth = window.innerWidth;
+
+    if (screenWidth <= 500) {
+      signInWithGoogleOnMobile();
+    } else {
+      signInWithGoogle();
+    }
+  };
+
   return (
     <div className="login-info">
       <p className="text-center mt-7 text-3xl font-bold">Sign in to Tweeter</p>
       <div className="auth-prov-option pb-5 gap-5 flex items-center justify-center m-auto relative flex-col mt-8 text-black">
-        <AuthLoginButton
-          logo={googleSignButton}
-          classes={"rounded-full google-butt-login"}
-        />
+        <div onClick={(e) => {
+          e.preventDefault()
+          HandleSignIn()
+        }}>
+          <AuthLoginButton
+            logo={googleSignButton}
+            classes={"rounded-full google-butt-login"}
+          />
+        </div>
         <AuthLoginButton
           logo={appleSignButton}
           classes={
@@ -124,7 +138,9 @@ const LoginEmail = ({
           >
             Phone, email, or username
           </label>
-          <p className="f text-sm text-red-600" style={emailError}>Sorry, we could not find your account.</p>
+          <p className="f text-sm text-red-600" style={emailError}>
+            Sorry, we could not find your account.
+          </p>
         </div>
         <div
           onClick={(e) => {
