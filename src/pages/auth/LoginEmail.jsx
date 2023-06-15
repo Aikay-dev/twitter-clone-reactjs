@@ -90,6 +90,7 @@ const LoginEmail = ({
 
     if (screenWidth <= 500) {
       signInWithGoogleOnMobile();
+      console.log("hello mobile")
     } else {
       signInWithGoogle();
     }
