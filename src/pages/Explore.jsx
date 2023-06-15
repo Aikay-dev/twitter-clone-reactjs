@@ -50,7 +50,7 @@ const Explore = () => {
   const mobNavleft = useSelector((state) => state.mobNavleft.value);
   const HandleSignIn = () => {
     const screenWidth = window.innerWidth;
-
+    console.log("first2")
     if (screenWidth <= 500) {
       signInWithGoogleOnMobile();
       window.location.href ="/Home"
@@ -143,8 +143,10 @@ const Explore = () => {
             Sign up now to get your own personalized timeline!
           </p>
           <div
-            onClick={() => {
-              HandleSignIn
+            onClick={(e) => {
+              e.preventDefault()
+              HandleSignIn()
+              console.log("first")
             }}
           >
             <AuthLoginButton
