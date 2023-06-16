@@ -46,7 +46,6 @@ export const signInWithGoogleOnMobile = () => {
   })
   .catch((error) => {
     console.log(error)
-    alert(error)
   })
 }
 
