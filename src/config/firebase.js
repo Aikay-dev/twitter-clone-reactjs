@@ -45,7 +45,7 @@ export const signInWithGoogleOnMobile = () => {
     window.location.href ="/Home"
   })
   .catch((error) => {
-    console.log(error)
+    console.log(error.message)
   })
 }
 
