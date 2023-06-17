@@ -26,6 +26,8 @@ export const colRef = collection(db, "Users Email")
 //Google Provider
 
 const Provider = new GoogleAuthProvider()
+Provider.setCustomParameters({ prompt: "select_account" });
+
 
 export const signInWithGoogle = () => {
   signInWithPopup(auth, Provider)
@@ -41,7 +43,7 @@ export const signInWithGoogle = () => {
 export const signInWithGoogleOnMobile = () => {
   signInWithRedirect(auth, Provider)
   .then((result) => {
-    console.log(result)
+    console.log(result, "is the result")
     window.location.href ="/Home"
   })
   .catch((error) => {
