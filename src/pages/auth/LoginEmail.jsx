@@ -135,7 +135,7 @@ const LoginEmail = ({
             htmlFor="email"
             className="absolute top-4 left-2 phemus-label"
           >
-            Phone, email, or username
+            Email
           </label>
           <p className="f text-sm text-red-600" style={emailError}>
             Sorry, we could not find your account.

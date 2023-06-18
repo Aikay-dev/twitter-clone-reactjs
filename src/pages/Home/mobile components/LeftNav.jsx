@@ -15,6 +15,8 @@ import { fas } from "@fortawesome/free-solid-svg-icons";
 import { fab } from "@fortawesome/free-brands-svg-icons";
 import { far } from "@fortawesome/free-regular-svg-icons";
 import { Link } from "react-router-dom";
+import SmLoader from "../../auth/components/smLoader";
+import { auth } from "../../../config/firebase";
 
 library.add(fas);
 library.add(fab);
@@ -198,11 +200,7 @@ const LeftNav = ({
                     Log out
                   </p>
                   {logoutspinner && (
-                    <div class="loadingio-spinner-rolling-o8a0fs8tskj">
-                      <div class="ldio-t5x32ssrll9">
-                        <div></div>
-                      </div>
-                    </div>
+                    <SmLoader/>
                   )}
                 </li>
               </ul>
