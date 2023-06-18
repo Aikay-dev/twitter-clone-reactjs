@@ -9,6 +9,8 @@ import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../../config/firebase";
 import { colRef } from "../../../config/firebase";
 import { addDoc } from "firebase/firestore";
+import { writeUserData } from "../../../config/firebase";
+import generateRandomString from '../../../utility/userIdAlgo.js'
 
 library.add(fas);
 library.add(fab);
@@ -69,6 +71,8 @@ function StepFour({
       .catch((error) => {
         console.log(error.message);
       });
+
+      writeUserData(generateRandomString(10), stepOneDetails.name, stepOneDetails.email, "https://image.pngaaa.com/117/4811117-small.png", stepOneDetails.DOB)
   }
 
   function handlePass(e) {
