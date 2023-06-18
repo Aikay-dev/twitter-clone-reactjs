@@ -1,6 +1,5 @@
 import React, { useState, useRef } from "react";
 import { Link } from "react-router-dom";
-import SettingsTwoToneIcon from "@mui/icons-material/SettingsTwoTone";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { fas } from "@fortawesome/free-solid-svg-icons";
@@ -8,9 +7,7 @@ import { fab } from "@fortawesome/free-brands-svg-icons";
 import { far } from "@fortawesome/free-regular-svg-icons";
 import HomeRight from "./Home/HomeRight";
 import { useSelector, useDispatch } from "react-redux";
-import { mobileNavLeftState } from "../store";
 import TweetStream from "./Home/dataStream/TweetStream";
-import AuthLoginButton from "../components/Auth-LoginButton";
 
 library.add(fas);
 library.add(fab);
@@ -159,11 +156,7 @@ function ProfilePage() {
         </header>
         <section className=" overflow-y-scroll h-full profilepagemainsection">
           <div className=" h-48 w-full bg-slate-500 profilebacdropimage">
-            <img
-              src="https://picsum.photos/300/100"
-              alt=""
-              style={{ width: "100%", height: "100%" }}
-            />
+            
           </div>
           <div className="flex flex-col relative">
             <div className="p-1 bg-black absolute rounded-full flex justify-center items-center profileimageinproflepage">

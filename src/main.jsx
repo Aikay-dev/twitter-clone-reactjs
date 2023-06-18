@@ -23,6 +23,7 @@ import ProfilePage from "./pages/ProfilePage";
 import NotificationPage from "./pages/NotificationPage";
 import MessagesPage from "./pages/MessagesPage";
 import BookmarksPage from "./pages/BookmarksPage";
+import FullTweet from "./pages/FullTweet";
 
 const router = createBrowserRouter([
   {
@@ -88,6 +89,9 @@ const router = createBrowserRouter([
       },{
         path: "Tweeter Blue",
         element: <TweeterBluePage />,
+      },{
+        path: "Status",
+        element: <FullTweet />,
       },
     ],
   },

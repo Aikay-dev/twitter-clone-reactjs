@@ -431,11 +431,15 @@
   background-color: rgb(32, 9, 20);
 }
 
-/* .main-tweet-card-holder {
-  height: 0;
-  left: 15%;
-  top: 8%;
-} */
+.main-tweet-comment-icon-background:hover{
+  background-color: rgb(3,16,24);
+}
+.main-tweet-retweet-icon-background:hover{
+  background-color: rgb(0,19,13);
+}
+.main-tweet-like-icon-background:hover{
+  background-color: rgb(23,2,12);
+}
 
 .main-tweet-image {
   max-height: 1000px;
@@ -443,6 +447,14 @@
   border-radius: 10px;
   overflow: hidden;
   max-width: 500px;
+}
+
+.main-tweet-image-tweetfull{
+  max-height: 1000px;
+  border: var(--homeBorder);
+  border-radius: 10px;
+  overflow: hidden;
+  width: 100%;
 }
 
 .main-tweet-card-first-half {
@@ -815,6 +827,10 @@
   border-bottom: 1px solid var(--homeLabelColor);
 }
 
+/* .fulltweetcardimage{
+  overflow: hidden;
+} */
+
 .homelabelcolor {
   color: var(--homeLabelColor);
 }
@@ -822,6 +838,14 @@
 .profileimageinproflepage {
   bottom: 180px;
   left: 3%;
+}
+.dotfontawe{
+  font-size: 3px;
+}
+
+.tweetfullactionsection{
+  border-top: var(--homeBorder);
+  border-bottom: var(--homeBorder);
 }
 
 .profileimageintweetdevpage {
@@ -906,6 +930,11 @@
 
 .ellipses-mobile-explore-header {
   display: none;
+}
+
+.ellipseinFullTweet:hover{
+background-color: rgb(3,16,24);
+color: rgb(30,154,238);
 }
 
 .mobile-settings-call {
