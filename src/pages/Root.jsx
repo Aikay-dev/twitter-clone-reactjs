@@ -16,21 +16,17 @@ import {
 } from "../store";
 import { auth } from "../config/firebase";
 import Home from "./Home/Home";
-import { AiOutlineSetting, AiOutlineUserAdd } from "react-icons/ai";
-import { BiHelpCircle, BiHomeCircle, BiSearch } from "react-icons/bi";
+import { AiOutlineUserAdd } from "react-icons/ai";
+import { BiHomeCircle, BiSearch } from "react-icons/bi";
 import { FiLogOut } from "react-icons/fi";
 import { RiHome7Fill } from "react-icons/ri";
 import { CgNotes } from "react-icons/cg";
-import {
-  MdKeyboardArrowDown,
-  MdKeyboardArrowUp,
-  MdMailOutline,
-  MdOutlineVerified,
-} from "react-icons/md";
+import { MdMailOutline } from "react-icons/md";
 import { signOut } from "firebase/auth";
 import { FaSearch } from "react-icons/fa";
 import { BsBellFill } from "react-icons/bs";
 import { MdMail } from "react-icons/md";
+import LeftNav from "./Home/mobile components/LeftNav";
 
 library.add(fas);
 library.add(fab);
@@ -40,14 +36,13 @@ const Root = ({ authState, setAuthState }) => {
   const dispatch = useDispatch();
 
   /* STATE MANAGEMENT */
-  const [showExplore, setShowExplore] = useState(true);
   const [setNdpriv, setSetNdpriv] = useState(false);
   const [logoutspinner, setLogoutspinner] = useState(false);
-  const [windowWidth, SetwindowWidth] = useState(
+  const windowWidth =
     window.innerWidth > 1040
       ? "/Home/Settings/personalization"
-      : "/Home/Settings/"
-  );
+      : "/Home/Settings/";
+
   const [homeClicked, setHomeClicked] = useState(true);
   const [searchClicked, setsearchClicked] = useState(false);
   const [bellClicked, setbellClicked] = useState(false);
@@ -98,7 +93,7 @@ const Root = ({ authState, setAuthState }) => {
       setsearchClicked(false);
       setbellClicked(false);
       setmessageClicked(true);
-    } else{
+    } else {
       setHomeClicked(false);
       setsearchClicked(false);
       setbellClicked(false);
@@ -281,15 +276,14 @@ const Root = ({ authState, setAuthState }) => {
               className="text-xl mb-6 flex items-center cursor-pointer"
               onClick={() => {
                 signOut(auth)
-                .then(() => {
-                  setLogoutspinner(false);
-                  navigate("/auth/Login");
-                  console.log("user: signed out");
-                })
-                .catch((err) => {
-                  console.log(err.message);
-                });
-                
+                  .then(() => {
+                    setLogoutspinner(false);
+                    navigate("/auth/Login");
+                    console.log("user: signed out");
+                  })
+                  .catch((err) => {
+                    console.log(err.message);
+                  });
               }}
             >
               <AiOutlineUserAdd />
@@ -298,7 +292,7 @@ const Root = ({ authState, setAuthState }) => {
             <div
               className="text-xl flex items-center cursor-pointer"
               onClick={() => {
-                window.location.href = '/auth'
+                window.location.href = "/auth";
               }}
             >
               <FiLogOut />
@@ -351,21 +345,19 @@ const Root = ({ authState, setAuthState }) => {
                 </Link>
               )}
 
-              {showExplore && (
-                <Link
-                  aria-label="Explore"
-                  to="/Home/Explore"
-                  onClick={() => {
-                    dispatch(settingsChangeState({ fontWeight: 100 }));
-                    dispatch(exploreChangeState({ fontWeight: "Bold" }));
-                  }}
-                  className="section1-main-explore flex text-xl  justify-center items-center"
-                  style={{ fontWeight: ifboldexp }}
-                >
-                  <FontAwesomeIcon icon="fa-solid fa-hashtag" />
-                  <span className="hidden xl:block xl:pl-6">Explore</span>
-                </Link>
-              )}
+              <Link
+                aria-label="Explore"
+                to="/Home/Explore"
+                onClick={() => {
+                  dispatch(settingsChangeState({ fontWeight: 100 }));
+                  dispatch(exploreChangeState({ fontWeight: "Bold" }));
+                }}
+                className="section1-main-explore flex text-xl  justify-center items-center"
+                style={{ fontWeight: ifboldexp }}
+              >
+                <FontAwesomeIcon icon="fa-solid fa-hashtag" />
+                <span className="hidden xl:block xl:pl-6">Explore</span>
+              </Link>
 
               {!authState && (
                 <div
@@ -480,7 +472,7 @@ const Root = ({ authState, setAuthState }) => {
               )}
               {authState && (
                 <Link
-                to='/Home/Settings/'
+                  to="/Home/Settings/"
                   aria-label="More"
                   className="flex section1-main-home-icon text-xl mb-2 justify-center items-center"
                 >
@@ -674,183 +666,13 @@ const Root = ({ authState, setAuthState }) => {
       </div>
       {mobNavleft && (
         <>
-          <section
-            className="absolute top-0 overflow-y-scroll z-50 h-screen home-navbar-mobile bg-black"
-            style={{ color: "rgb(240, 240, 240)" }}
-          >
-            <nav className="">
-              <div className="flex px-3 justify-between items-center pt-3 pb-5">
-                <p className="t text-lg font-semibold">Account info</p>
-                <div
-                  onClick={() => {
-                    document.body.classList.remove("overlay-open");
-                    dispatch(mobileNavLeftState(false));
-                  }}
-                >
-                  <FontAwesomeIcon icon="fas fa-xmark " />
-                </div>
-              </div>
-              <div className="home-nav-profile-image w-12 flex mx-3 justify-center items-center">
-                <img
-                  src="https://picsum.photos/200/300"
-                  alt="user profile image"
-                  className="rounded-full w-10 h-10 max-h-10"
-                />
-              </div>
-              <p className="mx-3 font-semibold text-lg mt-2">Hail Hydra</p>
-              <p className="mx-3 home-nav-username mb-3">@general ik</p>
-              <div className="flex items-center gap-4 ml-3">
-                <p>
-                  <span className="font-semibold">167</span>{" "}
-                  <span className="home-nav-username">Following</span>
-                </p>
-                <p>
-                  <span className="font-semibold">14</span>{" "}
-                  <span className="home-nav-username">Followers</span>
-                </p>
-              </div>
-              <div className="flex flex-col gap-6 ml-3 mt-5">
-                <Link
-                  className="flex gap-6 text-xl"
-                  to="Profile"
-                  onClick={() => {
-                    document.body.classList.remove("overlay-open");
-                    dispatch(mobileNavLeftState(false));
-                  }}
-                >
-                  <div>
-                    <FontAwesomeIcon icon="fa-regular fa-user" />
-                  </div>
-                  <p className="font-semibold">Profile</p>
-                </Link>
-                <Link
-                  className="flex gap-6 text-xl"
-                  to="Explore"
-                  onClick={() => {
-                    document.body.classList.remove("overlay-open");
-                    dispatch(mobileNavLeftState(false));
-                  }}
-                >
-                  <div>
-                    <FontAwesomeIcon icon="fa-solid fa-hashtag" />
-                  </div>
-                  <p className="font-semibold">Explore</p>
-                </Link>
-                <Link
-                  className="flex gap-6 items-center text-xl"
-                  to="Notifications"
-                  onClick={() => {
-                    document.body.classList.remove("overlay-open");
-                    dispatch(mobileNavLeftState(false));
-                  }}
-                >
-                  <div>
-                    <FontAwesomeIcon icon="fa-regular fa-bell" />
-                  </div>
-                  <p className="font-semibold">Notifications</p>
-                </Link>
-                <Link
-                  className="flex gap-6 items-center text-xl"
-                  to="Bookmarks"
-                  onClick={() => {
-                    document.body.classList.remove("overlay-open");
-                    dispatch(mobileNavLeftState(false));
-                  }}
-                >
-                  <div>
-                    <FontAwesomeIcon icon="fa-regular fa-bookmark" />
-                  </div>
-                  <p className="font-semibold">Bookmarks</p>
-                </Link>
-                <Link
-                  className="flex gap-6 items-center text-xl"
-                  to="Messages"
-                  onClick={() => {
-                    document.body.classList.remove("overlay-open");
-                    dispatch(mobileNavLeftState(false));
-                  }}
-                >
-                  <div>
-                    <FontAwesomeIcon icon="fa-regular fa-envelope" />
-                  </div>
-                  <p className="font-semibold ">Messages</p>
-                </Link>
-                <Link
-                to="/Home/Tweeter%20Blue"
-                  className="flex items-center gap-6 text-xl"
-                  onClick={() => {
-                    document.body.classList.remove("overlay-open");
-                    dispatch(mobileNavLeftState(false));
-                  }}
-                >
-                  <div>
-                    <MdOutlineVerified />
-                  </div>
-                  <p className="font-semibold">Tweeter Dev</p>
-                </Link>
-              </div>
-              <div className="home-mobile-navbar-bottom-section mx-3 mt-4 mb-20 pt-3">
-                <div
-                  className="flex justify-between items-center py-3 px-1"
-                  onClick={() => {
-                    setNdpriv ? setSetNdpriv(false) : setSetNdpriv(true);
-                  }}
-                >
-                  <p>Settings and Support</p>
-                  {setNdpriv && <MdKeyboardArrowUp />}
-                  {!setNdpriv && <MdKeyboardArrowDown />}
-                </div>
-                {setNdpriv && (
-                  <nav>
-                    <ul className="flex flex-col gap-3 mt-1">
-                      <Link to="/Home/Settings/" onClick={() => {
-                        dispatch(mobileNavLeftState(false));
-                      }} className="flex gap-6 text-xl items-center">
-                        <span>
-                          <AiOutlineSetting />
-                        </span>{" "}
-                        <p>Settings and privacy</p>
-                      </Link>
-                      <li className="flex gap-6 text-xl items-center">
-                        <span>
-                          <BiHelpCircle />
-                        </span>{" "}
-                        <p>Help Center</p>
-                      </li>
-                      <li className="flex gap-6 text-xl items-center">
-                        <span>
-                          <FiLogOut />
-                        </span>{" "}
-                        <p
-                          onClick={() => {
-                            setLogoutspinner(true);
-                            signOut(auth)
-                              .then(() => {
-                                setLogoutspinner(false);
-                                window.location.reload();
-                                console.log("user: signed out");
-                              })
-                              .catch((err) => {
-                                console.log(err.message);
-                              });
-                          }}
-                        >
-                          Log out
-                        </p>
-                        {logoutspinner && (
-                          <div class="loadingio-spinner-rolling-o8a0fs8tskj">
-                            <div class="ldio-t5x32ssrll9">
-                              <div></div>
-                            </div>
-                          </div>
-                        )}
-                      </li>
-                    </ul>
-                  </nav>
-                )}
-              </div>
-            </nav>
-          </section>
+          <LeftNav
+            setLogoutspinner={setLogoutspinner}
+            logoutspinner={logoutspinner}
+            setSetNdpriv={setSetNdpriv}
+            setNdpriv={setNdpriv}
+            mobileNavLeftState={mobileNavLeftState}
+          />
           <div
             className="absolute top-0 h-screen w-screen"
             style={{ backgroundColor: "rgba(77, 91, 102, 0.5)" }}
