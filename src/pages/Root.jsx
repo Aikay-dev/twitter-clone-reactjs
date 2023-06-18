@@ -17,16 +17,10 @@ import {
 import { auth } from "../config/firebase";
 import Home from "./Home/Home";
 import { AiOutlineUserAdd } from "react-icons/ai";
-import { BiHomeCircle, BiSearch } from "react-icons/bi";
 import { FiLogOut } from "react-icons/fi";
-import { RiHome7Fill } from "react-icons/ri";
-import { CgNotes } from "react-icons/cg";
-import { MdMailOutline } from "react-icons/md";
 import { signOut } from "firebase/auth";
-import { FaSearch } from "react-icons/fa";
-import { BsBellFill } from "react-icons/bs";
-import { MdMail } from "react-icons/md";
 import LeftNav from "./Home/mobile components/LeftNav";
+import BottomNav from "./Home/mobile components/BottomNav";
 
 library.add(fas);
 library.add(fab);
@@ -606,62 +600,18 @@ const Root = ({ authState, setAuthState }) => {
           </div>
         </div>
         {authState !== null && (
-          <nav className="w-screen bg-black fixed mobile-bottom-nav h-14 justify-around bottom-0 text-2xl items-center">
-            <Link
-              to="/Home"
-              onClick={() => {
-                dispatch(settingsChangeState({ fontWeight: 100 }));
-                dispatch(exploreChangeState({ fontWeight: "Bold" }));
-                setHomeClicked(true);
-                setsearchClicked(false);
-                setbellClicked(false);
-                setmessageClicked(false);
-              }}
-            >
-              {!homeClicked && <BiHomeCircle />}
-              {homeClicked && <RiHome7Fill />}
-            </Link>
-            <Link
-              to="/Home/Explore"
-              onClick={() => {
-                dispatch(settingsChangeState({ fontWeight: 100 }));
-                dispatch(exploreChangeState({ fontWeight: "Bold" }));
-                setHomeClicked(false);
-                setsearchClicked(true);
-                setbellClicked(false);
-                setmessageClicked(false);
-              }}
-            >
-              {!searchClicked && <BiSearch />}
-              {searchClicked && <FaSearch />}
-            </Link>
-            <Link to="/Home/Notifications">
-              <button
-                onClick={() => {
-                  setHomeClicked(false);
-                  setsearchClicked(false);
-                  setbellClicked(true);
-                  setmessageClicked(false);
-                }}
-              >
-                {!bellClicked && <FontAwesomeIcon icon="fa-regular fa-bell" />}
-                {bellClicked && <BsBellFill />}
-              </button>
-            </Link>
-            <Link to="/Home/Messages">
-              <button
-                onClick={() => {
-                  setHomeClicked(false);
-                  setsearchClicked(false);
-                  setbellClicked(false);
-                  setmessageClicked(true);
-                }}
-              >
-                {!messageClicked && <MdMailOutline />}
-                {messageClicked && <MdMail />}
-              </button>
-            </Link>
-          </nav>
+          <BottomNav
+            homeClicked={homeClicked}
+            setHomeClicked={setHomeClicked}
+            searchClicked={searchClicked}
+            setsearchClicked={setsearchClicked}
+            bellClicked={bellClicked}
+            setbellClicked={setbellClicked}
+            messageClicked={messageClicked}
+            setmessageClicked={setmessageClicked}
+            exploreChangeState={exploreChangeState}
+            settingsChangeState={settingsChangeState}
+          />
         )}
       </div>
       {mobNavleft && (
