@@ -6,7 +6,7 @@ import {getFirestore, collection, } from 'firebase/firestore'
 
 const firebaseConfig = {
   apiKey: "AIzaSyA3yyc5qbksW5oLXZ8y0jciO_bVqfcg1kA",
-  authDomain: "tweeter-74fca.firebaseapp.com",
+  authDomain: "tweeter-clone.firebaseapp.com",
   projectId: "tweeter-74fca",
   storageBucket: "tweeter-74fca.appspot.com",
   messagingSenderId: "231809244528",
@@ -26,8 +26,6 @@ export const colRef = collection(db, "Users Email")
 //Google Provider
 
 const Provider = new GoogleAuthProvider()
-Provider.setCustomParameters({ prompt: "select_account" });
-
 
 export const signInWithGoogle = () => {
   signInWithPopup(auth, Provider)
@@ -37,17 +35,6 @@ export const signInWithGoogle = () => {
   })
   .catch((error) => {
     console.log(error)
-  })
-}
-
-export const signInWithGoogleOnMobile = () => {
-  signInWithRedirect(auth, Provider)
-  .then((result) => {
-    console.log(result, "is the result")
-    window.location.href ="/Home"
-  })
-  .catch((error) => {
-    console.log(error.message)
   })
 }
 

@@ -8,12 +8,15 @@ import { library } from "@fortawesome/fontawesome-svg-core";
 import { fas } from "@fortawesome/free-solid-svg-icons";
 import { fab } from "@fortawesome/free-brands-svg-icons";
 import { far } from "@fortawesome/free-regular-svg-icons";
-import { signInWithGoogle, signInWithGoogleOnMobile } from "../../config/firebase";
+import { signInWithGoogle } from "../../config/firebase";
 import { auth } from "../../config/firebase";
 
 library.add(fas);
 library.add(fab);
 library.add(far);
+
+
+
 
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const LoginEmail = ({
@@ -87,13 +90,8 @@ const LoginEmail = ({
   const HandleSignIn = () => {
     console.log("hi")
     const screenWidth = window.innerWidth;
-
-    if (screenWidth <= 500) {
-      signInWithGoogleOnMobile();
-      console.log("hello mobile")
-    } else {
       signInWithGoogle();
-    }
+    
   };
 
   return (

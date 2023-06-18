@@ -18,8 +18,7 @@ import SignUp from "./auth/SignUp";
 import SearchBar from "../components/SearchBar";
 import {
   auth,
-  signInWithGoogle,
-  signInWithGoogleOnMobile,
+  signInWithGoogle
 } from "../config/firebase";
 import { mobileNavLeftState } from "../store";
 
@@ -51,12 +50,8 @@ const Explore = () => {
   const HandleSignIn = () => {
     const screenWidth = window.innerWidth;
     console.log("first2")
-    if (screenWidth <= 500) {
-      signInWithGoogleOnMobile();
-      window.location.href ="/Home"
-    } else {
+
       signInWithGoogle();
-    }
   };
 
   return (
