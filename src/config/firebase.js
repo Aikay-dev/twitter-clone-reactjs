@@ -98,5 +98,3 @@ export const realtimeData = (data) => {
   });
   return data;
 }
-
-console.log(realtimeData())

@@ -51,11 +51,28 @@ const Root = ({ authState, setAuthState }) => {
   const [tweeterBlueTabButtonClicked, settweeterBlueTabButtonClicked] =
     useState(false);
   const [profileTabButtonClicked, setprofileTabButtonClicked] = useState(false);
-  const [realtimeUserData, setrealtimeUserData] = useState("")
   
   useEffect(() =>{
-    setrealtimeUserData(realtimeData())
+   if(auth.currentUser !== null) {
     console.log(realtimeData())
+    console.log(auth.currentUser.email)
+    function findEmail(obj) {
+      for (let key in obj) {
+        if (obj.hasOwnProperty(key)) {
+          if (key === 'email') {
+            console.log(obj[key]);
+            if(obj[key] === auth.currentUser.email){
+              console.log(obj)
+            } // Ouput: email value
+          } else if (typeof obj[key] === 'object') {
+            findEmail(obj[key]); // Recurively search for email in nested objects
+          }
+        }
+      }
+    }
+    
+    realtimeData === undefined? {}:findEmail(realtimeData())
+   }
   }, [realtimeData])
 
   /* END STATE MANAGEMENT */

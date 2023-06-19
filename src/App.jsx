@@ -19,7 +19,7 @@ function App() {
     const unsubscribe = auth.onAuthStateChanged((userAuthState) => {
       if (userAuthState !== null) {
         console.log("New authentication state:", userAuthState.email);
-        setLoadBird(false)
+        setLoadBird(false);
         setAuthState(userAuthState.email);
         dispatch(checkAuthState(userAuthState.email));
       } else {
@@ -28,7 +28,7 @@ function App() {
           window.location.pathname === "/Home/"
         ) {
           navigate("/Home/Explore");
-          setLoadBird(false)
+          setLoadBird(false);
         }
       }
     });
@@ -37,10 +37,13 @@ function App() {
   }, [dispatch]);
   return (
     <>
-      {loadBird ? <LoadingSite loadBird = {loadBird} setLoadBird ={setLoadBird}/> : <Root authState = {authState} setAuthState = {setAuthState}/>}
+      {loadBird ? (
+        <LoadingSite loadBird={loadBird} setLoadBird={setLoadBird} />
+      ) : (
+        <Root authState={authState} setAuthState={setAuthState} />
+      )}
     </>
   );
 }
 
 export default App;
-
