@@ -269,15 +269,7 @@ const Root = ({ authState, setAuthState }) => {
             <div
               className="text-xl mb-6 flex items-center cursor-pointer"
               onClick={() => {
-                signOut(auth)
-                  .then(() => {
-                    setLogoutspinner(false);
-                    navigate("/auth/Login");
-                    console.log("user: signed out");
-                  })
-                  .catch((err) => {
-                    console.log(err.message);
-                  });
+                window.location.href = "/auth/Login";
               }}
             >
               <AiOutlineUserAdd />
@@ -285,8 +277,17 @@ const Root = ({ authState, setAuthState }) => {
             </div>
             <div
               className="text-xl flex items-center cursor-pointer"
+              
               onClick={() => {
-                window.location.href = "/auth";
+                signOut(auth)
+                  .then(() => {
+                    setLogoutspinner(false);
+                    location.reload();
+                    console.log("user: signed out");
+                  })
+                  .catch((err) => {
+                    console.log(err.message);
+                  });
               }}
             >
               <FiLogOut />

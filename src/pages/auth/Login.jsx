@@ -32,7 +32,6 @@ const Login = () => {
         });
         setUsersEmail(usersMail);
         console.log("first");
-        auth.currentUser === null ? {} : (window.location.href = "/Home");
         setauthPage(true);
         console.log("logged in", auth.currentUser);
       })

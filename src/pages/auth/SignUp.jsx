@@ -14,19 +14,52 @@ import StepTwo from "./createAccount/StepTwo";
 import StepFive from "./createAccount/StepFive";
 import StepFour from "./createAccount/StepFour";
 import StepThree from "./createAccount/StepThree";
-
+import { signUpWithGoogle } from "../../config/firebase";
+import GoogleUsername from "./createAccount/GoogleUsername";
+import { colRef } from "../../config/firebase";
+import { getDocs } from "firebase/firestore";
+import { auth, Provider } from "../../config/firebase";
+import { signInWithPopup } from "firebase/auth";
+import { addDoc } from "firebase/firestore";
+import GoogleAuthLastStep from "./createAccount/GoogleAuthLastStep";
 
 library.add(fas);
 library.add(fab);
 library.add(far);
 
-const SignUp = ({setshowSignUpCard}) => {
+const SignUp = ({ setshowSignUpCard }) => {
   const [showsignupPage, setshowsignupPage] = useState(true);
   const [showstepOne, setshowstepOne] = useState(false);
   const [showStepTwo, setshowStepTwo] = useState(false);
   const [showStepThree, setshowStepThree] = useState(false);
   const [showStepFour, setshowStepFour] = useState(false);
   const [showStepFive, setshowStepFive] = useState(false);
+  const [googleUsernameStep, setgoogleUsernameStep] = useState(false);
+  const [usersEmail, setUsersEmail] = useState([]);
+  const [currentLoggedUser, setcurrentLoggedUser] = useState([]);
+  const [googleAuthLastStep, setgoogleAuthLastStep] = useState(false);
+
+  useEffect(() => {
+    getDocs(colRef)
+      .then((snapshot) => {
+        let usersMail = [];
+        snapshot.docs.forEach((doc) => {
+          usersMail.push({ ...doc.data(), id: doc.id });
+        });
+        setUsersEmail(usersMail);
+        console.log("first");
+        console.log("logged in", auth.currentUser);
+        setcurrentLoggedUser(auth.currentUser);
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+  }, []);
+
+  useEffect(() => {
+    console.log(usersEmail);
+    console.log("logged in", auth.currentUser);
+  }, [usersEmail]);
 
   const dispatch = useDispatch();
 
@@ -34,8 +67,8 @@ const SignUp = ({setshowSignUpCard}) => {
     name: "",
     email: "",
     DOB: "",
-    password: ""
-  })
+    password: "",
+  });
 
   const googleSignButton = (
     <div className="flex items-center justify-center">
@@ -51,48 +84,89 @@ const SignUp = ({setshowSignUpCard}) => {
     </>
   );
 
-    /* Manage states based on height */
-    const [windowHeight, setWindowHeight] = useState(window.innerHeight);
-    const [signupScrollState, setsignupScrollState] = useState('');
-  
-    useEffect(() => {
-      function handleResize() {
-        setWindowHeight(window.innerHeight);
-      }
-  
-      window.addEventListener('resize', handleResize);
-  
-      return () => {
-        window.removeEventListener('resize', handleResize);
-      };
-    }, []);
-  
-    useEffect(() => {
-      if (windowHeight > 450) {
-        setsignupScrollState('auth-form bg-black md:mx-auto md:w-authxlw md:h-authxlh p-2 md:rounded-2xl relative h-screen w-full');
-      } else {
-        setsignupScrollState(
-          'auth-form overflow-y-scroll bg-black md:mx-auto md:w-authxlw md:h-authxlh p-2 md:rounded-2xl relative h-screen w-full'
-        );
-      }
-    }, [windowHeight]);
-  
-    /* Manage states based on height */
+  /* Manage states based on height */
+  const [windowHeight, setWindowHeight] = useState(window.innerHeight);
+  const [signupScrollState, setsignupScrollState] = useState("");
+
+  useEffect(() => {
+    function handleResize() {
+      setWindowHeight(window.innerHeight);
+    }
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (windowHeight > 450) {
+      setsignupScrollState(
+        "auth-form bg-black md:mx-auto md:w-authxlw md:h-authxlh p-2 md:rounded-2xl relative h-screen w-full"
+      );
+    } else {
+      setsignupScrollState(
+        "auth-form overflow-y-scroll bg-black md:mx-auto md:w-authxlw md:h-authxlh p-2 md:rounded-2xl relative h-screen w-full"
+      );
+    }
+  }, [windowHeight]);
+
+  /* Manage states based on height */
 
   const join_create_account = "Create account";
+
+  function googleSignIn() {
+    signInWithPopup(auth, Provider)
+      .then((result) => {
+        console.log(result.user.email);
+        console.log("users list:" + usersEmail);
+        if (usersEmail.length < 1) {
+          addDoc(colRef, {
+            email: result.user.email,
+          });
+          setgoogleUsernameStep(true);
+          setshowstepOne(false);
+          setshowStepTwo(false);
+          setshowStepThree(false);
+          setshowStepFour(false);
+          setshowStepFive(false);
+          setshowsignupPage(false);
+          setcurrentLoggedUser(auth.currentUser);
+        } else {
+          for (let i = 0; i < usersEmail.length; i++) {
+            if (usersEmail[i].email === result.user.email) {
+              console.log("email used already");
+            } else {
+              setgoogleUsernameStep(true);
+              setshowstepOne(false);
+              setshowStepTwo(false);
+              setshowStepThree(false);
+              setshowStepFour(false);
+              setshowStepFive(false);
+              setshowsignupPage(false);
+              setcurrentLoggedUser(auth.currentUser);
+            }
+          }
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+
+  console.log(usersEmail.length);
+
   return (
     <>
-      <form
-        action=""
-        className={signupScrollState}
-      >
+      <form action="" className={signupScrollState}>
         {showsignupPage && (
           <>
             <div className="top-of-auth flex">
               <Link
                 onClick={() => {
                   dispatch(blurChangeState({ display: "none" }));
-                  setshowSignUpCard(false)
+                  setshowSignUpCard(false);
                 }}
                 to="/Home/Explore"
                 className="ex flex justify-center items-center cursor-pointer rounded-full"
@@ -107,10 +181,17 @@ const SignUp = ({setshowSignUpCard}) => {
               <p className="signup-join-twitter text-center my-7 font-black text-2xl">
                 Join Tweeter today
               </p>
-              <AuthLoginButton
-                logo={googleSignButton}
-                classes={"rounded-full google-butt-login"}
-              />
+              <div
+                onClick={(e) => {
+                  e.preventDefault();
+                  googleSignIn();
+                }}
+              >
+                <AuthLoginButton
+                  logo={googleSignButton}
+                  classes={"rounded-full google-butt-login"}
+                />
+              </div>
               <AuthLoginButton
                 logo={appleSignButton}
                 classes={
@@ -161,8 +242,8 @@ const SignUp = ({setshowSignUpCard}) => {
             setshowStepFour={setshowStepFour}
             setshowStepFive={setshowStepFive}
             setshowsignupPage={setshowsignupPage}
-            stepOneDetails = {stepOneDetails} 
-            setStepOneDetails = {setStepOneDetails}
+            stepOneDetails={stepOneDetails}
+            setStepOneDetails={setStepOneDetails}
           />
         )}
         {showStepTwo && (
@@ -183,8 +264,8 @@ const SignUp = ({setshowSignUpCard}) => {
             setshowStepFour={setshowStepFour}
             setshowStepFive={setshowStepFive}
             setshowsignupPage={setshowsignupPage}
-            stepOneDetails = {stepOneDetails} 
-            setStepOneDetails = {setStepOneDetails}
+            stepOneDetails={stepOneDetails}
+            setStepOneDetails={setStepOneDetails}
           />
         )}
         {showStepFour && (
@@ -195,8 +276,8 @@ const SignUp = ({setshowSignUpCard}) => {
             setshowStepFour={setshowStepFour}
             setshowStepFive={setshowStepFive}
             setshowsignupPage={setshowsignupPage}
-            stepOneDetails = {stepOneDetails} 
-            setStepOneDetails = {setStepOneDetails}
+            stepOneDetails={stepOneDetails}
+            setStepOneDetails={setStepOneDetails}
           />
         )}
         {showStepFive && (
@@ -207,7 +288,36 @@ const SignUp = ({setshowSignUpCard}) => {
             setshowStepFour={setshowStepFour}
             setshowStepFive={setshowStepFive}
             setshowsignupPage={setshowsignupPage}
-            setshowSignUpCard = {setshowSignUpCard}
+            setshowSignUpCard={setshowSignUpCard}
+          />
+        )}
+        {googleUsernameStep && (
+          <GoogleUsername
+            setshowstepOne={setshowstepOne}
+            setshowStepTwo={setshowStepTwo}
+            setshowStepThree={setshowStepThree}
+            setshowStepFour={setshowStepFour}
+            setshowStepFive={setshowStepFive}
+            setshowsignupPage={setshowsignupPage}
+            setshowSignUpCard={setshowSignUpCard}
+            stepOneDetails={stepOneDetails}
+            setStepOneDetails={setStepOneDetails}
+            currentLoggedUser={currentLoggedUser}
+            setgoogleUsernameStep={setgoogleUsernameStep}
+            googleAuthLastStep={googleAuthLastStep}
+            setgoogleAuthLastStep={setgoogleAuthLastStep}
+          />
+        )}
+        {googleAuthLastStep && (
+          <GoogleAuthLastStep
+            setshowstepOne={setshowstepOne}
+            setshowStepTwo={setshowStepTwo}
+            setshowStepThree={setshowStepThree}
+            setshowStepFour={setshowStepFour}
+            setshowStepFive={setshowStepFive}
+            setshowsignupPage={setshowsignupPage}
+            setshowSignUpCard={setshowSignUpCard}
+            stepOneDetails = {stepOneDetails}
           />
         )}
       </form>
