@@ -1,13 +1,9 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
-import {
-  GoogleAuthProvider,
-  getAuth,
-  signInWithPopup,
-} from "firebase/auth";
+import { GoogleAuthProvider, getAuth, signInWithPopup } from "firebase/auth";
 import { getFirestore, collection } from "firebase/firestore";
-import { getDatabase, ref, set } from "firebase/database";
+import { getDatabase, ref, set, onValue } from "firebase/database";
 
 const firebaseConfig = {
   apiKey: "AIzaSyA3yyc5qbksW5oLXZ8y0jciO_bVqfcg1kA",
@@ -82,13 +78,25 @@ export const writeUserData = (
     locatonData: "",
     websiteData: "",
     tweets: [],
-    likedTweets: []
+    likedTweets: [],
   })
-  .then(() => {
-    console.log("Data written successfully");
-    window.location.href = "/Home";
-  })
-  .catch((error) => {
-    console.log("Error writing data:", error);
-  })
+    .then(() => {
+      console.log("Data written successfully");
+      window.location.href = "/Home";
+    })
+    .catch((error) => {
+      console.log("Error writing data:", error);
+    });
 };
+
+//Read RealtimeDatabase
+
+export const realtimeData = (data) => {
+  const CurrentRTDB = ref(realTimeDatabase, "users/");
+  onValue(CurrentRTDB, (snapshot) => {
+    data = snapshot.val();
+  });
+  return data;
+}
+
+console.log(realtimeData())

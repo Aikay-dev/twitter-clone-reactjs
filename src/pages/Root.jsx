@@ -14,7 +14,7 @@ import {
   checkAuthState,
   mobileNavLeftState,
 } from "../store";
-import { auth } from "../config/firebase";
+import { auth, realtimeData } from "../config/firebase";
 import Home from "./Home/Home";
 import { AiOutlineUserAdd } from "react-icons/ai";
 import { FiLogOut } from "react-icons/fi";
@@ -51,7 +51,14 @@ const Root = ({ authState, setAuthState }) => {
   const [tweeterBlueTabButtonClicked, settweeterBlueTabButtonClicked] =
     useState(false);
   const [profileTabButtonClicked, setprofileTabButtonClicked] = useState(false);
+  const [realtimeUserData, setrealtimeUserData] = useState("")
+  
+  useEffect(() =>{
+    setrealtimeUserData(realtimeData())
+    console.log(realtimeData())
+  }, [realtimeData])
 
+  /* END STATE MANAGEMENT */
   useEffect(() => {
     // Code to run when the component mounts and when the URL changes
     console.log(window.location.pathname);
@@ -112,6 +119,11 @@ const Root = ({ authState, setAuthState }) => {
         console.log("New authentication state:", userAuthState.email);
         setAuthState(userAuthState.email);
         dispatch(checkAuthState(userAuthState.email));
+
+
+        
+
+
       } else if (
         window.location.pathname === "/Home" ||
         window.location.pathname === "/Home/" ||
