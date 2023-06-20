@@ -22,8 +22,7 @@ const LoadingSite = ({loadBird, setLoadBird}) => {
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((userAuthState) => {
       if (userAuthState !== null) {
-        console.log("New authentication state:", userAuthState.email);
-        setLoadBird(false)
+
         setAuthState(userAuthState.email);
         dispatch(checkAuthState(userAuthState.email));
       } else {

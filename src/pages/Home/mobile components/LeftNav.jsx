@@ -31,7 +31,7 @@ const LeftNav = ({
   currentUser,
 }) => {
   const dispatch = useDispatch();
-  console.log(currentUser)
+  console.log(currentUser?true:false);
   return (
     <section
       className="absolute top-0 overflow-y-scroll z-50 h-screen home-navbar-mobile bg-black"
@@ -56,16 +56,25 @@ const LeftNav = ({
             className="rounded-full w-10 h-10 max-h-10"
           />
         </div>
-        <p className="mx-3 font-semibold text-lg mt-2">{currentUser.displayName
-}</p>
+        <p className="mx-3 font-semibold text-lg mt-2">
+          {currentUser.displayName}
+        </p>
         <p className="mx-3 home-nav-username mb-3">{currentUser.username}</p>
         <div className="flex items-center gap-4 ml-3">
           <p>
-            <span className="font-semibold">{currentUser.followingNumber.length}</span>{" "}
+            <span className="font-semibold">
+              {currentUser.followingNumber.length === 1
+                ? 0
+                : [currentUser.followingNumber.length]}
+            </span>{" "}
             <span className="home-nav-username">Following</span>
           </p>
           <p>
-            <span className="font-semibold">{currentUser.followingNumber.length}</span>{" "}
+            <span className="font-semibold">
+              {currentUser.followersNumber.length === 1
+                ? 0
+                : [currentUser.followersNumber.length]}
+            </span>{" "}
             <span className="home-nav-username">Followers</span>
           </p>
         </div>
@@ -201,9 +210,7 @@ const LeftNav = ({
                   >
                     Log out
                   </p>
-                  {logoutspinner && (
-                    <SmLoader/>
-                  )}
+                  {logoutspinner && <SmLoader />}
                 </li>
               </ul>
             </nav>

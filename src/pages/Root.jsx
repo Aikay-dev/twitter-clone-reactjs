@@ -21,14 +21,16 @@ import { FiLogOut } from "react-icons/fi";
 import { signOut } from "firebase/auth";
 import LeftNav from "./Home/mobile components/LeftNav";
 import BottomNav from "./Home/mobile components/BottomNav";
-import { realTimeDatabase } from "../config/firebase";
-import { getDatabase, ref, set, onValue } from "firebase/database";
 
 library.add(fas);
 library.add(fab);
 library.add(far);
 
-const Root = ({ authState, setAuthState }) => {
+const Root = ({
+  authState,
+  setAuthState,
+  currentUser,
+}) => {
   const dispatch = useDispatch();
 
   /* STATE MANAGEMENT */
@@ -53,40 +55,6 @@ const Root = ({ authState, setAuthState }) => {
   const [tweeterBlueTabButtonClicked, settweeterBlueTabButtonClicked] =
     useState(false);
   const [profileTabButtonClicked, setprofileTabButtonClicked] = useState(false);
-  const [currentUser, setcurrentUser] = useState("");
-
-  useEffect(() => {
-    if (auth.currentUser !== null) {
-      const realtimeData = (data) => {
-        const CurrentRTDB = ref(realTimeDatabase, "users/");
-        onValue(CurrentRTDB, (snapshot) => {
-          data = snapshot.val();
-          console.log(data);
-          findEmail(data)
-        });
-        return data;
-      };
-      realtimeData();
-    }
-  }, []);
-
-  function findEmail(obj) {
-    if (auth.currentUser !== null) {
-      for (let key in obj) {
-        if (obj.hasOwnProperty(key)) {
-          if (key === "email") {
-            console.log(obj[key]);
-            if (obj[key] === auth.currentUser.email) {
-              console.log(obj);
-              setcurrentUser(obj);
-            }
-          } else if (typeof obj[key] === "object") {
-            findEmail(obj[key]);
-          }
-        }
-      }
-    }
-  }
 
   /* END STATE MANAGEMENT */
   useEffect(() => {
