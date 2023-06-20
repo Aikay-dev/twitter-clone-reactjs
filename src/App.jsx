@@ -14,12 +14,15 @@ function App() {
   const [authState, setAuthState] = useState(
     useSelector((state) => state.userAuth.value)
   );
+  const [realTDBLoaded, setrealTDBLoaded] = useState(false)
+  
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((userAuthState) => {
       if (userAuthState !== null) {
         console.log("New authentication state:", userAuthState.email);
         setLoadBird(false);
+        console.log(auth.currentUser)
         setAuthState(userAuthState.email);
         dispatch(checkAuthState(userAuthState.email));
       } else {

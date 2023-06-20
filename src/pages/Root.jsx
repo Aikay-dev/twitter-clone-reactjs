@@ -21,6 +21,8 @@ import { FiLogOut } from "react-icons/fi";
 import { signOut } from "firebase/auth";
 import LeftNav from "./Home/mobile components/LeftNav";
 import BottomNav from "./Home/mobile components/BottomNav";
+import { realTimeDatabase } from "../config/firebase";
+import { getDatabase, ref, set, onValue } from "firebase/database";
 
 library.add(fas);
 library.add(fab);
@@ -51,29 +53,40 @@ const Root = ({ authState, setAuthState }) => {
   const [tweeterBlueTabButtonClicked, settweeterBlueTabButtonClicked] =
     useState(false);
   const [profileTabButtonClicked, setprofileTabButtonClicked] = useState(false);
-  
-  useEffect(() =>{
-   if(auth.currentUser !== null) {
-    console.log(realtimeData())
-    console.log(auth.currentUser.email)
-    function findEmail(obj) {
+  const [currentUser, setcurrentUser] = useState("");
+
+  useEffect(() => {
+    if (auth.currentUser !== null) {
+      const realtimeData = (data) => {
+        const CurrentRTDB = ref(realTimeDatabase, "users/");
+        onValue(CurrentRTDB, (snapshot) => {
+          data = snapshot.val();
+          console.log(data);
+          findEmail(data)
+        });
+        return data;
+      };
+      realtimeData();
+    }
+  }, []);
+
+  function findEmail(obj) {
+    if (auth.currentUser !== null) {
       for (let key in obj) {
         if (obj.hasOwnProperty(key)) {
-          if (key === 'email') {
+          if (key === "email") {
             console.log(obj[key]);
-            if(obj[key] === auth.currentUser.email){
-              console.log(obj)
-            } // Ouput: email value
-          } else if (typeof obj[key] === 'object') {
-            findEmail(obj[key]); // Recurively search for email in nested objects
+            if (obj[key] === auth.currentUser.email) {
+              console.log(obj);
+              setcurrentUser(obj);
+            }
+          } else if (typeof obj[key] === "object") {
+            findEmail(obj[key]);
           }
         }
       }
     }
-    
-    realtimeData === undefined? {}:findEmail(realtimeData())
-   }
-  }, [realtimeData])
+  }
 
   /* END STATE MANAGEMENT */
   useEffect(() => {
@@ -136,11 +149,6 @@ const Root = ({ authState, setAuthState }) => {
         console.log("New authentication state:", userAuthState.email);
         setAuthState(userAuthState.email);
         dispatch(checkAuthState(userAuthState.email));
-
-
-        
-
-
       } else if (
         window.location.pathname === "/Home" ||
         window.location.pathname === "/Home/" ||
@@ -283,7 +291,6 @@ const Root = ({ authState, setAuthState }) => {
   const page = useParams();
   const navigate = useNavigate();
   const currentLocation = window.location.pathname;
-  console.log(authState);
   const settingsClassState =
     authState === null
       ? "mobile-settings-call fixed bottom-0 bg-black text-white w-full h-30 px-6 py-4"
@@ -306,7 +313,6 @@ const Root = ({ authState, setAuthState }) => {
             </div>
             <div
               className="text-xl flex items-center cursor-pointer"
-              
               onClick={() => {
                 signOut(auth)
                   .then(() => {
@@ -652,6 +658,7 @@ const Root = ({ authState, setAuthState }) => {
             setSetNdpriv={setSetNdpriv}
             setNdpriv={setNdpriv}
             mobileNavLeftState={mobileNavLeftState}
+            currentUser={currentUser}
           />
           <div
             className="absolute top-0 h-screen w-screen"

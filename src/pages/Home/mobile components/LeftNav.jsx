@@ -28,9 +28,10 @@ const LeftNav = ({
   setNdpriv,
   mobileNavLeftState,
   setSetNdpriv,
+  currentUser,
 }) => {
   const dispatch = useDispatch();
-
+  console.log(currentUser)
   return (
     <section
       className="absolute top-0 overflow-y-scroll z-50 h-screen home-navbar-mobile bg-black"
@@ -50,20 +51,21 @@ const LeftNav = ({
         </div>
         <div className="home-nav-profile-image w-12 flex mx-3 justify-center items-center">
           <img
-            src="https://picsum.photos/200/300"
+            src={currentUser.profile_picture}
             alt="user profile image"
             className="rounded-full w-10 h-10 max-h-10"
           />
         </div>
-        <p className="mx-3 font-semibold text-lg mt-2">Hail Hydra</p>
-        <p className="mx-3 home-nav-username mb-3">@general ik</p>
+        <p className="mx-3 font-semibold text-lg mt-2">{currentUser.displayName
+}</p>
+        <p className="mx-3 home-nav-username mb-3">{currentUser.username}</p>
         <div className="flex items-center gap-4 ml-3">
           <p>
-            <span className="font-semibold">167</span>{" "}
+            <span className="font-semibold">{currentUser.followingNumber.length}</span>{" "}
             <span className="home-nav-username">Following</span>
           </p>
           <p>
-            <span className="font-semibold">14</span>{" "}
+            <span className="font-semibold">{currentUser.followingNumber.length}</span>{" "}
             <span className="home-nav-username">Followers</span>
           </p>
         </div>
