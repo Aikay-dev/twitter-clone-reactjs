@@ -56,7 +56,7 @@ const GoogleAuthLastStep = ({
             stepOneDetails.email,
             "https://image.pngaaa.com/117/4811117-small.png",
             stepOneDetails.DOB,
-            stepOneDetails.name.replace(/\s/g, ''))
+            stepOneDetails.name)
           }}
           
           
