@@ -59,8 +59,8 @@ const SignUp = ({ setshowSignUpCard }) => {
   }, []);
 
   useEffect(() => {
-    console.log(usersEmail.length);
-    if (usersEmail.length > 1) {
+    console.log(usersEmail);
+    if (usersEmail.length > 0) {
       setshowsignupPageLoader(false);
       setgoogleUsernameStep(false);
       setshowstepOne(false);
@@ -152,14 +152,23 @@ const SignUp = ({ setshowSignUpCard }) => {
               console.log("email used already");
               setemailusedalready(true)
             } else {
-              setgoogleUsernameStep(true);
-              setshowstepOne(false);
-              setshowStepTwo(false);
-              setshowStepThree(false);
-              setshowStepFour(false);
-              setshowStepFive(false);
-              setshowsignupPage(false);
-              setcurrentLoggedUser(auth.currentUser);
+              addDoc(colRef, {
+                email: result.user.email,
+              })
+              .then(() => {
+                setgoogleUsernameStep(true);
+                setshowstepOne(false);
+                setshowStepTwo(false);
+                setshowStepThree(false);
+                setshowStepFour(false);
+                setshowStepFive(false);
+                setshowsignupPage(false);
+                setcurrentLoggedUser(auth.currentUser);
+              })
+              .catch((error) => {
+                console.log(error)
+              })
+              
             }
           }
         }

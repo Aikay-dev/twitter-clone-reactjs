@@ -88,6 +88,41 @@ export const writeUserData = (
       console.log("Error writing data:", error);
     });
 };
+export const writeUserDataUserAndPass = (
+  userId,
+  name,
+  email,
+  imageUrl,
+  dob,
+  displayUserName
+) => {
+  const realTimeDatabase = getDatabase(app);
+  set(ref(realTimeDatabase, "users/" + userId), {
+    username: name,
+    displayName: displayUserName,
+    email: email,
+    profile_picture: imageUrl,
+    dateOfbirth: dob,
+    followersNumber: [0],
+    followingNumber: [0],
+    bioData: "",
+    userId: userId,
+    timeJoined: "",
+    notificationData: [],
+    bookmarkData: [],
+    locatonData: "",
+    websiteData: "",
+    tweets: [],
+    likedTweets: [],
+  })
+    .then(() => {
+      console.log("Data written successfully");
+      
+    })
+    .catch((error) => {
+      console.log("Error writing data:", error);
+    });
+};
 
 //Read RealtimeDatabase
 

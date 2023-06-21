@@ -16,10 +16,7 @@ import { useLocation, Outlet } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import SignUp from "./auth/SignUp";
 import SearchBar from "../components/SearchBar";
-import {
-  auth,
-  signInWithGoogle
-} from "../config/firebase";
+import { auth, signInWithGoogle } from "../config/firebase";
 import { mobileNavLeftState } from "../store";
 
 library.add(fas);
@@ -49,9 +46,9 @@ const Explore = () => {
   const mobNavleft = useSelector((state) => state.mobNavleft.value);
   const HandleSignIn = () => {
     const screenWidth = window.innerWidth;
-    console.log("first2")
+    console.log("first2");
 
-      signInWithGoogle();
+    signInWithGoogle();
   };
 
   return (
@@ -139,9 +136,9 @@ const Explore = () => {
           </p>
           <div
             onClick={(e) => {
-              e.preventDefault()
-              HandleSignIn()
-              console.log("first")
+              e.preventDefault();
+              HandleSignIn();
+              console.log("first");
             }}
           >
             <AuthLoginButton
@@ -157,11 +154,8 @@ const Explore = () => {
               "rounded-full font-semibold flex items-center justify-center apple-butt-login apple-butt-login-home-variant"
             }
           />
-          <div
-            onClick={() => {
-              dispatch(blurChangeState({ display: "block" }));
-              setshowSignUpCard(true);
-            }}
+          <Link
+            to='/Auth/Signup'
           >
             <AuthLoginButton
               logo={join_create_account}
@@ -169,7 +163,7 @@ const Explore = () => {
                 "rounded-full google-butt-login mt-3 font-semibold mb-5 create-acc-home"
               }
             />
-          </div>
+          </Link>
           <p className="homepage-right-By-sign">
             By signing up, you agree to the{" "}
             <Link className="signup-link">Terms of Service</Link> and{" "}

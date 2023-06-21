@@ -6,7 +6,7 @@ import { fab } from "@fortawesome/free-brands-svg-icons";
 import { far } from "@fortawesome/free-regular-svg-icons";
 import { Link } from "react-router-dom";
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../../../config/firebase";
+import { auth, writeUserDataUserAndPass } from "../../../config/firebase";
 import { colRef } from "../../../config/firebase";
 import { addDoc } from "firebase/firestore";
 import { writeUserData } from "../../../config/firebase";
@@ -58,27 +58,34 @@ function StepFour({
       .then((cred) => {
         addDoc(colRef, {
           email: stepOneDetails.email,
-        });
-        setshowstepOne(false);
-        setshowStepTwo(false);
-        setshowStepThree(false);
-        setshowStepFour(false);
-        setshowStepFive(true);
-        setshowsignupPage(false);
-        setNextLoad(false);
+        })
+        .then((result) => {
+          console.log(result)
+          setshowstepOne(false);
+          setshowStepTwo(false);
+          setshowStepThree(false);
+          setshowStepFour(false);
+          setshowStepFive(true);
+          setshowsignupPage(false);
+          setNextLoad(false);
+        })
+          .catch((error) => {
+            console.log(error)
+        })
+
         console.log("user created:", cred);
       })
       .catch((error) => {
         console.log(error.message);
       });
 
-    writeUserData(
+      writeUserDataUserAndPass(
       generateRandomString(10),
       "@" + stepOneDetails.name.replace(/\s/g, ''),
       stepOneDetails.email,
       "https://image.pngaaa.com/117/4811117-small.png",
       stepOneDetails.DOB,
-      stepOneDetails.name.replace(/\s/g, '')
+      stepOneDetails.name
     );
   }
 
