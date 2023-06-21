@@ -14,15 +14,24 @@ library.add(fab);
 library.add(far);
 
 function ProfilePage() {
+  const currentUser = useSelector((state) => state.currUsr.value);
+  console.log(currentUser);
+
+  const [userProfileDetails, setuserProfileDetails] = useState({
+    profilePic: "",
+    name: currentUser.displayName,
+    bio: currentUser.bioData,
+    location: currentUser.locatonData,
+    website: currentUser.websiteData,
+  });
+
   const [profileTweetsTab, setprofileTweetsTab] = useState(true);
   const [profileLikesTab, setprofileLikesTab] = useState(false);
-  const [profileBlur, setprofileBlur] = useState(false)
+  const [profileBlur, setprofileBlur] = useState(false);
   const dispatch = useDispatch();
   const mobNavleft = useSelector((state) => state.mobNavleft.value);
 
-  const currentUser = useSelector((state) => state.currUsr.value);
-  console.log(currentUser)
-  console.log("first")
+  console.log("first");
   let focusName = useRef(null);
   let focusBio = useRef(null);
   let focusLocation = useRef(null);
@@ -43,106 +52,144 @@ function ProfilePage() {
 
   return (
     <>
-      {profileBlur && <div onClick={(e) => {
-        e.stopPropagation
-        setprofileBlur(false)
-      }} className=" flex justify-center items-center h-full w-full homepage-auth-overlay fixed z-50">
-        <div onClick={(e) => {
-            e.stopPropagation()
-        }} className=" bg-black inputprofiledetailbox">
-          <div className="flex justify-between p-3">
-            <div className="flex gap-10 pl-2 items-center">
-              <button onClick={() => {
-                setprofileBlur(false)
-              }} className="text-xl cursor-pointer p-1 rounded-full px-2 flex profileEx">
-                <FontAwesomeIcon icon="fa-solid fa-xmark" />
+      {profileBlur && (
+        <div
+          onClick={(e) => {
+            e.stopPropagation;
+            setprofileBlur(false);
+          }}
+          className=" flex justify-center items-center h-full w-full homepage-auth-overlay fixed z-50"
+        >
+          <div
+            onClick={(e) => {
+              e.stopPropagation();
+            }}
+            className=" bg-black inputprofiledetailbox"
+          >
+            <div className="flex justify-between p-3">
+              <div className="flex gap-10 pl-2 items-center">
+                <button
+                  onClick={() => {
+                    setprofileBlur(false);
+                  }}
+                  className="text-xl cursor-pointer p-1 rounded-full px-2 flex profileEx"
+                >
+                  <FontAwesomeIcon icon="fa-solid fa-xmark" />
+                </button>
+                <p className="font-semibold text-xl">Edit profile</p>
+              </div>
+              <button className="bg-white text-black saveprofilebuttton rounded-full px-4 py-1 font-semibold">
+                Save
               </button>
-              <p className="font-semibold text-xl">Edit profile</p>
             </div>
-            <button className="bg-white text-black saveprofilebuttton rounded-full px-4 py-1 font-semibold">
-              Save
-            </button>
-          </div>
-          <div className=" overflow-y-scroll">
-            <div className="px-3">
-              <img
-                src={currentUser.profile_picture
-                }
-                alt="user profile image"
-                className="rounded-full h-24 w-24 mt-10"
-              />
-            </div>
-            <div className="sign-in-box px-3 flex pt-5 flex-col items-center justify-center ">
-              <div className="relative w-full">
-                <input
-                  type="text"
-                  className=" namefillboxprofile bg-black  flex justify-center items-center rounded-md"
-                  placeholder=" "
-                  ref={focusName}
+            <div className=" overflow-y-scroll">
+              <div className="px-3">
+                <img
+                  src={currentUser.profile_picture}
+                  alt="user profile image"
+                  className="rounded-full h-24 w-24 mt-10"
                 />
-                <label
-                  onClick={handleFocusingName}
-                  htmlFor="Name"
-                  className="absolute top-4 left-2 phemus-label"
-                >
-                  Name
-                </label>
               </div>
-            </div>
-            <div className="sign-in-box px-3 flex pt-5 flex-col items-center justify-center ">
-              <div className="relative w-full">
-                <input
-                  type="text"
-                  className=" namefillboxprofile biofillboxprofile bg-black  flex justify-center items-center rounded-md"
-                  placeholder=" "
-                  ref={focusBio}
-                />
-                <label
-                  onClick={handleFocusingBio}
-                  htmlFor="text"
-                  className="absolute top-4 left-2 phemus-label"
-                >
-                  Bio
-                </label>
+              <div className="sign-in-box px-3 flex pt-5 flex-col items-center justify-center ">
+                <div className="relative w-full">
+                  <input
+                    value={userProfileDetails.name}
+                    type="text"
+                    className=" namefillboxprofile bg-black  flex justify-center items-center rounded-md"
+                    placeholder=" "
+                    ref={focusName}
+                    onChange={(event) => {
+                      setuserProfileDetails({
+                        ...userProfileDetails,
+                        name: event.target.value,
+                      });
+                    }}
+                  />
+                  <label
+                    onClick={handleFocusingName}
+                    htmlFor="Name"
+                    className="absolute top-4 left-2 phemus-label"
+                  >
+                    Name
+                  </label>
+                </div>
               </div>
-            </div>
-            <div className="sign-in-box px-3 flex pt-5 flex-col items-center justify-center ">
-              <div className="relative w-full">
-                <input
-                  type="text"
-                  className=" namefillboxprofile bg-black  flex justify-center items-center rounded-md"
-                  placeholder=" "
-                  ref={focusLocation}
-                />
-                <label
-                  onClick={handleFocusingLocation}
-                  htmlFor="email"
-                  className="absolute top-4 left-2 phemus-label"
-                >
-                  Location
-                </label>
+              <div className="sign-in-box px-3 flex pt-5 flex-col items-center justify-center ">
+                <div className="relative w-full">
+                  <input
+                    value={userProfileDetails.bio}
+                    type="text"
+                    className=" namefillboxprofile biofillboxprofile bg-black  flex justify-center items-center rounded-md"
+                    placeholder=" "
+                    ref={focusBio}
+                    onChange={(event) => {
+                      setuserProfileDetails({
+                        ...userProfileDetails,
+                        bio: event.target.value,
+                      });
+                    }}
+                  />
+                  <label
+                    onClick={handleFocusingBio}
+                    htmlFor="text"
+                    className="absolute top-4 left-2 phemus-label"
+                  >
+                    Bio
+                  </label>
+                </div>
               </div>
-            </div>
-            <div className="sign-in-box px-3 flex pt-5 flex-col items-center justify-center ">
-              <div className="relative w-full">
-                <input
-                  type="text"
-                  className=" namefillboxprofile bg-black  flex justify-center items-center rounded-md"
-                  placeholder=" "
-                  ref={focusWebsite}
-                />
-                <label
-                  onClick={handleFocusingWebsite}
-                  htmlFor="email"
-                  className="absolute top-4 left-2 phemus-label"
-                >
-                  Website
-                </label>
+              <div className="sign-in-box px-3 flex pt-5 flex-col items-center justify-center ">
+                <div className="relative w-full">
+                  <input
+                    value={userProfileDetails.location}
+                    type="text"
+                    className=" namefillboxprofile bg-black  flex justify-center items-center rounded-md"
+                    placeholder=" "
+                    ref={focusLocation}
+                    onChange={(event) => {
+                      setuserProfileDetails({
+                        ...userProfileDetails,
+                        location: event.target.value,
+                      });
+                    }}
+                  />
+                  <label
+                    onClick={handleFocusingLocation}
+                    htmlFor="email"
+                    className="absolute top-4 left-2 phemus-label"
+                  >
+                    Location
+                  </label>
+                </div>
+              </div>
+              <div className="sign-in-box px-3 flex pt-5 flex-col items-center justify-center ">
+                <div className="relative w-full">
+                  <input
+                    value={userProfileDetails.website}
+                    type="text"
+                    className=" namefillboxprofile bg-black  flex justify-center items-center rounded-md"
+                    placeholder=" "
+                    ref={focusWebsite}
+                    onChange={(event) => {
+                      setuserProfileDetails({
+                        ...userProfileDetails,
+                        website: event.target.value,
+                      });
+                    }}
+                  />
+                  <label
+                    onClick={handleFocusingWebsite}
+                    htmlFor="email"
+                    className="absolute top-4 left-2 phemus-label"
+                  >
+                    Website
+                  </label>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>}
+      )}
       <section className="homepage-center h-screen relative overflow-hidden">
         <header className="flex pt-1 pb-1 profilePageHeader">
           <div
@@ -159,22 +206,26 @@ function ProfilePage() {
           </div>
         </header>
         <section className=" overflow-y-scroll h-full profilepagemainsection">
-          <div className=" h-48 w-full  profilebacdropimage">
-            
-          </div>
+          <div className=" h-48 w-full  profilebacdropimage"></div>
           <div className="flex flex-col  relative">
             <div className="p-1 bg-black absolute rounded-full flex justify-center items-center profileimageinproflepage">
               <img
-                src={currentUser?currentUser.profile_picture
-                  :"https://picsum.photos/200/300"}
+                src={
+                  currentUser
+                    ? currentUser.profile_picture
+                    : "https://picsum.photos/200/300"
+                }
                 alt="profile pic"
                 className="rounded-full profileimageinproflepageimage relative h-32 w-32"
               />
             </div>
             <div className=" flex flex-row-reverse pt-3 pb-4  pr-5">
-              <button onClick={() => {
-                setprofileBlur(true)
-              }} className=" font-semibold px-4 py-1 bg-black rounded-full profileMainEditButton">
+              <button
+                onClick={() => {
+                  setprofileBlur(true);
+                }}
+                className=" font-semibold px-4 py-1 bg-black rounded-full profileMainEditButton"
+              >
                 Edit Profile
               </button>
             </div>
@@ -193,15 +244,19 @@ function ProfilePage() {
               </div>
               <div className="flex gap-4">
                 <div>
-                  <span className=" font-semibold">{currentUser.followingNumber.length === 1
-                ? 0
-                : [currentUser.followingNumber.length]} </span>
+                  <span className=" font-semibold">
+                    {currentUser.followingNumber.length === 1
+                      ? 0
+                      : [currentUser.followingNumber.length]}{" "}
+                  </span>
                   <span className="homelabelcolor">following</span>
                 </div>
                 <div>
-                  <span className=" font-semibold">{currentUser.followersNumber.length === 1
-                ? 0
-                : [currentUser.followersNumber.length]} </span>
+                  <span className=" font-semibold">
+                    {currentUser.followersNumber.length === 1
+                      ? 0
+                      : [currentUser.followersNumber.length]}{" "}
+                  </span>
                   <span className="homelabelcolor">followers</span>
                 </div>
               </div>
