@@ -22,7 +22,7 @@ library.add(far);
 const Login = () => {
   const [usersEmail, setUsersEmail] = useState([]);
   const [emailError, setEmailError] = useState({ display: "none" });
-
+  
   useEffect(() => {
     getDocs(colRef)
       .then((snapshot) => {
@@ -103,6 +103,7 @@ const Login = () => {
                 renderLoader={renderLoader}
                 emailError={emailError}
                 setEmailError={setEmailError}
+                
               />
             )}
             {renderPassword && (

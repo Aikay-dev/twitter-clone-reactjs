@@ -25,6 +25,8 @@ library.add(far);
 
 const Explore = () => {
   console.log(auth.currentUser);
+  const currentUser = useSelector((state) => state.currUsr.value);
+  console.log(currentUser)
   const ifBlur = useSelector((state) => state.user.value.display);
   const [showSignUpCard, setshowSignUpCard] = useState(false);
   const googleSignButton = (
@@ -77,7 +79,7 @@ const Explore = () => {
               }}
             >
               <img
-                src="https://picsum.photos/200/300"
+                src={currentUser.profile_picture}
                 alt="user profile image"
                 className="rounded-full w-8 h-8"
               />

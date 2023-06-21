@@ -66,7 +66,8 @@ function ProfilePage() {
           <div className=" overflow-y-scroll">
             <div className="px-3">
               <img
-                src="https://picsum.photos/200/300"
+                src={currentUser.profile_picture
+                }
                 alt="user profile image"
                 className="rounded-full h-24 w-24 mt-10"
               />

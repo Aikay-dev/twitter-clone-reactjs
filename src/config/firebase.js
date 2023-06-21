@@ -134,3 +134,25 @@ export const realtimeData = (data) => {
   });
   return data;
 }
+
+// Delete auth account cleanup
+
+export const deleteUserWithEmailAndPassword = (email, password) => {
+  signInWithEmailAndPassword(auth, email, password)
+    .then((userCredential) => {
+      // User signed in successfully
+      userCredential.user.delete()
+        .then(() => {
+          // User deleted successfully
+          console.log('User deleted successfully');
+        })
+        .catch((error) => {
+          // An error occurred while deleting the user
+          console.error('Error deleting user:', error);
+        });
+    })
+    .catch((error) => {
+      // An error occurred while signing in the user
+      console.error('Error signing in user:', error);
+    });
+};

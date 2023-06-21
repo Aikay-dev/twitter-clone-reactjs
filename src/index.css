@@ -840,6 +840,10 @@
   color: var(--homeLabelColor);
 }
 
+.accountnotfoundgooglelogin{
+  bottom: 65px;
+}
+
 .profileimageinproflepage {
   bottom: 70%;
   left: 3%;

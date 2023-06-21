@@ -21,7 +21,8 @@ const Home = () => {
   const mobNavleft = useSelector((state) => state.mobNavleft.value);
   const [ForyouTab, setForyouTab] = useState(true);
   const [FollowingTab, setFollowingTab] = useState(false);
-
+  const currentUser = useSelector((state) => state.currUsr.value);
+  console.log(currentUser)
   return (
     <>
       <section className="homepage-center h-screen relative overflow-hidden">
@@ -36,7 +37,7 @@ const Home = () => {
               }}
             >
               <img
-                src="https://picsum.photos/200/300"
+                src={currentUser.profile_picture}
                 alt="user profile image"
                 className="rounded-full w-8 h-8 max-h-8"
               />
@@ -95,7 +96,7 @@ const Home = () => {
             <div className="flex">
               <div>
                 <img
-                  src="https://picsum.photos/200/300"
+                  src={currentUser.profile_picture}
                   alt="user profile image"
                   className="rounded-full h-10 w-10 mr-3 cursor-pointer"
                 />

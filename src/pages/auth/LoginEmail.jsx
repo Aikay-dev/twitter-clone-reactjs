@@ -8,15 +8,14 @@ import { library } from "@fortawesome/fontawesome-svg-core";
 import { fas } from "@fortawesome/free-solid-svg-icons";
 import { fab } from "@fortawesome/free-brands-svg-icons";
 import { far } from "@fortawesome/free-regular-svg-icons";
-import { signInWithGoogle } from "../../config/firebase";
 import { auth } from "../../config/firebase";
+import { signInWithPopup } from "firebase/auth";
+import { Provider } from "../../config/firebase";
+import { deleteUserWithEmailAndPassword } from "../../config/firebase";
 
 library.add(fas);
 library.add(fab);
 library.add(far);
-
-
-
 
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const LoginEmail = ({
@@ -30,6 +29,7 @@ const LoginEmail = ({
   setEmailError,
 }) => {
   const [errorOutline, setErrorOutline] = useState({});
+  const [acntnotfound, setacntnotfound] = useState(false);
   const dispatch = useDispatch();
   let focus = useRef(null);
 
@@ -57,15 +57,13 @@ const LoginEmail = ({
         setrenderLoader(false);
         setrenderEmail(true);
         setrenderPassword(false);
-        setEmailError({});
+        setEmailError({ display: "block" });
       }
     }, 1000);
   };
 
   const googleSignButton = (
-    <div
-      className="flex items-center justify-center"
-    >
+    <div className="flex items-center justify-center">
       <img src={googleIcon} alt="" className="h-8 flex w-8" />
       Sign in with Google
     </div>
@@ -88,25 +86,58 @@ const LoginEmail = ({
   }
 
   const HandleSignIn = () => {
-    console.log("hi")
-    const screenWidth = window.innerWidth;
-      signInWithGoogle();
-    
-  };
+    signInWithPopup(auth, Provider)
+      .then((result) => {
+        console.log(result);
 
+        for (let i = 0; i < usersEmail.length; i++) {
+          if (usersEmail[i].email === result.user.email) {
+            window.location.href = "/Home";
+          } else {
+            result.user
+              .delete()
+              .then(() => {
+                // User deleted successfully
+                setacntnotfound(true);
+                console.log("User deleted successfully");
+              })
+              .catch((error) => {
+                // An error occurred while deleting the user
+                console.error("Error deleting user:", error);
+              });
+            
+          }
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+  console.log(usersEmail);
   return (
     <div className="login-info">
       <p className="text-center mt-7 text-3xl font-bold">Sign in to Tweeter</p>
       <div className="auth-prov-option pb-5 gap-5 flex items-center justify-center m-auto relative flex-col mt-8 text-black">
-        <div onClick={(e) => {
-          e.preventDefault()
-          HandleSignIn()
-        }}>
+        <div
+          onClick={(e) => {
+            e.preventDefault();
+            HandleSignIn();
+          }}
+        >
           <AuthLoginButton
             logo={googleSignButton}
             classes={"rounded-full google-butt-login"}
           />
+          {acntnotfound && (
+            <p
+              style={{ color: "red" }}
+              className="absolute accountnotfoundgooglelogin text-sm"
+            >
+              Account not found
+            </p>
+          )}
         </div>
+
         <AuthLoginButton
           logo={appleSignButton}
           classes={
