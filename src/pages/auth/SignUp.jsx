@@ -22,13 +22,15 @@ import { auth, Provider } from "../../config/firebase";
 import { signInWithPopup } from "firebase/auth";
 import { addDoc } from "firebase/firestore";
 import GoogleAuthLastStep from "./createAccount/GoogleAuthLastStep";
+import Loader from "./components/Loader";
 
 library.add(fas);
 library.add(fab);
 library.add(far);
 
 const SignUp = ({ setshowSignUpCard }) => {
-  const [showsignupPage, setshowsignupPage] = useState(true);
+  const [showsignupPageLoader, setshowsignupPageLoader] = useState(true);
+  const [showsignupPage, setshowsignupPage] = useState(false);
   const [showstepOne, setshowstepOne] = useState(false);
   const [showStepTwo, setshowStepTwo] = useState(false);
   const [showStepThree, setshowStepThree] = useState(false);
@@ -38,7 +40,7 @@ const SignUp = ({ setshowSignUpCard }) => {
   const [usersEmail, setUsersEmail] = useState([]);
   const [currentLoggedUser, setcurrentLoggedUser] = useState([]);
   const [googleAuthLastStep, setgoogleAuthLastStep] = useState(false);
-
+  const [emailusedalready, setemailusedalready] = useState(false)
   useEffect(() => {
     getDocs(colRef)
       .then((snapshot) => {
@@ -57,7 +59,18 @@ const SignUp = ({ setshowSignUpCard }) => {
   }, []);
 
   useEffect(() => {
-    console.log(usersEmail);
+    console.log(usersEmail.length);
+    if (usersEmail.length > 1) {
+      setshowsignupPageLoader(false);
+      setgoogleUsernameStep(false);
+      setshowstepOne(false);
+      setshowStepTwo(false);
+      setshowStepThree(false);
+      setshowStepFour(false);
+      setshowStepFive(false);
+      setshowsignupPage(true);
+    }
+
     console.log("logged in", auth.currentUser);
   }, [usersEmail]);
 
@@ -137,6 +150,7 @@ const SignUp = ({ setshowSignUpCard }) => {
           for (let i = 0; i < usersEmail.length; i++) {
             if (usersEmail[i].email === result.user.email) {
               console.log("email used already");
+              setemailusedalready(true)
             } else {
               setgoogleUsernameStep(true);
               setshowstepOne(false);
@@ -160,6 +174,7 @@ const SignUp = ({ setshowSignUpCard }) => {
   return (
     <>
       <form action="" className={signupScrollState}>
+        {showsignupPageLoader && <Loader />}
         {showsignupPage && (
           <>
             <div className="top-of-auth flex">
@@ -191,7 +206,11 @@ const SignUp = ({ setshowSignUpCard }) => {
                   logo={googleSignButton}
                   classes={"rounded-full google-butt-login"}
                 />
+                {emailusedalready && <p className=" absolute emailUsedAlready text-sm">
+                  email used already
+                </p>}
               </div>
+
               <AuthLoginButton
                 logo={appleSignButton}
                 classes={
@@ -317,7 +336,7 @@ const SignUp = ({ setshowSignUpCard }) => {
             setshowStepFive={setshowStepFive}
             setshowsignupPage={setshowsignupPage}
             setshowSignUpCard={setshowSignUpCard}
-            stepOneDetails = {stepOneDetails}
+            stepOneDetails={stepOneDetails}
           />
         )}
       </form>

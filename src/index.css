@@ -532,6 +532,11 @@
   width: 100%;
 }
 
+.emailUsedAlready{
+  bottom: 65px;
+  color: rgb(194, 6, 6);
+}
+
 .homepage-center-info::-webkit-scrollbar {
   width: 10px;
 }
