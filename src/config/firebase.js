@@ -4,6 +4,7 @@ import { getAnalytics } from "firebase/analytics";
 import { GoogleAuthProvider, getAuth, signInWithPopup } from "firebase/auth";
 import { getFirestore, collection } from "firebase/firestore";
 import { getDatabase, ref, set, onValue } from "firebase/database";
+import datejoined from '../utility/dateJoined.js'
 
 const firebaseConfig = {
   apiKey: "AIzaSyA3yyc5qbksW5oLXZ8y0jciO_bVqfcg1kA",
@@ -70,7 +71,7 @@ export const writeUserData = (
     dateOfbirth: dob,
     followersNumber: [0],
     followingNumber: [0],
-    bioData: "",
+    bioData: "Hi, welcome to my profile",
     userId: userId,
     timeJoined: "",
     notificationData: [],
@@ -107,7 +108,7 @@ export const writeUserDataUserAndPass = (
     followingNumber: [0],
     bioData: "",
     userId: userId,
-    timeJoined: "",
+    timeJoined: {datejoined},
     notificationData: [],
     bookmarkData: [],
     locatonData: "",

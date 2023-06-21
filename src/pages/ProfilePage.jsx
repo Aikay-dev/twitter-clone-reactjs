@@ -20,6 +20,9 @@ function ProfilePage() {
   const dispatch = useDispatch();
   const mobNavleft = useSelector((state) => state.mobNavleft.value);
 
+  const currentUser = useSelector((state) => state.currUsr.value);
+  console.log(currentUser)
+  console.log("first")
   let focusName = useRef(null);
   let focusBio = useRef(null);
   let focusLocation = useRef(null);
@@ -150,18 +153,19 @@ function ProfilePage() {
             </span>
           </div>
           <div>
-            <p className=" text-xl font-semibold">Hail Hydra</p>
+            <p className=" text-xl font-semibold">{currentUser.displayName}</p>
             <p className="text-sm homelabelcolor">118 Tweets</p>
           </div>
         </header>
         <section className=" overflow-y-scroll h-full profilepagemainsection">
-          <div className=" h-48 w-full bg-slate-500 profilebacdropimage">
+          <div className=" h-48 w-full  profilebacdropimage">
             
           </div>
-          <div className="flex flex-col relative">
+          <div className="flex flex-col  relative">
             <div className="p-1 bg-black absolute rounded-full flex justify-center items-center profileimageinproflepage">
               <img
-                src="https://picsum.photos/200/300"
+                src={currentUser?currentUser.profile_picture
+                  :"https://picsum.photos/200/300"}
                 alt="profile pic"
                 className="rounded-full profileimageinproflepageimage relative h-32 w-32"
               />
@@ -174,25 +178,29 @@ function ProfilePage() {
               </button>
             </div>
             <div className="pl-4 pt-10">
-              <p className=" font-black text-xl">Hail Hydra</p>
-              <p className="text-sm homelabelcolor">@general_ik</p>
+              <p className=" font-black text-xl">{currentUser.displayName}</p>
+              <p className="text-sm homelabelcolor">{currentUser.username}</p>
             </div>
             <div className="pl-4 pt-4 flex flex-col gap-2">
-              <p>big boi</p>
+              <p>{currentUser.bioData}</p>
               <div className="homelabelcolor flex gap-2">
                 {" "}
                 <p>
                   <FontAwesomeIcon icon="fa-regular fa-calendar-days" />{" "}
                 </p>
-                Joined April 2020
+                {currentUser.timeJoined}
               </div>
               <div className="flex gap-4">
                 <div>
-                  <span className=" font-semibold">189 </span>
+                  <span className=" font-semibold">{currentUser.followingNumber.length === 1
+                ? 0
+                : [currentUser.followingNumber.length]} </span>
                   <span className="homelabelcolor">following</span>
                 </div>
                 <div>
-                  <span className=" font-semibold">21 </span>
+                  <span className=" font-semibold">{currentUser.followersNumber.length === 1
+                ? 0
+                : [currentUser.followersNumber.length]} </span>
                   <span className="homelabelcolor">followers</span>
                 </div>
               </div>

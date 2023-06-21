@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import LoadingSite from "./screen/LoadingSite";
 import { auth } from "./config/firebase";
 import { useSelector, useDispatch } from "react-redux";
-import { checkAuthState } from "./store";
+import { checkAuthState, currentUserState } from "./store";
 import { useNavigate } from "react-router-dom";
 import { getDatabase, ref, set, onValue } from "firebase/database";
 import { realTimeDatabase } from "./config/firebase";
@@ -74,6 +74,7 @@ function App() {
               console.log(obj);
               setcurrentUser(obj);
               setuserRealTDBLoaded(true);
+              dispatch(currentUserState(obj))
             }
           } else if (typeof obj[key] === "object") {
             findEmail(obj[key]);

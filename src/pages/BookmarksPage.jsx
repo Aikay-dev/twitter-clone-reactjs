@@ -6,12 +6,15 @@ import { fas } from "@fortawesome/free-solid-svg-icons";
 import { fab } from "@fortawesome/free-brands-svg-icons";
 import { far } from "@fortawesome/free-regular-svg-icons";
 import TweetStream from "./Home/dataStream/TweetStream";
+import { useSelector, useDispatch } from "react-redux";
 
 library.add(fas);
 library.add(fab);
 library.add(far);
 
 function BookmarksPage() {
+  const currentUser = useSelector((state) => state.currUsr.value);
+  console.log(currentUser)
   return (
     <>
       <section className="homepage-center h-screen relative overflow-hidden">
@@ -27,7 +30,7 @@ function BookmarksPage() {
             </div>
             <div>
               <p className="text-xl font-semibold">Bookmarks</p>
-              <p className="text-xs bookmarkUserName">@general_ik</p>
+              <p className="text-xs bookmarkUserName">{currentUser.username}</p>
             </div>
           </div>
           <div className="cursor-pointer p-2 bookmarkElips flex justify-center items-center rounded-full">

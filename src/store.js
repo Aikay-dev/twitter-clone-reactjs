@@ -10,6 +10,16 @@ const userAuthStateSlice = createSlice({
   },
 });
 
+const currentUserSlice = createSlice({
+  name: "currentUserState",
+  initialState: { value: null },
+  reducers: {
+    changeState: (state, action) => {
+      state.value = action.payload;
+    },
+  },
+});
+
 const mobileNavLeftSlice = createSlice({
   name: "mobileNavLeftState",
   initialState: { value: false },
@@ -80,7 +90,7 @@ const goToSettingsFeatSlice = createSlice({
   },
 });
 
-
+export const { changeState: currentUserState } = currentUserSlice.actions;
 export const { changeState: blurChangeState } = userSlice.actions;
 export const { changeState: personalizationblurChangeState } = personalizationConfirmationStyleSlice.actions;
 export const { changeState: exploreChangeState } = exploreSlice.actions;
@@ -92,6 +102,7 @@ export const { changeState: mobileNavLeftState } = mobileNavLeftSlice.actions;
 
 export const store = configureStore({
   reducer: {
+    currUsr: currentUserSlice.reducer,
     user: userSlice.reducer,
     exp: exploreSlice.reducer,
     set: settingSlice.reducer,

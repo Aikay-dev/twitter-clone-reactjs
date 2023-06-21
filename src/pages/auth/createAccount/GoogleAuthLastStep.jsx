@@ -54,7 +54,7 @@ const GoogleAuthLastStep = ({
             writeUserData(generateRandomString(10),
             "@" + stepOneDetails.name.replace(/\s/g, ''),
             stepOneDetails.email,
-            "https://image.pngaaa.com/117/4811117-small.png",
+            "https://twirpz.files.wordpress.com/2015/06/twitter-avi-gender-balanced-figure.png",
             stepOneDetails.DOB,
             stepOneDetails.name)
           }}

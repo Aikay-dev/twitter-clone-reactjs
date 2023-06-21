@@ -32,7 +32,7 @@ const Root = ({
   currentUser,
 }) => {
   const dispatch = useDispatch();
-
+  console.log(currentUser)
   /* STATE MANAGEMENT */
   const [setNdpriv, setSetNdpriv] = useState(false);
   const [logoutspinner, setLogoutspinner] = useState(false);
@@ -505,16 +505,16 @@ const Root = ({
                   <div className="flex items-center">
                     <div className="home-nav-profile-image relative">
                       <img
-                        src="https://picsum.photos/200/300"
+                        src={currentUser?currentUser.profile_picture:"https://picsum.photos/200/300"}
                         alt="user profile image"
                         className="rounded-full h-10 w-10"
                       />
                     </div>
                     <div className="home-nav-acc-button-user">
                       <p className="home-nav-displayname font-semibold">
-                        Hail Hydra
+                        {currentUser?currentUser.displayName:"user"}
                       </p>
-                      <p className="home-nav-username">@general ik</p>
+                      <p className="home-nav-username">{currentUser?currentUser.username:"@user"}</p>
                     </div>
                   </div>
                   <div className="home-nav-acc-button-ellips">
