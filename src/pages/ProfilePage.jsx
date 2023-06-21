@@ -18,13 +18,25 @@ function ProfilePage() {
   console.log(currentUser);
 
   const [userProfileDetails, setuserProfileDetails] = useState({
-    profilePic: "",
-    name: currentUser.displayName,
-    bio: currentUser.bioData,
-    location: currentUser.locatonData,
-    website: currentUser.websiteData,
+    /* username: currentUser.username,
+    displayName: displayUserName,
+    email: currentUser.email,
+    profile_picture: currentUser.profile_picture,
+    dateOfbirth: currentUser.dateOfbirth,
+    followersNumber: currentUser.followersNumber,
+    followingNumber: currentUser.followingNumber,
+    bioData: currentUser.bioData,
+    userId: currentUser.,
+    timeJoined: currentUser.timeJoined,
+    notificationData: currentUser.notificationData,
+    bookmarkData: currentUser.,
+    locatonData: currentUser.locatonData,
+    websiteData: currentUser.websiteData,
+    tweets: currentUser.,
+    likedTweets: currentUser., */
+    ...currentUser
   });
-
+console.log(userProfileDetails.bioData)
   const [profileTweetsTab, setprofileTweetsTab] = useState(true);
   const [profileLikesTab, setprofileLikesTab] = useState(false);
   const [profileBlur, setprofileBlur] = useState(false);
@@ -48,6 +60,19 @@ function ProfilePage() {
   };
   const handleFocusingWebsite = () => {
     focusWebsite.current.focus();
+  };
+
+  const updateNode = (nodeId, newData) => {
+    const path = `users/${nodeId}`;
+    const ref = database.ref(path);
+    ref
+      .update(newData)
+      .then(() => {
+        console.log(`Node ${nodeId} updated successfully`);
+      })
+      .catch((error) => {
+        console.error("Error updating node:", error);
+      });
   };
 
   return (
@@ -78,7 +103,12 @@ function ProfilePage() {
                 </button>
                 <p className="font-semibold text-xl">Edit profile</p>
               </div>
-              <button className="bg-white text-black saveprofilebuttton rounded-full px-4 py-1 font-semibold">
+              <button
+                onClick={() => {
+                  updateNode();
+                }}
+                className="bg-white text-black saveprofilebuttton rounded-full px-4 py-1 font-semibold"
+              >
                 Save
               </button>
             </div>
@@ -93,7 +123,7 @@ function ProfilePage() {
               <div className="sign-in-box px-3 flex pt-5 flex-col items-center justify-center ">
                 <div className="relative w-full">
                   <input
-                    value={userProfileDetails.name}
+                    value={userProfileDetails.displayName}
                     type="text"
                     className=" namefillboxprofile bg-black  flex justify-center items-center rounded-md"
                     placeholder=" "
@@ -101,7 +131,7 @@ function ProfilePage() {
                     onChange={(event) => {
                       setuserProfileDetails({
                         ...userProfileDetails,
-                        name: event.target.value,
+                        username: event.target.value,
                       });
                     }}
                   />
@@ -117,7 +147,7 @@ function ProfilePage() {
               <div className="sign-in-box px-3 flex pt-5 flex-col items-center justify-center ">
                 <div className="relative w-full">
                   <input
-                    value={userProfileDetails.bio}
+                    value={userProfileDetails.bioData}
                     type="text"
                     className=" namefillboxprofile biofillboxprofile bg-black  flex justify-center items-center rounded-md"
                     placeholder=" "
@@ -125,7 +155,7 @@ function ProfilePage() {
                     onChange={(event) => {
                       setuserProfileDetails({
                         ...userProfileDetails,
-                        bio: event.target.value,
+                        bioData: event.target.value,
                       });
                     }}
                   />
@@ -141,7 +171,7 @@ function ProfilePage() {
               <div className="sign-in-box px-3 flex pt-5 flex-col items-center justify-center ">
                 <div className="relative w-full">
                   <input
-                    value={userProfileDetails.location}
+                    value={userProfileDetails.locationData}
                     type="text"
                     className=" namefillboxprofile bg-black  flex justify-center items-center rounded-md"
                     placeholder=" "
@@ -149,7 +179,7 @@ function ProfilePage() {
                     onChange={(event) => {
                       setuserProfileDetails({
                         ...userProfileDetails,
-                        location: event.target.value,
+                        locatonData: event.target.value,
                       });
                     }}
                   />
@@ -165,7 +195,7 @@ function ProfilePage() {
               <div className="sign-in-box px-3 flex pt-5 flex-col items-center justify-center ">
                 <div className="relative w-full">
                   <input
-                    value={userProfileDetails.website}
+                    value={userProfileDetails.websiteData}
                     type="text"
                     className=" namefillboxprofile bg-black  flex justify-center items-center rounded-md"
                     placeholder=" "
@@ -173,7 +203,7 @@ function ProfilePage() {
                     onChange={(event) => {
                       setuserProfileDetails({
                         ...userProfileDetails,
-                        website: event.target.value,
+                        websiteData: event.target.value,
                       });
                     }}
                   />
