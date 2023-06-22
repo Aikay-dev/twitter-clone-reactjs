@@ -824,6 +824,11 @@
   font-size: 14px;
 }
 
+.profileImagesChangeButton{
+  bottom: 20px;
+  left: 35px;
+}
+
 .personalization-and-data-person-text-Tweeter-will {
   border-bottom: var(--homeBorder);
 }

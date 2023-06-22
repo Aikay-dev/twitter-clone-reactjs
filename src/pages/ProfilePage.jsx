@@ -84,13 +84,13 @@ function ProfilePage() {
             e.stopPropagation;
             setprofileBlur(false);
           }}
-          className=" flex justify-center items-center h-full w-full homepage-auth-overlay fixed z-50"
+          className=" overflow-y-scroll h-full flex justify-center items-center w-full homepage-auth-overlay fixed z-50"
         >
           <div
             onClick={(e) => {
               e.stopPropagation();
             }}
-            className=" bg-black inputprofiledetailbox"
+            className=" bg-black inputprofiledetailbox h-full overflow-y-scroll"
           >
             <div className="flex justify-between p-3">
               <div className="flex gap-10 pl-2 items-center">
@@ -114,7 +114,10 @@ function ProfilePage() {
               </button>
             </div>
             <div className=" overflow-y-scroll">
-              <div className="px-3">
+              <div className="px-3 relative">
+                <div className="absolute profileImagesChangeButton text-5xl ">
+                  <FontAwesomeIcon icon="fa-solid fa-camera" />
+                </div>
                 <img
                   src={currentUser.profile_picture}
                   alt="user profile image"
@@ -222,7 +225,7 @@ function ProfilePage() {
           </div>
         </div>
       )}
-      <section className="homepage-center h-screen relative overflow-hidden">
+      <section className="homepage-center h-full relative overflow-hidden">
         <header className="flex pt-1 pb-1 profilePageHeader">
           <div
             className="personalization-and-data-head-nav-arrow-holder flex items-center justify-center cursor-pointer rounded-full h-8 w-8 ml-2 mt-2 mr-8"
