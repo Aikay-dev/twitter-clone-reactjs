@@ -22,7 +22,6 @@ const GoogleUsername = ({
   setStepOneDetails,
   currentLoggedUser,
   setgoogleUsernameStep,
-  googleAuthLastStep,
   setgoogleAuthLastStep,
 }) => {
   useEffect(() => {
@@ -89,10 +88,6 @@ const GoogleUsername = ({
       setNextStagePass(true);
     }
   }
-
-  const handleFocusing2 = () => {
-    focus2.current.focus();
-  };
 
   const handlename = (e) => {
     let currentInfo = stepOneDetails;

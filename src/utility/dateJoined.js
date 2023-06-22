@@ -4,7 +4,3 @@ export default function getJoinedMonthYear(date) {
     return `Joined ${month}, ${year}`;
   }
   
-  // Example usage:
-  const currentDate = new Date();
-  console.log(getJoinedMonthYear(currentDate)); // Outputs something like "June, 2023"
-  

@@ -4,7 +4,6 @@ import { getAnalytics } from "firebase/analytics";
 import { GoogleAuthProvider, getAuth, signInWithPopup } from "firebase/auth";
 import { getFirestore, collection } from "firebase/firestore";
 import { getDatabase, ref, set, onValue } from "firebase/database";
-import datejoined from '../utility/dateJoined.js'
 
 const firebaseConfig = {
   apiKey: "AIzaSyA3yyc5qbksW5oLXZ8y0jciO_bVqfcg1kA",
@@ -60,7 +59,8 @@ export const writeUserData = (
   email,
   imageUrl,
   dob,
-  displayUserName
+  displayUserName,
+  joinedDate
 ) => {
   const realTimeDatabase = getDatabase(app);
   set(ref(realTimeDatabase, "users/" + userId), {
@@ -73,7 +73,7 @@ export const writeUserData = (
     followingNumber: [0],
     bioData: "Hi, welcome to my profile",
     userId: userId,
-    timeJoined: {datejoined},
+    timeJoined: joinedDate,
     notificationData: [],
     bookmarkData: [],
     locatonData: "",

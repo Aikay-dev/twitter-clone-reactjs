@@ -23,6 +23,7 @@ import { signInWithPopup } from "firebase/auth";
 import { addDoc } from "firebase/firestore";
 import GoogleAuthLastStep from "./createAccount/GoogleAuthLastStep";
 import Loader from "./components/Loader";
+import SmLoader from "./components/SmLoader";
 
 library.add(fas);
 library.add(fab);
@@ -40,7 +41,7 @@ const SignUp = ({ setshowSignUpCard }) => {
   const [usersEmail, setUsersEmail] = useState([]);
   const [currentLoggedUser, setcurrentLoggedUser] = useState([]);
   const [googleAuthLastStep, setgoogleAuthLastStep] = useState(false);
-  const [emailusedalready, setemailusedalready] = useState(false)
+  const [emailusedalready, setemailusedalready] = useState(false);
   useEffect(() => {
     getDocs(colRef)
       .then((snapshot) => {
@@ -75,7 +76,7 @@ const SignUp = ({ setshowSignUpCard }) => {
   }, [usersEmail]);
 
   const dispatch = useDispatch();
-
+  const [googleloader, setgoogleloader] = useState(false)
   const [stepOneDetails, setStepOneDetails] = useState({
     name: "",
     email: "",
@@ -130,6 +131,7 @@ const SignUp = ({ setshowSignUpCard }) => {
   const join_create_account = "Create account";
 
   function googleSignIn() {
+    setgoogleloader(true)
     signInWithPopup(auth, Provider)
       .then((result) => {
         console.log(result.user.email);
@@ -137,25 +139,40 @@ const SignUp = ({ setshowSignUpCard }) => {
         if (usersEmail.length < 1) {
           addDoc(colRef, {
             email: result.user.email,
-          });
-          setgoogleUsernameStep(true);
-          setshowstepOne(false);
-          setshowStepTwo(false);
-          setshowStepThree(false);
-          setshowStepFour(false);
-          setshowStepFive(false);
-          setshowsignupPage(false);
-          setcurrentLoggedUser(auth.currentUser);
+          })
+            .then((result) => {
+              setgoogleloader(false)
+              console.log("push 1:", result);
+              setgoogleUsernameStep(true);
+              setshowstepOne(false);
+              setshowStepTwo(false);
+              setshowStepThree(false);
+              setshowStepFour(false);
+              setshowStepFive(false);
+              setshowsignupPage(false);
+              setcurrentLoggedUser(auth.currentUser);
+            })
+            .catch((error) => {
+              console.log(error);
+            });
         } else {
+          let emailFound = false;
           for (let i = 0; i < usersEmail.length; i++) {
             if (usersEmail[i].email === result.user.email) {
               console.log("email used already");
-              setemailusedalready(true)
-            } else {
-              addDoc(colRef, {
-                email: result.user.email,
-              })
-              .then(() => {
+              setgoogleloader(false)
+              setemailusedalready(true);
+              emailFound = true;
+              break; // Exit the loop since email is already found
+            }
+          }
+          if (!emailFound) {
+            addDoc(colRef, {
+              email: result.user.email,
+            })
+              .then((result) => {
+                setgoogleloader(false)
+                console.log("push 2:", result);
                 setgoogleUsernameStep(true);
                 setshowstepOne(false);
                 setshowStepTwo(false);
@@ -166,17 +183,18 @@ const SignUp = ({ setshowSignUpCard }) => {
                 setcurrentLoggedUser(auth.currentUser);
               })
               .catch((error) => {
-                console.log(error)
-              })
-              
-            }
+                console.log(error);
+                setgoogleloader(false)
+              });
           }
         }
       })
       .catch((error) => {
         console.log(error);
+        setgoogleloader(false)
       });
   }
+  
 
   console.log(usersEmail.length);
 
@@ -212,12 +230,14 @@ const SignUp = ({ setshowSignUpCard }) => {
                 }}
               >
                 <AuthLoginButton
-                  logo={googleSignButton}
+                  logo={googleloader? <SmLoader/>: googleSignButton}
                   classes={"rounded-full google-butt-login"}
                 />
-                {emailusedalready && <p className=" absolute emailUsedAlready text-sm">
-                  email used already
-                </p>}
+                {emailusedalready && (
+                  <p className=" absolute emailUsedAlready text-sm">
+                    email used already
+                  </p>
+                )}
               </div>
 
               <AuthLoginButton

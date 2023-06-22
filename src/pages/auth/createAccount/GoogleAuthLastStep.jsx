@@ -1,28 +1,26 @@
-import React from "react";
+import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { fas } from "@fortawesome/free-solid-svg-icons";
 import { fab } from "@fortawesome/free-brands-svg-icons";
 import { far } from "@fortawesome/free-regular-svg-icons";
-import { Link, useNavigate } from "react-router-dom";
 import { writeUserData } from "../../../config/firebase";
 import generateRandomString from "../../../utility/userIdAlgo";
+import SmLoader from "../components/SmLoader";
+import getJoinedMonthYear from "../../../utility/dateJoined";
 
 library.add(fas);
 library.add(fab);
 library.add(far);
 
 const GoogleAuthLastStep = ({
-  setshowstepOne,
-  setshowStepTwo,
-  setshowStepThree,
-  setshowStepFour,
-  setshowStepFive,
-  setshowsignupPage,
   setshowSignUpCard,
-  stepOneDetails
+  stepOneDetails,
 }) => {
-  const navigate = useNavigate();
+  const [loader, setloader] = useState(false)
+  const currentDate = new Date();
+  const joinedDate = getJoinedMonthYear(currentDate)
+  console.log(joinedDate)
   return (
     <div>
       <div className="signup-box-def-spacing">
@@ -49,20 +47,30 @@ const GoogleAuthLastStep = ({
         <p className="my-3">Have fun and enjoy your stay.</p>
         <div
           onClick={() => {
-            /* dispatch(blurChangeState({ display: "none" })); */
-            /* setshowSignUpCard(false); */
-            writeUserData(generateRandomString(10),
-            "@" + stepOneDetails.name.replace(/\s/g, ''),
-            stepOneDetails.email,
-            "https://twirpz.files.wordpress.com/2015/06/twitter-avi-gender-balanced-figure.png",
-            stepOneDetails.DOB,
-            stepOneDetails.name)
+            setloader(true)
+            writeUserData(
+              generateRandomString(10),
+              "@" + stepOneDetails.name.replace(/\s/g, ""),
+              stepOneDetails.email,
+              "https://twirpz.files.wordpress.com/2015/06/twitter-avi-gender-balanced-figure.png",
+              stepOneDetails.DOB,
+              stepOneDetails.name,
+              joinedDate
+            )
+              .then(() => {
+                setloader(false)
+                dispatch(blurChangeState({ display: "none" }));
+                setshowSignUpCard(false);
+              })
+              .catch((error) => {
+                console.log(error);
+                setloader(false)
+              });
           }}
-          
-          
           className="mt-10 step2-next w-full py-3 flex items-center rounded-full justify-center font-bold text-black"
         >
-          Next
+          {!loader && "Next"}
+          {loader && <SmLoader />}
         </div>
       </div>
     </div>

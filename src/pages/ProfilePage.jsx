@@ -36,9 +36,9 @@ function ProfilePage() {
     websiteData: currentUser.websiteData,
     tweets: currentUser.,
     likedTweets: currentUser., */
-    ...currentUser
+    ...currentUser,
   });
-console.log(userProfileDetails.bioData)
+  console.log(userProfileDetails.bioData);
   const [profileTweetsTab, setprofileTweetsTab] = useState(true);
   const [profileLikesTab, setprofileLikesTab] = useState(false);
   const [profileBlur, setprofileBlur] = useState(false);
@@ -68,15 +68,13 @@ console.log(userProfileDetails.bioData)
     const dbRef = ref(realTimeDatabase, path);
     update(dbRef, newData)
       .then(() => {
-        console.log('Data updated successfully');
+        console.log("Data updated successfully");
         setprofileBlur(false);
       })
       .catch((error) => {
-        console.error('Error updating data:', error);
+        console.error("Error updating data:", error);
       });
   };
-
-  
 
   return (
     <>
@@ -108,7 +106,7 @@ console.log(userProfileDetails.bioData)
               </div>
               <button
                 onClick={() => {
-                  updateNode('users/'+currentUser.userId, userProfileDetails);
+                  updateNode("users/" + currentUser.userId, userProfileDetails);
                 }}
                 className="bg-white text-black saveprofilebuttton rounded-full px-4 py-1 font-semibold"
               >
@@ -135,9 +133,8 @@ console.log(userProfileDetails.bioData)
                       setuserProfileDetails({
                         ...userProfileDetails,
                         displayName: event.target.value,
-                        
                       });
-                      console.log(userProfileDetails)
+                      console.log(userProfileDetails);
                     }}
                   />
                   <label
