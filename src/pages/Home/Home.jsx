@@ -22,6 +22,17 @@ const Home = () => {
   const [ForyouTab, setForyouTab] = useState(true);
   const [FollowingTab, setFollowingTab] = useState(false);
   const currentUser = useSelector((state) => state.currUsr.value);
+  const [tweetData, settweetData] = useState({
+    profilePic: currentUser.profile_picture,
+    displayName: currentUser.displayName,
+    username: currentUser.username,
+    tweetText: "",
+    tweetImageLink: '',
+    tweetDate:"",
+    comments: "",
+    retweets:"",
+    likes:"",
+  })
   console.log(currentUser)
   return (
     <>
