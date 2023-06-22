@@ -73,7 +73,7 @@ export const writeUserData = (
     followingNumber: [0],
     bioData: "Hi, welcome to my profile",
     userId: userId,
-    timeJoined: "",
+    timeJoined: {datejoined},
     notificationData: [],
     bookmarkData: [],
     locatonData: "",

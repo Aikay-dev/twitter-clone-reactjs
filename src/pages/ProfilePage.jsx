@@ -8,7 +8,9 @@ import { far } from "@fortawesome/free-regular-svg-icons";
 import HomeRight from "./Home/HomeRight";
 import { useSelector, useDispatch } from "react-redux";
 import TweetStream from "./Home/dataStream/TweetStream";
-
+import { realTimeDatabase } from "../config/firebase";
+import { getDatabase, ref, set, onValue } from "firebase/database";
+import { update } from "firebase/database";
 library.add(fas);
 library.add(fab);
 library.add(far);
@@ -62,18 +64,19 @@ console.log(userProfileDetails.bioData)
     focusWebsite.current.focus();
   };
 
-  const updateNode = (nodeId, newData) => {
-    const path = `users/${nodeId}`;
-    const ref = database.ref(path);
-    ref
-      .update(newData)
+  const updateNode = (path, newData) => {
+    const dbRef = ref(realTimeDatabase, path);
+    update(dbRef, newData)
       .then(() => {
-        console.log(`Node ${nodeId} updated successfully`);
+        console.log('Data updated successfully');
+        setprofileBlur(false);
       })
       .catch((error) => {
-        console.error("Error updating node:", error);
+        console.error('Error updating data:', error);
       });
   };
+
+  
 
   return (
     <>
@@ -105,7 +108,7 @@ console.log(userProfileDetails.bioData)
               </div>
               <button
                 onClick={() => {
-                  updateNode();
+                  updateNode('users/'+currentUser.userId, userProfileDetails);
                 }}
                 className="bg-white text-black saveprofilebuttton rounded-full px-4 py-1 font-semibold"
               >
@@ -131,8 +134,10 @@ console.log(userProfileDetails.bioData)
                     onChange={(event) => {
                       setuserProfileDetails({
                         ...userProfileDetails,
-                        username: event.target.value,
+                        displayName: event.target.value,
+                        
                       });
+                      console.log(userProfileDetails)
                     }}
                   />
                   <label
