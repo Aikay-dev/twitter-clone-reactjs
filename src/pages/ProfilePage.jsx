@@ -10,7 +10,12 @@ import { useSelector, useDispatch } from "react-redux";
 import TweetStream from "./Home/dataStream/TweetStream";
 import { realTimeDatabase } from "../config/firebase";
 import { getDatabase, ref, set, onValue } from "firebase/database";
+import { ref as strgRef } from "firebase/storage";
 import { update } from "firebase/database";
+import { storage } from "../config/firebase";
+import { uploadBytes, getDownloadURL } from "firebase/storage";
+import Loader from "../pages/auth/components/Loader";
+
 library.add(fas);
 library.add(fab);
 library.add(far);
@@ -20,22 +25,6 @@ function ProfilePage() {
   console.log(currentUser);
 
   const [userProfileDetails, setuserProfileDetails] = useState({
-    /* username: currentUser.username,
-    displayName: displayUserName,
-    email: currentUser.email,
-    profile_picture: currentUser.profile_picture,
-    dateOfbirth: currentUser.dateOfbirth,
-    followersNumber: currentUser.followersNumber,
-    followingNumber: currentUser.followingNumber,
-    bioData: currentUser.bioData,
-    userId: currentUser.,
-    timeJoined: currentUser.timeJoined,
-    notificationData: currentUser.notificationData,
-    bookmarkData: currentUser.,
-    locatonData: currentUser.locatonData,
-    websiteData: currentUser.websiteData,
-    tweets: currentUser.,
-    likedTweets: currentUser., */
     ...currentUser,
   });
   console.log(userProfileDetails.bioData);
@@ -44,8 +33,9 @@ function ProfilePage() {
   const [profileBlur, setprofileBlur] = useState(false);
   const dispatch = useDispatch();
   const mobNavleft = useSelector((state) => state.mobNavleft.value);
+  const [prflImgLoader, setprflImgLoader] = useState(false);
+  const [updatedPrfPic, setupdatedPrfPic] = useState(null);
 
-  console.log("first");
   let focusName = useRef(null);
   let focusBio = useRef(null);
   let focusLocation = useRef(null);
@@ -75,6 +65,35 @@ function ProfilePage() {
         console.error("Error updating data:", error);
       });
   };
+
+  function handleProfileImg(e) {
+    setprflImgLoader(true);
+    console.log(e);
+    const fileName = Date.now() + "_" + e.name;
+    const profilePics = strgRef(storage, `profilePics/${fileName}`);
+    uploadBytes(profilePics, e)
+      .then((snapshot) => {
+        console.log("Upload complete");
+
+        // Get the download URL of the uploaded file
+        getDownloadURL(snapshot.ref).then((downloadURL) => {
+          setuserProfileDetails({
+            ...userProfileDetails,
+            profile_picture: downloadURL,
+          });
+          setupdatedPrfPic(downloadURL);
+          setprflImgLoader(false);
+
+          console.log("File available at: " + downloadURL);
+          // Perform further actions with the download URL as needed
+        });
+      })
+      .catch((error) => {
+        console.log("Upload error: " + error.message);
+      });
+  }
+
+  console.log(currentUser.locatonData);
 
   return (
     <>
@@ -113,13 +132,35 @@ function ProfilePage() {
                 Save
               </button>
             </div>
-            <div className=" overflow-y-scroll">
-              <div className="px-3 relative">
-                <div className="absolute profileImagesChangeButton text-5xl ">
+            <div className=" ">
+              <div className="px-3 relative ">
+                {prflImgLoader && (
+                  <div className="absolute profileImgLoader">
+                    <Loader />
+                  </div>
+                )}
+                <input
+                  onChange={(e) => {
+                    handleProfileImg(e.target.files[0]);
+                  }}
+                  multiple={false}
+                  className="hidden"
+                  type="file"
+                  id="fileInput"
+                  accept="image/*"
+                />
+                <label
+                  htmlFor="fileInput"
+                  className=" cursor-pointer absolute profileImagesChangeButton text-6xl "
+                >
                   <FontAwesomeIcon icon="fa-solid fa-camera" />
-                </div>
+                </label>
                 <img
-                  src={currentUser.profile_picture}
+                  src={
+                    updatedPrfPic === null
+                      ? currentUser.profile_picture
+                      : updatedPrfPic
+                  }
                   alt="user profile image"
                   className="rounded-full h-24 w-24 mt-10"
                 />
@@ -133,11 +174,14 @@ function ProfilePage() {
                     placeholder=" "
                     ref={focusName}
                     onChange={(event) => {
-                      setuserProfileDetails({
-                        ...userProfileDetails,
-                        displayName: event.target.value,
-                      });
-                      console.log(userProfileDetails);
+                      const input = event.target.value;
+                      if (input.length >= 3 && input.length <= 10) {
+                        setuserProfileDetails({
+                          ...userProfileDetails,
+                          displayName: input,
+                        });
+                        console.log(userProfileDetails);
+                      }
                     }}
                   />
                   <label
@@ -158,10 +202,13 @@ function ProfilePage() {
                     placeholder=" "
                     ref={focusBio}
                     onChange={(event) => {
-                      setuserProfileDetails({
-                        ...userProfileDetails,
-                        bioData: event.target.value,
-                      });
+                      const input = event.target.value;
+                      if (input.length <= 100) {
+                        setuserProfileDetails({
+                          ...userProfileDetails,
+                          bioData: input,
+                        });
+                      }
                     }}
                   />
                   <label
@@ -268,14 +315,51 @@ function ProfilePage() {
               <p className=" font-black text-xl">{currentUser.displayName}</p>
               <p className="text-sm homelabelcolor">{currentUser.username}</p>
             </div>
-            <div className="pl-4 pt-4 flex flex-col gap-2">
-              <p>{currentUser.bioData}</p>
-              <div className="homelabelcolor flex gap-2">
-                {" "}
-                <p>
-                  <FontAwesomeIcon icon="fa-regular fa-calendar-days" />{" "}
+
+            <div className="px-4 pt-4 flex flex-col gap-2">
+              {currentUser.bioData.length === 0 ? (
+                ""
+              ) : (
+                <p className=" bioinprofile whitespace-pre-wrap">
+                  {currentUser.bioData}
                 </p>
-                {currentUser.timeJoined}
+              )}
+              <div className=" flex-wrap gap-3 h-15">
+                <div className="flex gap-3">
+                  <div className="homelabelcolor flex gap-2">
+                    {" "}
+                    <p>
+                      <FontAwesomeIcon icon="fa-regular fa-calendar-days" />{" "}
+                    </p>
+                    {currentUser.timeJoined}
+                  </div>
+                  {currentUser.locatonData.length === 0 ? (
+                    ""
+                  ) : (
+                    <div className="homelabelcolor flex gap-2">
+                      {" "}
+                      <p>
+                        <FontAwesomeIcon icon="fa-solid fa-location-dot" />{" "}
+                      </p>
+                      {currentUser.locatonData}
+                    </div>
+                  )}
+                </div>
+                <div className="flex gap-3">
+                  {currentUser.websiteData.length === 0 ? (
+                    ""
+                  ) : (
+                    <div className="homelabelcolor flex gap-2">
+                      {" "}
+                      <p>
+                        <FontAwesomeIcon icon="fa-solid fa-link" />{" "}
+                      </p>
+                      <a href={currentUser.websiteData}>
+                        <p className="signup-link">{currentUser.websiteData}</p>
+                      </a>
+                    </div>
+                  )}
+                </div>
               </div>
               <div className="flex gap-4">
                 <div>

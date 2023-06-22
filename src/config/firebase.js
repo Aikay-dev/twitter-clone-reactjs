@@ -4,6 +4,7 @@ import { getAnalytics } from "firebase/analytics";
 import { GoogleAuthProvider, getAuth, signInWithPopup } from "firebase/auth";
 import { getFirestore, collection } from "firebase/firestore";
 import { getDatabase, ref, set, onValue } from "firebase/database";
+import { getStorage } from "firebase/storage";
 
 const firebaseConfig = {
   apiKey: "AIzaSyA3yyc5qbksW5oLXZ8y0jciO_bVqfcg1kA",
@@ -156,3 +157,7 @@ export const deleteUserWithEmailAndPassword = (email, password) => {
       console.error('Error signing in user:', error);
     });
 };
+
+// Get firebase Storage
+
+export const storage = getStorage()
