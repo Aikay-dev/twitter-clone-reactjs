@@ -311,7 +311,7 @@ function ProfilePage() {
                 Edit Profile
               </button>
             </div>
-            <div className="pl-4 pt-10">
+            <div className="pl-4">
               <p className=" font-black text-xl">{currentUser.displayName}</p>
               <p className="text-sm homelabelcolor">{currentUser.username}</p>
             </div>
