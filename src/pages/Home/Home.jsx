@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { fas } from "@fortawesome/free-solid-svg-icons";
@@ -11,6 +11,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { mobileNavLeftState } from "../../store";
 import { FaFeatherAlt } from "react-icons/fa";
 import FollowingTweetStream from "./dataStream/FollowingTweetStream";
+import { getTweetDate } from "../../utility/dateJoined";
 
 library.add(fas);
 library.add(fab);
@@ -27,13 +28,38 @@ const Home = () => {
     displayName: currentUser.displayName,
     username: currentUser.username,
     tweetText: "",
-    tweetImageLink: '',
-    tweetDate:"",
+    tweetImageLink: "",
+    tweetDate: getTweetDate(),
     comments: "",
-    retweets:"",
-    likes:"",
-  })
-  console.log(currentUser)
+    retweets: "",
+    likes: "",
+  });
+  const ImageTweetInputRef = useRef(null);
+  const [imageToUpload, setImageToUpload] = useState("");
+
+  function uploadTweetText(e) {
+    settweetData({ ...tweetData, tweetText: e });
+    console.log(tweetData);
+  }
+
+  function handleImgUpload(e) {
+    const file = e;
+    if (file) {
+      const reader = new FileReader();
+
+      reader.onload = () => {
+        setImageToUpload(reader.result);
+      };
+
+      reader.readAsDataURL(file);
+    }
+  }
+
+  const handleResetUploadImage = () => {
+    ImageTweetInputRef.current.value = null;
+    setImageToUpload(null);
+  };
+
   return (
     <>
       <section className="homepage-center h-screen relative overflow-hidden">
@@ -112,18 +138,55 @@ const Home = () => {
                   className="rounded-full h-10 w-10 mr-3 cursor-pointer"
                 />
               </div>
-              <input
+              <textarea
+                onInput={(e) => {
+                  e.currentTarget.style.height = "auto";
+                  e.currentTarget.style.height = `${e.currentTarget.scrollHeight}px`;
+                  if (e.currentTarget.rows > 7) {
+                    e.currentTarget.rows = 7;
+                  }
+                }}
                 type="text"
+                rows="1"
                 placeholder="What's happening?"
-                className="w-full text-xl pl-3 outline-none bg-black"
+                className="w-full text-xl pl-3 outline-none bg-black tweethomepagetextarea"
+                onChange={(e) => {
+                  uploadTweetText(e.target.value);
+                }}
               />
+            </div>
+            <div className="pl-16">
+              {imageToUpload && <div className=" h-48 w-full relative">
+                <button onClick={() => {
+                  setImageToUpload("")
+                  handleResetUploadImage()
+                }} className="text-xl absolute z-10 left-1 top-1 uploadtweetimageex cursor-pointer p-1 rounded-full px-2 flex profileEx">
+                  <FontAwesomeIcon icon="fa-solid fa-xmark" />
+                </button>
+                <img
+                  src={imageToUpload}
+                  alt=""
+                  className="uploadtweetimage absolute "
+                />
+              </div>}
             </div>
             <div className="flex mt-6 justify-between items-center home-main-tweet-section-bottom">
               <div className="flex pl-16 gap-3">
-                <div>
+                <input
+                ref={ImageTweetInputRef}
+                  accept="image/*"
+                  onChange={(e) => {
+                    handleImgUpload(e.target.files[0]);
+                  }}
+                  className="hidden"
+                  type="file"
+                  name="uploadImage"
+                  id="uploadImage"
+                />
+                <label htmlFor="uploadImage" className=" cursor-pointer">
                   <FontAwesomeIcon icon="fa-regular fa-image" />
-                </div>
-                <div>
+                </label>
+                <div className=" cursor-pointer">
                   <FontAwesomeIcon icon="fa-regular fa-calendar-days" />
                 </div>
               </div>
