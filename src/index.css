@@ -904,10 +904,6 @@
   border-bottom: 1px solid var(--homeLabelColor);
 }
 
-/* .fulltweetcardimage{
-  overflow: hidden;
-} */
-
 .homelabelcolor {
   color: var(--homeLabelColor);
 }

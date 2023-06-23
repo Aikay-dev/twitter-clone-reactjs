@@ -9,12 +9,13 @@ import HomeRight from "./Home/HomeRight";
 import { useSelector, useDispatch } from "react-redux";
 import TweetStream from "./Home/dataStream/TweetStream";
 import { realTimeDatabase } from "../config/firebase";
-import { getDatabase, ref, set, onValue } from "firebase/database";
+import { ref } from "firebase/database";
 import { ref as strgRef } from "firebase/storage";
 import { update } from "firebase/database";
 import { storage } from "../config/firebase";
 import { uploadBytes, getDownloadURL } from "firebase/storage";
 import Loader from "../pages/auth/components/Loader";
+import UserTweets from "../database/UserTweets";
 
 library.add(fas);
 library.add(fab);
@@ -92,8 +93,6 @@ function ProfilePage() {
         console.log("Upload error: " + error.message);
       });
   }
-
-  console.log(currentUser.locatonData);
 
   return (
     <>
@@ -420,7 +419,7 @@ function ProfilePage() {
             </div>
           </div>
           <section className=" h-96 w-full">
-            {profileTweetsTab && <TweetStream />}
+            {profileTweetsTab && <UserTweets/>}
           </section>
         </section>
       </section>
