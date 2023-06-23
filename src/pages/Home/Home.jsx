@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { fas } from "@fortawesome/free-solid-svg-icons";
@@ -28,6 +28,7 @@ library.add(far);
 
 const Home = () => {
   const dispatch = useDispatch();
+  const [randTweetId, setrandTweetId] = useState(generateRandomString(20));
   const mobNavleft = useSelector((state) => state.mobNavleft.value);
   const [ForyouTab, setForyouTab] = useState(true);
   const [FollowingTab, setFollowingTab] = useState(false);
@@ -42,16 +43,21 @@ const Home = () => {
     comments: "",
     retweets: "",
     likes: "",
-    tweetId: "",
+    tweetId: randTweetId,
   });
   const ImageTweetInputRef = useRef(null);
   const [imageToUpload, setImageToUpload] = useState("");
   const [imageToGrabLink, setImageToGrabLink] = useState(null);
   const [tweetingLoader, settweetingLoader] = useState(false);
   const tweetTextareaRef = useRef(null);
+
+  useEffect(() => {
+    console.log(randTweetId);
+  }, []);
+
   function uploadTweetText(e) {
     settweetData({ ...tweetData, tweetText: e });
-    console.log(tweetData);
+    return tweetData;
   }
 
   function handleImgUpload(e) {
@@ -106,7 +112,7 @@ const Home = () => {
     const dbRef = ref(realTimeDatabase, path);
     update(dbRef, newData)
       .then(() => {
-        console.log("Data updated successfully")
+        console.log("Data updated successfully");
         toast.success("Tweeted successfully");
         settweetingLoader(false);
         setImageToUpload(null);
@@ -134,7 +140,7 @@ const Home = () => {
   const handleTweetFormReset = () => {
     tweetTextareaRef.current.value = "";
   };
-  
+
   return (
     <>
       <div>
@@ -290,10 +296,28 @@ const Home = () => {
                   <FontAwesomeIcon icon="fa-regular fa-calendar-days" />
                 </div>
               </div>
+
               <button
                 onClick={() => {
-                  settweetingLoader(true);
-                  finalUploadTweet();
+                  if (tweetData.tweetText.length > 0) {
+                    settweetingLoader(true);
+                    finalUploadTweet();
+                    console.log(tweetData.tweetText.length)
+                  } else if (imageToUpload === null) {
+                    settweetingLoader(true);
+                    finalUploadTweet();
+                  }else{
+                    console.log("not uploading")
+                  }
+
+                  /* if (
+                    uploadTweetText().tweetText === "" &&
+                    imageToUpload === null
+                  ) {
+                  } else {
+                    settweetingLoader(true);
+                    finalUploadTweet();
+                  } */
                 }}
                 className=" flex justify-center items-center home-main-tweet-section-button text-white px-4 rounded-full py-1 font-semibold"
               >
