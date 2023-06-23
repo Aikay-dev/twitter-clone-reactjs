@@ -90,6 +90,7 @@ export const writeUserData = (
       console.log("Error writing data:", error);
     });
 };
+
 export const writeUserDataUserAndPass = (
   userId,
   name,

@@ -12,8 +12,15 @@ import { mobileNavLeftState } from "../../store";
 import { FaFeatherAlt } from "react-icons/fa";
 import FollowingTweetStream from "./dataStream/FollowingTweetStream";
 import { getTweetDate } from "../../utility/dateJoined";
-import SmLoader from "../auth/components/SmLoader";
 import LoaderWhite from "../../components/LoaderWhite";
+import { ref as strgRef } from "firebase/storage";
+import { storage } from "../../config/firebase";
+import { uploadBytes, getDownloadURL } from "firebase/storage";
+import generateRandomString from "../../utility/userIdAlgo";
+import { ref } from "firebase/database";
+import { realTimeDatabase } from "../../config/firebase";
+import { update } from "firebase/database";
+import toast, { Toaster } from "react-hot-toast";
 
 library.add(fas);
 library.add(fab);
@@ -35,16 +42,20 @@ const Home = () => {
     comments: "",
     retweets: "",
     likes: "",
+    tweetId: "",
   });
   const ImageTweetInputRef = useRef(null);
   const [imageToUpload, setImageToUpload] = useState("");
-  const [tweetingLoader, settweetingLoader] = useState(true);
+  const [imageToGrabLink, setImageToGrabLink] = useState(null);
+  const [tweetingLoader, settweetingLoader] = useState(false);
+  const tweetTextareaRef = useRef(null);
   function uploadTweetText(e) {
     settweetData({ ...tweetData, tweetText: e });
     console.log(tweetData);
   }
 
   function handleImgUpload(e) {
+    setImageToGrabLink(e);
     const file = e;
     if (file) {
       const reader = new FileReader();
@@ -60,10 +71,91 @@ const Home = () => {
   const handleResetUploadImage = () => {
     ImageTweetInputRef.current.value = null;
     setImageToUpload(null);
+    setImageToGrabLink(null);
   };
 
+  function finalUploadTweet() {
+    if (imageToGrabLink !== null) {
+      const fileName = Date.now() + "_" + imageToGrabLink.name;
+      const TweetPics = strgRef(storage, `TweetPictures/${fileName}`);
+      uploadBytes(TweetPics, imageToGrabLink)
+        .then((snapshot) => {
+          console.log("Upload complete");
+
+          // Get the download URL of the uploaded file
+          getDownloadURL(snapshot.ref).then((downloadURL) => {
+            settweetData({
+              ...tweetData,
+              tweetImageLink: downloadURL,
+            });
+
+            console.log("File available at: " + downloadURL);
+            pushupTweet();
+          });
+        })
+        .catch((error) => {
+          console.log("Upload error: " + error.message);
+          settweetingLoader(false);
+        });
+    } else {
+      pushupTweet();
+    }
+  }
+
+  const updateNode = (path, newData) => {
+    const dbRef = ref(realTimeDatabase, path);
+    update(dbRef, newData)
+      .then(() => {
+        console.log("Data updated successfully")
+        toast.success("Tweeted successfully");
+        settweetingLoader(false);
+        setImageToUpload(null);
+        setImageToGrabLink(null);
+        handleTweetFormReset();
+      })
+      .catch((error) => {
+        console.error("Error updating data:", error);
+        settweetingLoader(false);
+      });
+  };
+
+  function pushupTweet() {
+    settweetData({
+      ...tweetData,
+      tweetId: generateRandomString(20),
+    });
+    updateTweetNode();
+  }
+
+  function updateTweetNode() {
+    updateNode("tweetPool/" + tweetData.tweetId, tweetData);
+  }
+
+  const handleTweetFormReset = () => {
+    tweetTextareaRef.current.value = "";
+  };
+  
   return (
     <>
+      <div>
+        <Toaster
+          position="bottom-center"
+          toastOptions={{
+            style: {
+              backgroundColor: "rgb(29, 155, 240)",
+              color: "#ffffff",
+              padding: "10px",
+            },
+            success: {
+              iconTheme: {
+                primary: "green",
+                secondary: "white",
+              },
+            },
+          }}
+          reverseOrder={false}
+        />
+      </div>
       <section className="homepage-center h-screen relative overflow-hidden">
         <header className="pt-4 absolute z-30 top-mobile-nav w-full ">
           <div className="pl-3 w-full mobileheader flex gap-1 sm:hidden">
@@ -141,6 +233,7 @@ const Home = () => {
                 />
               </div>
               <textarea
+                ref={tweetTextareaRef}
                 onInput={(e) => {
                   e.currentTarget.style.height = "auto";
                   e.currentTarget.style.height = `${e.currentTarget.scrollHeight}px`;
@@ -200,7 +293,7 @@ const Home = () => {
               <button
                 onClick={() => {
                   settweetingLoader(true);
-                  
+                  finalUploadTweet();
                 }}
                 className=" flex justify-center items-center home-main-tweet-section-button text-white px-4 rounded-full py-1 font-semibold"
               >
