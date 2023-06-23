@@ -17,9 +17,8 @@ import { ref as strgRef } from "firebase/storage";
 import { storage } from "../../config/firebase";
 import { uploadBytes, getDownloadURL } from "firebase/storage";
 import generateRandomString from "../../utility/userIdAlgo";
-import { ref } from "firebase/database";
+import { ref, update, push } from "firebase/database";
 import { realTimeDatabase } from "../../config/firebase";
-import { update } from "firebase/database";
 import toast, { Toaster } from "react-hot-toast";
 
 library.add(fas);
@@ -135,8 +134,17 @@ const Home = () => {
 
   function updateTweetNode() {
     updateNode("tweetPool/" + tweetData.tweetId, tweetData);
-
-    updateNode("users/" + currentUser.userId + '/userTweets', tweetData.tweetId)
+    const userTweetsRef = ref(
+      realTimeDatabase,
+      "users/" + currentUser.userId + "/userTweets"
+    );
+    push(userTweetsRef, tweetData.tweetId)
+      .then(() => {
+        console.log("TweetId added to userTweets array.");
+      })
+      .catch((error) => {
+        console.error("Error adding tweetId to userTweets array:", error);
+      });
   }
 
   const handleTweetFormReset = () => {
@@ -304,7 +312,6 @@ const Home = () => {
                   if (tweetData.tweetText.length > 0) {
                     settweetingLoader(true);
                     finalUploadTweet();
-                    console.log(tweetData.tweetText.length);
                   } else if (imageToUpload === null) {
                     settweetingLoader(true);
                     finalUploadTweet();

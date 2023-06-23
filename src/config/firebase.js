@@ -75,12 +75,12 @@ export const writeUserData = (
     bioData: "Hi, welcome to my profile",
     userId: userId,
     timeJoined: joinedDate,
-    notificationData: [],
-    bookmarkData: [],
+    notificationData: [0],
+    bookmarkData: [0],
     locatonData: "",
     websiteData: "",
-    tweets: [],
-    likedTweets: [],
+    userTweets: [0],
+    likedTweets: [0],
   })
     .then(() => {
       console.log("Data written successfully");
@@ -115,7 +115,7 @@ export const writeUserDataUserAndPass = (
     bookmarkData: [0],
     locatonData: "",
     websiteData: "",
-    tweets: [0],
+    userTweets: [0],
     likedTweets: [0],
   })
     .then(() => {
