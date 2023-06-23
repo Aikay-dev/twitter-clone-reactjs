@@ -12,6 +12,8 @@ import { mobileNavLeftState } from "../../store";
 import { FaFeatherAlt } from "react-icons/fa";
 import FollowingTweetStream from "./dataStream/FollowingTweetStream";
 import { getTweetDate } from "../../utility/dateJoined";
+import SmLoader from "../auth/components/SmLoader";
+import LoaderWhite from "../../components/LoaderWhite";
 
 library.add(fas);
 library.add(fab);
@@ -36,7 +38,7 @@ const Home = () => {
   });
   const ImageTweetInputRef = useRef(null);
   const [imageToUpload, setImageToUpload] = useState("");
-
+  const [tweetingLoader, settweetingLoader] = useState(true);
   function uploadTweetText(e) {
     settweetData({ ...tweetData, tweetText: e });
     console.log(tweetData);
@@ -156,24 +158,29 @@ const Home = () => {
               />
             </div>
             <div className="pl-16">
-              {imageToUpload && <div className=" h-48 w-full relative">
-                <button onClick={() => {
-                  setImageToUpload("")
-                  handleResetUploadImage()
-                }} className="text-xl absolute z-10 left-1 top-1 uploadtweetimageex cursor-pointer p-1 rounded-full px-2 flex profileEx">
-                  <FontAwesomeIcon icon="fa-solid fa-xmark" />
-                </button>
-                <img
-                  src={imageToUpload}
-                  alt=""
-                  className="uploadtweetimage absolute "
-                />
-              </div>}
+              {imageToUpload && (
+                <div className=" h-48 w-full relative">
+                  <button
+                    onClick={() => {
+                      setImageToUpload("");
+                      handleResetUploadImage();
+                    }}
+                    className="text-xl absolute z-10 left-1 top-1 uploadtweetimageex cursor-pointer p-1 rounded-full px-2 flex profileEx"
+                  >
+                    <FontAwesomeIcon icon="fa-solid fa-xmark" />
+                  </button>
+                  <img
+                    src={imageToUpload}
+                    alt=""
+                    className="uploadtweetimage absolute "
+                  />
+                </div>
+              )}
             </div>
             <div className="flex mt-6 justify-between items-center home-main-tweet-section-bottom">
               <div className="flex pl-16 gap-3">
                 <input
-                ref={ImageTweetInputRef}
+                  ref={ImageTweetInputRef}
                   accept="image/*"
                   onChange={(e) => {
                     handleImgUpload(e.target.files[0]);
@@ -190,8 +197,19 @@ const Home = () => {
                   <FontAwesomeIcon icon="fa-regular fa-calendar-days" />
                 </div>
               </div>
-              <button className="home-main-tweet-section-button text-white px-4 rounded-full py-1 font-semibold">
-                Tweet
+              <button
+                onClick={() => {
+                  settweetingLoader(true);
+                  
+                }}
+                className=" flex justify-center items-center home-main-tweet-section-button text-white px-4 rounded-full py-1 font-semibold"
+              >
+                {!tweetingLoader && "Tweet"}
+                {tweetingLoader && (
+                  <div className="flex w-11 h-6 justify-center items-center">
+                    <LoaderWhite />
+                  </div>
+                )}
               </button>
             </div>
           </section>
