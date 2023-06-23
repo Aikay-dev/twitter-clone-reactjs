@@ -61,22 +61,21 @@ const SignUp = ({ setshowSignUpCard }) => {
 
   useEffect(() => {
     console.log(usersEmail);
-    if (usersEmail.length > 0) {
-      setshowsignupPageLoader(false);
-      setgoogleUsernameStep(false);
-      setshowstepOne(false);
-      setshowStepTwo(false);
-      setshowStepThree(false);
-      setshowStepFour(false);
-      setshowStepFive(false);
-      setshowsignupPage(true);
-    }
+
+    setshowsignupPageLoader(false);
+    setgoogleUsernameStep(false);
+    setshowstepOne(false);
+    setshowStepTwo(false);
+    setshowStepThree(false);
+    setshowStepFour(false);
+    setshowStepFive(false);
+    setshowsignupPage(true);
 
     console.log("logged in", auth.currentUser);
   }, [usersEmail]);
 
   const dispatch = useDispatch();
-  const [googleloader, setgoogleloader] = useState(false)
+  const [googleloader, setgoogleloader] = useState(false);
   const [stepOneDetails, setStepOneDetails] = useState({
     name: "",
     email: "",
@@ -131,7 +130,7 @@ const SignUp = ({ setshowSignUpCard }) => {
   const join_create_account = "Create account";
 
   function googleSignIn() {
-    setgoogleloader(true)
+    setgoogleloader(true);
     signInWithPopup(auth, Provider)
       .then((result) => {
         console.log(result.user.email);
@@ -141,7 +140,7 @@ const SignUp = ({ setshowSignUpCard }) => {
             email: result.user.email,
           })
             .then((result) => {
-              setgoogleloader(false)
+              setgoogleloader(false);
               console.log("push 1:", result);
               setgoogleUsernameStep(true);
               setshowstepOne(false);
@@ -160,7 +159,7 @@ const SignUp = ({ setshowSignUpCard }) => {
           for (let i = 0; i < usersEmail.length; i++) {
             if (usersEmail[i].email === result.user.email) {
               console.log("email used already");
-              setgoogleloader(false)
+              setgoogleloader(false);
               setemailusedalready(true);
               emailFound = true;
               break; // Exit the loop since email is already found
@@ -171,7 +170,7 @@ const SignUp = ({ setshowSignUpCard }) => {
               email: result.user.email,
             })
               .then((result) => {
-                setgoogleloader(false)
+                setgoogleloader(false);
                 console.log("push 2:", result);
                 setgoogleUsernameStep(true);
                 setshowstepOne(false);
@@ -184,17 +183,16 @@ const SignUp = ({ setshowSignUpCard }) => {
               })
               .catch((error) => {
                 console.log(error);
-                setgoogleloader(false)
+                setgoogleloader(false);
               });
           }
         }
       })
       .catch((error) => {
         console.log(error);
-        setgoogleloader(false)
+        setgoogleloader(false);
       });
   }
-  
 
   console.log(usersEmail.length);
 
@@ -230,7 +228,7 @@ const SignUp = ({ setshowSignUpCard }) => {
                 }}
               >
                 <AuthLoginButton
-                  logo={googleloader? <SmLoader/>: googleSignButton}
+                  logo={googleloader ? <SmLoader /> : googleSignButton}
                   classes={"rounded-full google-butt-login"}
                 />
                 {emailusedalready && (

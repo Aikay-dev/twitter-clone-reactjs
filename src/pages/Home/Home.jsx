@@ -135,6 +135,8 @@ const Home = () => {
 
   function updateTweetNode() {
     updateNode("tweetPool/" + tweetData.tweetId, tweetData);
+
+    updateNode("users/" + currentUser.userId + '/userTweets', tweetData.tweetId)
   }
 
   const handleTweetFormReset = () => {
@@ -302,22 +304,13 @@ const Home = () => {
                   if (tweetData.tweetText.length > 0) {
                     settweetingLoader(true);
                     finalUploadTweet();
-                    console.log(tweetData.tweetText.length)
+                    console.log(tweetData.tweetText.length);
                   } else if (imageToUpload === null) {
                     settweetingLoader(true);
                     finalUploadTweet();
-                  }else{
-                    console.log("not uploading")
-                  }
-
-                  /* if (
-                    uploadTweetText().tweetText === "" &&
-                    imageToUpload === null
-                  ) {
                   } else {
-                    settweetingLoader(true);
-                    finalUploadTweet();
-                  } */
+                    console.log("not uploading");
+                  }
                 }}
                 className=" flex justify-center items-center home-main-tweet-section-button text-white px-4 rounded-full py-1 font-semibold"
               >

@@ -111,12 +111,12 @@ export const writeUserDataUserAndPass = (
     bioData: "",
     userId: userId,
     timeJoined: {datejoined},
-    notificationData: [],
-    bookmarkData: [],
+    notificationData: [0],
+    bookmarkData: [0],
     locatonData: "",
     websiteData: "",
-    tweets: [],
-    likedTweets: [],
+    tweets: [0],
+    likedTweets: [0],
   })
     .then(() => {
       console.log("Data written successfully");
