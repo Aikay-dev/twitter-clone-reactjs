@@ -11,7 +11,7 @@ import { far } from "@fortawesome/free-regular-svg-icons";
 import { auth } from "../../config/firebase";
 import { signInWithPopup } from "firebase/auth";
 import { Provider } from "../../config/firebase";
-import { deleteUserWithEmailAndPassword } from "../../config/firebase";
+import toast, { Toaster } from "react-hot-toast";
 
 library.add(fas);
 library.add(fab);
@@ -105,17 +105,37 @@ const LoginEmail = ({
                 // An error occurred while deleting the user
                 console.error("Error deleting user:", error);
               });
-            
           }
         }
       })
       .catch((error) => {
         console.log(error);
+        toast.error("Network Error");
       });
   };
   console.log(usersEmail);
+  
   return (
     <div className="login-info">
+      <div>
+        <Toaster
+          position="bottom-center"
+          toastOptions={{
+            style: {
+              backgroundColor: "rgb(29, 155, 240)",
+              color: "#ffffff",
+              padding: "10px",
+            },
+            success: {
+              iconTheme: {
+                primary: "green",
+                secondary: "white",
+              },
+            },
+          }}
+          reverseOrder={false}
+        />
+      </div>
       <p className="text-center mt-7 text-3xl font-bold">Sign in to Tweeter</p>
       <div className="auth-prov-option pb-5 gap-5 flex items-center justify-center m-auto relative flex-col mt-8 text-black">
         <div
