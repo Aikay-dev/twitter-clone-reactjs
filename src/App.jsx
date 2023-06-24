@@ -34,8 +34,8 @@ function App() {
         dispatch(checkAuthState(userAuthState.email));
       } else {
         if (
-          window.location.pathname === "/Home" ||
-          window.location.pathname === "/Home/"
+          window.location.pathname !== "/Home/Explore" ||
+          window.location.pathname !== "/Home/Explore/" 
         ) {
           navigate("/Home/Explore");
           setLoadBird(false);

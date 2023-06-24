@@ -122,7 +122,7 @@ const UserTweets = () => {
                         <div className="p p-1.5 rounded-full main-comment-icon-surround">
                           <FaRegCommentDots />
                         </div>
-                        <span>{item.comments.length}</span>
+                        <span>{item.comments.length === 1? "0": item.comments.length}</span>
                       </Link>
                       <Link
                         className="flex gap-3 items-center main-tweet-retweet-icon"
@@ -131,7 +131,7 @@ const UserTweets = () => {
                         <div className="p p-1.5 rounded-full main-retweet-icon-surround">
                           <FaRetweet />
                         </div>
-                        <span>{item.retweets.length}</span>
+                        <span>{item.retweets.length === 1? "0": item.retweets.length}</span>
                       </Link>
                       <Link
                         className="flex gap-3 items-center main-tweet-like-icon"
@@ -140,7 +140,7 @@ const UserTweets = () => {
                         <div className="p p-1.5 rounded-full main-like-icon-surround">
                           <AiOutlineHeart />
                         </div>
-                        <span>{item.likes.length}</span>
+                        <span>{item.likes.length === 1? "0": item.likes.length}</span>
                       </Link>
                     </div>
                   </div>
