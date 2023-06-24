@@ -20,6 +20,7 @@ import generateRandomString from "../../utility/userIdAlgo";
 import { ref, update, push } from "firebase/database";
 import { realTimeDatabase } from "../../config/firebase";
 import toast, { Toaster } from "react-hot-toast";
+import HomepageTweetStream from "../../database/HomepageTweetStream";
 
 library.add(fas);
 library.add(fab);
@@ -114,8 +115,10 @@ const Home = () => {
 
   useEffect(() => {
     if (uploadComplete) {
+      
       pushupTweet();
       console.log(tweetData);
+      setUploadComplete(false)
     }
   }, [uploadComplete]);
 
@@ -135,6 +138,10 @@ const Home = () => {
         toast.success("Tweeted successfully");
         settweetingLoader(false);
         setImageToUpload(null);
+        settweetData((prevData) => ({
+          ...prevData,
+          tweetImageLink: "",
+        }));
         setImageToGrabLink(null);
         handleTweetFormReset();
       })
@@ -328,7 +335,8 @@ const Home = () => {
                     settweetingLoader(true);
                     finalUploadTweet();
                     console.log(tweetData);
-                    console.log(imageToGrabLink);
+                    console.log(tweetTextareaRef);
+
                   } else {
                     console.log("not uploading");
                   }
@@ -345,8 +353,9 @@ const Home = () => {
             </div>
           </section>
           <section className="main-tweet-flow-section">
-            {ForyouTab && <TweetStream />}
+            {ForyouTab && <HomepageTweetStream />}
             {FollowingTab && <FollowingTweetStream />}
+            <div className="h-20"></div>
           </section>
         </div>
         <button className="floating-tweet-button text-white w-10 h-10 fixed justify-center items-center rounded-full">

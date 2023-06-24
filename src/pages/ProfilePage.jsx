@@ -420,8 +420,10 @@ function ProfilePage() {
           </div>
           <section className=" h-96 w-full">
             {profileTweetsTab && <UserTweets />}
-            <div className="h-32">
-              <p className="flex justify-center items-center">refresh</p>
+            <div className="h-32 flex justify-center items-center">
+              <button onClick={() => {
+                location.reload(true)
+              }} className="flex bg-blue-500 rounded-full w-20 justify-center items-center">refresh</button>
             </div>
           </section>
         </section>
