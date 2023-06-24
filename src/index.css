@@ -651,6 +651,10 @@
   background-color: var(--blueText);
 }
 
+.tweetcardprofilenameanddisplayholder::-webkit-scrollbar{
+display: none;
+}
+
 .main-tweeter-loading {
   color: var(--blueText);
 }

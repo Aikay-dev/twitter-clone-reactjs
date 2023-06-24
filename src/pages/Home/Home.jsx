@@ -39,9 +39,9 @@ const Home = () => {
     tweetText: "",
     tweetImageLink: "",
     tweetDate: getTweetDate(),
-    comments: "",
-    retweets: "",
-    likes: "",
+    comments: [0],
+    retweets: [0],
+    likes: [0],
     tweetId: randTweetId,
   });
   const ImageTweetInputRef = useRef(null);

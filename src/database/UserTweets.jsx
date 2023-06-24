@@ -54,13 +54,14 @@ const UserTweets = () => {
   useEffect(() => {
     // Perform actions with the updated tweetsCardData
     console.log(tweetsCardData);
+    tweetsCardData.reverse();
     console.log(tweetsCardData.length);
   }, [tweetsCardData]);
 
   return (
     <>
       {tweetsCardData.length > 0 &&
-        tweetsCardData.map((item) => {
+        tweetsCardData.reverse().map((item) => {
           if (!item) {
             return (
               <>
@@ -90,7 +91,7 @@ const UserTweets = () => {
 
                 <div className="w-full main-tweet-card-second-half">
                   <div className="flex justify-between w-full pr-2 mt-3">
-                    <div className="flex items-center">
+                    <div className="flex items-center overflow-x-scroll tweetcardprofilenameanddisplayholder">
                       <p className="main-tweet-card-display-name font-semibold mr-2 whitespace-nowrap flex-wrap ">
                         {item.displayName}
                       </p>
@@ -121,7 +122,7 @@ const UserTweets = () => {
                         <div className="p p-1.5 rounded-full main-comment-icon-surround">
                           <FaRegCommentDots />
                         </div>
-                        <span>19.3k</span>
+                        <span>{item.comments.length}</span>
                       </Link>
                       <Link
                         className="flex gap-3 items-center main-tweet-retweet-icon"
@@ -130,7 +131,7 @@ const UserTweets = () => {
                         <div className="p p-1.5 rounded-full main-retweet-icon-surround">
                           <FaRetweet />
                         </div>
-                        <span>52k</span>
+                        <span>{item.retweets.length}</span>
                       </Link>
                       <Link
                         className="flex gap-3 items-center main-tweet-like-icon"
@@ -139,22 +140,12 @@ const UserTweets = () => {
                         <div className="p p-1.5 rounded-full main-like-icon-surround">
                           <AiOutlineHeart />
                         </div>
-                        <span>518.1k</span>
-                      </Link>
-                      <Link
-                        className="flex gap-3 items-center main-tweet-trend-icon"
-                        aria-label="Trend"
-                      >
-                        <div className="p p-1.5 rounded-full main-trend-icon-surround">
-                          <BiTrendingUp />
-                        </div>
-                        <span>30.7M</span>
+                        <span>{item.likes.length}</span>
                       </Link>
                     </div>
                   </div>
                 </div>
               </div>
-              
             </>
           );
         })}
