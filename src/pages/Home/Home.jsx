@@ -45,10 +45,11 @@ const Home = () => {
     tweetId: randTweetId,
   });
   const ImageTweetInputRef = useRef(null);
-  const [imageToUpload, setImageToUpload] = useState("");
+  const [imageToUpload, setImageToUpload] = useState(null);
   const [imageToGrabLink, setImageToGrabLink] = useState(null);
   const [tweetingLoader, settweetingLoader] = useState(false);
   const tweetTextareaRef = useRef(null);
+  const [uploadComplete, setUploadComplete] = useState(false);
 
   useEffect(() => {
     console.log(randTweetId);
@@ -83,28 +84,47 @@ const Home = () => {
     if (imageToGrabLink !== null) {
       const fileName = Date.now() + "_" + imageToGrabLink.name;
       const TweetPics = strgRef(storage, `TweetPictures/${fileName}`);
-      uploadBytes(TweetPics, imageToGrabLink)
-        .then((snapshot) => {
-          console.log("Upload complete");
+      uploadBytes(TweetPics, imageToGrabLink).then((snapshot) => {
+        console.log("Upload complete");
 
-          // Get the download URL of the uploaded file
-          getDownloadURL(snapshot.ref).then((downloadURL) => {
-            settweetData({
-              ...tweetData,
+        // Get the download URL of the uploaded file
+        getDownloadURL(snapshot.ref)
+          .then((downloadURL) => {
+            // Update tweetData with the tweetImageLink
+            settweetData((prevData) => ({
+              ...prevData,
               tweetImageLink: downloadURL,
-            });
+            }));
 
             console.log("File available at: " + downloadURL);
-            pushupTweet();
+          })
+          .catch((error) => {
+            console.log("Upload error: " + error.message);
+            settweetingLoader(false);
+          })
+          .finally(() => {
+            console.log(tweetData);
+            setUploadComplete(true);
           });
-        })
-        .catch((error) => {
-          console.log("Upload error: " + error.message);
-          settweetingLoader(false);
-        });
+      });
     } else {
       pushupTweet();
     }
+  }
+
+  useEffect(() => {
+    if (uploadComplete) {
+      pushupTweet();
+      console.log(tweetData);
+    }
+  }, [uploadComplete]);
+
+  function pushupTweet() {
+    settweetData((prevData) => ({
+      ...prevData,
+      tweetId: generateRandomString(20),
+    }));
+    updateTweetNode();
   }
 
   const updateNode = (path, newData) => {
@@ -123,14 +143,6 @@ const Home = () => {
         settweetingLoader(false);
       });
   };
-
-  function pushupTweet() {
-    settweetData({
-      ...tweetData,
-      tweetId: generateRandomString(20),
-    });
-    updateTweetNode();
-  }
 
   function updateTweetNode() {
     updateNode("tweetPool/" + tweetData.tweetId, tweetData);
@@ -309,12 +321,14 @@ const Home = () => {
 
               <button
                 onClick={() => {
-                  if (tweetData.tweetText.length > 0) {
+                  if (
+                    tweetData.tweetText.length > 0 ||
+                    imageToUpload !== null
+                  ) {
                     settweetingLoader(true);
                     finalUploadTweet();
-                  } else if (imageToUpload === null) {
-                    settweetingLoader(true);
-                    finalUploadTweet();
+                    console.log(tweetData);
+                    console.log(imageToGrabLink);
                   } else {
                     console.log("not uploading");
                   }

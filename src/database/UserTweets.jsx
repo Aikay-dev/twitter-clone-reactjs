@@ -59,87 +59,105 @@ const UserTweets = () => {
 
   return (
     <>
-      { tweetsCardData.map((item, index) => {
-        return (
-          <div 
-          key={item.tweetId}
-            to="/Home/Status"
-            className="main-tweet-card w-full relative cursor-pointer flex"
-          >
-            <div className="mt-3 ml-4 main-tweet-card-first-half">
-              <img
-                src={item.profilePic}
-                alt="user profile image"
-                className="rounded-full h-10 w-10 mr-5 cursor-pointer main-card-profile-pic"
-              />
-            </div>
-
-            <div className="w-full main-tweet-card-second-half">
-              <div className="flex justify-between w-full pr-2 mt-3">
-                <div className="flex items-center">
-                  <p className="main-tweet-card-display-name font-semibold mr-2 whitespace-nowrap flex-wrap ">
-                    {item.displayName}
+      {tweetsCardData.length > 0 &&
+        tweetsCardData.map((item) => {
+          if (!item) {
+            return (
+              <>
+                {tweetsCardData.length < 1 && (
+                  <p className="p-3">
+                    No tweets available for now, make a tweet or a retweet and
+                    it will showup here
                   </p>
-                  <p className="text-sm main-tweet-card-username whitespace-nowrap">
-                    {item.username} . {item.tweetDate}
-                  </p>
+                )}
+              </>
+            ); // Skip rendering if item is null or undefined
+          }
+          return (
+            <>
+              <div
+                key={item.tweetId}
+                to="/Home/Status"
+                className="main-tweet-card w-full relative cursor-pointer flex"
+              >
+                <div className="mt-3 ml-4 main-tweet-card-first-half">
+                  <img
+                    src={item.profilePic}
+                    alt="user profile image"
+                    className="rounded-full h-10 w-10 mr-5 cursor-pointer main-card-profile-pic"
+                  />
                 </div>
-                <div className="">
-                  <div className="homepage-center-current-trend-more font-bold rounded-full cursor-pointer">
-                    <FontAwesomeIcon icon="fa-solid fa-ellipsis" />
+
+                <div className="w-full main-tweet-card-second-half">
+                  <div className="flex justify-between w-full pr-2 mt-3">
+                    <div className="flex items-center">
+                      <p className="main-tweet-card-display-name font-semibold mr-2 whitespace-nowrap flex-wrap ">
+                        {item.displayName}
+                      </p>
+                      <p className="text-sm main-tweet-card-username whitespace-nowrap">
+                        {item.username} . {item.tweetDate}
+                      </p>
+                    </div>
+                    <div className="">
+                      <div className="homepage-center-current-trend-more font-bold rounded-full cursor-pointer">
+                        <FontAwesomeIcon icon="fa-solid fa-ellipsis" />
+                      </div>
+                    </div>
+                  </div>
+                  <div className="main-tweet-card-content overflow-x-hidden">
+                    <p>{item.tweetText}</p>
+                    {item.tweetImageLink.length > 0 && (
+                      <img
+                        src={item.tweetImageLink}
+                        alt=""
+                        className="main-tweet-image"
+                      />
+                    )}
+                    <div className="main-tweet-card-user-actions flex w-full pt-2 gap-6 overflow-x-scroll">
+                      <Link
+                        className="flex gap-3 items-center main-tweet-comment-icon"
+                        aria-label="Comments"
+                      >
+                        <div className="p p-1.5 rounded-full main-comment-icon-surround">
+                          <FaRegCommentDots />
+                        </div>
+                        <span>19.3k</span>
+                      </Link>
+                      <Link
+                        className="flex gap-3 items-center main-tweet-retweet-icon"
+                        aria-label="Retweets"
+                      >
+                        <div className="p p-1.5 rounded-full main-retweet-icon-surround">
+                          <FaRetweet />
+                        </div>
+                        <span>52k</span>
+                      </Link>
+                      <Link
+                        className="flex gap-3 items-center main-tweet-like-icon"
+                        aria-label="Likes"
+                      >
+                        <div className="p p-1.5 rounded-full main-like-icon-surround">
+                          <AiOutlineHeart />
+                        </div>
+                        <span>518.1k</span>
+                      </Link>
+                      <Link
+                        className="flex gap-3 items-center main-tweet-trend-icon"
+                        aria-label="Trend"
+                      >
+                        <div className="p p-1.5 rounded-full main-trend-icon-surround">
+                          <BiTrendingUp />
+                        </div>
+                        <span>30.7M</span>
+                      </Link>
+                    </div>
                   </div>
                 </div>
               </div>
-              <div className="main-tweet-card-content overflow-x-hidden">
-                <p>{item.tweetText}</p>
-                {item.tweetImageLink.length > 0 && <img
-                  src={item.tweetImageLink}
-                  alt=""
-                  className="main-tweet-image"
-                />}
-                <div className="main-tweet-card-user-actions flex w-full pt-2 gap-6 overflow-x-scroll">
-                  <Link
-                    className="flex gap-3 items-center main-tweet-comment-icon"
-                    aria-label="Comments"
-                  >
-                    <div className="p p-1.5 rounded-full main-comment-icon-surround">
-                      <FaRegCommentDots />
-                    </div>
-                    <span>19.3k</span>
-                  </Link>
-                  <Link
-                    className="flex gap-3 items-center main-tweet-retweet-icon"
-                    aria-label="Retweets"
-                  >
-                    <div className="p p-1.5 rounded-full main-retweet-icon-surround">
-                      <FaRetweet />
-                    </div>
-                    <span>52k</span>
-                  </Link>
-                  <Link
-                    className="flex gap-3 items-center main-tweet-like-icon"
-                    aria-label="Likes"
-                  >
-                    <div className="p p-1.5 rounded-full main-like-icon-surround">
-                      <AiOutlineHeart />
-                    </div>
-                    <span>518.1k</span>
-                  </Link>
-                  <Link
-                    className="flex gap-3 items-center main-tweet-trend-icon"
-                    aria-label="Trend"
-                  >
-                    <div className="p p-1.5 rounded-full main-trend-icon-surround">
-                      <BiTrendingUp />
-                    </div>
-                    <span>30.7M</span>
-                  </Link>
-                </div>
-              </div>
-            </div>
-          </div>
-        );
-      })}
+              
+            </>
+          );
+        })}
     </>
   );
 };

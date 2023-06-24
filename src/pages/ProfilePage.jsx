@@ -286,7 +286,7 @@ function ProfilePage() {
             <p className="text-sm homelabelcolor">118 Tweets</p>
           </div>
         </header>
-        <section className=" overflow-y-scroll h-full profilepagemainsection">
+        <section className=" overflow-y-scroll pb-20 h-full profilepagemainsection">
           <div className=" h-48 w-full  profilebacdropimage"></div>
           <div className="flex flex-col  relative">
             <div className="p-1 bg-black absolute rounded-full flex justify-center items-center profileimageinproflepage">
@@ -419,7 +419,10 @@ function ProfilePage() {
             </div>
           </div>
           <section className=" h-96 w-full">
-            {profileTweetsTab && <UserTweets/>}
+            {profileTweetsTab && <UserTweets />}
+            <div className="h-32">
+              <p className="flex justify-center items-center">refresh</p>
+            </div>
           </section>
         </section>
       </section>
