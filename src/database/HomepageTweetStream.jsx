@@ -16,11 +16,16 @@ library.add(fas);
 library.add(fab);
 library.add(far);
 
-const HomepageTweetStream = ({ dispatchNewTweets, newtweetsbuttonAnimation, setnewtweetsbuttonAnimation }) => {
+const HomepageTweetStream = ({
+  dispatchNewTweets,
+  newtweetsbuttonAnimation,
+  setnewtweetsbuttonAnimation,
+  tweetLoaded,
+  setTweetLoaded,
+}) => {
   const [tweets, setTweets] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [tweetLoaded, setTweetLoaded] = useState(false);
-  const [previousupdateflag, setpreviousupdateflag] = useState('');
+  const [previousupdateflag, setpreviousupdateflag] = useState("");
 
   useEffect(() => {
     setIsLoading(true);
@@ -34,8 +39,8 @@ const HomepageTweetStream = ({ dispatchNewTweets, newtweetsbuttonAnimation, setn
   }, []);
 
   useEffect(() => {
-    loadInitialTweets()
-  }, [dispatchNewTweets])
+    loadInitialTweets();
+  }, [dispatchNewTweets]);
 
   // Function to load initial tweets
 
@@ -67,31 +72,32 @@ const HomepageTweetStream = ({ dispatchNewTweets, newtweetsbuttonAnimation, setn
   function UpdateListener() {
     let previousLength = 0; // Variable to store the previous length
     let lengthIncreases = 0; // Variable to count the number of length increases
-    
+
     const tweetPoolRef = ref(realTimeDatabase, "tweetPool");
     onValue(tweetPoolRef, (snapshot) => {
       const tweetPoolData = snapshot.val();
       const tweetKeys = Object.keys(tweetPoolData);
       const currentLength = tweetKeys.length;
-      
+
       if (currentLength > previousLength) {
         lengthIncreases++; // Increment the count of length increases
         console.log("Length increased:", currentLength);
-        
+
         if (lengthIncreases === 3) {
           console.log("supper dupa doooooo");
-          setnewtweetsbuttonAnimation("absolute morenewtweetsbutton morenewtweetsbuttonEnterAnimate px-4 py-2 rounded-full")
-          
+          setnewtweetsbuttonAnimation(
+            "absolute morenewtweetsbutton morenewtweetsbuttonEnterAnimate px-4 py-2 rounded-full"
+          );
+
           // Reset the count of length increases
           lengthIncreases = 0;
         }
       }
-      
+
       previousLength = currentLength; // Update the previous length
       setpreviousupdateflag(currentLength);
     });
   }
-  
 
   return (
     <>

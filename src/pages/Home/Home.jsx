@@ -53,6 +53,7 @@ const Home = ({ profileBlur, setprofileBlur }) => {
   const [newtweetsbuttonAnimation, setnewtweetsbuttonAnimation] = useState(
     "absolute  morenewtweetsbutton px-4 py-2 rounded-full"
   );
+  const [tweetLoaded, setTweetLoaded] = useState(false);
 
   function uploadTweetText(e) {
     settweetData({ ...tweetData, tweetText: e });
@@ -173,10 +174,12 @@ const Home = ({ profileBlur, setprofileBlur }) => {
     setdispatchNewTweets(true);
     mainhomesectionRef.current.scrollTo({
       top: 0,
-      behavior: 'smooth'
+      behavior: "smooth",
     });
-    setnewtweetsbuttonAnimation("absolute morenewtweetsbutton px-4 py-2 rounded-full")
-    console.log("first")
+    setnewtweetsbuttonAnimation(
+      "absolute morenewtweetsbutton px-4 py-2 rounded-full"
+    );
+    console.log("first");
   }
 
   return (
@@ -269,7 +272,10 @@ const Home = ({ profileBlur, setprofileBlur }) => {
         <button onClick={loadNewTweets} className={newtweetsbuttonAnimation}>
           <FontAwesomeIcon icon="fa-solid fa-arrow-up" /> New Tweets
         </button>
-        <div  ref={mainhomesectionRef} className="h-full pt-32 w-full tweet-scroll-section overflow-y-scroll overflow-x-hidden">
+        <div
+          ref={mainhomesectionRef}
+          className="h-full pt-32 w-full tweet-scroll-section overflow-y-scroll overflow-x-hidden"
+        >
           <section className="py-3 px-3 home-main-tweet-section">
             <div className="flex">
               <div>
@@ -369,13 +375,18 @@ const Home = ({ profileBlur, setprofileBlur }) => {
                 newtweetsbuttonAnimation={newtweetsbuttonAnimation}
                 setnewtweetsbuttonAnimation={setnewtweetsbuttonAnimation}
                 dispatchNewTweets={dispatchNewTweets}
+                tweetLoaded={tweetLoaded}
+                setTweetLoaded={setTweetLoaded}
               />
             )}
             {FollowingTab && <FollowingTweetStream />}
             <div className=" h-52 flex justify-center pt-2">
-              <button className="h-10  px-4 bluebackground rounded-full" >
-              <FontAwesomeIcon icon="fa-solid fa-arrow-rotate-right" /> Load more Tweets
-              </button>
+              {tweetLoaded && (
+                <button className="h-8 px-3 text-sm bluebackground rounded-full">
+                  <FontAwesomeIcon icon="fa-solid fa-arrow-rotate-right" /> Load
+                  more Tweets
+                </button>
+              )}
             </div>
           </section>
         </div>
