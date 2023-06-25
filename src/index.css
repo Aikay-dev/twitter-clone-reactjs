@@ -905,11 +905,15 @@ display: none;
 }
 
 .profilePageHeader {
-  border-bottom: 1px solid var(--homeLabelColor);
+  border-bottom: var(--homeBorder);
 }
 
 .homelabelcolor {
   color: var(--homeLabelColor);
+}
+
+.bookmarkheader{
+  border-bottom: var(--homeBorder);
 }
 
 .accountnotfoundgooglelogin {

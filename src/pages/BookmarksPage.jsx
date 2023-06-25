@@ -5,7 +5,6 @@ import { library } from "@fortawesome/fontawesome-svg-core";
 import { fas } from "@fortawesome/free-solid-svg-icons";
 import { fab } from "@fortawesome/free-brands-svg-icons";
 import { far } from "@fortawesome/free-regular-svg-icons";
-import TweetStream from "./Home/dataStream/TweetStream";
 import { useSelector, useDispatch } from "react-redux";
 
 library.add(fas);
@@ -18,7 +17,7 @@ function BookmarksPage() {
   return (
     <>
       <section className="homepage-center h-screen relative overflow-hidden">
-        <header className="px-3 py-2 flex items-center justify-between">
+        <header className="px-3 bookmarkheader py-2 flex items-center justify-between">
           <div className="flex">
             <div
               className="personalization-and-data-head-nav-arrow-holder flex items-center justify-center cursor-pointer rounded-full h-8 w-8 ml-2 mt-2 mr-8 bookmarkBackArrow"
@@ -38,7 +37,6 @@ function BookmarksPage() {
           </div>
         </header>
         <section className=" overflow-y-scroll bookmarkmainsection">
-          <TweetStream />
         </section>
       </section>
 
