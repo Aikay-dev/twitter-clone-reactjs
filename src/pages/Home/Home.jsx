@@ -5,7 +5,6 @@ import { fas } from "@fortawesome/free-solid-svg-icons";
 import { fab } from "@fortawesome/free-brands-svg-icons";
 import { far } from "@fortawesome/free-regular-svg-icons";
 import HomeRight from "./HomeRight";
-import TweetStream from "./dataStream/TweetStream";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { mobileNavLeftState } from "../../store";
