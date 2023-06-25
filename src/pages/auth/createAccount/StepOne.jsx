@@ -69,7 +69,8 @@ const StepOne = ({
   function checkCompletion() {
     if (
       stepOneDetails.DOB === "" ||
-      stepOneDetails.name === "" ||
+      stepOneDetails.name.length > 3 ||
+      stepOneDetails.name.length < 15 ||
       stepOneButton.email === "" ||
       emailRegex.test(stepOneDetails.email) === false
     ) {

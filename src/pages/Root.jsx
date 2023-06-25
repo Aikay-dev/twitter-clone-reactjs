@@ -821,7 +821,7 @@ const Root = ({ authState, setAuthState, currentUser }) => {
                   Don't miss what's happening
                 </p>
                 <p className="homepage-login-banner-people-on">
-                  people on Twitter are the first to know.
+                  people on Tweeter are the first to know.
                 </p>
               </div>
               <div className="homepage-login-banner-auth flex gap-3 w-full md:w-44">

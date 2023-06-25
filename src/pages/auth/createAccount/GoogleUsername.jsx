@@ -77,7 +77,8 @@ const GoogleUsername = ({
   function checkCompletion() {
     if (
       stepOneDetails.DOB === "" ||
-      stepOneDetails.name === "" ||
+      stepOneDetails.name.length > 15 ||
+      stepOneDetails.name.length < 3 ||
       stepOneButton.email === "" ||
       emailRegex.test(stepOneDetails.email) === false
     ) {

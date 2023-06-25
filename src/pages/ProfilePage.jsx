@@ -94,6 +94,16 @@ function ProfilePage() {
       });
   }
 
+  const updateProfileInfo = () => {
+    if(userProfileDetails.displayName.length < 3 || userProfileDetails.displayName.length > 15){
+      console.log(userProfileDetails.displayName.length)
+    }else{
+      updateNode("users/" + currentUser.userId, userProfileDetails);
+      setprofileBlur(false)
+      console.log(userProfileDetails.displayName.length)
+    }
+  }
+
   return (
     <>
       {profileBlur && (
@@ -123,9 +133,7 @@ function ProfilePage() {
                 <p className="font-semibold text-xl">Edit profile</p>
               </div>
               <button
-                onClick={() => {
-                  updateNode("users/" + currentUser.userId, userProfileDetails);
-                }}
+                onClick={updateProfileInfo}
                 className="bg-white text-black saveprofilebuttton rounded-full px-4 py-1 font-semibold"
               >
                 Save
@@ -174,13 +182,10 @@ function ProfilePage() {
                     ref={focusName}
                     onChange={(event) => {
                       const input = event.target.value;
-                      if (input.length >= 3 && input.length <= 10) {
-                        setuserProfileDetails({
-                          ...userProfileDetails,
-                          displayName: input,
-                        });
-                        console.log(userProfileDetails);
-                      }
+                      setuserProfileDetails({
+                        ...userProfileDetails,
+                        displayName: input,
+                      });
                     }}
                   />
                   <label

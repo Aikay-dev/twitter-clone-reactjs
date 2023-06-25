@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 import { FaRegCommentDots, FaRetweet } from "react-icons/fa";
 import { AiOutlineHeart } from "react-icons/ai";
 import { BiTrendingUp } from "react-icons/bi";
-import { off, onValue, ref } from "firebase/database";
+import { off, onChildChanged, ref, get, onValue } from "firebase/database";
 import { realTimeDatabase } from "../config/firebase";
 import Loader from "../pages/auth/components/Loader";
 
@@ -16,9 +16,11 @@ library.add(fas);
 library.add(fab);
 library.add(far);
 
-const HomepageTweetStream = () => {
+const HomepageTweetStream = ({ dispatchNewTweets, newtweetsbuttonAnimation, setnewtweetsbuttonAnimation }) => {
   const [tweets, setTweets] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [tweetLoaded, setTweetLoaded] = useState(false);
+  const [previousupdateflag, setpreviousupdateflag] = useState('');
 
   useEffect(() => {
     setIsLoading(true);
@@ -31,40 +33,64 @@ const HomepageTweetStream = () => {
     };
   }, []);
 
+  useEffect(() => {
+    loadInitialTweets()
+  }, [dispatchNewTweets])
+
   // Function to load initial tweets
+
   const loadInitialTweets = () => {
     const tweetPoolRef = ref(realTimeDatabase, "tweetPool");
-    let tweetPoolListener; // Declare a variable to store the listener reference
-  
+
     return new Promise((resolve, reject) => {
-      tweetPoolListener = onValue(
-        tweetPoolRef,
-        (snapshot) => {
+      get(tweetPoolRef)
+        .then((snapshot) => {
           const tweetPoolData = snapshot.val();
           const tweetKeys = Object.keys(tweetPoolData);
           const sortedKeys = tweetKeys.sort((a, b) => {
-            // Sort the keys based on the timestamp in ascending order
             return tweetPoolData[a].timestamp - tweetPoolData[b].timestamp;
           });
-          const last20Keys = sortedKeys.slice(-20); // Get the last 20 keys
+          const last20Keys = sortedKeys.slice(-20);
           const initialTweets = last20Keys
             .map((key) => tweetPoolData[key])
             .reverse();
           setTweets(initialTweets);
           setIsLoading(false);
           console.log(initialTweets);
-  
-          resolve();
-        },
-        reject
-      );
-    }).finally(() => {
-      // Call off() to stop receiving updates
-      if (tweetPoolListener) {
-        off(tweetPoolListener);
-      }
+          setTweetLoaded(true);
+          UpdateListener();
+        })
+        .catch(reject);
     });
   };
+
+  function UpdateListener() {
+    let previousLength = 0; // Variable to store the previous length
+    let lengthIncreases = 0; // Variable to count the number of length increases
+    
+    const tweetPoolRef = ref(realTimeDatabase, "tweetPool");
+    onValue(tweetPoolRef, (snapshot) => {
+      const tweetPoolData = snapshot.val();
+      const tweetKeys = Object.keys(tweetPoolData);
+      const currentLength = tweetKeys.length;
+      
+      if (currentLength > previousLength) {
+        lengthIncreases++; // Increment the count of length increases
+        console.log("Length increased:", currentLength);
+        
+        if (lengthIncreases === 3) {
+          console.log("supper dupa doooooo");
+          setnewtweetsbuttonAnimation("absolute morenewtweetsbutton morenewtweetsbuttonEnterAnimate px-4 py-2 rounded-full")
+          
+          // Reset the count of length increases
+          lengthIncreases = 0;
+        }
+      }
+      
+      previousLength = currentLength; // Update the previous length
+      setpreviousupdateflag(currentLength);
+    });
+  }
   
 
   return (
@@ -72,10 +98,9 @@ const HomepageTweetStream = () => {
       {!isLoading &&
         tweets.map((tweetsItems) => {
           return (
-            <>
+            <React.Fragment key={tweetsItems.tweetId}>
               {
                 <div
-                  key={tweetsItems.tweetId}
                   to="/Home/Status"
                   className="main-tweet-card w-full relative cursor-pointer flex"
                 >
@@ -145,7 +170,7 @@ const HomepageTweetStream = () => {
                   </div>
                 </div>
               }
-            </>
+            </React.Fragment>
           );
         })}
       {isLoading && (

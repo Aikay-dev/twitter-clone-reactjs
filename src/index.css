@@ -77,6 +77,10 @@
   width: var(--loginContentWidth);
 }
 
+.bluebackground{
+  background-color: var(--blueText);
+}
+
 .google-butt-login:hover,
 .apple-butt-login:hover,
 .next-signup-button:hover {
@@ -1160,6 +1164,30 @@
 .home-main-bird-header {
   color: var(--blueText);
 }
+
+.morenewtweetsbutton{
+  background-color: var(--blueText);
+  right: 35%;
+  top: 70px;
+  z-index: 1;
+  display: none;
+}
+
+.morenewtweetsbuttonEnterAnimate{
+  display: block;
+  animation: loadmoretweetEnter 1s ease-in forwards ;
+}
+
+@keyframes loadmoretweetEnter {
+  0%{
+    
+  }
+
+  100%{
+    top: 130px;
+  }
+}
+
 
 .home-navbar-mobile {
   display: none;

@@ -48,8 +48,11 @@ const Home = ({ profileBlur, setprofileBlur }) => {
   const [imageToGrabLink, setImageToGrabLink] = useState(null);
   const [tweetingLoader, settweetingLoader] = useState(false);
   const tweetTextareaRef = useRef(null);
-  const [uploadComplete, setUploadComplete] = useState(false);  const timestamp = Date.now();
-  console.log(timestamp);
+  const [uploadComplete, setUploadComplete] = useState(false);
+  const [dispatchNewTweets, setdispatchNewTweets] = useState(false);
+  const [newtweetsbuttonAnimation, setnewtweetsbuttonAnimation] = useState(
+    "absolute  morenewtweetsbutton px-4 py-2 rounded-full"
+  );
 
   function uploadTweetText(e) {
     settweetData({ ...tweetData, tweetText: e });
@@ -135,6 +138,7 @@ const Home = ({ profileBlur, setprofileBlur }) => {
         settweetData((prevData) => ({
           ...prevData,
           tweetImageLink: "",
+          tweetText: "",
         }));
         setImageToGrabLink(null);
         handleTweetFormReset();
@@ -163,6 +167,17 @@ const Home = ({ profileBlur, setprofileBlur }) => {
   const handleTweetFormReset = () => {
     tweetTextareaRef.current.value = "";
   };
+  const mainhomesectionRef = useRef(null);
+
+  function loadNewTweets() {
+    setdispatchNewTweets(true);
+    mainhomesectionRef.current.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+    setnewtweetsbuttonAnimation("absolute morenewtweetsbutton px-4 py-2 rounded-full")
+    console.log("first")
+  }
 
   return (
     <>
@@ -251,7 +266,10 @@ const Home = ({ profileBlur, setprofileBlur }) => {
             </button>
           </div>
         </header>
-        <div className="h-full pt-32 w-full tweet-scroll-section overflow-y-scroll overflow-x-hidden">
+        <button onClick={loadNewTweets} className={newtweetsbuttonAnimation}>
+          <FontAwesomeIcon icon="fa-solid fa-arrow-up" /> New Tweets
+        </button>
+        <div  ref={mainhomesectionRef} className="h-full pt-32 w-full tweet-scroll-section overflow-y-scroll overflow-x-hidden">
           <section className="py-3 px-3 home-main-tweet-section">
             <div className="flex">
               <div>
@@ -346,9 +364,19 @@ const Home = ({ profileBlur, setprofileBlur }) => {
             </div>
           </section>
           <section className="main-tweet-flow-section">
-            {ForyouTab && <HomepageTweetStream />}
+            {ForyouTab && (
+              <HomepageTweetStream
+                newtweetsbuttonAnimation={newtweetsbuttonAnimation}
+                setnewtweetsbuttonAnimation={setnewtweetsbuttonAnimation}
+                dispatchNewTweets={dispatchNewTweets}
+              />
+            )}
             {FollowingTab && <FollowingTweetStream />}
-            <div className=" h-52"></div>
+            <div className=" h-52 flex justify-center pt-2">
+              <button className="h-10  px-4 bluebackground rounded-full" >
+              <FontAwesomeIcon icon="fa-solid fa-arrow-rotate-right" /> Load more Tweets
+              </button>
+            </div>
           </section>
         </div>
         <button
