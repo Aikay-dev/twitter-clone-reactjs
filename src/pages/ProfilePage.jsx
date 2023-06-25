@@ -22,6 +22,7 @@ library.add(fab);
 library.add(far);
 
 function ProfilePage() {
+  
   const currentUser = useSelector((state) => state.currUsr.value);
   console.log(currentUser);
 

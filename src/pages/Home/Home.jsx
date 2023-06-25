@@ -43,7 +43,7 @@ const Home = () => {
     comments: [0],
     retweets: [0],
     likes: [0],
-    tweetId: randTweetId,
+    tweetId: Date.now(),
   });
   const ImageTweetInputRef = useRef(null);
   const [imageToUpload, setImageToUpload] = useState(null);
@@ -52,9 +52,8 @@ const Home = () => {
   const tweetTextareaRef = useRef(null);
   const [uploadComplete, setUploadComplete] = useState(false);
 
-  useEffect(() => {
-    console.log(randTweetId);
-  }, []);
+  const timestamp = Date.now();
+  console.log(timestamp);
 
   function uploadTweetText(e) {
     settweetData({ ...tweetData, tweetText: e });
@@ -115,17 +114,16 @@ const Home = () => {
 
   useEffect(() => {
     if (uploadComplete) {
-      
       pushupTweet();
       console.log(tweetData);
-      setUploadComplete(false)
+      setUploadComplete(false);
     }
   }, [uploadComplete]);
 
   function pushupTweet() {
     settweetData((prevData) => ({
       ...prevData,
-      tweetId: generateRandomString(20),
+      tweetId: Date.now(),
     }));
     updateTweetNode();
   }
@@ -336,7 +334,6 @@ const Home = () => {
                     finalUploadTweet();
                     console.log(tweetData);
                     console.log(tweetTextareaRef);
-
                   } else {
                     console.log("not uploading");
                   }
