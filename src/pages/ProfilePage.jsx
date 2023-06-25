@@ -7,7 +7,6 @@ import { fab } from "@fortawesome/free-brands-svg-icons";
 import { far } from "@fortawesome/free-regular-svg-icons";
 import HomeRight from "./Home/HomeRight";
 import { useSelector, useDispatch } from "react-redux";
-import TweetStream from "./Home/dataStream/TweetStream";
 import { realTimeDatabase } from "../config/firebase";
 import { ref } from "firebase/database";
 import { ref as strgRef } from "firebase/storage";
