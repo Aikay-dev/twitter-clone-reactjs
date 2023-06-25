@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { Link, Outlet, useNavigate, useParams } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { library } from "@fortawesome/fontawesome-svg-core";
@@ -21,18 +21,22 @@ import { FiLogOut } from "react-icons/fi";
 import { signOut } from "firebase/auth";
 import LeftNav from "./Home/mobile components/LeftNav";
 import BottomNav from "./Home/mobile components/BottomNav";
+import { getTweetDate } from "../utility/dateJoined";
+import LoaderWhite from "../components/LoaderWhite";
+import { ref as strgRef } from "firebase/storage";
+import { ref, update, push } from "firebase/database";
+import { realTimeDatabase } from "../config/firebase";
+import toast, { Toaster } from "react-hot-toast";
+import { storage } from "../config/firebase";
+import { uploadBytes, getDownloadURL } from "firebase/storage";
 
 library.add(fas);
 library.add(fab);
 library.add(far);
 
-const Root = ({
-  authState,
-  setAuthState,
-  currentUser,
-}) => {
+const Root = ({ authState, setAuthState, currentUser }) => {
   const dispatch = useDispatch();
-  console.log(currentUser)
+  console.log(currentUser);
   /* STATE MANAGEMENT */
   const [setNdpriv, setSetNdpriv] = useState(false);
   const [logoutspinner, setLogoutspinner] = useState(false);
@@ -55,6 +59,25 @@ const Root = ({
   const [tweeterBlueTabButtonClicked, settweeterBlueTabButtonClicked] =
     useState(false);
   const [profileTabButtonClicked, setprofileTabButtonClicked] = useState(false);
+  const [profileBlur, setprofileBlur] = useState(false);
+  const tweetTextareaRef = useRef(null);
+  const [imageToUpload, setImageToUpload] = useState(null);
+  const ImageTweetInputRef = useRef(null);
+  const [tweetingLoader, settweetingLoader] = useState(false);
+  const [tweetData, settweetData] = useState({
+    profilePic: currentUser.profile_picture,
+    displayName: currentUser.displayName,
+    username: currentUser.username,
+    tweetText: "",
+    tweetImageLink: "",
+    tweetDate: getTweetDate(),
+    comments: [0],
+    retweets: [0],
+    likes: [0],
+    tweetId: Date.now(),
+  });
+  const [uploadComplete, setUploadComplete] = useState(false);  const timestamp = Date.now();
+  const [imageToGrabLink, setImageToGrabLink] = useState(null);
 
   /* END STATE MANAGEMENT */
   useEffect(() => {
@@ -255,6 +278,120 @@ const Root = ({
   }, [windowHeight]);
 
   /* Manage states based on height */
+  function uploadTweetText(e) {
+    settweetData({ ...tweetData, tweetText: e });
+    return tweetData;
+  }
+
+  function handleImgUpload(e) {
+    setImageToGrabLink(e);
+    const file = e;
+    if (file) {
+      const reader = new FileReader();
+
+      reader.onload = () => {
+        setImageToUpload(reader.result);
+      };
+
+      reader.readAsDataURL(file);
+    }
+  }
+
+  const handleResetUploadImage = () => {
+    ImageTweetInputRef.current.value = null;
+    setImageToUpload(null);
+    setImageToGrabLink(null);
+  };
+
+  function finalUploadTweet() {
+    if (imageToGrabLink !== null) {
+      const fileName = Date.now() + "_" + imageToGrabLink.name;
+      const TweetPics = strgRef(storage, `TweetPictures/${fileName}`);
+      uploadBytes(TweetPics, imageToGrabLink).then((snapshot) => {
+        console.log("Upload complete");
+
+        // Get the download URL of the uploaded file
+        getDownloadURL(snapshot.ref)
+          .then((downloadURL) => {
+            // Update tweetData with the tweetImageLink
+            settweetData((prevData) => ({
+              ...prevData,
+              tweetImageLink: downloadURL,
+            }));
+
+            console.log("File available at: " + downloadURL);
+          })
+          .catch((error) => {
+            console.log("Upload error: " + error.message);
+            settweetingLoader(false);
+          })
+          .finally(() => {
+            console.log(tweetData);
+            setUploadComplete(true);
+          });
+      });
+    } else {
+      pushupTweet();
+    }
+  }
+
+  useEffect(() => {
+    if (uploadComplete) {
+      pushupTweet();
+      console.log(tweetData);
+      setUploadComplete(false);
+    }
+  }, [uploadComplete]);
+
+  function pushupTweet() {
+    settweetData((prevData) => ({
+      ...prevData,
+      tweetId: Date.now(),
+    }));
+    updateTweetNode();
+  }
+
+  const updateNode = (path, newData) => {
+    const dbRef = ref(realTimeDatabase, path);
+    update(dbRef, newData)
+      .then(() => {
+        console.log("Data updated successfully");
+        setprofileBlur(false)
+        toast.success("Tweeted successfully");
+        settweetingLoader(false);
+        setImageToUpload(null);
+        settweetData((prevData) => ({
+          ...prevData,
+          tweetImageLink: "",
+        }));
+        setImageToGrabLink(null);
+        handleTweetFormReset();
+      })
+      .catch((error) => {
+        console.error("Error updating data:", error);
+        settweetingLoader(false);
+      });
+  };
+
+  function updateTweetNode() {
+    updateNode("tweetPool/" + tweetData.tweetId, tweetData);
+    const userTweetsRef = ref(
+      realTimeDatabase,
+      "users/" + currentUser.userId + "/userTweets"
+    );
+    push(userTweetsRef, tweetData.tweetId)
+      .then(() => {
+        console.log("TweetId added to userTweets array.");
+      })
+      .catch((error) => {
+        console.error("Error adding tweetId to userTweets array:", error);
+      });
+  }
+
+  const handleTweetFormReset = () => {
+    tweetTextareaRef.current.value = "";
+  };
+
 
   const page = useParams();
   const navigate = useNavigate();
@@ -267,6 +404,143 @@ const Root = ({
 
   return (
     <>
+      {profileBlur && (
+        <div
+          onClick={(e) => {
+            e.stopPropagation;
+            setprofileBlur(false);
+          }}
+          className=" overflow-y-scroll h-full flex justify-center items-center w-full homepage-auth-overlay fixed z-50"
+        >
+          <div
+            onClick={(e) => {
+              e.stopPropagation();
+            }}
+            className=" bg-black inputtweetdetailbox overflow-hidden relative"
+          >
+            <nav className="text-white p-3 absolute inputtweetdetailboxnav bg-black w-full">
+              <button
+                onClick={() => {
+                  setprofileBlur(false);
+                }}
+                className="text-xl cursor-pointer p-1 rounded-full px-2 flex profileEx"
+              >
+                <FontAwesomeIcon icon="fa-solid fa-xmark" />
+              </button>
+            </nav>
+            <section className="pt-16  overflow-y-scroll text-white px-4 home-main-tweet-section">
+              <div className="flex">
+                <div>
+                  <img
+                    src={currentUser.profile_picture}
+                    alt="user profile image"
+                    className="rounded-full h-10 w-10 mr-3 cursor-pointer"
+                  />
+                </div>
+                <textarea
+                  ref={tweetTextareaRef}
+                  onInput={(e) => {
+                    e.currentTarget.style.height = "auto";
+                    e.currentTarget.style.height = `${e.currentTarget.scrollHeight}px`;
+                    if (
+                      e.currentTarget.clientHeight >
+                      0.4 * window.innerHeight
+                    ) {
+                      e.currentTarget.style.height = `${
+                        0.4 * window.innerHeight
+                      }px`;
+                      e.currentTarget.style.overflowY = "scroll";
+                    } else {
+                      e.currentTarget.style.overflowY = "hidden";
+                    }
+                    if (e.currentTarget.rows > 7) {
+                      e.currentTarget.rows = 7;
+                    }
+                  }}
+                  type="text"
+                  rows="5"
+                  placeholder="What's happening?"
+                  className="w-full text-xl pl-3 outline-none bg-black tweethomepagetextarea"
+                  onChange={(e) => {
+                    uploadTweetText(e.target.value);
+                  }}
+                />
+              </div>
+              <div className="pl-16">
+                {imageToUpload && (
+                  <div className=" h-48 w-full relative">
+                    <button
+                      onClick={() => {
+                        setImageToUpload("");
+                        handleResetUploadImage();
+                      }}
+                      className="text-xl absolute z-10 left-1 top-1 uploadtweetimageex cursor-pointer p-1 rounded-full px-2 flex profileEx"
+                    >
+                      <FontAwesomeIcon icon="fa-solid fa-xmark" />
+                    </button>
+                    <img
+                      src={imageToUpload}
+                      alt=""
+                      className="uploadtweetimage absolute "
+                    />
+                  </div>
+                )}
+              </div>
+              <div className="mt-7 bg-black pb-3 tweetwebluttext ">
+                <FontAwesomeIcon icon="fa-solid fa-earth-americas" /> Everyone
+                can reply
+              </div>
+            </section>
+            <section className="px-4 py-3  w-full bottom-0">
+              <div className="flex mt-6 justify-between items-center home-main-tweet-section-bottom">
+                <div className="flex gap-3">
+                  <input
+                    ref={ImageTweetInputRef}
+                    accept="image/*"
+                    onChange={(e) => {
+                      handleImgUpload(e.target.files[0]);
+                    }}
+                    className="hidden"
+                    type="file"
+                    name="uploadImage"
+                    id="uploadImage"
+                  />
+                  <label htmlFor="uploadImage" className=" cursor-pointer">
+                    <FontAwesomeIcon icon="fa-regular fa-image" />
+                  </label>
+                  <div className=" cursor-pointer">
+                    <FontAwesomeIcon icon="fa-regular fa-calendar-days" />
+                  </div>
+                </div>
+
+                <button
+                  onClick={() => {
+                    if (
+                      tweetData.tweetText.length > 0 ||
+                      imageToUpload !== null
+                    ) {
+                      settweetingLoader(true);
+                      finalUploadTweet();
+                      console.log(tweetData);
+                      console.log(tweetTextareaRef);
+                    } else {
+                      console.log("not uploading");
+                    }
+                  }}
+                  className=" flex justify-center items-center home-main-tweet-section-button text-white px-4 rounded-full py-1 font-semibold"
+                >
+                  {!tweetingLoader && "Tweet"}
+                  {tweetingLoader && (
+                    <div className="flex w-11 h-6 justify-center items-center">
+                      <LoaderWhite />
+                    </div>
+                  )}
+                </button>
+              </div>
+            </section>
+          </div>
+        </div>
+      )}
       {homeLogoutCard && (
         <div className=" flex justify-center items-center homepage-auth-overlay h-full w-full absolute z-50">
           <div className="bg-black flex flex-col text-white  w-80 rounded-2xl p-5 ">
@@ -485,6 +759,9 @@ const Root = ({
             <div className="home-bottom-nav-holder">
               {authState && (
                 <button
+                  onClick={() => {
+                    setprofileBlur(true);
+                  }}
                   aria-label="Tweet"
                   className="home-nav-tweet-button rounded-full font-semibold"
                 >
@@ -505,16 +782,22 @@ const Root = ({
                   <div className="flex items-center">
                     <div className="home-nav-profile-image relative">
                       <img
-                        src={currentUser?currentUser.profile_picture:"https://picsum.photos/200/300"}
+                        src={
+                          currentUser
+                            ? currentUser.profile_picture
+                            : "https://picsum.photos/200/300"
+                        }
                         alt="user profile image"
                         className="rounded-full h-10 w-10"
                       />
                     </div>
                     <div className="home-nav-acc-button-user">
                       <p className="home-nav-displayname font-semibold">
-                        {currentUser?currentUser.displayName:"user"}
+                        {currentUser ? currentUser.displayName : "user"}
                       </p>
-                      <p className="home-nav-username">{currentUser?currentUser.username:"@user"}</p>
+                      <p className="home-nav-username">
+                        {currentUser ? currentUser.username : "@user"}
+                      </p>
                     </div>
                   </div>
                   <div className="home-nav-acc-button-ellips">
@@ -526,7 +809,7 @@ const Root = ({
           </section>
           {authState &&
             (currentLocation === "/Home/" || currentLocation === "/Home") && (
-              <Home />
+              <Home profileBlur={profileBlur} setprofileBlur={setprofileBlur} />
             )}
           {<Outlet />}
         </div>

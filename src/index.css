@@ -651,8 +651,8 @@
   background-color: var(--blueText);
 }
 
-.tweetcardprofilenameanddisplayholder::-webkit-scrollbar{
-display: none;
+.tweetcardprofilenameanddisplayholder::-webkit-scrollbar {
+  display: none;
 }
 
 .main-tweeter-loading {
@@ -667,9 +667,14 @@ display: none;
 
 .tweethomepagetextarea {
   resize: none;
-  overflow: hidden;
   height: auto;
   min-height: 2em;
+  max-height: 80vh;
+  overflow-y: visible;
+}
+
+.tweethomepagetextarea::-webkit-scrollbar {
+  display: none;
 }
 
 @keyframes ldio-n8lfyh0swjf {
@@ -720,7 +725,12 @@ display: none;
 
 .home-main-tweet-section {
   border-bottom: var(--homeBorder);
+  max-height: 80vh;
 }
+
+/* .home-main-tweet-section::-webkit-scrollbar {
+  display: none;
+} */
 
 .section1-main-explore:hover,
 .section1-main-setting:hover,
@@ -912,7 +922,7 @@ display: none;
   color: var(--homeLabelColor);
 }
 
-.bookmarkheader{
+.bookmarkheader {
   border-bottom: var(--homeBorder);
 }
 
@@ -1382,20 +1392,39 @@ display: none;
   border-radius: 20px;
 }
 
+.inputtweetdetailbox {
+  min-height: 350px;
+  width: 600px;
+  border-radius: 20px;
+  max-height: 95vh;
+}
+
+.tweetwebluttext {
+  color: var(--blueText);
+}
+
+.inputtweetdetailboxnav {
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+}
+
 .saveprofilebuttton:hover {
   background: whitesmoke;
 }
 
-.notificationmainsection::-webkit-scrollbar-track {
+.notificationmainsection::-webkit-scrollbar-track,
+.home-main-tweet-section::-webkit-scrollbar-track {
   background-color: rgb(20, 20, 20);
 }
 
-.notificationmainsection::-webkit-scrollbar-thumb {
+.notificationmainsection::-webkit-scrollbar-thumb,
+.home-main-tweet-section::-webkit-scrollbar-thumb {
   background-color: var(--blueText);
   border-radius: 30px;
 }
 
-.bookmarkmainsection::-webkit-scrollbar {
+.bookmarkmainsection::-webkit-scrollbar,
+.home-main-tweet-section::-webkit-scrollbar {
   width: 10px;
 }
 
@@ -1655,6 +1684,16 @@ display: none;
   .inputprofiledetailbox {
     height: 100%;
     width: 100%;
+    border-radius: 0;
+  }
+
+  .inputtweetdetailbox {
+    min-height: 100vh;
+    width: 100%;
+    border-radius: 0;
+  }
+
+  .inputtweetdetailboxnav{
     border-radius: 0;
   }
 

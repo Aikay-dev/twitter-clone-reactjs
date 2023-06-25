@@ -19,8 +19,6 @@ library.add(far);
 const HomepageTweetStream = () => {
   const [tweets, setTweets] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [tweetGrabbed, setTweetGrabbed] = useState(false);
-  const [tweetrev, setTweetrev] = useState(false);
 
   useEffect(() => {
     setIsLoading(true);
@@ -36,30 +34,38 @@ const HomepageTweetStream = () => {
   // Function to load initial tweets
   const loadInitialTweets = () => {
     const tweetPoolRef = ref(realTimeDatabase, "tweetPool");
+    let tweetPoolListener; // Declare a variable to store the listener reference
+  
     return new Promise((resolve, reject) => {
-      onValue(
+      tweetPoolListener = onValue(
         tweetPoolRef,
         (snapshot) => {
           const tweetPoolData = snapshot.val();
           const tweetKeys = Object.keys(tweetPoolData);
           const sortedKeys = tweetKeys.sort((a, b) => {
-            // Sort the keys based on the timestamp in descending order
-            return tweetPoolData[b].timestamp - tweetPoolData[a].timestamp;
+            // Sort the keys based on the timestamp in ascending order
+            return tweetPoolData[a].timestamp - tweetPoolData[b].timestamp;
           });
-          const initialTweets = sortedKeys
+          const last20Keys = sortedKeys.slice(-20); // Get the last 20 keys
+          const initialTweets = last20Keys
             .map((key) => tweetPoolData[key])
-            .slice(0, 20)
             .reverse();
           setTweets(initialTweets);
           setIsLoading(false);
           console.log(initialTweets);
-
+  
           resolve();
         },
         reject
       );
+    }).finally(() => {
+      // Call off() to stop receiving updates
+      if (tweetPoolListener) {
+        off(tweetPoolListener);
+      }
     });
   };
+  
 
   return (
     <>

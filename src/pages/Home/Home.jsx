@@ -25,9 +25,8 @@ library.add(fas);
 library.add(fab);
 library.add(far);
 
-const Home = () => {
+const Home = ({ profileBlur, setprofileBlur }) => {
   const dispatch = useDispatch();
-  const [randTweetId, setrandTweetId] = useState(generateRandomString(20));
   const mobNavleft = useSelector((state) => state.mobNavleft.value);
   const [ForyouTab, setForyouTab] = useState(true);
   const [FollowingTab, setFollowingTab] = useState(false);
@@ -49,9 +48,7 @@ const Home = () => {
   const [imageToGrabLink, setImageToGrabLink] = useState(null);
   const [tweetingLoader, settweetingLoader] = useState(false);
   const tweetTextareaRef = useRef(null);
-  const [uploadComplete, setUploadComplete] = useState(false);
-
-  const timestamp = Date.now();
+  const [uploadComplete, setUploadComplete] = useState(false);  const timestamp = Date.now();
   console.log(timestamp);
 
   function uploadTweetText(e) {
@@ -351,10 +348,15 @@ const Home = () => {
           <section className="main-tweet-flow-section">
             {ForyouTab && <HomepageTweetStream />}
             {FollowingTab && <FollowingTweetStream />}
-            <div className="h-20"></div>
+            <div className=" h-52"></div>
           </section>
         </div>
-        <button className="floating-tweet-button text-white w-10 h-10 fixed justify-center items-center rounded-full">
+        <button
+          onClick={() => {
+            setprofileBlur(true);
+          }}
+          className="floating-tweet-button text-white w-10 h-10 fixed justify-center items-center rounded-full"
+        >
           <FaFeatherAlt />
         </button>
       </section>
