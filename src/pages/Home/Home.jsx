@@ -20,6 +20,7 @@ import { ref, update, push } from "firebase/database";
 import { realTimeDatabase } from "../../config/firebase";
 import toast, { Toaster } from "react-hot-toast";
 import HomepageTweetStream from "../../database/HomepageTweetStream";
+import WhiteStripeLoader from "../../components/WhiteStripeLoader";
 
 library.add(fas);
 library.add(fab);
@@ -54,7 +55,10 @@ const Home = ({ profileBlur, setprofileBlur }) => {
     "absolute  morenewtweetsbutton px-4 py-2 rounded-full"
   );
   const [tweetLoaded, setTweetLoaded] = useState(false);
-    const [loadMoreTweets, setloadMoreTweets] = useState(false)
+  const [loadMoreTweets, setloadMoreTweets] = useState(false);
+  const [loadingOldTweets, setloadingOldTweets] = useState(false)
+  
+  
   function uploadTweetText(e) {
     settweetData({ ...tweetData, tweetText: e });
     return tweetData;
@@ -377,18 +381,32 @@ const Home = ({ profileBlur, setprofileBlur }) => {
                 dispatchNewTweets={dispatchNewTweets}
                 tweetLoaded={tweetLoaded}
                 setTweetLoaded={setTweetLoaded}
-                setloadMoreTweets = {setloadMoreTweets}
-                loadMoreTweets = {loadMoreTweets}
+                setloadMoreTweets={setloadMoreTweets}
+                loadMoreTweets={loadMoreTweets}
               />
             )}
             {FollowingTab && <FollowingTweetStream />}
             <div className=" h-52 flex justify-center pt-2">
               {tweetLoaded && (
-                <button onClick={() => {
-                  setloadMoreTweets(true)
-                }} className="h-8 px-3 text-sm bluebackground rounded-full">
-                  <FontAwesomeIcon icon="fa-solid fa-arrow-rotate-right" /> Load
-                  more Tweets
+                <button
+                  onClick={() => {
+                    setloadingOldTweets(true)
+                    setTimeout(() => {
+                      setloadingOldTweets(false)
+                    }, 1000);
+                    if(!loadingOldTweets){
+                      setloadMoreTweets(true);
+                    }
+                  }}
+                  className="h-8 px-3 text-sm bluebackground rounded-full"
+                >
+                  {!loadingOldTweets && (
+                    <p>
+                      <FontAwesomeIcon icon="fa-solid fa-arrow-rotate-right" />{" "}
+                      Load more Tweets
+                    </p>
+                  )}
+                  {loadingOldTweets && <WhiteStripeLoader />}
                 </button>
               )}
             </div>
