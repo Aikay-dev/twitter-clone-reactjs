@@ -179,7 +179,7 @@ const HomepageTweetStream = ({
                       </div>
                     </div>
                     <div className="main-tweet-card-content overflow-x-hidden">
-                      <p>{tweetsItems.tweetText}</p>
+                      <p style={{whiteSpace: 'pre-line'}}>{tweetsItems.tweetText}</p>
                       {tweetsItems.tweetImageLink.length > 0 && (
                         <img
                           src={tweetsItems.tweetImageLink}
