@@ -394,7 +394,7 @@ function FullTweet() {
             </div>
           </section>
           <section>
-            <CommentTweet/>
+            <CommentTweet fulltweetData ={fulltweetData}/>
           </section>
         </section>
       </section>
