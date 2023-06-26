@@ -201,7 +201,7 @@ const HomepageTweetStream = ({
                           <div className="p p-1.5 rounded-full main-comment-icon-surround">
                             <FaRegCommentDots />
                           </div>
-                          <span>{tweetsItems.comments.length - 1}</span>
+                          <span>{ Object.keys(tweetsItems.comments).length - 1}</span>
                         </button>
                         <button
                           className="flex gap-3 items-center main-tweet-retweet-icon"
