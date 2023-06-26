@@ -80,7 +80,7 @@ const UserTweets = () => {
               <Link
                 key={item.tweetId}
                 to={
-                  "/Home/User/" +
+                  "/Home/" +
                   item.username +
                   "/" +
                   item.tweetId

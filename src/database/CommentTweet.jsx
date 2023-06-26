@@ -49,22 +49,28 @@ const CommentTweet = ({ fulltweetData }) => {
     }
     console.log(fulltweetData)
   }, [fulltweetData]);
+  const [isFirstData, setisFirstData] = useState(true)
+  let counter = 0; // Counter to track the number of received data
 
-  function rtdbUsrTwtsRqsts(id) {
-    const TweetDataref = ref(realTimeDatabase, `commentTweetPool/${id}`);
-    onValue(TweetDataref, (snapshot) => {
-      const data = snapshot.val();
-      console.log(data);
-      settweetsCardData((prevData) => [...prevData, data]); // Use functional update to avoid repeated data
-    });
-  }
+function rtdbUsrTwtsRqsts(id) {
+  const TweetDataref = ref(realTimeDatabase, `commentTweetPool/${id}`);
 
-  useEffect(() => {
-    // Perform actions with the updated tweetsCardData
-    console.log(tweetsCardData);
-    tweetsCardData;
-    console.log(tweetsCardData.length);
-  }, [tweetsCardData]);
+  onValue(TweetDataref, (snapshot) => {
+    const data = snapshot.val();
+    console.log("Checking id:", data.tweetId);
+
+    if (counter % 2 === 0) {
+      // Add data when the counter is even
+      settweetsCardData(previousData => [...previousData, data]);
+    }
+
+    counter++; // Increment the counter for the next data
+    console.log("counter:", counter);
+  });
+}
+
+  
+  
 
   return (
     <>
@@ -86,7 +92,12 @@ const CommentTweet = ({ fulltweetData }) => {
             <React.Fragment key={item.tweetId}>
               <Link
                 key={item.tweetId}
-                to={"/Home/User/" + item.username + "/" + item.tweetId}
+                to={
+                    "/Home/" +
+                    item.username +
+                    "/" +
+                    item.tweetId
+                  }
                 className="main-tweet-card w-full relative cursor-pointer flex"
               >
                 <div className="mt-3 ml-4 main-tweet-card-first-half">

@@ -21,6 +21,7 @@ import { ref as strgRef } from "firebase/storage";
 import { storage } from "../config/firebase";
 import { uploadBytes, getDownloadURL } from "firebase/storage";
 import CommentTweet from "../database/CommentTweet";
+import Loader from "./auth/components/Loader";
 
 library.add(fas);
 library.add(fab);
@@ -52,18 +53,39 @@ function FullTweet() {
     likes: [0],
     tweetId: Date.now(),
   });
-
-  console.log(tweetTime(timestamp));
-  console.log(timestamp);
+  const [commentTweet, setcommentTweet] = useState(false);
+  const [loadedFullTweet, setLoadedFullTweet] = useState(false);
 
   useEffect(() => {
-    const tweetPoolRef = ref(realTimeDatabase, `tweetPool/${timestamp}`);
-    onValue(tweetPoolRef, (snapshot) => {
-      const data = snapshot.val();
-      console.log(data);
-      setfulltweetData(data);
-    });
+    if (!loadedFullTweet) {
+      const tweetPoolRef = ref(realTimeDatabase, `tweetPool/${timestamp}`);
+      onValue(tweetPoolRef, (snapshot) => {
+        const data = snapshot.val();
+        console.log(data);
+        if (data) {
+          setLoadedFullTweet(true);
+          setfulltweetData(data);
+        } else {
+          console.log("Data not found");
+          setcommentTweet(true);
+        }
+      });
+    }
   }, []);
+
+  useEffect(() => {
+    if (commentTweet) {
+      const tweetPoolRef = ref(
+        realTimeDatabase,
+        `commentTweetPool/${timestamp}`
+      );
+      onValue(tweetPoolRef, (snapshot) => {
+        const data = snapshot.val();
+        console.log(data);
+        setfulltweetData(data);
+      });
+    }
+  }, [commentTweet]);
 
   function tweetTime(timestamp) {
     const date = new Date(timestamp);
@@ -160,7 +182,7 @@ function FullTweet() {
             settweetingLoader(false);
           })
           .finally(() => {
-            setUploadComplete(true)
+            setUploadComplete(true);
             console.log(tweetData);
           });
       });
@@ -234,169 +256,181 @@ function FullTweet() {
           <p className=" font-semibold text-xl">Tweet</p>
         </nav>
 
-        <section className="pt-20 pb-20 homepage-center-info overflow-y-scroll h-full">
-          <div className="flex justify-between px-3">
-            <div className="flex ">
-              <div>
-                <img
-                  src={fulltweetData !== null ? fulltweetData.profilePic : ""}
-                  alt="user profile image"
-                  className="rounded-full h-10 w-10 max-w-14 mr-5 cursor-pointer main-card-profile-pic"
-                />
-              </div>
-              <div>
-                <p className=" font-bold">
-                  {fulltweetData !== null ? fulltweetData.displayName : ""}
-                </p>
-                <p className="text-sm homelabelcolor">
-                  {fulltweetData !== null ? fulltweetData.username : ""}
-                </p>
-              </div>
-            </div>
-            <button className="ml-4 ellipseinFullTweet flex w-8 h-8 rounded-full justify-center items-center">
-              <FontAwesomeIcon icon="fa-solid fa-ellipsis" />
-            </button>
-          </div>
-          <div style={{ whiteSpace: "pre-wrap" }} className="px-3 pt-4">
-            {fulltweetData !== null ? fulltweetData.tweetText : ""}
-          </div>
-          {fulltweetData !== null
-            ? fulltweetData.tweetImageLink && (
-                <div className=" mt-5 px-3 fulltweetcardimage justify-center flex items-center">
+        {loadedFullTweet && (
+          <section className="pt-20 pb-20 homepage-center-info overflow-y-scroll h-full">
+            <div className="flex justify-between px-3">
+              <div className="flex ">
+                <div>
                   <img
-                    src={
-                      fulltweetData !== null ? fulltweetData.tweetImageLink : ""
-                    }
-                    alt=""
-                    className="main-tweet-image-tweetfull"
+                    src={fulltweetData !== null ? fulltweetData.profilePic : ""}
+                    alt="user profile image"
+                    className="rounded-full h-10 w-10 max-w-14 mr-5 cursor-pointer main-card-profile-pic"
                   />
                 </div>
-              )
-            : ""}
-          <div className="py-3 px-3 flex gap-2 items-center homelabelcolor">
-            <div className=" text-sm ">{tweetTime(Number(timestamp))}</div>
-            <div className="dotfontawe">
-              <FontAwesomeIcon icon="fa-solid fa-circle" />
-            </div>
-            <div className=" text-sm homelabelcolor">
-              {formatDate(Number(timestamp))}
-            </div>
-          </div>
-          <div className="flex justify-around items-center homelabelcolor text-xl mx-3 py-1 tweetfullactionsection">
-            <div className="p-3 cursor-pointer rounded-full main-tweet-comment-icon main-tweet-comment-icon-background">
-              <FaRegComment />
-            </div>
-            <div className="p-3 cursor-pointer rounded-full main-tweet-retweet-icon main-tweet-retweet-icon-background">
-              <FaRetweet />
-            </div>
-            <div className="p-3 cursor-pointer rounded-full main-tweet-like-icon main-tweet-like-icon-background">
-              <AiOutlineHeart />
-            </div>
-            <div className="p-3 text-lg cursor-pointer rounded-full main-tweet-comment-icon main-tweet-comment-icon-background">
-              <BsBookmark />
-            </div>
-          </div>
-          <div className="text-sm ml-16 pt-2">
-            <span className="homelabelcolor">Replying to </span>
-            {fulltweetData && <Link to={"/Home/"+ fulltweetData.username} className="bluetext cursor-pointer">{fulltweetData.username}</Link>}
-          </div>
-          <section className="py-3 px-3 home-main-tweet-section">
-            <div className="flex">
-              <div>
-                <img
-                  src={currentUser.profile_picture}
-                  alt="user profile image"
-                  className="rounded-full h-10 w-10 mr-3 cursor-pointer"
-                />
-              </div>
-              <textarea
-                ref={tweetTextareaRef}
-                onInput={(e) => {
-                  e.currentTarget.style.height = "auto";
-                  e.currentTarget.style.height = `${e.currentTarget.scrollHeight}px`;
-                  if (e.currentTarget.rows > 7) {
-                    e.currentTarget.rows = 7;
-                  }
-                }}
-                type="text"
-                rows="1"
-                placeholder="What's happening?"
-                className="w-full text-xl pl-3 outline-none bg-black tweethomepagetextarea"
-                onChange={(e) => {
-                  uploadTweetText(e.target.value);
-                }}
-              />
-            </div>
-            <div className="pl-16">
-              {imageToUpload && (
-                <div className=" h-48 w-full relative">
-                  <button
-                    onClick={() => {
-                      setImageToUpload("");
-                      handleResetUploadImage();
-                    }}
-                    className="text-xl absolute z-10 left-1 top-1 uploadtweetimageex cursor-pointer p-1 rounded-full px-2 flex profileEx"
-                  >
-                    <FontAwesomeIcon icon="fa-solid fa-xmark" />
-                  </button>
-                  <img
-                    src={imageToUpload}
-                    alt=""
-                    className="uploadtweetimage absolute "
-                  />
-                </div>
-              )}
-            </div>
-            <div className="flex mt-6 justify-between items-center home-main-tweet-section-bottom">
-              <div className="flex pl-16 gap-3">
-                <input
-                  ref={ImageTweetInputRef}
-                  accept="image/*"
-                  onChange={(e) => {
-                    handleImgUpload(e.target.files[0]);
-                  }}
-                  className="hidden"
-                  type="file"
-                  name="uploadImage"
-                  id="uploadImage"
-                />
-                <label htmlFor="uploadImage" className=" cursor-pointer">
-                  <FontAwesomeIcon icon="fa-regular fa-image" />
-                </label>
-                <div className=" cursor-pointer">
-                  <FontAwesomeIcon icon="fa-regular fa-calendar-days" />
+                <div>
+                  <p className=" font-bold">
+                    {fulltweetData !== null ? fulltweetData.displayName : ""}
+                  </p>
+                  <p className="text-sm homelabelcolor">
+                    {fulltweetData !== null ? fulltweetData.username : ""}
+                  </p>
                 </div>
               </div>
-
-              <button
-                onClick={() => {
-                  if (
-                    tweetData.tweetText.length > 0 ||
-                    imageToUpload !== null
-                  ) {
-                    settweetingLoader(true);
-                    finalUploadTweet();
-                    console.log(tweetData);
-                    console.log(tweetTextareaRef);
-                  } else {
-                    console.log("not uploading");
-                  }
-                }}
-                className=" flex justify-center items-center home-main-tweet-section-button text-white px-4 rounded-full py-1 font-semibold"
-              >
-                {!tweetingLoader && "Comment"}
-                {tweetingLoader && (
-                  <div className="flex w-16 h-6 justify-center items-center">
-                    <LoaderWhite />
-                  </div>
-                )}
+              <button className="ml-4 ellipseinFullTweet flex w-8 h-8 rounded-full justify-center items-center">
+                <FontAwesomeIcon icon="fa-solid fa-ellipsis" />
               </button>
             </div>
+            <div style={{ whiteSpace: "pre-wrap" }} className="px-3 pt-4">
+              {fulltweetData !== null ? fulltweetData.tweetText : ""}
+            </div>
+            {fulltweetData !== null
+              ? fulltweetData.tweetImageLink && (
+                  <div className=" mt-5 px-3 fulltweetcardimage justify-center flex items-center">
+                    <img
+                      src={
+                        fulltweetData !== null
+                          ? fulltweetData.tweetImageLink
+                          : ""
+                      }
+                      alt=""
+                      className="main-tweet-image-tweetfull"
+                    />
+                  </div>
+                )
+              : ""}
+            <div className="py-3 px-3 flex gap-2 items-center homelabelcolor">
+              <div className=" text-sm ">{tweetTime(Number(timestamp))}</div>
+              <div className="dotfontawe">
+                <FontAwesomeIcon icon="fa-solid fa-circle" />
+              </div>
+              <div className=" text-sm homelabelcolor">
+                {formatDate(Number(timestamp))}
+              </div>
+            </div>
+            <div className="flex justify-around items-center homelabelcolor text-xl mx-3 py-1 tweetfullactionsection">
+              <div className="p-3 cursor-pointer rounded-full main-tweet-comment-icon main-tweet-comment-icon-background">
+                <FaRegComment />
+              </div>
+              <div className="p-3 cursor-pointer rounded-full main-tweet-retweet-icon main-tweet-retweet-icon-background">
+                <FaRetweet />
+              </div>
+              <div className="p-3 cursor-pointer rounded-full main-tweet-like-icon main-tweet-like-icon-background">
+                <AiOutlineHeart />
+              </div>
+              <div className="p-3 text-lg cursor-pointer rounded-full main-tweet-comment-icon main-tweet-comment-icon-background">
+                <BsBookmark />
+              </div>
+            </div>
+            <div className="text-sm ml-16 pt-2">
+              <span className="homelabelcolor">Replying to </span>
+              {fulltweetData && (
+                <Link
+                  to={"/Home/" + fulltweetData.username}
+                  className="bluetext cursor-pointer"
+                >
+                  {fulltweetData.username}
+                </Link>
+              )}
+            </div>
+            <section className="py-3 px-3 home-main-tweet-section">
+              <div className="flex">
+                <div>
+                  <img
+                    src={currentUser.profile_picture}
+                    alt="user profile image"
+                    className="rounded-full h-10 w-10 mr-3 cursor-pointer"
+                  />
+                </div>
+                <textarea
+                  ref={tweetTextareaRef}
+                  onInput={(e) => {
+                    e.currentTarget.style.height = "auto";
+                    e.currentTarget.style.height = `${e.currentTarget.scrollHeight}px`;
+                    if (e.currentTarget.rows > 7) {
+                      e.currentTarget.rows = 7;
+                    }
+                  }}
+                  type="text"
+                  rows="1"
+                  placeholder="What's happening?"
+                  className="w-full text-xl pl-3 outline-none bg-black tweethomepagetextarea"
+                  onChange={(e) => {
+                    uploadTweetText(e.target.value);
+                  }}
+                />
+              </div>
+              <div className="pl-16">
+                {imageToUpload && (
+                  <div className=" h-48 w-full relative">
+                    <button
+                      onClick={() => {
+                        setImageToUpload("");
+                        handleResetUploadImage();
+                      }}
+                      className="text-xl absolute z-10 left-1 top-1 uploadtweetimageex cursor-pointer p-1 rounded-full px-2 flex profileEx"
+                    >
+                      <FontAwesomeIcon icon="fa-solid fa-xmark" />
+                    </button>
+                    <img
+                      src={imageToUpload}
+                      alt=""
+                      className="uploadtweetimage absolute "
+                    />
+                  </div>
+                )}
+              </div>
+              <div className="flex mt-6 justify-between items-center home-main-tweet-section-bottom">
+                <div className="flex pl-16 gap-3">
+                  <input
+                    ref={ImageTweetInputRef}
+                    accept="image/*"
+                    onChange={(e) => {
+                      handleImgUpload(e.target.files[0]);
+                    }}
+                    className="hidden"
+                    type="file"
+                    name="uploadImage"
+                    id="uploadImage"
+                  />
+                  <label htmlFor="uploadImage" className=" cursor-pointer">
+                    <FontAwesomeIcon icon="fa-regular fa-image" />
+                  </label>
+                  <div className=" cursor-pointer">
+                    <FontAwesomeIcon icon="fa-regular fa-calendar-days" />
+                  </div>
+                </div>
+
+                <button
+                  onClick={() => {
+                    if (
+                      tweetData.tweetText.length > 0 ||
+                      imageToUpload !== null
+                    ) {
+                      settweetingLoader(true);
+                      finalUploadTweet();
+                      console.log(tweetData);
+                      console.log(tweetTextareaRef);
+                    } else {
+                      console.log("not uploading");
+                    }
+                  }}
+                  className=" flex justify-center items-center home-main-tweet-section-button text-white px-4 rounded-full py-1 font-semibold"
+                >
+                  {!tweetingLoader && "Comment"}
+                  {tweetingLoader && (
+                    <div className="flex w-16 h-6 justify-center items-center">
+                      <LoaderWhite />
+                    </div>
+                  )}
+                </button>
+              </div>
+            </section>
+            <section>
+              <CommentTweet fulltweetData={fulltweetData} />
+            </section>
           </section>
-          <section>
-            <CommentTweet fulltweetData ={fulltweetData}/>
-          </section>
-        </section>
+        )}
+        {!loadedFullTweet && <Loader />}
       </section>
 
       <HomeRight />
