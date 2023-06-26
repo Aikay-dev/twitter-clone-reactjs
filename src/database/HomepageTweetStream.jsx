@@ -23,7 +23,7 @@ const HomepageTweetStream = ({
   tweetLoaded,
   setTweetLoaded,
   setloadMoreTweets,
-  loadMoreTweets
+  loadMoreTweets,
 }) => {
   const [tweets, setTweets] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -41,10 +41,10 @@ const HomepageTweetStream = ({
   }, []);
 
   useEffect(() => {
-    if(loadMoreTweets){
-      loadNextTweets()
+    if (loadMoreTweets) {
+      loadNextTweets();
     }
-  }, [loadMoreTweets])
+  }, [loadMoreTweets]);
 
   useEffect(() => {
     loadInitialTweets();
@@ -179,7 +179,9 @@ const HomepageTweetStream = ({
                       </div>
                     </div>
                     <div className="main-tweet-card-content overflow-x-hidden">
-                      <p style={{whiteSpace: 'pre-line'}}>{tweetsItems.tweetText}</p>
+                      <p style={{ whiteSpace: "pre-line" }}>
+                        {tweetsItems.tweetText}
+                      </p>
                       {tweetsItems.tweetImageLink.length > 0 && (
                         <img
                           src={tweetsItems.tweetImageLink}

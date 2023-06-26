@@ -18,6 +18,8 @@ import SignUp from "./auth/SignUp";
 import SearchBar from "../components/SearchBar";
 import { auth, signInWithGoogle } from "../config/firebase";
 import { mobileNavLeftState } from "../store";
+import Loader from "./auth/components/Loader";
+
 
 library.add(fas);
 library.add(fab);
@@ -29,6 +31,7 @@ const Explore = () => {
   console.log(currentUser)
   const ifBlur = useSelector((state) => state.user.value.display);
   const [showSignUpCard, setshowSignUpCard] = useState(false);
+  const [happeningDataLoaded, sethappeningDataLoaded] = useState(false)
   const googleSignButton = (
     <div className="flex items-center justify-center">
       <img src={googleIcon} alt="" className="h-8 flex w-8" />
@@ -121,7 +124,8 @@ const Explore = () => {
             <p className="homepage-center-whats-happening-head px-3 font-extrabold">
               What's happening
             </p>
-            <Happening />
+            <Happening happeningDataLoaded = {happeningDataLoaded} sethappeningDataLoaded = {sethappeningDataLoaded} />
+            {!happeningDataLoaded && <Loader/>}
             <div className="mb-40 pl-3 h-14 flex items-center cursor-pointer homepage-center-whats-happening-showmore">
               Show more
             </div>

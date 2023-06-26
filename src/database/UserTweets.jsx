@@ -106,7 +106,7 @@ const UserTweets = () => {
                     </div>
                   </div>
                   <div className="main-tweet-card-content overflow-x-hidden">
-                    <p>{item.tweetText}</p>
+                    <p style={{ whiteSpace: "pre-line" }}>{item.tweetText}</p>
                     {item.tweetImageLink.length > 0 && (
                       <img
                         src={item.tweetImageLink}

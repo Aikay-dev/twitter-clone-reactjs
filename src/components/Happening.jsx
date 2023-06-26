@@ -12,7 +12,7 @@ library.add(fas);
 library.add(fab);
 library.add(far);
 
-const Happening = () => {
+const Happening = ({ happeningDataLoaded, sethappeningDataLoaded }) => {
   const [sportData, setSportData] = useState([]);
 
   useEffect(() => {
@@ -20,6 +20,8 @@ const Happening = () => {
       .get("https://api.openligadb.de/getmatchdata/bl1/2020/8")
       .then((response) => {
         setSportData(response.data);
+        sethappeningDataLoaded(true)
+        console.log("loaded")
       })
       .catch((error) => {
         console.log(error);
@@ -56,7 +58,11 @@ const Happening = () => {
             className="homepage-center-whats-happening-card-main-team-1 flex items-center justify-between  rounded-t-md"
           >
             <div className="flex pl-2 overflow-hidden items-center">
-              <img src={matches.team1.teamIconUrl} alt="" className="h-10 w-10" />
+              <img
+                src={matches.team1.teamIconUrl}
+                alt=""
+                className="h-10 w-10"
+              />
               <p className="homepage-center-whats-happening-card-main-team-1-name px-5 py-3 font-extrabold">
                 {matches.team1.teamName}
               </p>
@@ -70,7 +76,11 @@ const Happening = () => {
             className="homepage-center-whats-happening-card-main-team-2 flex items-center justify-between font-extrabold rounded-b-md"
           >
             <div className="flex pl-2 overflow-hidden items-center">
-              <img src={matches.team2.teamIconUrl} alt="" className="h-10 w-10" />
+              <img
+                src={matches.team2.teamIconUrl}
+                alt=""
+                className="h-10 w-10"
+              />
               <p className="homepage-center-whats-happening-card-main-team-2-name px-5 py-3">
                 {matches.team2.teamName}
               </p>
@@ -84,7 +94,7 @@ const Happening = () => {
     );
   });
 
-  return <>{scoreCards}</>;
+  return <>{happeningDataLoaded && scoreCards}</>;
 };
 
 export default Happening;
