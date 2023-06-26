@@ -54,7 +54,7 @@ const Home = ({ profileBlur, setprofileBlur }) => {
     "absolute  morenewtweetsbutton px-4 py-2 rounded-full"
   );
   const [tweetLoaded, setTweetLoaded] = useState(false);
-
+    const [loadMoreTweets, setloadMoreTweets] = useState(false)
   function uploadTweetText(e) {
     settweetData({ ...tweetData, tweetText: e });
     return tweetData;
@@ -377,12 +377,16 @@ const Home = ({ profileBlur, setprofileBlur }) => {
                 dispatchNewTweets={dispatchNewTweets}
                 tweetLoaded={tweetLoaded}
                 setTweetLoaded={setTweetLoaded}
+                setloadMoreTweets = {setloadMoreTweets}
+                loadMoreTweets = {loadMoreTweets}
               />
             )}
             {FollowingTab && <FollowingTweetStream />}
             <div className=" h-52 flex justify-center pt-2">
               {tweetLoaded && (
-                <button className="h-8 px-3 text-sm bluebackground rounded-full">
+                <button onClick={() => {
+                  setloadMoreTweets(true)
+                }} className="h-8 px-3 text-sm bluebackground rounded-full">
                   <FontAwesomeIcon icon="fa-solid fa-arrow-rotate-right" /> Load
                   more Tweets
                 </button>

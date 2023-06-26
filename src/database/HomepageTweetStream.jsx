@@ -22,6 +22,8 @@ const HomepageTweetStream = ({
   setnewtweetsbuttonAnimation,
   tweetLoaded,
   setTweetLoaded,
+  setloadMoreTweets,
+  loadMoreTweets
 }) => {
   const [tweets, setTweets] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -37,6 +39,12 @@ const HomepageTweetStream = ({
       off(tweetPoolRef);
     };
   }, []);
+
+  useEffect(() => {
+    if(loadMoreTweets){
+      loadNextTweets()
+    }
+  }, [loadMoreTweets])
 
   useEffect(() => {
     loadInitialTweets();
@@ -61,9 +69,45 @@ const HomepageTweetStream = ({
             .reverse();
           setTweets(initialTweets);
           setIsLoading(false);
-          console.log(initialTweets);
+          console.log(tweets);
           setTweetLoaded(true);
           UpdateListener();
+        })
+        .catch(reject);
+    });
+  };
+
+  let lastFetchedKey = tweets[19];
+
+  const loadNextTweets = () => {
+    const tweetPoolRef = ref(realTimeDatabase, "tweetPool");
+
+    return new Promise((resolve, reject) => {
+      get(tweetPoolRef)
+        .then((snapshot) => {
+          const tweetPoolData = snapshot.val();
+          const tweetKeys = Object.keys(tweetPoolData);
+          const sortedKeys = tweetKeys.sort((a, b) => {
+            return tweetPoolData[a].timestamp - tweetPoolData[b].timestamp;
+          });
+
+          // Check if there are more tweets to fetch
+          if (lastFetchedKey) {
+            const startIndex = sortedKeys.indexOf(lastFetchedKey) + 1;
+            const next20Keys = sortedKeys.slice(startIndex, startIndex + 20);
+            const nextTweets = next20Keys
+              .map((key) => tweetPoolData[key])
+              .reverse();
+            setTweets((prevTweets) => [...prevTweets, ...nextTweets]);
+            console.log(nextTweets);
+          } else {
+            console.log("No more tweets to fetch.");
+          }
+
+          // Set the last fetched key to the latest key fetched
+          lastFetchedKey = sortedKeys[sortedKeys.length - 1];
+
+          resolve();
         })
         .catch(reject);
     });
