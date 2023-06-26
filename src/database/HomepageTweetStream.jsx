@@ -11,6 +11,7 @@ import { BiTrendingUp } from "react-icons/bi";
 import { off, onChildChanged, ref, get, onValue } from "firebase/database";
 import { realTimeDatabase } from "../config/firebase";
 import Loader from "../pages/auth/components/Loader";
+import TextComponent from "../components/TextComponent";
 
 library.add(fas);
 library.add(fab);
@@ -150,8 +151,13 @@ const HomepageTweetStream = ({
           return (
             <React.Fragment key={tweetsItems.tweetId}>
               {
-                <div
-                  to="/Home/Status"
+                <Link
+                  to={
+                    "/Home/" +
+                    tweetsItems.username +
+                    "/" +
+                    tweetsItems.tweetId
+                  }
                   className="main-tweet-card w-full relative cursor-pointer flex"
                 >
                   <div className="mt-3 ml-4 main-tweet-card-first-half">
@@ -179,9 +185,7 @@ const HomepageTweetStream = ({
                       </div>
                     </div>
                     <div className="main-tweet-card-content overflow-x-hidden">
-                      <p style={{ whiteSpace: "pre-line" }}>
-                        {tweetsItems.tweetText}
-                      </p>
+                      <TextComponent text={tweetsItems.tweetText} />
                       {tweetsItems.tweetImageLink.length > 0 && (
                         <img
                           src={tweetsItems.tweetImageLink}
@@ -190,7 +194,7 @@ const HomepageTweetStream = ({
                         />
                       )}
                       <div className="main-tweet-card-user-actions flex w-full pt-2 gap-6 overflow-x-scroll">
-                        <Link
+                        <button
                           className="flex gap-3 items-center main-tweet-comment-icon"
                           aria-label="Comments"
                         >
@@ -198,8 +202,8 @@ const HomepageTweetStream = ({
                             <FaRegCommentDots />
                           </div>
                           <span>{tweetsItems.comments.length - 1}</span>
-                        </Link>
-                        <Link
+                        </button>
+                        <button
                           className="flex gap-3 items-center main-tweet-retweet-icon"
                           aria-label="Retweets"
                         >
@@ -207,8 +211,8 @@ const HomepageTweetStream = ({
                             <FaRetweet />
                           </div>
                           <span>{tweetsItems.retweets.length - 1}</span>
-                        </Link>
-                        <Link
+                        </button>
+                        <button
                           className="flex gap-3 items-center main-tweet-like-icon"
                           aria-label="Likes"
                         >
@@ -216,11 +220,11 @@ const HomepageTweetStream = ({
                             <AiOutlineHeart />
                           </div>
                           <span>{tweetsItems.likes.length - 1}</span>
-                        </Link>
+                        </button>
                       </div>
                     </div>
                   </div>
-                </div>
+                </Link>
               }
             </React.Fragment>
           );

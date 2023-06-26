@@ -81,6 +81,10 @@
   background-color: var(--blueText);
 }
 
+.bluetext{
+  color: var(--blueText);
+}
+
 .google-butt-login:hover,
 .apple-butt-login:hover,
 .next-signup-button:hover {

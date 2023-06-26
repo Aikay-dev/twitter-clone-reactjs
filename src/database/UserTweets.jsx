@@ -11,6 +11,7 @@ import { AiOutlineHeart } from "react-icons/ai";
 import { BiTrendingUp } from "react-icons/bi";
 import { realTimeDatabase } from "../config/firebase";
 import { ref, onValue, off } from "firebase/database";
+import TextComponent from "../components/TextComponent";
 
 library.add(fas);
 library.add(fab);
@@ -61,24 +62,29 @@ const UserTweets = () => {
   return (
     <>
       {tweetsCardData.length > 0 &&
-        tweetsCardData.reverse().map((item) => {
+        tweetsCardData.reverse().map((item, index) => {
           if (!item) {
             return (
-              <>
+              <React.Fragment key = {index}>
                 {tweetsCardData[0] === null && tweetsCardData.length < 2 && (
                   <p className="p-3">
                     No tweets available for now, make a tweet or a retweet and
                     it will showup here
                   </p>
                 )}
-              </>
+              </React.Fragment>
             ); // Skip rendering if item is null or undefined
           }
           return (
-            <>
-              <div
+            <React.Fragment key={item.tweetId}>
+              <Link
                 key={item.tweetId}
-                to="/Home/Status"
+                to={
+                  "/Home/User/" +
+                  item.username +
+                  "/" +
+                  item.tweetId
+                }
                 className="main-tweet-card w-full relative cursor-pointer flex"
               >
                 <div className="mt-3 ml-4 main-tweet-card-first-half">
@@ -106,7 +112,9 @@ const UserTweets = () => {
                     </div>
                   </div>
                   <div className="main-tweet-card-content overflow-x-hidden">
-                    <p style={{ whiteSpace: "pre-line" }}>{item.tweetText}</p>
+                    {item.tweetText && (
+                      <TextComponent text={item.tweetText} />
+                    )}
                     {item.tweetImageLink.length > 0 && (
                       <img
                         src={item.tweetImageLink}
@@ -115,38 +123,48 @@ const UserTweets = () => {
                       />
                     )}
                     <div className="main-tweet-card-user-actions flex w-full pt-2 gap-6 overflow-x-scroll">
-                      <Link
+                      <button
                         className="flex gap-3 items-center main-tweet-comment-icon"
                         aria-label="Comments"
                       >
                         <div className="p p-1.5 rounded-full main-comment-icon-surround">
                           <FaRegCommentDots />
                         </div>
-                        <span>{item.comments.length === 1? "0": item.comments.length}</span>
-                      </Link>
-                      <Link
+                        <span>
+                          {item.comments.length === 1
+                            ? "0"
+                            : item.comments.length}
+                        </span>
+                      </button>
+                      <button
                         className="flex gap-3 items-center main-tweet-retweet-icon"
                         aria-label="Retweets"
                       >
                         <div className="p p-1.5 rounded-full main-retweet-icon-surround">
                           <FaRetweet />
                         </div>
-                        <span>{item.retweets.length === 1? "0": item.retweets.length}</span>
-                      </Link>
-                      <Link
+                        <span>
+                          {item.retweets.length === 1
+                            ? "0"
+                            : item.retweets.length}
+                        </span>
+                      </button>
+                      <button
                         className="flex gap-3 items-center main-tweet-like-icon"
                         aria-label="Likes"
                       >
                         <div className="p p-1.5 rounded-full main-like-icon-surround">
                           <AiOutlineHeart />
                         </div>
-                        <span>{item.likes.length === 1? "0": item.likes.length}</span>
-                      </Link>
+                        <span>
+                          {item.likes.length === 1 ? "0" : item.likes.length}
+                        </span>
+                      </button>
                     </div>
                   </div>
                 </div>
-              </div>
-            </>
+              </Link>
+            </React.Fragment>
           );
         })}
     </>

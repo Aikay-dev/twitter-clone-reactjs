@@ -127,13 +127,13 @@ const Explore = () => {
             <Happening happeningDataLoaded = {happeningDataLoaded} sethappeningDataLoaded = {sethappeningDataLoaded} />
             {!happeningDataLoaded && <Loader/>}
             <div className="mb-40 pl-3 h-14 flex items-center cursor-pointer homepage-center-whats-happening-showmore">
-              Show more
+              {happeningDataLoaded && <p>Show more</p>}
             </div>
           </div>
         </div>
       </section>
       <section className="homepage-right h-screen">
-        <div className="homepage-right-box mt-3 lg:mt-3 lg:m-auto px-5 py-3 ml-5 rounded-2xl flex flex-col items-center justify-center">
+        { auth.currentUser === null && <div className="homepage-right-box mt-3 lg:mt-3 lg:m-auto px-5 py-3 ml-5 rounded-2xl flex flex-col items-center justify-center">
           <p className="homepage-right-new-twitter font-black text-xl pb-2">
             New to Tweeter?
           </p>
@@ -176,7 +176,7 @@ const Explore = () => {
             <Link className="signup-link">Privacy Policy</Link>, including{" "}
             <Link className="signup-link">Cookie Use.</Link>
           </p>
-        </div>
+        </div>}
         <AdministrativeLinks currentDate={currentDate} />
       </section>
       <div

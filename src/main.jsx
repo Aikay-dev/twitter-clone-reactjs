@@ -90,8 +90,11 @@ const router = createBrowserRouter([
         path: "Tweeter Blue",
         element: <TweeterBluePage />,
       },{
-        path: "Status",
+        path: "/Home/:username/:timestamp",
         element: <FullTweet />,
+      },{
+        path: "/Home/:username",
+        element: <ProfilePage />,
       },
     ],
   },

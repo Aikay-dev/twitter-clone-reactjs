@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import HomeRight from "./Home/HomeRight";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { library } from "@fortawesome/fontawesome-svg-core";
@@ -7,17 +7,33 @@ import { fab } from "@fortawesome/free-brands-svg-icons";
 import { far } from "@fortawesome/free-regular-svg-icons";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { blurChangeState, setGoToSettingsFeat } from "../store";
 import { FaRegComment, FaRegCommentDots, FaRetweet } from "react-icons/fa";
 import { AiOutlineHeart } from "react-icons/ai";
 import { BsBookmark } from "react-icons/bs";
 import { BiTrendingUp } from "react-icons/bi";
+import { useParams } from "react-router-dom";
+import { onValue, ref } from "firebase/database";
+import { realTimeDatabase } from "../config/firebase";
 
 library.add(fas);
 library.add(fab);
 library.add(far);
 
 function FullTweet() {
+  const [tweetData, settweetData] = useState(null);
+  const { timestamp } = useParams();
+
+  console.log(timestamp);
+
+  useEffect(() => {
+    const tweetPoolRef = ref(realTimeDatabase, `tweetPool/${timestamp}`);
+    onValue(tweetPoolRef, (snapshot) => {
+      const data = snapshot.val();
+      console.log(data);
+      settweetData(data);
+    });
+  }, []);
+
   const dispatch = useDispatch();
   return (
     <>
@@ -38,23 +54,22 @@ function FullTweet() {
             <div className="flex ">
               <div>
                 <img
-                  src="https://picsum.photos/200/300"
+                  src={tweetData !== null? tweetData.profilePic: ""}
                   alt="user profile image"
                   className="rounded-full h-10 w-10 max-w-14 mr-5 cursor-pointer main-card-profile-pic"
                 />
               </div>
               <div>
-                <p className=" font-bold">YabaleftOnline</p>
-                <p className="text-sm homelabelcolor">@yabaleftonline</p>
+                <p className=" font-bold">{tweetData !== null? tweetData.displayName: ""}</p>
+                <p className="text-sm homelabelcolor">{tweetData !== null? tweetData.username: ""}</p>
               </div>
             </div>
-            <Link className="ml-4 ellipseinFullTweet flex w-8 h-8 rounded-full justify-center items-center">
+            <button className="ml-4 ellipseinFullTweet flex w-8 h-8 rounded-full justify-center items-center">
               <FontAwesomeIcon icon="fa-solid fa-ellipsis" />
-            </Link>
+            </button>
           </div>
-          <div className="px-3 pt-4">
-            South African billionaire, Johann Rupert displaces Aliko Dangote to
-            become Africa's richest man
+          <div style={{whiteSpace:"pre-wrap"}} className="px-3 pt-4">
+          {tweetData !== null? tweetData.tweetText: ""}
           </div>
           <div className=" mt-5 px-3 fulltweetcardimage justify-center flex items-center">
             <img
@@ -86,7 +101,7 @@ function FullTweet() {
           </div>
           <section>
             <Link
-              to="/Home/Status"
+              to="/Home/User/"
               className="main-tweet-card w-full relative cursor-pointer flex"
             >
               <div className="mt-3 ml-4 main-tweet-card-first-half">
@@ -116,7 +131,7 @@ function FullTweet() {
                   <p>The most common name in Nigeria?</p>
 
                   <div className="main-tweet-card-user-actions flex w-full pt-2 gap-6 overflow-x-scroll">
-                    <Link
+                    <button
                       className="flex gap-3 items-center main-tweet-comment-icon"
                       aria-label="Comments"
                     >
@@ -124,8 +139,8 @@ function FullTweet() {
                         <FaRegCommentDots />
                       </div>
                       <span>19.3k</span>
-                    </Link>
-                    <Link
+                    </button>
+                    <button
                       className="flex gap-3 items-center main-tweet-retweet-icon"
                       aria-label="Retweets"
                     >
@@ -133,7 +148,7 @@ function FullTweet() {
                         <FaRetweet />
                       </div>
                       <span>52k</span>
-                    </Link>
+                    </button>
                     <Link
                       className="flex gap-3 items-center main-tweet-like-icon"
                       aria-label="Likes"
@@ -143,7 +158,7 @@ function FullTweet() {
                       </div>
                       <span>518.1k</span>
                     </Link>
-                    <Link
+                    <button
                       className="flex gap-3 items-center main-tweet-trend-icon"
                       aria-label="Trend"
                     >
@@ -151,7 +166,7 @@ function FullTweet() {
                         <BiTrendingUp />
                       </div>
                       <span>30.7M</span>
-                    </Link>
+                    </button>
                   </div>
                 </div>
               </div>
