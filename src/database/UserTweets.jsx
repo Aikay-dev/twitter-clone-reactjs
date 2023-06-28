@@ -131,9 +131,7 @@ const UserTweets = () => {
                           <FaRegCommentDots />
                         </div>
                         <span>
-                          {item.comments.length === 1
-                            ? "0"
-                            : item.comments.length}
+                        {Object.keys(item.comments).length - 1}
                         </span>
                       </button>
                       <button
