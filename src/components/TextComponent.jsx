@@ -17,8 +17,8 @@ const TextComponent = ({ text }) => {
         const truncatedText = words.slice(0, 50).join(' ');
         return (
           <>
-            {truncatedText} 
-            <button onClick={handleClick} className="text-sm bluetext hover:underline">  ...Show more</button>
+            {truncatedText} {"..."}
+            <button onClick={handleClick} className="text-sm bluetext hover:underline">  Show more</button>
           </>
         );
       }

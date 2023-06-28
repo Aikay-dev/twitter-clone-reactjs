@@ -65,10 +65,12 @@ const HomepageTweetStream = ({
             return tweetPoolData[a].timestamp - tweetPoolData[b].timestamp;
           });
           const last20Keys = sortedKeys.slice(-20);
+
           const initialTweets = last20Keys
             .map((key) => tweetPoolData[key])
             .reverse();
           setTweets(initialTweets);
+          console.log(initialTweets)
           setIsLoading(false);
           console.log(tweets);
           setTweetLoaded(true);
@@ -77,7 +79,7 @@ const HomepageTweetStream = ({
         .catch(reject);
     });
   };
-
+  console.log(tweets);
   let lastFetchedKey = tweets[19];
 
   const loadNextTweets = () => {
@@ -146,7 +148,7 @@ const HomepageTweetStream = ({
 
   return (
     <>
-      {!isLoading &&
+      {tweets.length > 1 && !isLoading &&
         tweets.map((tweetsItems) => {
           return (
             <React.Fragment key={tweetsItems.tweetId}>
