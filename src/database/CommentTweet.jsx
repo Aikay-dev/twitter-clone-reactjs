@@ -12,6 +12,7 @@ import { BiTrendingUp } from "react-icons/bi";
 import { realTimeDatabase } from "../config/firebase";
 import { ref, onValue, off } from "firebase/database";
 import TextComponent from "../components/TextComponent";
+import Loader from "../pages/auth/components/Loader";
 
 library.add(fas);
 library.add(fab);
@@ -20,35 +21,27 @@ library.add(far);
 const CommentTweet = ({ fulltweetData }) => {
   const currentUser = useSelector((state) => state.currUsr.value);
   const [tweetsCardData, settweetsCardData] = useState([]);
+  const [commentKeys, setcommentKeys] = useState({});
+  const [commentLoaded, setcommentLoaded] = useState(false)
+
+
   console.log(currentUser);
-  useEffect(() => {
-    console.log(fulltweetData);
-  }, [fulltweetData]);
+  console.log(fulltweetData.comments);
 
   useEffect(() => {
-    if (fulltweetData) {
-        console.log(fulltweetData)
-      settweetsCardData([]);
-      const tweetdata = fulltweetData.comments;
-      console.log(tweetdata);
-      for (const key in tweetdata) {
-        console.log(tweetdata[key]);
-        rtdbUsrTwtsRqsts(tweetdata[key]);
-      }
+    const tweetdata = fulltweetData.comments;
+    console.log(tweetdata);
+    const values = Object.values(tweetdata);
+    console.log(values);
+    setcommentKeys(values);
+  }, []);
 
-      return () => {
-        // Unsubscribe from the previous listeners
-        for (const key in tweetdata) {
-          const tweetDataRef = ref(
-            realTimeDatabase,
-            `tweetPool/${tweetdata[key]}`
-          );
-          off(tweetDataRef);
-        }
-      };
+  useEffect(() => {
+    console.log(commentKeys);
+    for (let i = 0; i < commentKeys.length; i++) {
+      rtdbUsrTwtsRqsts(commentKeys[i]);
     }
-    console.log(fulltweetData)
-  }, [fulltweetData]);
+  }, [commentKeys]);
 
   function rtdbUsrTwtsRqsts(id) {
     const TweetDataref = ref(realTimeDatabase, `commentTweetPool/${id}`);
@@ -56,12 +49,14 @@ const CommentTweet = ({ fulltweetData }) => {
       const data = snapshot.val();
       console.log(data);
       settweetsCardData((prevData) => [...prevData, data]); // Use functional update to avoid repeated data
+      setcommentLoaded(true)
     });
   }
 
   return (
     <>
-      {tweetsCardData.length > 0 &&
+    {!commentLoaded && <Loader/>}
+      {commentLoaded && tweetsCardData.length > 0 &&
         tweetsCardData.reverse().map((item, index) => {
           if (!item) {
             return (
@@ -79,12 +74,7 @@ const CommentTweet = ({ fulltweetData }) => {
             <React.Fragment key={item.tweetId}>
               <Link
                 key={item.tweetId}
-                to={
-                    "/Home/" +
-                    item.username +
-                    "/" +
-                    item.tweetId
-                  }
+                to={"/Home/" + item.username + "/" + item.tweetId}
                 className="main-tweet-card w-full relative cursor-pointer flex"
               >
                 <div className="mt-3 ml-4 main-tweet-card-first-half">

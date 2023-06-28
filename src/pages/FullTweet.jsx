@@ -34,9 +34,6 @@ function FullTweet() {
   const tweetTextareaRef = useRef(null);
   const [uploadComplete, setUploadComplete] = useState(false);
   const [dispatchNewTweets, setdispatchNewTweets] = useState(false);
-  const [newtweetsbuttonAnimation, setnewtweetsbuttonAnimation] = useState(
-    "absolute  morenewtweetsbutton px-4 py-2 rounded-full"
-  );
   const [imageToUpload, setImageToUpload] = useState(null);
   const [imageToGrabLink, setImageToGrabLink] = useState(null);
   const [tweetingLoader, settweetingLoader] = useState(false);
@@ -130,16 +127,14 @@ function FullTweet() {
   };
 
   function updateTweetNode() {
-    updateNode("tweetPool/" + tweetData.tweetId, tweetData);
-    updateNode("tweetPool/" + tweetData.tweetId, tweetData);
-    const userTweetsRef = ref(
+    updateNode("commentTweetPool/" + tweetData.tweetId, tweetData);
+    const commentTweetsRef = ref(
       realTimeDatabase,
-      "users/" + currentUser.userId + "/userTweets"
+      "tweetPool/" + timestamp + "/comments"
     );
-    push(userTweetsRef, tweetData.tweetId)
+    push(commentTweetsRef, tweetData.tweetId)
       .then(() => {
-        console.log("TweetId added to userTweets array.");
-        console.log("TweetId added to userTweets array.");
+        console.log("TweetId added to comment Tweets array.");
       })
       .catch((error) => {
         console.error("Error adding tweetId to userTweets array:", error);
@@ -241,7 +236,7 @@ function FullTweet() {
         />
         </div>
       <section className="homepage-center h-screen relative overflow-hidden">
-        <nav className="flex items-center pt-2 absolute w-full top-mobile-nav">
+        <nav className="flex items-center z-10 pt-2 absolute w-full top-mobile-nav">
           <div
             className="personalization-and-data-head-nav-arrow-holder flex items-center justify-center cursor-pointer rounded-full h-8 w-8 ml-2 mt-2 mr-8"
             onClick={() => window.history.back()}
@@ -420,7 +415,9 @@ function FullTweet() {
               </button>
             </div>
           </section>
-
+          <section>
+            <CommentTweet fulltweetData={fulltweetData}/>
+          </section>
           
         </section>}
         {!loadedFullTweet && <Loader />}
