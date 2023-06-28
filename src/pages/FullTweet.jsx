@@ -59,18 +59,15 @@ function FullTweet() {
     const extractedTimestamp = url.substring(url.lastIndexOf("/") + 1);
     setTimestampdynmic(extractedTimestamp);
 
-    
-    retrieveData(timestampdynmic);
+    retrieveData();
     console.log("changed:", extractedTimestamp);
   }, [window.location.pathname, timestampdynmic]);
 
-
-
-
-  function retrieveData(timestampdynmic) {
+  function retrieveData() {
     if (!loadedFullTweet) {
-      const url = window.location.pathname
-      const timestampdynmic = url.substring(url.lastIndexOf("/") + 1)
+      const url = window.location.pathname;
+      const timestampdynmic = url.substring(url.lastIndexOf("/") + 1);
+      setTimestampdynmic(timestampdynmic);
       console.log("running check");
       const tweetPoolRef = ref(
         realTimeDatabase,
@@ -131,7 +128,9 @@ function FullTweet() {
       .then(() => {
         console.log("Data updated successfully");
         toast.success("Commented successfully");
+        setcommentTweet(false)
         settweetingLoader(false);
+        retrieveData()
         setImageToUpload(null);
         settweetData((prevData) => ({
           ...prevData,
@@ -148,18 +147,33 @@ function FullTweet() {
   };
 
   function updateTweetNode() {
-    updateNode("commentTweetPool/" + tweetData.tweetId, tweetData);
-    const commentTweetsRef = ref(
-      realTimeDatabase,
-      "tweetPool/" + timestampdynmic + "/comments"
-    );
-    push(commentTweetsRef, tweetData.tweetId)
-      .then(() => {
-        console.log("TweetId added to comment Tweets array.");
-      })
-      .catch((error) => {
-        console.error("Error adding tweetId to userTweets array:", error);
-      });
+    if (commentTweet === false) {
+      updateNode("commentTweetPool/" + tweetData.tweetId, tweetData);
+      const commentTweetsRef = ref(
+        realTimeDatabase,
+        "tweetPool/" + timestampdynmic + "/comments"
+      );
+      push(commentTweetsRef, tweetData.tweetId)
+        .then(() => {
+          console.log("TweetId added to comment Tweets array.");
+        })
+        .catch((error) => {
+          console.error("Error adding tweetId to userTweets array:", error);
+        });
+    } else {
+      updateNode("commentTweetPool/" + tweetData.tweetId, tweetData);
+      const commentTweetsRef = ref(
+        realTimeDatabase,
+        "commentTweetPool/" + timestampdynmic + "/comments"
+      );
+      push(commentTweetsRef, tweetData.tweetId)
+        .then(() => {
+          console.log("TweetId added to comment Tweets array.");
+        })
+        .catch((error) => {
+          console.error("Error adding tweetId to userTweets array:", error);
+        });
+    }
   }
 
   function pushupTweet() {
@@ -260,7 +274,12 @@ function FullTweet() {
         <nav className="flex items-center z-10 pt-2 absolute w-full top-mobile-nav">
           <div
             className="personalization-and-data-head-nav-arrow-holder flex items-center justify-center cursor-pointer rounded-full h-8 w-8 ml-2 mt-2 mr-8"
-            onClick={() => window.history.back()}
+            onClick={() => {
+              window.history.back()
+              retrieveData()
+              setcommentTweet(false)
+              setLoadedFullTweet(false)
+            }}
           >
             <span className="text-base">
               <FontAwesomeIcon icon="fa-solid fa-arrow-left" />
@@ -440,7 +459,7 @@ function FullTweet() {
                 </button>
               </div>
             </section>
-            <section >
+            <section>
               <CommentTweet
                 setcommentTweet={setcommentTweet}
                 setLoadedFullTweet={setLoadedFullTweet}
