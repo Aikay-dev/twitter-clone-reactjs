@@ -18,7 +18,7 @@ library.add(fas);
 library.add(fab);
 library.add(far);
 
-const CommentTweet = ({ fulltweetData }) => {
+const CommentTweet = ({ fulltweetData, setcommentTweet, setLoadedFullTweet }) => {
   const currentUser = useSelector((state) => state.currUsr.value);
   const [tweetsCardData, settweetsCardData] = useState([]);
   const [commentKeys, setcommentKeys] = useState({});
@@ -73,6 +73,11 @@ const CommentTweet = ({ fulltweetData }) => {
           return (
             <React.Fragment key={item.tweetId}>
               <Link
+              onClick = {() => {
+                setcommentTweet(false)
+                 setLoadedFullTweet(false)
+                 setcommentLoaded(false)
+              }}
                 key={item.tweetId}
                 to={"/Home/" + item.username + "/" + item.tweetId}
                 className="main-tweet-card w-full relative cursor-pointer flex"
