@@ -44,6 +44,7 @@ const HomepageTweetStream = ({
   useEffect(() => {
     if (loadMoreTweets) {
       loadNextTweets();
+      setloadMoreTweets(false);
     }
   }, [loadMoreTweets]);
 
@@ -70,7 +71,7 @@ const HomepageTweetStream = ({
             .map((key) => tweetPoolData[key])
             .reverse();
           setTweets(initialTweets);
-          console.log(initialTweets)
+          console.log(initialTweets);
           setIsLoading(false);
           console.log(tweets);
           setTweetLoaded(true);
@@ -79,43 +80,55 @@ const HomepageTweetStream = ({
         .catch(reject);
     });
   };
-  
+
   console.log(tweets);
-  let lastFetchedKey = tweets[19];
+  const [startIndex, setStartIndex] = useState(-20);
+  const [limitStopper, setlimitStopper] = useState(true)
 
-  const loadNextTweets = () => {
-    const tweetPoolRef = ref(realTimeDatabase, "tweetPool");
+const loadNextTweets = () => {
+  const tweetPoolRef = ref(realTimeDatabase, "tweetPool");
 
+  if(limitStopper){
     return new Promise((resolve, reject) => {
       get(tweetPoolRef)
         .then((snapshot) => {
           const tweetPoolData = snapshot.val();
+          console.log(tweetPoolData);
           const tweetKeys = Object.keys(tweetPoolData);
           const sortedKeys = tweetKeys.sort((a, b) => {
-            return tweetPoolData[a].timestamp - tweetPoolData[b].timestamp;
+            return tweetPoolData[b].timestamp - tweetPoolData[a].timestamp;
           });
-
-          // Check if there are more tweets to fetch
-          if (lastFetchedKey) {
-            const startIndex = sortedKeys.indexOf(lastFetchedKey) + 1;
-            const next20Keys = sortedKeys.slice(startIndex, startIndex + 20);
+  
+          const dataRtrvDependency = Object.keys(tweetPoolData).length + startIndex;
+          console.log(dataRtrvDependency);
+  
+          if (dataRtrvDependency > 20) {
+            const next20Keys = sortedKeys.slice(startIndex - 20, startIndex);
             const nextTweets = next20Keys
               .map((key) => tweetPoolData[key])
               .reverse();
             setTweets((prevTweets) => [...prevTweets, ...nextTweets]);
             console.log(nextTweets);
-          } else {
-            console.log("No more tweets to fetch.");
+  
+            // Update the start index for the next batch
+            setStartIndex((prevIndex) => prevIndex - 20);
+          } else if (dataRtrvDependency < 20) {
+            const next20Keys = sortedKeys.slice(0, dataRtrvDependency);
+            const nextTweets = next20Keys
+              .map((key) => tweetPoolData[key])
+              .reverse();
+            setTweets((prevTweets) => [...prevTweets, ...nextTweets]);
+            console.log(nextTweets);
+            setlimitStopper(false)
+            // Update the start index for the next batch
+            setStartIndex((prevIndex) => prevIndex + dataRtrvDependency);
           }
-
-          // Set the last fetched key to the latest key fetched
-          lastFetchedKey = sortedKeys[sortedKeys.length - 1];
-
-          resolve();
         })
         .catch(reject);
     });
-  };
+  }
+};
+
 
   function UpdateListener() {
     let previousLength = 0; // Variable to store the previous length
@@ -149,17 +162,15 @@ const HomepageTweetStream = ({
 
   return (
     <>
-      {tweets.length > 1 && !isLoading &&
+      {tweets.length > 1 &&
+        !isLoading &&
         tweets.map((tweetsItems) => {
           return (
             <React.Fragment key={tweetsItems.tweetId}>
               {
                 <Link
                   to={
-                    "/Home/" +
-                    tweetsItems.username +
-                    "/" +
-                    tweetsItems.tweetId
+                    "/Home/" + tweetsItems.username + "/" + tweetsItems.tweetId
                   }
                   className="main-tweet-card w-full relative cursor-pointer flex"
                 >
@@ -204,7 +215,9 @@ const HomepageTweetStream = ({
                           <div className="p p-1.5 rounded-full main-comment-icon-surround">
                             <FaRegCommentDots />
                           </div>
-                          <span>{ Object.keys(tweetsItems.comments).length - 1}</span>
+                          <span>
+                            {Object.keys(tweetsItems.comments).length - 1}
+                          </span>
                         </button>
                         <button
                           className="flex gap-3 items-center main-tweet-retweet-icon"
