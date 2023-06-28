@@ -53,7 +53,7 @@ function FullTweet() {
   const [commentTweet, setcommentTweet] = useState(false);
   const [loadedFullTweet, setLoadedFullTweet] = useState(false);
   const [timestampdynmic, setTimestampdynmic] = useState(timestamp);
-
+  const [commentMounter, setcommentMounter] = useState(true)
   useEffect(() => {
     const url = window.location.pathname;
     const extractedTimestamp = url.substring(url.lastIndexOf("/") + 1);
@@ -131,6 +131,8 @@ function FullTweet() {
         setcommentTweet(false)
         settweetingLoader(false);
         retrieveData()
+        setcommentMounter(false)
+        /* setcommentMounter(true) */
         setImageToUpload(null);
         settweetData((prevData) => ({
           ...prevData,
@@ -145,6 +147,10 @@ function FullTweet() {
         settweetingLoader(false);
       });
   };
+
+  useEffect(() => {
+    setcommentMounter(true)
+  }, [commentMounter])
 
   function updateTweetNode() {
     if (commentTweet === false) {
@@ -460,11 +466,11 @@ function FullTweet() {
               </div>
             </section>
             <section>
-              <CommentTweet
+              {commentMounter && <CommentTweet
                 setcommentTweet={setcommentTweet}
                 setLoadedFullTweet={setLoadedFullTweet}
                 fulltweetData={fulltweetData}
-              />
+              />}
             </section>
           </section>
         )}
