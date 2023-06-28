@@ -205,7 +205,7 @@ function FullTweet() {
               ...prevData,
               tweetImageLink: downloadURL,
             }));
-
+            pushupTweet();
             console.log("File available at: " + downloadURL);
           })
           .catch((error) => {
@@ -213,9 +213,7 @@ function FullTweet() {
             settweetingLoader(false);
           })
           .finally(() => {
-            setUploadComplete(true);
             console.log(tweetData);
-            setUploadComplete(true);
             setUploadComplete(true);
           });
       });
