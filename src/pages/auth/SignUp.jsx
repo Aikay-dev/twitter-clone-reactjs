@@ -24,6 +24,7 @@ import { addDoc } from "firebase/firestore";
 import GoogleAuthLastStep from "./createAccount/GoogleAuthLastStep";
 import Loader from "./components/Loader";
 import SmLoader from "./components/SmLoader";
+import toast, { Toaster } from "react-hot-toast";
 
 library.add(fas);
 library.add(fab);
@@ -198,6 +199,25 @@ const SignUp = ({ setshowSignUpCard }) => {
 
   return (
     <>
+    <div>
+        <Toaster
+          position="bottom-center"
+          toastOptions={{
+            style: {
+              backgroundColor: "rgb(29, 155, 240)",
+              color: "#ffffff",
+              padding: "10px",
+            },
+            success: {
+              iconTheme: {
+                primary: "green",
+                secondary: "white",
+              },
+            },
+          }}
+          reverseOrder={false}
+        />
+      </div>
       <form action="" className={signupScrollState}>
         {showsignupPageLoader && <Loader />}
         {showsignupPage && (
@@ -290,6 +310,7 @@ const SignUp = ({ setshowSignUpCard }) => {
             setshowsignupPage={setshowsignupPage}
             stepOneDetails={stepOneDetails}
             setStepOneDetails={setStepOneDetails}
+            toast = {toast}
           />
         )}
         {showStepTwo && (

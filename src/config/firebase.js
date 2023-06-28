@@ -110,7 +110,7 @@ export const writeUserDataUserAndPass = (
     followingNumber: [0],
     bioData: "",
     userId: userId,
-    timeJoined: {datejoined},
+    timeJoined: new Date().getTime(),
     notificationData: [0],
     bookmarkData: [0],
     locatonData: "",

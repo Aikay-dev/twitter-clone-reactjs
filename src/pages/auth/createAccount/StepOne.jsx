@@ -20,6 +20,7 @@ const StepOne = ({
   setshowsignupPage,
   stepOneDetails,
   setStepOneDetails,
+  toast,
 }) => {
   const options = {
     title: "Date of birth",
@@ -69,9 +70,10 @@ const StepOne = ({
   function checkCompletion() {
     if (
       stepOneDetails.DOB === "" ||
-      stepOneDetails.name.length > 3 ||
-      stepOneDetails.name.length < 15 ||
-      stepOneButton.email === "" ||
+      stepOneDetails.name.length === "" ||
+      stepOneDetails.email === "" ||
+      stepOneDetails.name.length < 3 ||
+      stepOneDetails.name.length > 20 ||
       emailRegex.test(stepOneDetails.email) === false
     ) {
       setstepOneButton({ backgroundColor: "rgb(120,122,122)" });
@@ -91,10 +93,24 @@ const StepOne = ({
     currentInfo.name = e;
     setStepOneDetails(currentInfo);
     console.log(stepOneDetails);
-    checkCompletion();
+    if (stepOneDetails.name.length < 3 || stepOneDetails.name.length > 20) {
+      setRedName(true);
+      checkCompletion();
+    } else {
+      setRedName(false);
+      checkCompletion();
+    }
   };
 
   const handlemail = (e) => {
+    if (emailRegex.test(e) === true) {
+      setRedMail(false);
+      checkCompletion();
+    } else {
+      setRedMail(true);
+      checkCompletion();
+    }
+
     let currentInfo = stepOneDetails;
     currentInfo.email = e;
     setStepOneDetails(currentInfo);
@@ -194,14 +210,16 @@ const StepOne = ({
         <button
           onClick={(e) => {
             e.preventDefault();
-            if (stepOneDetails.name === "") {
-              if (!emailRegex.test(stepOneDetails.email)) {
-                setRedMail(true);
-              }
+            if (
+              stepOneDetails.name.length < 3 ||
+              stepOneDetails.name.length > 20
+            ) {
+              toast.error("Name Should be between 3 and 20 characters");
               setRedName(true);
-              
             } else if (!emailRegex.test(stepOneDetails.email)) {
               setRedMail(true);
+              toast.error("email format error");
+              console.log(stepOneDetails.name.length);
             } else {
               if (nextStagePass) {
                 setshowstepOne(false);
@@ -211,10 +229,9 @@ const StepOne = ({
                 setshowStepFive(false);
                 setshowsignupPage(false);
               } else {
-                setRedMail(true);
+                toast.error("Pick a birth date");
               }
             }
-            
           }}
           style={stepOneButton}
           className="w-full step-one-next-button rounded-full text-black font-bold py-3 mt-10 flex justify-center items-center"
