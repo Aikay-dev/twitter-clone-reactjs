@@ -49,28 +49,15 @@ const CommentTweet = ({ fulltweetData }) => {
     }
     console.log(fulltweetData)
   }, [fulltweetData]);
-  const [isFirstData, setisFirstData] = useState(true)
-  let counter = 0; // Counter to track the number of received data
 
-function rtdbUsrTwtsRqsts(id) {
-  const TweetDataref = ref(realTimeDatabase, `commentTweetPool/${id}`);
-
-  onValue(TweetDataref, (snapshot) => {
-    const data = snapshot.val();
-    console.log("Checking id:", data.tweetId);
-
-    if (counter % 2 === 0) {
-      // Add data when the counter is even
-      settweetsCardData(previousData => [...previousData, data]);
-    }
-
-    counter++; // Increment the counter for the next data
-    console.log("counter:", counter);
-  });
-}
-
-  
-  
+  function rtdbUsrTwtsRqsts(id) {
+    const TweetDataref = ref(realTimeDatabase, `commentTweetPool/${id}`);
+    onValue(TweetDataref, (snapshot) => {
+      const data = snapshot.val();
+      console.log(data);
+      settweetsCardData((prevData) => [...prevData, data]); // Use functional update to avoid repeated data
+    });
+  }
 
   return (
     <>

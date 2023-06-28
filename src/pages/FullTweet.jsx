@@ -71,7 +71,7 @@ function FullTweet() {
         }
       });
     }
-  }, []);
+  }, [window.location.pathname]);
 
   useEffect(() => {
     if (commentTweet) {
@@ -83,6 +83,7 @@ function FullTweet() {
         const data = snapshot.val();
         console.log(data);
         setfulltweetData(data);
+        setLoadedFullTweet(true);
       });
     }
   }, [commentTweet]);
