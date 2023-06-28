@@ -762,7 +762,14 @@
   overflow-y: visible;
 }
 
-.tweethomepagetextarea::-webkit-scrollbar {
+.tweethomepagetextareamain {
+  resize: none;
+  height: auto;
+  min-height: 2em;
+  overflow-y: visible;
+}
+
+.tweethomepagetextarea::-webkit-scrollbar, .tweethomepagetextareamain::-webkit-scrollbar {
   display: none;
 }
 
@@ -817,9 +824,9 @@
   max-height: 80vh;
 }
 
-/* .home-main-tweet-section::-webkit-scrollbar {
-  display: none;
-} */
+.home-main-tweet-section1{
+  border-bottom: var(--homeBorder);
+}
 
 .section1-main-explore:hover,
 .section1-main-setting:hover,
@@ -1526,18 +1533,21 @@
 }
 
 .notificationmainsection::-webkit-scrollbar-track,
-.home-main-tweet-section::-webkit-scrollbar-track {
+.home-main-tweet-section::-webkit-scrollbar-track,
+.home-main-tweet-section1::-webkit-scrollbar-track{
   background-color: rgb(20, 20, 20);
 }
 
 .notificationmainsection::-webkit-scrollbar-thumb,
-.home-main-tweet-section::-webkit-scrollbar-thumb {
+.home-main-tweet-section::-webkit-scrollbar-thumb,
+.home-main-tweet-section1::-webkit-scrollbar-thumb {
   background-color: var(--blueText);
   border-radius: 30px;
 }
 
 .bookmarkmainsection::-webkit-scrollbar,
-.home-main-tweet-section::-webkit-scrollbar {
+.home-main-tweet-section::-webkit-scrollbar,
+.home-main-tweet-section1::-webkit-scrollbar {
   width: 10px;
 }
 

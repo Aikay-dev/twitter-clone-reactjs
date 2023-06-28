@@ -79,6 +79,7 @@ const HomepageTweetStream = ({
         .catch(reject);
     });
   };
+  
   console.log(tweets);
   let lastFetchedKey = tweets[19];
 

@@ -138,6 +138,7 @@ const Home = ({ profileBlur, setprofileBlur }) => {
       .then(() => {
         console.log("Data updated successfully");
         toast.success("Tweeted successfully");
+        tweetTextareaRef.current.style.height = "100px"
         settweetingLoader(false);
         setImageToUpload(null);
         settweetData((prevData) => ({
@@ -280,7 +281,7 @@ const Home = ({ profileBlur, setprofileBlur }) => {
           ref={mainhomesectionRef}
           className="h-full pt-32 w-full tweet-scroll-section overflow-y-scroll overflow-x-hidden"
         >
-          <section className="py-3 px-3 home-main-tweet-section">
+          <section className="py-3 px-3 home-main-tweet-section1">
             <div className="flex">
               <div>
                 <img
@@ -301,7 +302,7 @@ const Home = ({ profileBlur, setprofileBlur }) => {
                 type="text"
                 rows="1"
                 placeholder="What's happening?"
-                className="w-full text-xl pl-3 outline-none bg-black tweethomepagetextarea"
+                className="w-full text-xl pl-3 outline-none bg-black tweethomepagetextareamain"
                 onChange={(e) => {
                   uploadTweetText(e.target.value);
                 }}
