@@ -218,7 +218,7 @@ function FullTweet() {
 
   return (
     <>
-      <div>
+      {/* <div>
         <Toaster
           position="bottom-center"
           toastOptions={{
@@ -236,8 +236,20 @@ function FullTweet() {
           }}
           reverseOrder={false}
         />
-      </div>
-
+      </div> */}
+      {/* <header className="flex pt-1 pb-1 profilePageHeader absolute top-0">
+        <div
+          className="personalization-and-data-head-nav-arrow-holder flex items-center justify-center cursor-pointer rounded-full h-8 w-8 ml-2 mt-2 mr-8"
+          onClick={() => window.history.back()}
+        >
+          <span className="text-base">
+            <FontAwesomeIcon icon="fa-solid fa-arrow-left" />
+          </span>
+        </div>
+        <div>
+          <p className=" text-xl font-semibold">Tweet</p>
+        </div>
+      </header> */}
       {loadedFullTweet && (
         <section className="pt-20 pb-20 homepage-center-info overflow-y-scroll h-full">
           <div className="flex justify-between px-3">
