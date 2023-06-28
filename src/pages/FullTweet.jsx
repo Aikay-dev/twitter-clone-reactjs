@@ -107,14 +107,6 @@ function FullTweet() {
     tweetTextareaRef.current.value = "";
   };
 
-  useEffect(() => {
-    if (uploadComplete) {
-      pushupTweet();
-      console.log(tweetData);
-      setUploadComplete(false);
-    }
-  }, [uploadComplete]);
-
   const updateNode = (path, newData) => {
     const dbRef = ref(realTimeDatabase, path);
     update(dbRef, newData)
@@ -138,14 +130,14 @@ function FullTweet() {
   };
 
   function updateTweetNode() {
-    updateNode("commentTweetPool/" + tweetData.tweetId, tweetData);
+    updateNode("tweetPool/" + tweetData.tweetId, tweetData);
     const userTweetsRef = ref(
       realTimeDatabase,
-      "tweetPool/" + fulltweetData.tweetId + "/comments"
+      "users/" + currentUser.userId + "/userTweets"
     );
     push(userTweetsRef, tweetData.tweetId)
       .then(() => {
-        console.log("commented added to userTweets array.");
+        console.log("TweetId added to userTweets array.");
       })
       .catch((error) => {
         console.error("Error adding tweetId to userTweets array:", error);
@@ -185,6 +177,7 @@ function FullTweet() {
           .finally(() => {
             setUploadComplete(true);
             console.log(tweetData);
+            setUploadComplete(true);
           });
       });
     } else {
@@ -245,7 +238,7 @@ function FullTweet() {
         />
       </div>
       <section className="homepage-center h-screen relative overflow-hidden">
-        <nav className="flex items-center pt-2 absolute w-full z-10 top-mobile-nav">
+        <nav className="flex items-center pt-2 absolute w-full top-mobile-nav">
           <div
             className="personalization-and-data-head-nav-arrow-holder flex items-center justify-center cursor-pointer rounded-full h-8 w-8 ml-2 mt-2 mr-8"
             onClick={() => window.history.back()}
@@ -401,34 +394,103 @@ function FullTweet() {
                   </div>
                 </div>
 
-                <button
-                  onClick={() => {
-                    if (
-                      tweetData.tweetText.length > 0 ||
-                      imageToUpload !== null
-                    ) {
-                      settweetingLoader(true);
-                      finalUploadTweet();
-                      console.log(tweetData);
-                      console.log(tweetTextareaRef);
-                    } else {
-                      console.log("not uploading");
-                    }
-                  }}
-                  className=" flex justify-center items-center home-main-tweet-section-button text-white px-4 rounded-full py-1 font-semibold"
-                >
-                  {!tweetingLoader && "Comment"}
-                  {tweetingLoader && (
-                    <div className="flex w-16 h-6 justify-center items-center">
-                      <LoaderWhite />
-                    </div>
-                  )}
-                </button>
+              <button
+                onClick={() => {
+                  if (
+                    tweetData.tweetText.length > 0 ||
+                    imageToUpload !== null
+                  ) {
+                    settweetingLoader(true);
+                    finalUploadTweet();
+                    console.log(tweetData);
+                    console.log(tweetTextareaRef);
+                  } else {
+                    console.log("not uploading");
+                  }
+                }}
+                className=" flex justify-center items-center home-main-tweet-section-button text-white px-4 rounded-full py-1 font-semibold"
+              >
+                {!tweetingLoader && "Tweet"}
+                {tweetingLoader && (
+                  <div className="flex w-11 h-6 justify-center items-center">
+                    <LoaderWhite />
+                  </div>
+                )}
+              </button>
+            </div>
+          </section>
+          <section>
+            <Link
+              to="/Home/User/"
+              className="main-tweet-card w-full relative cursor-pointer flex"
+            >
+              <div className="mt-3 ml-4 main-tweet-card-first-half">
+                <img
+                  src="https://picsum.photos/200/300"
+                  alt="user profile image"
+                  className="rounded-full h-10 w-10 mr-5 cursor-pointer main-card-profile-pic"
+                />
               </div>
-            </section>
-            <section>
-              <CommentTweet fulltweetData={fulltweetData} />
-            </section>
+              <div className="w-full main-tweet-card-second-half">
+                <div className="flex justify-between w-full pr-2 mt-3">
+                  <div className="flex items-center">
+                    <p className="main-tweet-card-display-name font-semibold mr-2 whitespace-nowrap flex-wrap ">
+                      B.O.D
+                    </p>
+                    <p className="text-sm main-tweet-card-username whitespace-nowrap">
+                      @bod_republic · 11h
+                    </p>
+                  </div>
+                  <div className="">
+                    <div className="homepage-center-current-trend-more font-bold rounded-full cursor-pointer">
+                      <FontAwesomeIcon icon="fa-solid fa-ellipsis" />
+                    </div>
+                  </div>
+                </div>
+                <div className="main-tweet-card-content overflow-x-hidden">
+                  <p>The most common name in Nigeria?</p>
+
+                  <div className="main-tweet-card-user-actions flex w-full pt-2 gap-6 overflow-x-scroll">
+                    <button
+                      className="flex gap-3 items-center main-tweet-comment-icon"
+                      aria-label="Comments"
+                    >
+                      <div className="p p-1.5 rounded-full main-comment-icon-surround">
+                        <FaRegCommentDots />
+                      </div>
+                      <span>19.3k</span>
+                    </button>
+                    <button
+                      className="flex gap-3 items-center main-tweet-retweet-icon"
+                      aria-label="Retweets"
+                    >
+                      <div className="p p-1.5 rounded-full main-retweet-icon-surround">
+                        <FaRetweet />
+                      </div>
+                      <span>52k</span>
+                    </button>
+                    <Link
+                      className="flex gap-3 items-center main-tweet-like-icon"
+                      aria-label="Likes"
+                    >
+                      <div className="p p-1.5 rounded-full main-like-icon-surround">
+                        <AiOutlineHeart />
+                      </div>
+                      <span>518.1k</span>
+                    </Link>
+                    <button
+                      className="flex gap-3 items-center main-tweet-trend-icon"
+                      aria-label="Trend"
+                    >
+                      <div className="p p-1.5 rounded-full main-trend-icon-surround">
+                        <BiTrendingUp />
+                      </div>
+                      <span>30.7M</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </Link>
           </section>
         )}
         {!loadedFullTweet && <Loader />}
