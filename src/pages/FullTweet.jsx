@@ -55,8 +55,10 @@ function FullTweet() {
   const [timestampdynmic, setTimestampdynmic] = useState(timestamp);
   const [commentMounter, setcommentMounter] = useState(true);
   const [usrs, setusrs] = useState({});
-  const [userKey, setUserKey] = useState("")
-  const [Key, setKey] = useState('')
+  const [userKey, setUserKey] = useState("");
+  const [Key, setKey] = useState("");
+  const [showRetweet, setRetweet] = useState(false);
+  const [showLike, setShowLike] = useState(false);
 
   useEffect(() => {
     const url = window.location.pathname;
@@ -125,6 +127,30 @@ function FullTweet() {
   const handleTweetFormReset = () => {
     tweetTextareaRef.current.value = "";
   };
+
+  useEffect(() => {
+    if (fulltweetData) {
+      for (let i = 0; i < fulltweetData.retweets.length; i++) {
+        if (fulltweetData.retweets[i] === currentUser.userId) {
+          console.log("he retweeted");
+          setRetweet(true);
+        } else {
+          console.log("he did not retweet");
+          setRetweet(false);
+        }
+      }
+
+      for (let i = 0; i < fulltweetData.likes.length; i++) {
+        if (fulltweetData.likes[i] === currentUser.userId) {
+          console.log("he liked");
+          setShowLike(true);
+        } else {
+          console.log("he did not like");
+          setShowLike(false);
+        }
+      }
+    }
+  }, [fulltweetData]);
 
   const updateNode = (path, newData) => {
     const dbRef = ref(realTimeDatabase, path);
@@ -293,6 +319,21 @@ function FullTweet() {
       reader.readAsDataURL(file);
     }
   }
+  const [likeStyle, setlikeStyle] = useState({});
+  const [retweetStyle, setretweetStyle] = useState({});
+  useEffect(() => {
+    if (showLike) {
+      setlikeStyle({ color: "rgb(249, 24, 128)" });
+    } else {
+      setlikeStyle({});
+    }
+
+    if (showRetweet) {
+      setretweetStyle({ color: "rgb(1, 161, 108)" });
+    } else {
+      setretweetStyle({});
+    }
+  }, [showLike, showRetweet]);
 
   function handleRetweet() {
     const fulldata2push = fulltweetData;
@@ -310,6 +351,7 @@ function FullTweet() {
           fulldata2push
         );
       }
+      setRetweet(false);
     } else {
       fulldata2push.retweets.push(currentUser.userId);
       if (commentTweet === false) {
@@ -320,6 +362,7 @@ function FullTweet() {
           fulldata2push
         );
       }
+      setRetweet(true);
       updateNodeSilent("tweetPool/" + Date.now(), {
         ...fulltweetData,
         RetweetedBy: currentUser.username,
@@ -336,15 +379,21 @@ function FullTweet() {
       setusrs(data);
       let foundKey = null;
 
-      for (const key in data) {
-        if (data.hasOwnProperty(key) && data[key].username === fulltweetData.username) {
-          foundKey = data[key];
-          console.log(foundKey);
-          setUserKey(foundKey)
-          setKey(key)
-          break;
+
+        for (const key in data) {
+          if (
+            data.hasOwnProperty(key) &&
+            data[key].username === fulltweetData.username
+          ) {
+            foundKey = data[key];
+            console.log(foundKey);
+            console.log(fulltweetData.username);
+            setUserKey(foundKey);
+            setKey(key);
+            break;
+          }
         }
-      }
+      
     });
   }, [fulltweetData]);
 
@@ -354,13 +403,13 @@ function FullTweet() {
 
   function handleLike() {
     const fulldata2push = fulltweetData;
-    const userDataNotify = userKey
+    const userDataNotify = userKey;
     userDataNotify.notificationData.push({
       displayName: currentUser.displayName,
-      message: 'Liked your post',
+      message: "Liked your post",
       userId: currentUser.userId,
-      profilePicture: currentUser.profile_picture
-    })
+      profilePicture: currentUser.profile_picture,
+    });
     console.log(fulltweetData);
     const index = fulldata2push.likes.indexOf(currentUser.userId);
 
@@ -374,18 +423,20 @@ function FullTweet() {
           fulldata2push
         );
       }
+
+      setShowLike(false);
     } else {
       fulldata2push.likes.push(currentUser.userId);
       if (commentTweet === false) {
         updateNodeSilent("tweetPool/" + fulltweetData.tweetId, fulldata2push);
-        
       } else {
         updateNodeSilent(
           "commentTweetPool/" + fulltweetData.tweetId,
           fulldata2push
         );
-
       }
+
+      setShowLike(true);
       updateNodeSilent("users/" + Key, userDataNotify);
       toast.success("Liked successfully");
     }
@@ -495,12 +546,14 @@ function FullTweet() {
               <div
                 onClick={handleRetweet}
                 className="p-3 cursor-pointer rounded-full main-tweet-retweet-icon main-tweet-retweet-icon-background"
+                style={retweetStyle}
               >
                 <FaRetweet />
               </div>
               <div
                 onClick={handleLike}
                 className="p-3 cursor-pointer rounded-full main-tweet-like-icon main-tweet-like-icon-background"
+                style={likeStyle}
               >
                 <AiOutlineHeart />
               </div>
