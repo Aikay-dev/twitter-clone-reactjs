@@ -327,6 +327,32 @@ function FullTweet() {
     }
   }
 
+  function handleLike(){
+    const fulldata2push = fulltweetData
+    console.log(fulltweetData);
+    const index = fulldata2push.likes.indexOf(currentUser.userId);
+    
+    if (index !== -1) {
+      fulldata2push.likes.splice(index, 1);
+      if(commentTweet === false){
+        updateNodeSilent("tweetPool/" + fulltweetData.tweetId, fulldata2push);
+      }else{
+        updateNodeSilent("commentTweetPool/" + fulltweetData.tweetId, fulldata2push);
+      }
+    } else {
+      fulldata2push.likes.push(currentUser.userId);
+      if(commentTweet === false){
+        updateNodeSilent("tweetPool/" + fulltweetData.tweetId, fulldata2push);
+        
+      }else{
+        updateNodeSilent("commentTweetPool/" + fulltweetData.tweetId, fulldata2push);
+        
+      }
+      toast.success("Liked successfully")
+      
+    }
+  }
+
 
 
   return (
@@ -436,7 +462,7 @@ function FullTweet() {
               >
                 <FaRetweet />
               </div>
-              <div className="p-3 cursor-pointer rounded-full main-tweet-like-icon main-tweet-like-icon-background">
+              <div onClick={handleLike} className="p-3 cursor-pointer rounded-full main-tweet-like-icon main-tweet-like-icon-background">
                 <AiOutlineHeart />
               </div>
               <div className="p-3 text-lg cursor-pointer rounded-full main-tweet-comment-icon main-tweet-comment-icon-background">
