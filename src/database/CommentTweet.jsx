@@ -148,7 +148,7 @@ const CommentTweet = ({ fulltweetData, setcommentTweet, setLoadedFullTweet }) =>
                           <AiOutlineHeart />
                         </div>
                         <span>
-                          {item.likes.length === 1 ? "0" : item.likes.length}
+                          {item.likes.length === 1 ? "0" : item.likes.length - 1}
                         </span>
                       </button>
                     </div>

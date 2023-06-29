@@ -19,6 +19,7 @@ import SearchBar from "../components/SearchBar";
 import { auth, signInWithGoogle } from "../config/firebase";
 import { mobileNavLeftState } from "../store";
 import Loader from "./auth/components/Loader";
+import WhoToFollow from "../components/WhoToFollow";
 
 library.add(fas);
 library.add(fab);
@@ -181,77 +182,7 @@ const Explore = () => {
         )}
 
         {auth.currentUser !== null && (
-          <div
-            style={{ backgroundColor: "rgb(22,24,28)" }}
-            className="homepage-right-box mt-3 lg:mt-3 lg:m-auto px-5 py-3 ml-5 rounded-2xl flex flex-col "
-          >
-            <p className="font-black text-lg pb-2 text-zinc-200">
-              Who to follow
-            </p>
-
-            <section className="flex flex-col gap-3">
-              <div className="flex justify-between">
-                <div className="flex gap-3">
-                  <div className="">
-                    <img
-                      className="w-10 h-10 rounded-full"
-                      src="https://picsum.photos/200/300"
-                      alt=""
-                    />
-                  </div>
-                  <div className="">
-                    <div className=" font-semibold">VIDAVID</div>
-                    <div className="homelabelcolor">@agbero</div>
-                  </div>
-                </div>
-                <div>
-                  <button className=" bg-white text-gray-900 text-sm px-4 py-1 rounded-full font-semibold">
-                    Follow
-                  </button>
-                </div>
-              </div>
-              <div className="flex  justify-between">
-                <div className="flex gap-3">
-                  <div className="">
-                    <img
-                      className="w-10 h-10 rounded-full"
-                      src="https://picsum.photos/200/300"
-                      alt=""
-                    />
-                  </div>
-                  <div className="">
-                    <div className=" font-semibold">VIDAVID</div>
-                    <div className="homelabelcolor">@agbero</div>
-                  </div>
-                </div>
-                <div>
-                  <button className=" bg-white text-gray-900 text-sm px-4 py-1 rounded-full font-semibold">
-                    Follow
-                  </button>
-                </div>
-              </div>
-              <div className="flex  justify-between">
-                <div className="flex gap-3">
-                  <div className="">
-                    <img
-                      className="w-10 h-10 rounded-full"
-                      src="https://picsum.photos/200/300"
-                      alt=""
-                    />
-                  </div>
-                  <div className="">
-                    <div className=" font-semibold">VIDAVID</div>
-                    <div className="homelabelcolor">@agbero</div>
-                  </div>
-                </div>
-                <div>
-                  <button className=" bg-white text-gray-900 text-sm px-4 py-1 rounded-full font-semibold">
-                    Follow
-                  </button>
-                </div>
-              </div>
-            </section>
-          </div>
+          <WhoToFollow/>
         )}
         <AdministrativeLinks currentDate={currentDate} />
       </section>
