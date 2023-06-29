@@ -20,7 +20,6 @@ import { auth, signInWithGoogle } from "../config/firebase";
 import { mobileNavLeftState } from "../store";
 import Loader from "./auth/components/Loader";
 
-
 library.add(fas);
 library.add(fab);
 library.add(far);
@@ -28,10 +27,10 @@ library.add(far);
 const Explore = () => {
   console.log(auth.currentUser);
   const currentUser = useSelector((state) => state.currUsr.value);
-  console.log(currentUser)
+  console.log(currentUser);
   const ifBlur = useSelector((state) => state.user.value.display);
   const [showSignUpCard, setshowSignUpCard] = useState(false);
-  const [happeningDataLoaded, sethappeningDataLoaded] = useState(false)
+  const [happeningDataLoaded, sethappeningDataLoaded] = useState(false);
   const googleSignButton = (
     <div className="flex items-center justify-center">
       <img src={googleIcon} alt="" className="h-8 flex w-8" />
@@ -124,8 +123,11 @@ const Explore = () => {
             <p className="homepage-center-whats-happening-head px-3 font-extrabold">
               What's happening
             </p>
-            <Happening happeningDataLoaded = {happeningDataLoaded} sethappeningDataLoaded = {sethappeningDataLoaded} />
-            {!happeningDataLoaded && <Loader/>}
+            <Happening
+              happeningDataLoaded={happeningDataLoaded}
+              sethappeningDataLoaded={sethappeningDataLoaded}
+            />
+            {!happeningDataLoaded && <Loader />}
             <div className="mb-40 pl-3 h-14 flex items-center cursor-pointer homepage-center-whats-happening-showmore">
               {happeningDataLoaded && <p>Show more</p>}
             </div>
@@ -133,50 +135,124 @@ const Explore = () => {
         </div>
       </section>
       <section className="homepage-right h-screen">
-        { auth.currentUser === null && <div className="homepage-right-box mt-3 lg:mt-3 lg:m-auto px-5 py-3 ml-5 rounded-2xl flex flex-col items-center justify-center">
-          <p className="homepage-right-new-twitter font-black text-xl pb-2">
-            New to Tweeter?
-          </p>
-          <p className="homepage-right-sign-now">
-            Sign up now to get your own personalized timeline!
-          </p>
-          <div
-            onClick={(e) => {
-              e.preventDefault();
-              HandleSignIn();
-              console.log("first");
-            }}
-          >
+        {auth.currentUser === null && (
+          <div className="homepage-right-box mt-3 lg:mt-3 lg:m-auto px-5 py-3 ml-5 rounded-2xl flex flex-col items-center justify-center">
+            <p className="homepage-right-new-twitter font-black text-xl pb-2">
+              New to Tweeter?
+            </p>
+            <p className="homepage-right-sign-now">
+              Sign up now to get your own personalized timeline!
+            </p>
+            <div
+              onClick={(e) => {
+                e.preventDefault();
+                HandleSignIn();
+                console.log("first");
+              }}
+            >
+              <AuthLoginButton
+                logo={googleSignButton}
+                classes={
+                  "rounded-full google-butt-login text-black mt-5 mb-3 next-signup-button next-signup-button-home-variant"
+                }
+              />
+            </div>
             <AuthLoginButton
-              logo={googleSignButton}
+              logo={appleSignButton}
               classes={
-                "rounded-full google-butt-login text-black mt-5 mb-3 next-signup-button next-signup-button-home-variant"
+                "rounded-full font-semibold flex items-center justify-center apple-butt-login apple-butt-login-home-variant"
               }
             />
+            <Link to="/Auth/Signup">
+              <AuthLoginButton
+                logo={join_create_account}
+                classes={
+                  "rounded-full google-butt-login mt-3 font-semibold mb-5 create-acc-home"
+                }
+              />
+            </Link>
+            <p className="homepage-right-By-sign">
+              By signing up, you agree to the{" "}
+              <Link className="signup-link">Terms of Service</Link> and{" "}
+              <Link className="signup-link">Privacy Policy</Link>, including{" "}
+              <Link className="signup-link">Cookie Use.</Link>
+            </p>
           </div>
-          <AuthLoginButton
-            logo={appleSignButton}
-            classes={
-              "rounded-full font-semibold flex items-center justify-center apple-butt-login apple-butt-login-home-variant"
-            }
-          />
-          <Link
-            to='/Auth/Signup'
+        )}
+
+        {auth.currentUser !== null && (
+          <div
+            style={{ backgroundColor: "rgb(22,24,28)" }}
+            className="homepage-right-box mt-3 lg:mt-3 lg:m-auto px-5 py-3 ml-5 rounded-2xl flex flex-col "
           >
-            <AuthLoginButton
-              logo={join_create_account}
-              classes={
-                "rounded-full google-butt-login mt-3 font-semibold mb-5 create-acc-home"
-              }
-            />
-          </Link>
-          <p className="homepage-right-By-sign">
-            By signing up, you agree to the{" "}
-            <Link className="signup-link">Terms of Service</Link> and{" "}
-            <Link className="signup-link">Privacy Policy</Link>, including{" "}
-            <Link className="signup-link">Cookie Use.</Link>
-          </p>
-        </div>}
+            <p className="font-black text-lg pb-2 text-zinc-200">
+              Who to follow
+            </p>
+
+            <section className="flex flex-col gap-3">
+              <div className="flex justify-between">
+                <div className="flex gap-3">
+                  <div className="">
+                    <img
+                      className="w-10 h-10 rounded-full"
+                      src="https://picsum.photos/200/300"
+                      alt=""
+                    />
+                  </div>
+                  <div className="">
+                    <div className=" font-semibold">VIDAVID</div>
+                    <div className="homelabelcolor">@agbero</div>
+                  </div>
+                </div>
+                <div>
+                  <button className=" bg-white text-gray-900 text-sm px-4 py-1 rounded-full font-semibold">
+                    Follow
+                  </button>
+                </div>
+              </div>
+              <div className="flex  justify-between">
+                <div className="flex gap-3">
+                  <div className="">
+                    <img
+                      className="w-10 h-10 rounded-full"
+                      src="https://picsum.photos/200/300"
+                      alt=""
+                    />
+                  </div>
+                  <div className="">
+                    <div className=" font-semibold">VIDAVID</div>
+                    <div className="homelabelcolor">@agbero</div>
+                  </div>
+                </div>
+                <div>
+                  <button className=" bg-white text-gray-900 text-sm px-4 py-1 rounded-full font-semibold">
+                    Follow
+                  </button>
+                </div>
+              </div>
+              <div className="flex  justify-between">
+                <div className="flex gap-3">
+                  <div className="">
+                    <img
+                      className="w-10 h-10 rounded-full"
+                      src="https://picsum.photos/200/300"
+                      alt=""
+                    />
+                  </div>
+                  <div className="">
+                    <div className=" font-semibold">VIDAVID</div>
+                    <div className="homelabelcolor">@agbero</div>
+                  </div>
+                </div>
+                <div>
+                  <button className=" bg-white text-gray-900 text-sm px-4 py-1 rounded-full font-semibold">
+                    Follow
+                  </button>
+                </div>
+              </div>
+            </section>
+          </div>
+        )}
         <AdministrativeLinks currentDate={currentDate} />
       </section>
       <div
