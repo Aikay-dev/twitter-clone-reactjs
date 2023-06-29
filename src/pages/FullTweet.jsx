@@ -12,7 +12,7 @@ import { AiOutlineHeart } from "react-icons/ai";
 import { BsBookmark } from "react-icons/bs";
 import { BiTrendingUp } from "react-icons/bi";
 import { useParams } from "react-router-dom";
-import { onValue, ref, update, push } from "firebase/database";
+import { onValue, ref, update, push, remove } from "firebase/database";
 import { realTimeDatabase } from "../config/firebase";
 import { getTweetDate } from "../utility/dateJoined";
 import LoaderWhite from "../components/LoaderWhite";
@@ -53,7 +53,7 @@ function FullTweet() {
   const [commentTweet, setcommentTweet] = useState(false);
   const [loadedFullTweet, setLoadedFullTweet] = useState(false);
   const [timestampdynmic, setTimestampdynmic] = useState(timestamp);
-  const [commentMounter, setcommentMounter] = useState(true)
+  const [commentMounter, setcommentMounter] = useState(true);
   useEffect(() => {
     const url = window.location.pathname;
     const extractedTimestamp = url.substring(url.lastIndexOf("/") + 1);
@@ -128,10 +128,10 @@ function FullTweet() {
       .then(() => {
         console.log("Data updated successfully");
         toast.success("Commented successfully");
-        setcommentTweet(false)
+        setcommentTweet(false);
         settweetingLoader(false);
-        retrieveData()
-        setcommentMounter(false)
+        retrieveData();
+        setcommentMounter(false);
         /* setcommentMounter(true) */
         setImageToUpload(null);
         settweetData((prevData) => ({
@@ -148,9 +148,58 @@ function FullTweet() {
       });
   };
 
+  const updateRtwtNode = (path, newData) => {
+    const dbRef = ref(realTimeDatabase, path);
+    update(dbRef, newData)
+      .then(() => {
+        console.log("Data updated successfully");
+        toast.success("Retweet Updated");
+        setcommentTweet(false);
+        settweetingLoader(false);
+        retrieveData();
+        setcommentMounter(false);
+        setImageToUpload(null);
+        settweetData((prevData) => ({
+          ...prevData,
+          tweetImageLink: "",
+          tweetText: "",
+        }));
+        setImageToGrabLink(null);
+        handleTweetFormReset();
+      })
+      .catch((error) => {
+        console.error("Error updating data:", error);
+        settweetingLoader(false);
+      });
+  };
+
+  const updateNodeSilent = (path, newData) => {
+    const dbRef = ref(realTimeDatabase, path);
+    update(dbRef, newData)
+      .then(() => {
+        console.log("Data updated successfully");
+        setcommentTweet(false);
+        settweetingLoader(false);
+        retrieveData();
+        setcommentMounter(false);
+        setImageToUpload(null);
+        settweetData((prevData) => ({
+          ...prevData,
+          tweetImageLink: "",
+          tweetText: "",
+        }));
+        setImageToGrabLink(null);
+        handleTweetFormReset();
+      })
+      .catch((error) => {
+        console.error("Error updating data:", error);
+        settweetingLoader(false);
+      });
+  };
+
   useEffect(() => {
-    setcommentMounter(true)
-  }, [commentMounter])
+    setcommentMounter(true);
+  }, [commentMounter]);
 
   function updateTweetNode() {
     if (commentTweet === false) {
@@ -253,6 +302,33 @@ function FullTweet() {
     }
   }
 
+  function handleRetweet() {
+    const fulldata2push = fulltweetData
+    console.log(fulltweetData);
+    /* setfulltweetData((prev) => {prev, currentUser.userId}) */
+    const index = fulldata2push.retweets.indexOf(currentUser.userId);
+
+    if (index !== -1) {
+      fulldata2push.retweets.splice(index, 1);
+      if(commentTweet === false){
+        updateRtwtNode("tweetPool/" + fulltweetData.tweetId, fulldata2push);
+      }else{
+        updateRtwtNode("commentTweetPool/" + fulltweetData.tweetId, fulldata2push);
+      }
+    } else {
+      fulldata2push.retweets.push(currentUser.userId);
+      if(commentTweet === false){
+        updateRtwtNode("tweetPool/" + fulltweetData.tweetId, fulldata2push);
+        
+      }else{
+        updateRtwtNode("commentTweetPool/" + fulltweetData.tweetId, fulldata2push);
+      }
+      updateNodeSilent("tweetPool/" + Date.now(), {...fulltweetData, RetweetedBy: currentUser.username, tweetId: Date.now()});
+    }
+  }
+
+
+
   return (
     <>
       <div>
@@ -279,10 +355,10 @@ function FullTweet() {
           <div
             className="personalization-and-data-head-nav-arrow-holder flex items-center justify-center cursor-pointer rounded-full h-8 w-8 ml-2 mt-2 mr-8"
             onClick={() => {
-              window.history.back()
-              retrieveData()
-              setcommentTweet(false)
-              setLoadedFullTweet(false)
+              window.history.back();
+              retrieveData();
+              setcommentTweet(false);
+              setLoadedFullTweet(false);
             }}
           >
             <span className="text-base">
@@ -295,7 +371,7 @@ function FullTweet() {
         {loadedFullTweet && (
           <section className="pt-20 pb-20 homepage-center-info overflow-y-scroll h-full">
             <div className="flex justify-between px-3">
-              <Link to={'/Home/' + fulltweetData.username} className="flex ">
+              <Link to={"/Home/" + fulltweetData.username} className="flex ">
                 <div>
                   <img
                     src={fulltweetData !== null ? fulltweetData.profilePic : ""}
@@ -346,12 +422,18 @@ function FullTweet() {
               </div>
             </div>
             <div className="flex justify-around items-center homelabelcolor text-xl mx-3 py-1 tweetfullactionsection">
-              <div onClick={() => {
-                tweetTextareaRef.current.focus()
-              }} className="p-3 cursor-pointer rounded-full main-tweet-comment-icon main-tweet-comment-icon-background">
+              <div
+                onClick={() => {
+                  tweetTextareaRef.current.focus();
+                }}
+                className="p-3 cursor-pointer rounded-full main-tweet-comment-icon main-tweet-comment-icon-background"
+              >
                 <FaRegComment />
               </div>
-              <div className="p-3 cursor-pointer rounded-full main-tweet-retweet-icon main-tweet-retweet-icon-background">
+              <div
+                onClick={handleRetweet}
+                className="p-3 cursor-pointer rounded-full main-tweet-retweet-icon main-tweet-retweet-icon-background"
+              >
                 <FaRetweet />
               </div>
               <div className="p-3 cursor-pointer rounded-full main-tweet-like-icon main-tweet-like-icon-background">
@@ -466,11 +548,13 @@ function FullTweet() {
               </div>
             </section>
             <section>
-              {commentMounter && <CommentTweet
-                setcommentTweet={setcommentTweet}
-                setLoadedFullTweet={setLoadedFullTweet}
-                fulltweetData={fulltweetData}
-              />}
+              {commentMounter && (
+                <CommentTweet
+                  setcommentTweet={setcommentTweet}
+                  setLoadedFullTweet={setLoadedFullTweet}
+                  fulltweetData={fulltweetData}
+                />
+              )}
             </section>
           </section>
         )}

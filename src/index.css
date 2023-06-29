@@ -1532,6 +1532,10 @@
   background: whitesmoke;
 }
 
+.retweetedText{
+  color: var(--homeLabelColor);
+}
+
 .notificationmainsection::-webkit-scrollbar-track,
 .home-main-tweet-section::-webkit-scrollbar-track,
 .home-main-tweet-section1::-webkit-scrollbar-track{

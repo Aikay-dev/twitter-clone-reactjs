@@ -83,52 +83,52 @@ const HomepageTweetStream = ({
 
   console.log(tweets);
   const [startIndex, setStartIndex] = useState(-20);
-  const [limitStopper, setlimitStopper] = useState(true)
+  const [limitStopper, setlimitStopper] = useState(true);
 
-const loadNextTweets = () => {
-  const tweetPoolRef = ref(realTimeDatabase, "tweetPool");
+  const loadNextTweets = () => {
+    const tweetPoolRef = ref(realTimeDatabase, "tweetPool");
 
-  if(limitStopper){
-    return new Promise((resolve, reject) => {
-      get(tweetPoolRef)
-        .then((snapshot) => {
-          const tweetPoolData = snapshot.val();
-          console.log(tweetPoolData);
-          const tweetKeys = Object.keys(tweetPoolData);
-          const sortedKeys = tweetKeys.sort((a, b) => {
-            return tweetPoolData[b].timestamp - tweetPoolData[a].timestamp;
-          });
-  
-          const dataRtrvDependency = Object.keys(tweetPoolData).length + startIndex;
-          console.log(dataRtrvDependency);
-  
-          if (dataRtrvDependency > 20) {
-            const next20Keys = sortedKeys.slice(startIndex - 20, startIndex);
-            const nextTweets = next20Keys
-              .map((key) => tweetPoolData[key])
-              .reverse();
-            setTweets((prevTweets) => [...prevTweets, ...nextTweets]);
-            console.log(nextTweets);
-  
-            // Update the start index for the next batch
-            setStartIndex((prevIndex) => prevIndex - 20);
-          } else if (dataRtrvDependency < 20) {
-            const next20Keys = sortedKeys.slice(0, dataRtrvDependency);
-            const nextTweets = next20Keys
-              .map((key) => tweetPoolData[key])
-              .reverse();
-            setTweets((prevTweets) => [...prevTweets, ...nextTweets]);
-            console.log(nextTweets);
-            setlimitStopper(false)
-            // Update the start index for the next batch
-            setStartIndex((prevIndex) => prevIndex + dataRtrvDependency);
-          }
-        })
-        .catch(reject);
-    });
-  }
-};
+    if (limitStopper) {
+      return new Promise((resolve, reject) => {
+        get(tweetPoolRef)
+          .then((snapshot) => {
+            const tweetPoolData = snapshot.val();
+            console.log(tweetPoolData);
+            const tweetKeys = Object.keys(tweetPoolData);
+            const sortedKeys = tweetKeys.sort((a, b) => {
+              return tweetPoolData[b].timestamp - tweetPoolData[a].timestamp;
+            });
 
+            const dataRtrvDependency =
+              Object.keys(tweetPoolData).length + startIndex;
+            console.log(dataRtrvDependency);
+
+            if (dataRtrvDependency > 20) {
+              const next20Keys = sortedKeys.slice(startIndex - 20, startIndex);
+              const nextTweets = next20Keys
+                .map((key) => tweetPoolData[key])
+                .reverse();
+              setTweets((prevTweets) => [...prevTweets, ...nextTweets]);
+              console.log(nextTweets);
+
+              // Update the start index for the next batch
+              setStartIndex((prevIndex) => prevIndex - 20);
+            } else if (dataRtrvDependency < 20) {
+              const next20Keys = sortedKeys.slice(0, dataRtrvDependency);
+              const nextTweets = next20Keys
+                .map((key) => tweetPoolData[key])
+                .reverse();
+              setTweets((prevTweets) => [...prevTweets, ...nextTweets]);
+              console.log(nextTweets);
+              setlimitStopper(false);
+              // Update the start index for the next batch
+              setStartIndex((prevIndex) => prevIndex + dataRtrvDependency);
+            }
+          })
+          .catch(reject);
+      });
+    }
+  };
 
   function UpdateListener() {
     let previousLength = 0; // Variable to store the previous length
@@ -172,8 +172,14 @@ const loadNextTweets = () => {
                   to={
                     "/Home/" + tweetsItems.username + "/" + tweetsItems.tweetId
                   }
-                  className="main-tweet-card w-full relative cursor-pointer flex"
+                  className="main-tweet-card pt-3 w-full relative cursor-pointer flex"
                 >
+                  {tweetsItems.RetweetedBy ? <div className="absolute flex gap-2 left-6 justify-center items-center top-0 text-sm retweetedText">
+                    <div>
+                      <FaRetweet />{" "}
+                    </div>
+                    <div>{tweetsItems.RetweetedBy} Retweeted</div>
+                  </div>: ""}
                   <div className="mt-3 ml-4 main-tweet-card-first-half">
                     <img
                       src={tweetsItems.profilePic}
