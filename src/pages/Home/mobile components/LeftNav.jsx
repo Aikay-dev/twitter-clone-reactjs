@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import {
   MdKeyboardArrowDown,
@@ -29,10 +29,30 @@ const LeftNav = ({
   mobileNavLeftState,
   setSetNdpriv,
   currentUser,
+  showNotifAlert,
+  setshowNotifAlert,
 }) => {
   const dispatch = useDispatch();
-  console.log(currentUser?true:false);
-  console.log(currentUser.username)
+  console.log(currentUser ? true : false);
+  console.log(currentUser.username);
+  
+  useEffect(() => {
+    console.log(currentUser);
+    if (Object.keys(currentUser).length > 0) {
+      if (currentUser.seenNotification) {
+        if (
+          currentUser.notificationData.length !== currentUser.seenNotification
+        ) {
+          setshowNotifAlert(true);
+        } else {
+          setshowNotifAlert(false);
+        }
+      } else {
+        console.log("no seenNotification");
+      }
+    }
+  }, [currentUser]);
+
   return (
     <section
       className="absolute top-0 overflow-y-scroll z-50 h-screen home-navbar-mobile bg-black"
@@ -114,8 +134,13 @@ const LeftNav = ({
               dispatch(mobileNavLeftState(false));
             }}
           >
-            <div>
+            <div className="relative">
               <FontAwesomeIcon icon="fa-regular fa-bell" />
+              {showNotifAlert && (
+                <div className="bluetext text-xs absolute top-0 right-0">
+                  <FontAwesomeIcon icon="fa-solid fa-circle" />
+                </div>
+              )}
             </div>
             <p className="font-semibold">Notifications</p>
           </Link>

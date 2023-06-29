@@ -76,9 +76,10 @@ const Root = ({ authState, setAuthState, currentUser }) => {
     likes: [0],
     tweetId: Date.now(),
   });
-  const [uploadComplete, setUploadComplete] = useState(false);  const timestamp = Date.now();
+  const [uploadComplete, setUploadComplete] = useState(false);
+  const timestamp = Date.now();
   const [imageToGrabLink, setImageToGrabLink] = useState(null);
-
+  const [showNotifAlert, setshowNotifAlert] = useState(false);
   /* END STATE MANAGEMENT */
   useEffect(() => {
     // Code to run when the component mounts and when the URL changes
@@ -278,6 +279,24 @@ const Root = ({ authState, setAuthState, currentUser }) => {
   }, [windowHeight]);
 
   /* Manage states based on height */
+
+  useEffect(() => {
+    console.log(currentUser);
+    if (Object.keys(currentUser).length > 0) {
+      if (currentUser.seenNotification) {
+        if (
+          currentUser.notificationData.length !== currentUser.seenNotification
+        ) {
+          setshowNotifAlert(true);
+        } else {
+          setshowNotifAlert(false);
+        }
+      } else {
+        console.log("no seenNotification");
+      }
+    }
+  }, [currentUser]);
+
   function uploadTweetText(e) {
     settweetData({ ...tweetData, tweetText: e });
     return tweetData;
@@ -356,7 +375,7 @@ const Root = ({ authState, setAuthState, currentUser }) => {
     update(dbRef, newData)
       .then(() => {
         console.log("Data updated successfully");
-        setprofileBlur(false)
+        setprofileBlur(false);
         toast.success("Tweeted successfully");
         settweetingLoader(false);
         setImageToUpload(null);
@@ -391,7 +410,6 @@ const Root = ({ authState, setAuthState, currentUser }) => {
   const handleTweetFormReset = () => {
     tweetTextareaRef.current.value = "";
   };
-
 
   const page = useParams();
   const navigate = useNavigate();
@@ -666,8 +684,13 @@ const Root = ({ authState, setAuthState, currentUser }) => {
                       : { fontWeight: 100 }
                   }
                 >
-                  <div>
+                  <div className="relative">
                     <FontAwesomeIcon icon="fa-regular fa-bell" />
+                    {showNotifAlert && (
+                      <div className="bluetext text-xs absolute top-0 right-0">
+                        <FontAwesomeIcon icon="fa-solid fa-circle" />
+                      </div>
+                    )}
                   </div>
                   <p className="hidden xl:block xl:pl-6">Notifications</p>
                 </Link>
@@ -910,6 +933,8 @@ const Root = ({ authState, setAuthState, currentUser }) => {
             setNdpriv={setNdpriv}
             mobileNavLeftState={mobileNavLeftState}
             currentUser={currentUser}
+            showNotifAlert={showNotifAlert}
+            setshowNotifAlert={setshowNotifAlert}
           />
           <div
             className="absolute top-0 h-screen w-screen"

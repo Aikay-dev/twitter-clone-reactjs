@@ -6,8 +6,9 @@ import { fab } from "@fortawesome/free-brands-svg-icons";
 import { far } from "@fortawesome/free-regular-svg-icons";
 import { Link } from "react-router-dom";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../../config/firebase";
+import { auth, realTimeDatabase } from "../../config/firebase";
 import { useNavigate } from "react-router-dom";
+import { ref, update } from "firebase/database";
 
 library.add(fas);
 library.add(fab);
@@ -30,6 +31,21 @@ const LoginPassword = ({ userAuth, setUserAuth }) => {
     setUserAuth(currentData);
   };
   const [errorOutline, setErrorOutline] = useState({});
+
+  const updateNodeSilent = (path, newData) => {
+    const dbRef = ref(realTimeDatabase, path);
+    update(dbRef, newData)
+      .then(() => {
+        console.log("Data updated successfully");
+        navigate("/Home/");
+        window.location.reload();
+        setNextLoad(false);
+      })
+      .catch((error) => {
+        console.error("Error updating data:", error);
+        settweetingLoader(false);
+      });
+  };
 
   return (
     <div>
@@ -103,13 +119,12 @@ const LoginPassword = ({ userAuth, setUserAuth }) => {
             signInWithEmailAndPassword(auth, userAuth.email, userAuth.password)
               .then((cred) => {
                 console.log("user logged in:", cred.user);
-                navigate("/Home/");
-                window.location.reload()
-                setNextLoad(false);
+                /* updateNodeSilent("users/" + tweetData.tweetId, tweetData); */
               })
               .catch((err) => {
                 setNextLoad(false);
-                setErrorOutline({ borderColor: "red" });wv 
+                setErrorOutline({ borderColor: "red" });
+                wv;
                 console.log(err.message);
               });
           }

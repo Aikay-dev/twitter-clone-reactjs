@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { fas } from "@fortawesome/free-solid-svg-icons";
@@ -9,15 +9,44 @@ import SettingsTwoToneIcon from "@mui/icons-material/SettingsTwoTone";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { mobileNavLeftState } from "../store";
+import { realTimeDatabase } from "../config/firebase";
+import { ref, update } from "firebase/database";
+import NotificationStream from "../database/NotificationStream";
 
 library.add(fas);
 library.add(fab);
 library.add(far);
 
 function NotificationPage() {
+  const currentUser = useSelector((state) => state.currUsr.value);
+  console.log(currentUser)
     const dispatch = useDispatch();
     const mobNavleft = useSelector((state) => state.mobNavleft.value);
-  return (
+  
+
+    useEffect(() => {
+
+        const seenUpdate = {...currentUser, seenNotification: currentUser.notificationData.length}
+        console.log(seenUpdate)
+        updateSeenNode("users/"+ currentUser.userId, seenUpdate)
+      
+    }, [])
+
+    const updateSeenNode = (path, newData) => {
+      const dbRef = ref(realTimeDatabase, path);
+      update(dbRef, newData)
+        .then(() => {
+          console.log("Data updated successfully");
+        })
+        .catch((error) => {
+          console.error("Error updating data:", error);
+          settweetingLoader(false);
+        });
+    };
+    
+
+  
+    return (
     <>
       <section className="homepage-center h-screen relative overflow-hidden">
         <header className="flex flex-col px-5 pt-5 notificationheaderBorder">
@@ -50,7 +79,8 @@ function NotificationPage() {
             <p className="fo font-semibold text-sm">All</p>
           </div>
         </header>
-        <section className=" overflow-y-scroll h-screen notificationmainsection">
+        <section className=" overflow-y-scroll  h-screen notificationmainsection">
+          <NotificationStream streamData = {currentUser.notificationData}/>
           <div className="notificationcard flex justify-center items-center py-3 px-6 gap-4 cursor-pointer">
             <div className="text text-3xl">
               <FontAwesomeIcon icon="fab fa-twitter" />
@@ -86,6 +116,7 @@ function NotificationPage() {
               <p>Andrew Bello liked your post</p>
             </div>
           </div>
+          <div className=" h-60"></div>
         </section>
       </section>
 
