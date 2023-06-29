@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { library } from "@fortawesome/fontawesome-svg-core";
@@ -8,7 +8,7 @@ import { far } from "@fortawesome/free-regular-svg-icons";
 import HomeRight from "./Home/HomeRight";
 import { useSelector, useDispatch } from "react-redux";
 import { realTimeDatabase } from "../config/firebase";
-import { ref } from "firebase/database";
+import { ref, onValue } from "firebase/database";
 import { ref as strgRef } from "firebase/storage";
 import { update } from "firebase/database";
 import { storage } from "../config/firebase";
@@ -21,9 +21,7 @@ library.add(fab);
 library.add(far);
 
 function ProfilePage() {
-  
   const currentUser = useSelector((state) => state.currUsr.value);
-  console.log(currentUser);
 
   const [userProfileDetails, setuserProfileDetails] = useState({
     ...currentUser,
@@ -36,6 +34,36 @@ function ProfilePage() {
   const mobNavleft = useSelector((state) => state.mobNavleft.value);
   const [prflImgLoader, setprflImgLoader] = useState(false);
   const [updatedPrfPic, setupdatedPrfPic] = useState(null);
+  const [profileDetails, setprofileDetails] = useState({});
+  const [profileDetailsOwner, setprofileDetailsOwner] = useState({});
+  const [gottenProfile, setgottenProfile] = useState(false);
+  useEffect(() => {
+    const currentDir = window.location.pathname;
+    const extractedText = currentDir.split("/").filter(Boolean).pop();
+    console.log(extractedText);
+    setprofileDetailsOwner(decodeURIComponent(extractedText));
+  }, []);
+
+  useEffect(() => {
+    if (profileDetailsOwner.length > 0) {
+      let ownersRef = ref(realTimeDatabase, "/users");
+      onValue(ownersRef, (snapshot) => {
+        const users = snapshot.val();
+        console.log(users);
+
+        for (const key in users) {
+          if (users.hasOwnProperty(key)) {
+            const user = users[key];
+            if (user.username === profileDetailsOwner) {
+              console.log(user);
+              setprofileDetails(user);
+              setgottenProfile(true);
+            }
+          }
+        }
+      });
+    }
+  }, [profileDetailsOwner]);
 
   let focusName = useRef(null);
   let focusBio = useRef(null);
@@ -95,14 +123,17 @@ function ProfilePage() {
   }
 
   const updateProfileInfo = () => {
-    if(userProfileDetails.displayName.length < 3 || userProfileDetails.displayName.length > 15){
-      console.log(userProfileDetails.displayName.length)
-    }else{
+    if (
+      userProfileDetails.displayName.length < 3 ||
+      userProfileDetails.displayName.length > 15
+    ) {
+      console.log(userProfileDetails.displayName.length);
+    } else {
       updateNode("users/" + currentUser.userId, userProfileDetails);
-      setprofileBlur(false)
-      console.log(userProfileDetails.displayName.length)
+      setprofileBlur(false);
+      console.log(userProfileDetails.displayName.length);
     }
-  }
+  };
 
   return (
     <>
@@ -276,164 +307,183 @@ function ProfilePage() {
           </div>
         </div>
       )}
-      <section className="homepage-center h-full relative overflow-hidden">
-        <header className="flex pt-1 pb-1 profilePageHeader">
-          <div
-            className="personalization-and-data-head-nav-arrow-holder flex items-center justify-center cursor-pointer rounded-full h-8 w-8 ml-2 mt-2 mr-8"
-            onClick={() => window.history.back()}
-          >
-            <span className="text-base">
-              <FontAwesomeIcon icon="fa-solid fa-arrow-left" />
-            </span>
-          </div>
-          <div>
-            <p className=" text-xl font-semibold">{currentUser.displayName}</p>
-            <p className="text-sm homelabelcolor">118 Tweets</p>
-          </div>
-        </header>
-        <section className=" overflow-y-scroll pb-20 h-full profilepagemainsection">
-          <div className=" h-48 w-full  profilebacdropimage"></div>
-          <div className="flex flex-col  relative">
-            <div className="p-1 bg-black absolute rounded-full flex justify-center items-center profileimageinproflepage">
-              <img
-                src={
-                  currentUser
-                    ? currentUser.profile_picture
-                    : "https://picsum.photos/200/300"
-                }
-                alt="profile pic"
-                className="rounded-full profileimageinproflepageimage relative h-32 w-32"
-              />
-            </div>
-            <div className=" flex flex-row-reverse pt-3 pb-4  pr-5">
-              <button
-                onClick={() => {
-                  setprofileBlur(true);
-                }}
-                className=" font-semibold px-4 py-1 bg-black rounded-full profileMainEditButton"
-              >
-                Edit Profile
-              </button>
-            </div>
-            <div className="pl-4">
-              <p className=" font-black text-xl">{currentUser.displayName}</p>
-              <p className="text-sm homelabelcolor">{currentUser.username}</p>
-            </div>
-
-            <div className="px-4 pt-4 flex flex-col gap-2">
-              {currentUser.bioData.length === 0 ? (
-                ""
-              ) : (
-                <p className=" bioinprofile whitespace-pre-wrap">
-                  {currentUser.bioData}
-                </p>
-              )}
-              <div className=" flex-wrap gap-3 h-15">
-                <div className="flex gap-3">
-                  <div className="homelabelcolor flex gap-2">
-                    {" "}
-                    <p>
-                      <FontAwesomeIcon icon="fa-regular fa-calendar-days" />{" "}
-                    </p>
-                    {currentUser.timeJoined}
-                  </div>
-                  {currentUser.locatonData.length === 0 ? (
-                    ""
-                  ) : (
-                    <div className="homelabelcolor flex gap-2">
-                      {" "}
-                      <p>
-                        <FontAwesomeIcon icon="fa-solid fa-location-dot" />{" "}
-                      </p>
-                      {currentUser.locatonData}
-                    </div>
-                  )}
-                </div>
-                <div className="flex gap-3">
-                  {currentUser.websiteData.length === 0 ? (
-                    ""
-                  ) : (
-                    <div className="homelabelcolor flex gap-2">
-                      {" "}
-                      <p>
-                        <FontAwesomeIcon icon="fa-solid fa-link" />{" "}
-                      </p>
-                      <a href={currentUser.websiteData}>
-                        <p className="signup-link">{currentUser.websiteData}</p>
-                      </a>
-                    </div>
-                  )}
-                </div>
-              </div>
-              <div className="flex gap-4">
-                <div>
-                  <span className=" font-semibold">
-                    {currentUser.followingNumber.length === 1
-                      ? 0
-                      : [currentUser.followingNumber.length]}{" "}
-                  </span>
-                  <span className="homelabelcolor">following</span>
-                </div>
-                <div>
-                  <span className=" font-semibold">
-                    {currentUser.followersNumber.length === 1
-                      ? 0
-                      : [currentUser.followersNumber.length]}{" "}
-                  </span>
-                  <span className="homelabelcolor">followers</span>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="flex justify-between profilepagetabholder mt-3">
+      {gottenProfile && (
+        <section className="homepage-center h-full relative overflow-hidden">
+          <header className="flex pt-1 pb-1 profilePageHeader">
             <div
-              onClick={() => {
-                setprofileTweetsTab(true);
-                setprofileLikesTab(false);
-              }}
-              className="h-16 w-full flex items-center justify-center cursor-pointer profilepageTweetsbigTab"
+              className="personalization-and-data-head-nav-arrow-holder flex items-center justify-center cursor-pointer rounded-full h-8 w-8 ml-2 mt-2 mr-8"
+              onClick={() => window.history.back()}
             >
-              <div
-                style={
-                  profileTweetsTab
-                    ? { borderBottom: "3px solid var(--blueText)" }
-                    : {}
-                }
-                className=" h-full flex justify-center items-center profilepageTweetsTab"
-              >
+              <span className="text-base">
+                <FontAwesomeIcon icon="fa-solid fa-arrow-left" />
+              </span>
+            </div>
+            <div>
+              <p className=" text-xl font-semibold">
+                {profileDetails.displayName}
+              </p>
+              <p className="text-sm homelabelcolor">
+                <span>{Object.keys(profileDetails.userTweets).length - 1}</span>{" "}
                 Tweets
+              </p>
+            </div>
+          </header>
+          <section className=" overflow-y-scroll pb-20 h-full profilepagemainsection">
+            <div className=" h-48 w-full  profilebacdropimage"></div>
+            <div className="flex flex-col  relative">
+              <div className="p-1 bg-black absolute rounded-full flex justify-center items-center profileimageinproflepage">
+                <img
+                  src={
+                    profileDetails
+                      ? profileDetails.profile_picture
+                      : "https://picsum.photos/200/300"
+                  }
+                  alt="profile pic"
+                  className="rounded-full profileimageinproflepageimage relative h-32 w-32"
+                />
+              </div>
+              {currentUser.username === profileDetails.username ? (
+                <div className=" flex flex-row-reverse pt-3 pb-4  pr-5">
+                  <button
+                    onClick={() => {
+                      setprofileBlur(true);
+                    }}
+                    className=" font-semibold px-4 py-1 bg-black rounded-full profileMainEditButton"
+                  >
+                    Edit Profile
+                  </button>
+                </div>
+              ) : (
+                <div className="h-20"></div>
+              )}
+
+              <div className="pl-4">
+                <p className=" font-black text-xl">{profileDetails.displayName}</p>
+                <p className="text-sm homelabelcolor">{profileDetails.username}</p>
+              </div>
+
+              <div className="px-4 pt-4 flex flex-col gap-2">
+                {profileDetails.bioData.length === 0 ? (
+                  ""
+                ) : (
+                  <p className=" bioinprofile whitespace-pre-wrap">
+                    {profileDetails.bioData}
+                  </p>
+                )}
+                <div className=" flex-wrap gap-3 h-15">
+                  <div className="flex gap-3">
+                    <div className="homelabelcolor flex gap-2">
+                      {" "}
+                      <p>
+                        <FontAwesomeIcon icon="fa-regular fa-calendar-days" />{" "}
+                      </p>
+                      {profileDetails.timeJoined}
+                    </div>
+                    {profileDetails.locatonData.length === 0 ? (
+                      ""
+                    ) : (
+                      <div className="homelabelcolor flex gap-2">
+                        {" "}
+                        <p>
+                          <FontAwesomeIcon icon="fa-solid fa-location-dot" />{" "}
+                        </p>
+                        {profileDetails.locatonData}
+                      </div>
+                    )}
+                  </div>
+                  <div className="flex gap-3">
+                    {profileDetails.websiteData.length === 0 ? (
+                      ""
+                    ) : (
+                      <div className="homelabelcolor flex gap-2">
+                        {" "}
+                        <p>
+                          <FontAwesomeIcon icon="fa-solid fa-link" />{" "}
+                        </p>
+                        <a href={profileDetails.websiteData}>
+                          <p className="signup-link">
+                            {profileDetails.websiteData}
+                          </p>
+                        </a>
+                      </div>
+                    )}
+                  </div>
+                </div>
+                <div className="flex gap-4">
+                  <div>
+                    <span className=" font-semibold">
+                      {profileDetails.followingNumber.length === 1
+                        ? 0
+                        : [profileDetails.followingNumber.length]}{" "}
+                    </span>
+                    <span className="homelabelcolor">following</span>
+                  </div>
+                  <div>
+                    <span className=" font-semibold">
+                      {profileDetails.followersNumber.length === 1
+                        ? 0
+                        : [profileDetails.followersNumber.length]}{" "}
+                    </span>
+                    <span className="homelabelcolor">followers</span>
+                  </div>
+                </div>
               </div>
             </div>
-            <div
-              onClick={() => {
-                setprofileTweetsTab(false);
-                setprofileLikesTab(true);
-              }}
-              className="h-16 w-full flex items-center justify-center cursor-pointer profilepageLikesbigTab"
-            >
+            <div className="flex justify-between profilepagetabholder mt-3">
               <div
-                style={
-                  profileLikesTab
-                    ? { borderBottom: "3px solid var(--blueText)" }
-                    : {}
-                }
-                className="h-full flex justify-center items-center profilepageLikesTab"
+                onClick={() => {
+                  setprofileTweetsTab(true);
+                  setprofileLikesTab(false);
+                }}
+                className="h-16 w-full flex items-center justify-center cursor-pointer profilepageTweetsbigTab"
               >
-                Likes
+                <div
+                  style={
+                    profileTweetsTab
+                      ? { borderBottom: "3px solid var(--blueText)" }
+                      : {}
+                  }
+                  className=" h-full flex justify-center items-center profilepageTweetsTab"
+                >
+                  Tweets
+                </div>
+              </div>
+              <div
+                onClick={() => {
+                  setprofileTweetsTab(false);
+                  setprofileLikesTab(true);
+                }}
+                className="h-16 w-full flex items-center justify-center cursor-pointer profilepageLikesbigTab"
+              >
+                <div
+                  style={
+                    profileLikesTab
+                      ? { borderBottom: "3px solid var(--blueText)" }
+                      : {}
+                  }
+                  className="h-full flex justify-center items-center profilepageLikesTab"
+                >
+                  Likes
+                </div>
               </div>
             </div>
-          </div>
-          <section className=" h-96 w-full">
-            {profileTweetsTab && <UserTweets />}
-            <div className="h-32 flex justify-center items-center">
-              <button onClick={() => {
-                location.reload(true)
-              }} className="flex bg-blue-500 rounded-full w-20 justify-center items-center">refresh</button>
-            </div>
+            <section className=" h-96 w-full">
+              {profileTweetsTab && <UserTweets profileDetails = {profileDetails} />}
+              <div className="h-32 flex justify-center items-center">
+                <button
+                  onClick={() => {
+                    location.reload(true);
+                  }}
+                  className="flex bg-blue-500 rounded-full w-20 justify-center items-center"
+                >
+                  refresh
+                </button>
+              </div>
+            </section>
           </section>
         </section>
-      </section>
-
+      )}
+      {!gottenProfile && <Loader />}
       <HomeRight />
     </>
   );

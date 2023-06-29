@@ -17,8 +17,8 @@ library.add(fas);
 library.add(fab);
 library.add(far);
 
-const UserTweets = () => {
-  const currentUser = useSelector((state) => state.currUsr.value);
+const UserTweets = ({ profileDetails }) => {
+  const currentUser = profileDetails
   const [tweetsCardData, settweetsCardData] = useState([]);
   console.log(currentUser);
 
@@ -65,7 +65,7 @@ const UserTweets = () => {
         tweetsCardData.reverse().map((item, index) => {
           if (!item) {
             return (
-              <React.Fragment key = {index}>
+              <React.Fragment key={index}>
                 {tweetsCardData[0] === null && tweetsCardData.length < 2 && (
                   <p className="p-3">
                     No tweets available for now, make a tweet or a retweet and
@@ -79,12 +79,7 @@ const UserTweets = () => {
             <React.Fragment key={item.tweetId}>
               <Link
                 key={item.tweetId}
-                to={
-                  "/Home/" +
-                  item.username +
-                  "/" +
-                  item.tweetId
-                }
+                to={"/Home/" + item.username + "/" + item.tweetId}
                 className="main-tweet-card w-full relative cursor-pointer flex"
               >
                 <div className="mt-3 ml-4 main-tweet-card-first-half">
@@ -112,9 +107,7 @@ const UserTweets = () => {
                     </div>
                   </div>
                   <div className="main-tweet-card-content overflow-x-hidden">
-                    {item.tweetText && (
-                      <TextComponent text={item.tweetText} />
-                    )}
+                    {item.tweetText && <TextComponent text={item.tweetText} />}
                     {item.tweetImageLink.length > 0 && (
                       <img
                         src={item.tweetImageLink}
@@ -130,9 +123,7 @@ const UserTweets = () => {
                         <div className="p p-1.5 rounded-full main-comment-icon-surround">
                           <FaRegCommentDots />
                         </div>
-                        <span>
-                        {Object.keys(item.comments).length - 1}
-                        </span>
+                        <span>{Object.keys(item.comments).length - 1}</span>
                       </button>
                       <button
                         className="flex gap-3 items-center main-tweet-retweet-icon"
