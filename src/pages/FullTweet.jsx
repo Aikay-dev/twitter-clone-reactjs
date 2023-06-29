@@ -59,6 +59,7 @@ function FullTweet() {
   const [Key, setKey] = useState("");
   const [showRetweet, setRetweet] = useState(false);
   const [showLike, setShowLike] = useState(false);
+  const [showBookmark, setshowBookmark] = useState(false);
 
   useEffect(() => {
     const url = window.location.pathname;
@@ -249,6 +250,8 @@ function FullTweet() {
     }
   }
 
+
+
   function pushupTweet() {
     settweetData((prevData) => ({
       ...prevData,
@@ -321,6 +324,7 @@ function FullTweet() {
   }
   const [likeStyle, setlikeStyle] = useState({});
   const [retweetStyle, setretweetStyle] = useState({});
+  const [bookmarkStyle, setbookmarkStyle] = useState({});
   useEffect(() => {
     if (showLike) {
       setlikeStyle({ color: "rgb(249, 24, 128)" });
@@ -333,7 +337,13 @@ function FullTweet() {
     } else {
       setretweetStyle({});
     }
-  }, [showLike, showRetweet]);
+
+    if (showBookmark) {
+      setbookmarkStyle({ color: "var(--blueText)" });
+    } else {
+      setbookmarkStyle({});
+    }
+  }, [showLike, showRetweet, showBookmark]);
 
   function handleRetweet() {
     const userDataNotify = userKey;
@@ -343,7 +353,7 @@ function FullTweet() {
       userId: currentUser.userId,
       profilePicture: currentUser.profile_picture,
     });
-    
+
     const fulldata2push = fulltweetData;
     console.log(fulltweetData);
     const index = fulldata2push.retweets.indexOf(currentUser.userId);
@@ -365,8 +375,7 @@ function FullTweet() {
         updateRtwtNode("tweetPool/" + fulltweetData.tweetId, fulldata2push);
       } else {
         updateRtwtNode(
-          "commentTweetPool/" + fulltweetData.tweetId,
-          fulldata2push
+          "commentTweetPool/" + fulltweetData.tweetId, fulldata2push
         );
       }
       updateNodeSilent("users/" + Key, userDataNotify);
@@ -380,6 +389,19 @@ function FullTweet() {
   }
 
   useEffect(() => {
+    if(fulltweetData){
+      for(let i = 0; i < currentUser.bookmarkData.length; i++) {
+        if(currentUser.bookmarkData[i] === fulltweetData.tweetId){
+          setshowBookmark(true)
+          console.log("its true boys")
+        }else{
+          console.log("not true boys")
+        }
+      }
+    }
+  }, [fulltweetData])
+
+  useEffect(() => {
     const CurrentRTDB = ref(realTimeDatabase, "users/");
     onValue(CurrentRTDB, (snapshot) => {
       const data = snapshot.val();
@@ -387,21 +409,19 @@ function FullTweet() {
       setusrs(data);
       let foundKey = null;
 
-
-        for (const key in data) {
-          if (
-            data.hasOwnProperty(key) &&
-            data[key].username === fulltweetData.username
-          ) {
-            foundKey = data[key];
-            console.log(foundKey);
-            console.log(fulltweetData.username);
-            setUserKey(foundKey);
-            setKey(key);
-            break;
-          }
+      for (const key in data) {
+        if (
+          data.hasOwnProperty(key) &&
+          data[key].username === fulltweetData.username
+        ) {
+          foundKey = data[key];
+          console.log(foundKey);
+          console.log(fulltweetData.username);
+          setUserKey(foundKey);
+          setKey(key);
+          break;
         }
-      
+      }
     });
   }, [fulltweetData]);
 
@@ -449,6 +469,37 @@ function FullTweet() {
       toast.success("Liked successfully");
     }
   }
+
+  function handleBookmark() {
+  
+    const tweetId = fulltweetData.tweetId;
+    const bookmarkDataCopy = {...currentUser};
+    const index = bookmarkDataCopy.bookmarkData.indexOf(tweetId);
+  
+    if (index !== -1) {
+      if(bookmarkDataCopy.bookmarkData.length === 1){
+        bookmarkDataCopy.bookmarkData = [0]
+      }else{
+        bookmarkDataCopy.bookmarkData.splice(index, 1);
+      }
+      updateNodeSilent("users/" + currentUser.userId, bookmarkDataCopy);
+      setshowBookmark(false)
+      toast.success("Removed from Bookmark")
+    } else {
+      // Item doesn't exist in the bookmarkData, so add it
+      if(bookmarkDataCopy.bookmarkData.length === 1){
+        bookmarkDataCopy.bookmarkData = [fulltweetData.tweetId]
+      }else{
+        bookmarkDataCopy.bookmarkData.push(fulltweetData.tweetId)
+      }
+      updateNodeSilent("users/" + currentUser.userId, bookmarkDataCopy);
+      setshowBookmark(true)
+      toast.success("Added to Bookmark")
+    }
+    // Perform any further operations with the updated bookmarkupdate object
+  }
+  
+  
 
   return (
     <>
@@ -543,31 +594,35 @@ function FullTweet() {
               </div>
             </div>
             <div className="flex justify-around items-center homelabelcolor text-xl mx-3 py-1 tweetfullactionsection">
-              <div
+              <button
                 onClick={() => {
                   tweetTextareaRef.current.focus();
                 }}
                 className="p-3 cursor-pointer rounded-full main-tweet-comment-icon main-tweet-comment-icon-background"
               >
                 <FaRegComment />
-              </div>
-              <div
+              </button>
+              <button
                 onClick={handleRetweet}
                 className="p-3 cursor-pointer rounded-full main-tweet-retweet-icon main-tweet-retweet-icon-background"
                 style={retweetStyle}
               >
                 <FaRetweet />
-              </div>
-              <div
+              </button>
+              <button
                 onClick={handleLike}
                 className="p-3 cursor-pointer rounded-full main-tweet-like-icon main-tweet-like-icon-background"
                 style={likeStyle}
               >
                 <AiOutlineHeart />
-              </div>
-              <div className="p-3 text-lg cursor-pointer rounded-full main-tweet-comment-icon main-tweet-comment-icon-background">
+              </button>
+              <button
+                style={bookmarkStyle}
+                onClick={handleBookmark}
+                className="p-3 text-lg cursor-pointer rounded-full main-tweet-comment-icon main-tweet-comment-icon-background"
+              >
                 <BsBookmark />
-              </div>
+              </button>
             </div>
             <div className="text-sm ml-16 pt-2">
               <span className="homelabelcolor">Replying to </span>
