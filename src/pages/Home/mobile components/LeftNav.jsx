@@ -82,7 +82,7 @@ const LeftNav = ({
         <div className="flex flex-col gap-6 ml-3 mt-5">
           <Link
             className="flex gap-6 text-xl"
-            to={"Home/" + currentUser.username}
+            to={"/Home/" + currentUser.username}
             onClick={() => {
               document.body.classList.remove("overlay-open");
               dispatch(mobileNavLeftState(false));
