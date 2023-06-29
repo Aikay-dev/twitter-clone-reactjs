@@ -336,9 +336,16 @@ function FullTweet() {
   }, [showLike, showRetweet]);
 
   function handleRetweet() {
+    const userDataNotify = userKey;
+    userDataNotify.notificationData.push({
+      displayName: currentUser.displayName,
+      message: "Retweeted your post",
+      userId: currentUser.userId,
+      profilePicture: currentUser.profile_picture,
+    });
+    
     const fulldata2push = fulltweetData;
     console.log(fulltweetData);
-    /* setfulltweetData((prev) => {prev, currentUser.userId}) */
     const index = fulldata2push.retweets.indexOf(currentUser.userId);
 
     if (index !== -1) {
@@ -362,6 +369,7 @@ function FullTweet() {
           fulldata2push
         );
       }
+      updateNodeSilent("users/" + Key, userDataNotify);
       setRetweet(true);
       updateNodeSilent("tweetPool/" + Date.now(), {
         ...fulltweetData,
