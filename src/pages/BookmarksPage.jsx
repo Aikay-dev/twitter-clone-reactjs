@@ -6,6 +6,7 @@ import { fas } from "@fortawesome/free-solid-svg-icons";
 import { fab } from "@fortawesome/free-brands-svg-icons";
 import { far } from "@fortawesome/free-regular-svg-icons";
 import { useSelector, useDispatch } from "react-redux";
+import BookmarkStream from "../database/BookmarkStream";
 
 library.add(fas);
 library.add(fab);
@@ -13,7 +14,7 @@ library.add(far);
 
 function BookmarksPage() {
   const currentUser = useSelector((state) => state.currUsr.value);
-  console.log(currentUser)
+  console.log(currentUser);
   return (
     <>
       <section className="homepage-center h-screen relative overflow-hidden">
@@ -36,7 +37,9 @@ function BookmarksPage() {
             <FontAwesomeIcon icon="fa-solid fa-ellipsis" />
           </div>
         </header>
-        <section className=" overflow-y-scroll bookmarkmainsection">
+        <section className=" overflow-y-scroll h-screen bookmarkmainsection">
+          <BookmarkStream />
+          <div className="h-56"></div>
         </section>
       </section>
 
