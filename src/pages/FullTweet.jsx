@@ -295,7 +295,7 @@ function FullTweet() {
         {loadedFullTweet && (
           <section className="pt-20 pb-20 homepage-center-info overflow-y-scroll h-full">
             <div className="flex justify-between px-3">
-              <div className="flex ">
+              <Link to={'/Home/' + fulltweetData.username} className="flex ">
                 <div>
                   <img
                     src={fulltweetData !== null ? fulltweetData.profilePic : ""}
@@ -311,7 +311,7 @@ function FullTweet() {
                     {fulltweetData !== null ? fulltweetData.username : ""}
                   </p>
                 </div>
-              </div>
+              </Link>
               <button className="ml-4 ellipseinFullTweet flex w-8 h-8 rounded-full justify-center items-center">
                 <FontAwesomeIcon icon="fa-solid fa-ellipsis" />
               </button>
@@ -346,7 +346,9 @@ function FullTweet() {
               </div>
             </div>
             <div className="flex justify-around items-center homelabelcolor text-xl mx-3 py-1 tweetfullactionsection">
-              <div className="p-3 cursor-pointer rounded-full main-tweet-comment-icon main-tweet-comment-icon-background">
+              <div onClick={() => {
+                tweetTextareaRef.current.focus()
+              }} className="p-3 cursor-pointer rounded-full main-tweet-comment-icon main-tweet-comment-icon-background">
                 <FaRegComment />
               </div>
               <div className="p-3 cursor-pointer rounded-full main-tweet-retweet-icon main-tweet-retweet-icon-background">
