@@ -32,6 +32,7 @@ const LeftNav = ({
 }) => {
   const dispatch = useDispatch();
   console.log(currentUser?true:false);
+  console.log(currentUser.username)
   return (
     <section
       className="absolute top-0 overflow-y-scroll z-50 h-screen home-navbar-mobile bg-black"
@@ -81,7 +82,7 @@ const LeftNav = ({
         <div className="flex flex-col gap-6 ml-3 mt-5">
           <Link
             className="flex gap-6 text-xl"
-            to="Profile"
+            to={"Home/" + currentUser.username}
             onClick={() => {
               document.body.classList.remove("overlay-open");
               dispatch(mobileNavLeftState(false));

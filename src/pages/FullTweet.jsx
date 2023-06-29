@@ -54,6 +54,10 @@ function FullTweet() {
   const [loadedFullTweet, setLoadedFullTweet] = useState(false);
   const [timestampdynmic, setTimestampdynmic] = useState(timestamp);
   const [commentMounter, setcommentMounter] = useState(true);
+  const [usrs, setusrs] = useState({});
+  const [userKey, setUserKey] = useState("")
+  const [Key, setKey] = useState('')
+
   useEffect(() => {
     const url = window.location.pathname;
     const extractedTimestamp = url.substring(url.lastIndexOf("/") + 1);
@@ -178,18 +182,6 @@ function FullTweet() {
     update(dbRef, newData)
       .then(() => {
         console.log("Data updated successfully");
-        setcommentTweet(false);
-        settweetingLoader(false);
-        retrieveData();
-        setcommentMounter(false);
-        setImageToUpload(null);
-        settweetData((prevData) => ({
-          ...prevData,
-          tweetImageLink: "",
-          tweetText: "",
-        }));
-        setImageToGrabLink(null);
-        handleTweetFormReset();
       })
       .catch((error) => {
         console.error("Error updating data:", error);
@@ -303,57 +295,101 @@ function FullTweet() {
   }
 
   function handleRetweet() {
-    const fulldata2push = fulltweetData
+    const fulldata2push = fulltweetData;
     console.log(fulltweetData);
     /* setfulltweetData((prev) => {prev, currentUser.userId}) */
     const index = fulldata2push.retweets.indexOf(currentUser.userId);
 
     if (index !== -1) {
       fulldata2push.retweets.splice(index, 1);
-      if(commentTweet === false){
+      if (commentTweet === false) {
         updateRtwtNode("tweetPool/" + fulltweetData.tweetId, fulldata2push);
-      }else{
-        updateRtwtNode("commentTweetPool/" + fulltweetData.tweetId, fulldata2push);
+      } else {
+        updateRtwtNode(
+          "commentTweetPool/" + fulltweetData.tweetId,
+          fulldata2push
+        );
       }
     } else {
       fulldata2push.retweets.push(currentUser.userId);
-      if(commentTweet === false){
+      if (commentTweet === false) {
         updateRtwtNode("tweetPool/" + fulltweetData.tweetId, fulldata2push);
-        
-      }else{
-        updateRtwtNode("commentTweetPool/" + fulltweetData.tweetId, fulldata2push);
+      } else {
+        updateRtwtNode(
+          "commentTweetPool/" + fulltweetData.tweetId,
+          fulldata2push
+        );
       }
-      updateNodeSilent("tweetPool/" + Date.now(), {...fulltweetData, RetweetedBy: currentUser.username, tweetId: Date.now()});
+      updateNodeSilent("tweetPool/" + Date.now(), {
+        ...fulltweetData,
+        RetweetedBy: currentUser.username,
+        tweetId: Date.now(),
+      });
     }
   }
 
-  function handleLike(){
-    const fulldata2push = fulltweetData
+  useEffect(() => {
+    const CurrentRTDB = ref(realTimeDatabase, "users/");
+    onValue(CurrentRTDB, (snapshot) => {
+      const data = snapshot.val();
+      console.log(data);
+      setusrs(data);
+      let foundKey = null;
+
+      for (const key in data) {
+        if (data.hasOwnProperty(key) && data[key].username === fulltweetData.username) {
+          foundKey = data[key];
+          console.log(foundKey);
+          setUserKey(foundKey)
+          setKey(key)
+          break;
+        }
+      }
+    });
+  }, [fulltweetData]);
+
+  useEffect(() => {
+    console.log(userKey);
+  }, [usrs, userKey]);
+
+  function handleLike() {
+    const fulldata2push = fulltweetData;
+    const userDataNotify = userKey
+    userDataNotify.notificationData.push({
+      displayName: currentUser.displayName,
+      message: 'Liked your post',
+      userId: currentUser.userId,
+      profilePicture: currentUser.profile_picture
+    })
     console.log(fulltweetData);
     const index = fulldata2push.likes.indexOf(currentUser.userId);
-    
+
     if (index !== -1) {
       fulldata2push.likes.splice(index, 1);
-      if(commentTweet === false){
+      if (commentTweet === false) {
         updateNodeSilent("tweetPool/" + fulltweetData.tweetId, fulldata2push);
-      }else{
-        updateNodeSilent("commentTweetPool/" + fulltweetData.tweetId, fulldata2push);
+      } else {
+        updateNodeSilent(
+          "commentTweetPool/" + fulltweetData.tweetId,
+          fulldata2push
+        );
       }
     } else {
       fulldata2push.likes.push(currentUser.userId);
-      if(commentTweet === false){
+      if (commentTweet === false) {
         updateNodeSilent("tweetPool/" + fulltweetData.tweetId, fulldata2push);
         
-      }else{
-        updateNodeSilent("commentTweetPool/" + fulltweetData.tweetId, fulldata2push);
-        
+      } else {
+        updateNodeSilent(
+          "commentTweetPool/" + fulltweetData.tweetId,
+          fulldata2push
+        );
+
       }
-      toast.success("Liked successfully")
-      
+      updateNodeSilent("users/" + Key, userDataNotify);
+      toast.success("Liked successfully");
     }
   }
-
-
 
   return (
     <>
@@ -462,7 +498,10 @@ function FullTweet() {
               >
                 <FaRetweet />
               </div>
-              <div onClick={handleLike} className="p-3 cursor-pointer rounded-full main-tweet-like-icon main-tweet-like-icon-background">
+              <div
+                onClick={handleLike}
+                className="p-3 cursor-pointer rounded-full main-tweet-like-icon main-tweet-like-icon-background"
+              >
                 <AiOutlineHeart />
               </div>
               <div className="p-3 text-lg cursor-pointer rounded-full main-tweet-comment-icon main-tweet-comment-icon-background">

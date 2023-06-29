@@ -729,7 +729,7 @@ const Root = ({ authState, setAuthState, currentUser }) => {
                 <Link
                   aria-label="Profile"
                   className="flex section1-main-home-icon-profile text-xl  justify-center items-center"
-                  to="/Home/Profile"
+                  to={"/Home/" + currentUser.username}
                   style={
                     profileTabButtonClicked
                       ? { fontWeight: "Bold" }
