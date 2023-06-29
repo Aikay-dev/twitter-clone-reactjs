@@ -413,7 +413,7 @@ function FullTweet() {
         />
       </div>
       <section className="homepage-center h-screen relative overflow-hidden">
-        <nav className="flex items-center z-10 pt-2 absolute w-full top-mobile-nav">
+        <nav className="flex items-center z-10 pb-2 pt-2 absolute w-full top-mobile-nav">
           <div
             className="personalization-and-data-head-nav-arrow-holder flex items-center justify-center cursor-pointer rounded-full h-8 w-8 ml-2 mt-2 mr-8"
             onClick={() => {
