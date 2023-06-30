@@ -384,7 +384,7 @@ function ProfilePage() {
       )}
       {gottenProfile && (
         <section className="homepage-center h-full relative overflow-hidden">
-          <header className="flex pt-1 pb-1 profilePageHeader">
+          <header className="flex pt-1 pb-1 z-10 w-full bg-black profilePageHeader">
             <div
               className="personalization-and-data-head-nav-arrow-holder flex items-center justify-center cursor-pointer rounded-full h-8 w-8 ml-2 mt-2 mr-8"
               onClick={() => window.history.back()}
@@ -558,15 +558,7 @@ function ProfilePage() {
               {profileTweetsTab && (
                 <UserTweets profileDetails={profileDetails} />
               )}
-              <div className="h-32 flex justify-center items-center">
-                <button
-                  onClick={() => {
-                    location.reload(true);
-                  }}
-                  className="flex bg-blue-500 rounded-full w-20 justify-center items-center"
-                >
-                  refresh
-                </button>
+              <div className=" h-52">
               </div>
             </section>
           </section>

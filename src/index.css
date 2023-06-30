@@ -1012,6 +1012,7 @@
 
 .profilePageHeader {
   border-bottom: var(--homeBorder);
+  position: absolute;
 }
 
 .blue {
@@ -1832,6 +1833,10 @@
 @media screen and (max-width: 500px) {
   .homepage-center {
     width: 100%;
+  }
+
+  .profilePageHeader{
+    position: fixed;
   }
 
   .top-mobile-nav{

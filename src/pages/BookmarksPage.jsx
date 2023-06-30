@@ -18,7 +18,7 @@ function BookmarksPage() {
   return (
     <>
       <section className="homepage-center h-screen relative overflow-hidden">
-        <header className="px-3 bookmarkheader py-2 flex items-center justify-between">
+        <header className="px-3 bookmarkheader py-2 flex items-center justify-between profilePageHeader bg-black w-full z-10">
           <div className="flex">
             <div
               className="personalization-and-data-head-nav-arrow-holder flex items-center justify-center cursor-pointer rounded-full h-8 w-8 ml-2 mt-2 mr-8 bookmarkBackArrow"
@@ -37,7 +37,7 @@ function BookmarksPage() {
             <FontAwesomeIcon icon="fa-solid fa-ellipsis" />
           </div>
         </header>
-        <section className=" overflow-y-scroll h-screen bookmarkmainsection">
+        <section className="pt-20 overflow-y-scroll h-screen bookmarkmainsection">
           <BookmarkStream />
           <div className="h-56"></div>
         </section>

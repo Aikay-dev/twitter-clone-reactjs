@@ -49,7 +49,7 @@ function NotificationPage() {
     return (
     <>
       <section className="homepage-center h-screen relative overflow-hidden">
-        <header className="flex flex-col px-5 pt-5 notificationheaderBorder">
+        <header className="flex flex-col px-5 pt-5 notificationheaderBorder profilePageHeader bg-black w-full">
           <div className="flex justify-between items-center">
             <div
               className="notificationUserImage flex items-center"
@@ -79,7 +79,7 @@ function NotificationPage() {
             <p className="fo font-semibold text-sm">All</p>
           </div>
         </header>
-        <section className=" overflow-y-scroll  h-screen notificationmainsection">
+        <section className="pt-32 overflow-y-scroll  h-screen notificationmainsection">
           <NotificationStream streamData = {currentUser.notificationData}/>
           <div className="notificationcard flex justify-center items-center py-3 px-6 gap-4 cursor-pointer">
             <div className="text text-3xl">
