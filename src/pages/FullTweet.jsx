@@ -745,6 +745,7 @@ function FullTweet() {
                   fulltweetData={fulltweetData}
                 />
               )}
+              <div className=" h-40"></div>
             </section>
           </section>
         )}

@@ -209,7 +209,7 @@ const Home = ({ profileBlur, setprofileBlur }) => {
         />
       </div>
       <section className="homepage-center h-screen relative overflow-hidden">
-        <header className="pt-4 absolute z-30 top-mobile-nav w-full ">
+        <header className="pt-4 z-30 top-mobile-nav w-full ">
           <div className="pl-3 w-full mobileheader flex gap-1 sm:hidden">
             <div
               className="home-nav-profile-image w-14 pl-1 pt-1 flex justify-center items-center"

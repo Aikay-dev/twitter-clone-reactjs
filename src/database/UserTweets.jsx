@@ -18,7 +18,7 @@ library.add(fab);
 library.add(far);
 
 const UserTweets = ({ profileDetails }) => {
-  const currentUser = profileDetails
+  const currentUser = profileDetails;
   const [tweetsCardData, settweetsCardData] = useState([]);
   console.log(currentUser);
 
@@ -82,7 +82,17 @@ const UserTweets = ({ profileDetails }) => {
                 to={"/Home/" + item.username + "/" + item.tweetId}
                 className="main-tweet-card w-full relative cursor-pointer flex"
               >
-                <div className="mt-3 ml-4 main-tweet-card-first-half">
+                {item.RetweetedBy ? (
+                  <div className="absolute flex gap-2 left-6 justify-center items-center top-0 text-sm retweetedText">
+                    <div>
+                      <FaRetweet />{" "}
+                    </div>
+                    <div>{item.RetweetedBy} Retweeted</div>
+                  </div>
+                ) : (
+                  ""
+                )}
+                <div className={item.RetweetedBy ? "mt-3 ml-4 main-tweet-card-first-half" : "mt-2 ml-4 main-tweet-card-first-half"}>
                   <img
                     src={item.profilePic}
                     alt="user profile image"

@@ -435,7 +435,7 @@
 .top-mobile-nav {
   background-color: rgba(0, 0, 0, 0.7);
   backdrop-filter: blur(10px);
-  touch-action: none;
+  position: absolute;
 }
 
 .main-tweet-card-user-actions::-webkit-scrollbar {
@@ -1832,6 +1832,10 @@
 @media screen and (max-width: 500px) {
   .homepage-center {
     width: 100%;
+  }
+
+  .top-mobile-nav{
+    position: fixed;
   }
 
   .devpageblogtab {
