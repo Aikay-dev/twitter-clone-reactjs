@@ -180,7 +180,7 @@ const HomepageTweetStream = ({
                     </div>
                     <div>{tweetsItems.RetweetedBy} Retweeted</div>
                   </div>: ""}
-                  <div className="mt-3 ml-4 main-tweet-card-first-half">
+                  <div className={tweetsItems.RetweetedBy ? "mt-3 ml-4 main-tweet-card-first-half" : "ml-4 main-tweet-card-first-half"}>
                     <img
                       src={tweetsItems.profilePic}
                       alt="user profile image"
