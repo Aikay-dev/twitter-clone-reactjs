@@ -60,7 +60,7 @@ function FullTweet() {
   const [showRetweet, setRetweet] = useState(false);
   const [showLike, setShowLike] = useState(false);
   const [showBookmark, setshowBookmark] = useState(false);
-
+  const [pushupAfterImage, setpushupAfterImage] = useState(false)
   useEffect(() => {
     const url = window.location.pathname;
     const extractedTimestamp = url.substring(url.lastIndexOf("/") + 1);
@@ -275,7 +275,7 @@ function FullTweet() {
               ...prevData,
               tweetImageLink: downloadURL,
             }));
-            pushupTweet();
+           setpushupAfterImage(true)
             console.log("File available at: " + downloadURL);
           })
           .catch((error) => {
@@ -291,6 +291,13 @@ function FullTweet() {
       pushupTweet();
     }
   }
+
+  useEffect(() => {
+    if(pushupAfterImage){   
+      pushupTweet()
+      setpushupAfterImage(false)
+    }
+  }, [pushupAfterImage])
 
   function formatDate(timestampdynmic) {
     const date = new Date(timestampdynmic);
@@ -419,6 +426,8 @@ function FullTweet() {
           console.log(fulltweetData.username);
           setUserKey(foundKey);
           setKey(key);
+          console.log("data: ",data)
+          console.log("fulltweet: ",fulltweetData)
           break;
         }
       }
