@@ -135,6 +135,75 @@ function ProfilePage() {
     }
   };
 
+  const [followState, setfollowState] = useState("");
+  const [followStyle, setfollowStyle] = useState({});
+
+  useEffect(() => {
+    for (let i = 0; i < currentUser.followingNumber.length; i++) {
+      if (profileDetails.userId === currentUser.followingNumber[i]) {
+        setfollowState("following");
+        setfollowStyle({ backgroundColor: "var(--homeLabelColor)" });
+      } else {
+        setfollowState("follow");
+        setfollowStyle({ backgroundColor: "white" });
+      }
+    }
+    console.log("This is your profile details",profileDetails)
+    console.log("This is your profile details",currentUser.followingNumber[0])
+  }, [profileDetails]);
+
+  function handleFollow() {
+    let followUpdate = { ...currentUser };
+    let followedUpdate = { ...profileDetails };
+    if (followState === "follow") {
+      setfollowState("following");
+      setfollowStyle({ backgroundColor: "var(--homeLabelColor)" });
+
+      followedUpdate.followersNumber.push(currentUser.userId);
+      if (followUpdate.followingNumber[0] === 0) {
+        followUpdate.followingNumber = [profileDetails.userId];
+      } else {
+        followUpdate.followingNumber.push(profileDetails.userId);
+      }
+
+      if (followedUpdate.followersNumber[0] === 0) {
+        followedUpdate.followersNumber = [currentUser.userId];
+      } else {
+        followedUpdate.followersNumber.push(currentUser.userId);
+      }
+
+      updateNode("users/" + currentUser.userId, followUpdate);
+      updateNode("users/" + profileDetails.userId, followedUpdate);
+    } else {
+      setfollowState("follow");
+      setfollowStyle({ backgroundColor: "white" });
+      // Remove the profileDetails.userId from followUpdate.followingNumber if necessary
+      const index = followUpdate.followingNumber.indexOf(profileDetails.userId);
+      if (index !== -1) {
+        if(followUpdate.followingNumber.length === 1){
+          followUpdate.followingNumber = [0]
+        }else{
+          followUpdate.followingNumber.splice(index, 1);
+        }
+      }
+      updateNode("users/" + currentUser.userId, followUpdate);
+      const index2 = followedUpdate.followersNumber.indexOf(
+        currentUser.userId
+      );
+      if (index2 !== -1) {
+        if(followedUpdate.followersNumber.length === 1){
+          followedUpdate.followersNumber = [0]
+        }else{
+          followedUpdate.followersNumber.splice(index, 1);
+        }
+      }else{
+        console.log("e no dey")
+      }
+      updateNode("users/" + profileDetails.userId, followedUpdate);
+    }
+    // Update the currentUser object with the updated followUpdate
+  }
+
   return (
     <>
       {profileBlur && (
@@ -354,12 +423,24 @@ function ProfilePage() {
                   </button>
                 </div>
               ) : (
-                <div className="h-20"></div>
+                <div className=" flex flex-row-reverse pt-3 pb-4  pr-5">
+                  <button
+                    style={followStyle}
+                    onClick={handleFollow}
+                    className=" font-semibold px-4 py-1 text-black rounded-full"
+                  >
+                    <span>{followState}</span>
+                  </button>
+                </div>
               )}
 
               <div className="pl-4">
-                <p className=" font-black text-xl">{profileDetails.displayName}</p>
-                <p className="text-sm homelabelcolor">{profileDetails.username}</p>
+                <p className=" font-black text-xl">
+                  {profileDetails.displayName}
+                </p>
+                <p className="text-sm homelabelcolor">
+                  {profileDetails.username}
+                </p>
               </div>
 
               <div className="px-4 pt-4 flex flex-col gap-2">
@@ -412,7 +493,7 @@ function ProfilePage() {
                 <div className="flex gap-4">
                   <div>
                     <span className=" font-semibold">
-                      {profileDetails.followingNumber.length === 1
+                      {profileDetails.followingNumber[0] === 0
                         ? 0
                         : [profileDetails.followingNumber.length]}{" "}
                     </span>
@@ -420,7 +501,7 @@ function ProfilePage() {
                   </div>
                   <div>
                     <span className=" font-semibold">
-                      {profileDetails.followersNumber.length === 1
+                      {profileDetails.followersNumber[0] === 0
                         ? 0
                         : [profileDetails.followersNumber.length]}{" "}
                     </span>
@@ -468,7 +549,9 @@ function ProfilePage() {
               </div>
             </div>
             <section className=" h-96 w-full">
-              {profileTweetsTab && <UserTweets profileDetails = {profileDetails} />}
+              {profileTweetsTab && (
+                <UserTweets profileDetails={profileDetails} />
+              )}
               <div className="h-32 flex justify-center items-center">
                 <button
                   onClick={() => {
