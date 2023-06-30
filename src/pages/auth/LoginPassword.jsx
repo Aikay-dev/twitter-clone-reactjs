@@ -118,6 +118,7 @@ const LoginPassword = ({ userAuth, setUserAuth }) => {
             setNextLoad(true);
             signInWithEmailAndPassword(auth, userAuth.email, userAuth.password)
               .then((cred) => {
+                window.location.href = "/Home";
                 console.log("user logged in:", cred.user);
                 /* updateNodeSilent("users/" + tweetData.tweetId, tweetData); */
               })

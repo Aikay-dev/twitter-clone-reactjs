@@ -30,19 +30,26 @@ function ProfilePage() {
   const [profileTweetsTab, setprofileTweetsTab] = useState(true);
   const [profileLikesTab, setprofileLikesTab] = useState(false);
   const [profileBlur, setprofileBlur] = useState(false);
-  const dispatch = useDispatch();
-  const mobNavleft = useSelector((state) => state.mobNavleft.value);
   const [prflImgLoader, setprflImgLoader] = useState(false);
   const [updatedPrfPic, setupdatedPrfPic] = useState(null);
   const [profileDetails, setprofileDetails] = useState({});
   const [profileDetailsOwner, setprofileDetailsOwner] = useState({});
   const [gottenProfile, setgottenProfile] = useState(false);
+  const [followState, setfollowState] = useState("");
+  const [followStyle, setfollowStyle] = useState({});
   useEffect(() => {
     const currentDir = window.location.pathname;
     const extractedText = currentDir.split("/").filter(Boolean).pop();
     console.log(extractedText);
     setprofileDetailsOwner(decodeURIComponent(extractedText));
   }, []);
+
+  useEffect(() => {
+    return () => {
+      // Code to run when the component unmounts or when the URL changes again
+      console.log("Component unmounted or URL changed again");
+    };
+  }, [window.location.pathname])
 
   useEffect(() => {
     if (profileDetailsOwner.length > 0) {
@@ -135,8 +142,7 @@ function ProfilePage() {
     }
   };
 
-  const [followState, setfollowState] = useState("");
-  const [followStyle, setfollowStyle] = useState({});
+  
 
   useEffect(() => {
     for (let i = 0; i < currentUser.followingNumber.length; i++) {
