@@ -480,33 +480,38 @@ function FullTweet() {
   }
 
   function handleBookmark() {
-  
     const tweetId = fulltweetData.tweetId;
-    const bookmarkDataCopy = {...currentUser};
+    const bookmarkDataCopy = { ...currentUser };
     const index = bookmarkDataCopy.bookmarkData.indexOf(tweetId);
   
     if (index !== -1) {
-      if(bookmarkDataCopy.bookmarkData.length === 1){
-        bookmarkDataCopy.bookmarkData = [0]
-      }else{
-        bookmarkDataCopy.bookmarkData.splice(index, 1);
+      const updatedBookmarkData = [...bookmarkDataCopy.bookmarkData];
+      updatedBookmarkData.splice(index, 1);
+      if (updatedBookmarkData.length === 0) {
+        updatedBookmarkData.push(0);
       }
+      bookmarkDataCopy.bookmarkData = updatedBookmarkData;
       updateNodeSilent("users/" + currentUser.userId, bookmarkDataCopy);
-      setshowBookmark(false)
-      toast.success("Removed from Bookmark")
+      setshowBookmark(false);
+      toast.success("Removed from Bookmark");
     } else {
-      // Item doesn't exist in the bookmarkData, so add it
-      if(bookmarkDataCopy.bookmarkData.length === 1){
-        bookmarkDataCopy.bookmarkData = [fulltweetData.tweetId]
-      }else{
-        bookmarkDataCopy.bookmarkData.push(fulltweetData.tweetId)
+      const updatedBookmarkData = [...bookmarkDataCopy.bookmarkData];
+      if (updatedBookmarkData[0] === 0) {
+        updatedBookmarkData[0] = tweetId;
+      } else {
+        updatedBookmarkData.push(tweetId);
       }
+      bookmarkDataCopy.bookmarkData = updatedBookmarkData;
       updateNodeSilent("users/" + currentUser.userId, bookmarkDataCopy);
-      setshowBookmark(true)
-      toast.success("Added to Bookmark")
+      setshowBookmark(true);
+      toast.success("Added to Bookmark");
     }
-    // Perform any further operations with the updated bookmarkupdate object
+    // Perform any further operations with the updated bookmarkDataCopy object
   }
+  
+  
+  
+  
   
   
 
