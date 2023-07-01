@@ -1845,6 +1845,10 @@
   .inputtweetdetailboxnavhandler{
     padding-top: 110px;
   }
+
+  .bankcard{
+    height: 250px;
+  }
 }
 
 @media screen and (max-width: 500px) {
@@ -1961,6 +1965,10 @@
 @media screen and (max-width: 400px) {
   .home-navbar-mobile {
     width: 300px;
+  }
+
+  .bankinbankcard{
+    display: none;
   }
 
   .profileimageintweetdevpage {

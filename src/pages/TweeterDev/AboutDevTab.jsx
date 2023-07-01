@@ -157,6 +157,7 @@ function AboutDevTab() {
               Get verified on Tweeter{" "}
             </p>
             <p className="text-sm">Support TWEETER dev by getting verified, you never know, this might be the next twitter</p>
+            
             <div className="bankcard h-64 mx-auto mt-5 rounded-2xl ">
               <div className="flex justify-between px-6 pt-5">
                 <p className="font-semibold text-xl">Tweeter Verification</p>
@@ -173,16 +174,17 @@ function AboutDevTab() {
               </div>
               <div className="flex justify-between px-6 pt-4 items-end">
                 <div className="flex flex-col">
-                  <p>Bank</p>
+                  <p className="bankinbankcard">Bank</p>
                   <p>Access Bank</p>
-                  <p>Emmanuel Ikpomosa Esekhaigbe</p>
+                  <p className="">Emmanuel Ikpomosa Esekhaigbe</p>
                 </div>
                 <div>
                   <p>Fee</p>
-                  <p>1000 Naira Only</p>
+                  <p className=" whitespace-nowrap">1000 Naira</p>
                 </div>
               </div>
             </div>
+            <p className="pt-3">After payment, kindly contact me on any of the options provided in the contact page.</p>
           </section>
         </div>
       </section>
