@@ -436,7 +436,7 @@ const Root = ({ authState, setAuthState, currentUser }) => {
             }}
             className=" bg-black inputtweetdetailbox overflow-hidden relative"
           >
-            <nav className="text-white p-3 inputtweetdetailboxnav bg-black w-full">
+            <nav className="text-white p-3 inputtweetdetailboxnav z-10 bg-black w-full">
               <button
                 onClick={() => {
                   setprofileBlur(false);
