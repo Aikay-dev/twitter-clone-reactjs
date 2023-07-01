@@ -60,7 +60,7 @@ function FullTweet() {
   const [showRetweet, setRetweet] = useState(false);
   const [showLike, setShowLike] = useState(false);
   const [showBookmark, setshowBookmark] = useState(false);
-  const [pushupAfterImage, setpushupAfterImage] = useState(false)
+  const [pushupAfterImage, setpushupAfterImage] = useState(false);
   useEffect(() => {
     const url = window.location.pathname;
     const extractedTimestamp = url.substring(url.lastIndexOf("/") + 1);
@@ -250,8 +250,6 @@ function FullTweet() {
     }
   }
 
-
-
   function pushupTweet() {
     settweetData((prevData) => ({
       ...prevData,
@@ -275,7 +273,7 @@ function FullTweet() {
               ...prevData,
               tweetImageLink: downloadURL,
             }));
-           setpushupAfterImage(true)
+            setpushupAfterImage(true);
             console.log("File available at: " + downloadURL);
           })
           .catch((error) => {
@@ -293,11 +291,11 @@ function FullTweet() {
   }
 
   useEffect(() => {
-    if(pushupAfterImage){   
-      pushupTweet()
-      setpushupAfterImage(false)
+    if (pushupAfterImage) {
+      pushupTweet();
+      setpushupAfterImage(false);
     }
-  }, [pushupAfterImage])
+  }, [pushupAfterImage]);
 
   function formatDate(timestampdynmic) {
     const date = new Date(timestampdynmic);
@@ -382,7 +380,8 @@ function FullTweet() {
         updateRtwtNode("tweetPool/" + fulltweetData.tweetId, fulldata2push);
       } else {
         updateRtwtNode(
-          "commentTweetPool/" + fulltweetData.tweetId, fulldata2push
+          "commentTweetPool/" + fulltweetData.tweetId,
+          fulldata2push
         );
       }
       updateNodeSilent("users/" + Key, userDataNotify);
@@ -396,17 +395,17 @@ function FullTweet() {
   }
 
   useEffect(() => {
-    if(fulltweetData){
-      for(let i = 0; i < currentUser.bookmarkData.length; i++) {
-        if(currentUser.bookmarkData[i] === fulltweetData.tweetId){
-          setshowBookmark(true)
-          console.log("its true boys")
-        }else{
-          console.log("not true boys")
+    if (fulltweetData) {
+      for (let i = 0; i < currentUser.bookmarkData.length; i++) {
+        if (currentUser.bookmarkData[i] === fulltweetData.tweetId) {
+          setshowBookmark(true);
+          console.log("its true boys");
+        } else {
+          console.log("not true boys");
         }
       }
     }
-  }, [fulltweetData])
+  }, [fulltweetData]);
 
   useEffect(() => {
     const CurrentRTDB = ref(realTimeDatabase, "users/");
@@ -426,8 +425,8 @@ function FullTweet() {
           console.log(fulltweetData.username);
           setUserKey(foundKey);
           setKey(key);
-          console.log("data: ",data)
-          console.log("fulltweet: ",fulltweetData)
+          console.log("data: ", data);
+          console.log("fulltweet: ", fulltweetData);
           break;
         }
       }
@@ -483,7 +482,7 @@ function FullTweet() {
     const tweetId = fulltweetData.tweetId;
     const bookmarkDataCopy = { ...currentUser };
     const index = bookmarkDataCopy.bookmarkData.indexOf(tweetId);
-  
+
     if (index !== -1) {
       const updatedBookmarkData = [...bookmarkDataCopy.bookmarkData];
       updatedBookmarkData.splice(index, 1);
@@ -508,12 +507,6 @@ function FullTweet() {
     }
     // Perform any further operations with the updated bookmarkDataCopy object
   }
-  
-  
-  
-  
-  
-  
 
   return (
     <>

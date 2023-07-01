@@ -1527,6 +1527,7 @@
 .inputtweetdetailboxnav {
   border-top-left-radius: 20px;
   border-top-right-radius: 20px;
+  position: absolute;
 }
 
 .saveprofilebuttton:hover {
@@ -1828,6 +1829,10 @@
   .main-tweet-card-second-half {
     width: 80%;
   }
+
+  .inputtweetdetailboxnav{
+    position: fixed;
+  }
 }
 
 @media screen and (max-width: 500px) {
@@ -1835,7 +1840,7 @@
     width: 100%;
   }
 
-  .profilePageHeader{
+  .profilePageHeader, {
     position: fixed;
   }
 
