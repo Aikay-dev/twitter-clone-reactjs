@@ -1840,7 +1840,7 @@
     width: 100%;
   }
 
-  .profilePageHeader, {
+  .profilePageHeader {
     position: fixed;
   }
 
