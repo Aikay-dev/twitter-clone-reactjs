@@ -5,7 +5,7 @@ import { fas } from "@fortawesome/free-solid-svg-icons";
 import { fab } from "@fortawesome/free-brands-svg-icons";
 import { far } from "@fortawesome/free-regular-svg-icons";
 import profilePic from "../../assets/profilepic.jpg";
-import devwallpaper from '../../assets/devwallpaper.svg';
+import devwallpaper from "../../assets/devwallpaper.svg";
 
 library.add(fas);
 library.add(fab);
@@ -45,8 +45,7 @@ function AboutDevTab() {
   return (
     <>
       <section className="h-full profilepagemainsection">
-        <div className=" h-48 w-full bg-slate-500 profilebacdropimage">
-        </div>
+        <div className=" h-48 w-full bg-slate-500 profilebacdropimage"></div>
         <div className="flex flex-col relative h-68 devprofileheader">
           <div className="p-1 bg-black absolute rounded-full flex justify-center items-center  profileimageintweetdevpage ">
             <img
@@ -153,6 +152,38 @@ function AboutDevTab() {
               </p>
             </div>
           </div>
+          <section className="pt-4">
+            <p className=" text-2xl">
+              Get verified on Tweeter{" "}
+            </p>
+            <p className="text-sm">Support TWEETER dev by getting verified, you never know, this might be the next twitter</p>
+            <div className="bankcard h-64 mx-auto mt-5 rounded-2xl ">
+              <div className="flex justify-between px-6 pt-5">
+                <p className="font-semibold text-xl">Tweeter Verification</p>
+                <div
+                  className=" text-5xl"
+                  style={{ color: " var(--blueText)" }}
+                >
+                  <FontAwesomeIcon icon="fa-brands fa-twitter" />
+                </div>
+              </div>
+              <div className="px-6 flex flex-col gap-2">
+                <p className="text-sm">Account Number</p>
+                <p className="text-3xl">0739518320</p>
+              </div>
+              <div className="flex justify-between px-6 pt-4 items-end">
+                <div className="flex flex-col">
+                  <p>Bank</p>
+                  <p>Access Bank</p>
+                  <p>Emmanuel Ikpomosa Esekhaigbe</p>
+                </div>
+                <div>
+                  <p>Fee</p>
+                  <p>1000 Naira Only</p>
+                </div>
+              </div>
+            </div>
+          </section>
         </div>
       </section>
     </>

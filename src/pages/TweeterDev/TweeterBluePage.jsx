@@ -28,7 +28,7 @@ function TweeterBluePage() {
   return (
     <>
       <section className="homepage-center h-screen relative overflow-hidden">
-        <header className="flex flex-col w-full absolute pt-5 notificationheaderBorder profilePageHeader">
+        <header className="flex flex-col w-full fixed pt-5 notificationheaderBorder profilePageHeader">
           <div className="flex bg-black px-5 justify-between items-center">
             <div
               className="notificationUserImage flex items-center"

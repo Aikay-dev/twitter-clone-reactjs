@@ -84,6 +84,12 @@
 .bluetext{
   color: var(--blueText);
 }
+ 
+.bankcard{
+  max-width: 500px;
+  background-color: rgb(23,26,28);
+}
+ 
 
 .google-butt-login:hover,
 .apple-butt-login:hover,

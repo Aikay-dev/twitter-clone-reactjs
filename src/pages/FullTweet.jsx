@@ -9,7 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { FaRegComment, FaRegCommentDots, FaRetweet } from "react-icons/fa";
 import { AiOutlineHeart } from "react-icons/ai";
-import { BsBookmark } from "react-icons/bs";
+import { BsBookmark, BsFillPatchCheckFill } from "react-icons/bs";
 import { BiTrendingUp } from "react-icons/bi";
 import { useParams } from "react-router-dom";
 import { onValue, ref, update, push, remove } from "firebase/database";
@@ -50,6 +50,14 @@ function FullTweet() {
     likes: [0],
     tweetId: Date.now(),
   });
+
+  useEffect(() => {
+    if (currentUser.badgedUser) {
+      settweetData({ ...tweetData, badgedUser: true });
+      console.log("set true");
+    }
+  }, []);
+
   const [commentTweet, setcommentTweet] = useState(false);
   const [loadedFullTweet, setLoadedFullTweet] = useState(false);
   const [timestampdynmic, setTimestampdynmic] = useState(timestamp);
@@ -255,7 +263,11 @@ function FullTweet() {
       ...prevData,
       tweetId: Date.now(),
     }));
-    updateTweetNode();
+    if (currentUser.badgedUser) {
+      settweetData({ ...tweetData, badgedUser: true });
+      console.log("kingin");
+      updateTweetNode();
+    }
   }
 
   function finalUploadTweet() {
@@ -559,8 +571,19 @@ function FullTweet() {
                   />
                 </div>
                 <div>
-                  <p className=" font-bold">
-                    {fulltweetData !== null ? fulltweetData.displayName : ""}
+                  <p className=" font-bold flex items-center gap-1">
+                    <span>
+                      {fulltweetData !== null ? fulltweetData.displayName : ""}
+                    </span>
+                    <span>
+                      {fulltweetData !== null
+                        ? fulltweetData.badgedUser && (
+                            <span className="bluetext">
+                              <BsFillPatchCheckFill />
+                            </span>
+                          )
+                        : ""}
+                    </span>
                   </p>
                   <p className="text-sm homelabelcolor">
                     {fulltweetData !== null ? fulltweetData.username : ""}
@@ -717,6 +740,13 @@ function FullTweet() {
                       imageToUpload !== null
                     ) {
                       settweetingLoader(true);
+                      /* if(currentUser.badgedUser){
+                        settweetData({...tweetData, badgedUser: true})
+                        console.log("kingin")
+                        finalUploadTweet();
+                      }else{
+                        finalUploadTweet();
+                      } */
                       finalUploadTweet();
                       console.log(tweetData);
                       console.log(tweetTextareaRef);
