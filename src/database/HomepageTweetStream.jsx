@@ -7,11 +7,11 @@ import { far } from "@fortawesome/free-regular-svg-icons";
 import { Link } from "react-router-dom";
 import { FaRegCommentDots, FaRetweet } from "react-icons/fa";
 import { AiOutlineHeart } from "react-icons/ai";
-import { BiTrendingUp } from "react-icons/bi";
 import { off, onChildChanged, ref, get, onValue } from "firebase/database";
 import { realTimeDatabase } from "../config/firebase";
 import Loader from "../pages/auth/components/Loader";
 import TextComponent from "../components/TextComponent";
+import { BsFillPatchCheckFill } from "react-icons/bs";
 
 library.add(fas);
 library.add(fab);
@@ -180,7 +180,7 @@ const HomepageTweetStream = ({
                     </div>
                     <div>{tweetsItems.RetweetedBy} Retweeted</div>
                   </div>: ""}
-                  <div className={tweetsItems.RetweetedBy ? "mt-3 ml-4 main-tweet-card-first-half" : "ml-4 main-tweet-card-first-half"}>
+                  <div className={tweetsItems.RetweetedBy ? "mt-3 ml-4 main-tweet-card-first-half" : "ml-2 main-tweet-card-first-half"}>
                     <img
                       src={tweetsItems.profilePic}
                       alt="user profile image"
@@ -189,10 +189,11 @@ const HomepageTweetStream = ({
                   </div>
 
                   <div className="w-full main-tweet-card-second-half">
-                    <div className="flex justify-between w-full pr-2 mt-3">
+                    <div className="flex justify-between w-full pr-2 mt-1">
                       <div className="flex items-center">
-                        <p className="main-tweet-card-display-name font-semibold mr-2 whitespace-nowrap flex-wrap ">
-                          {tweetsItems.displayName}
+                        <p className="main-tweet-card-display-name flex items-center gap-1 font-semibold mr-2 whitespace-nowrap flex-wrap ">
+                          <span>{tweetsItems.displayName}</span>
+                          {tweetsItems.badgedUser && <span className="bluetext"><BsFillPatchCheckFill /></span>}
                         </p>
                         <p className="text-sm main-tweet-card-username whitespace-nowrap">
                           {tweetsItems.username} . {tweetsItems.tweetDate}

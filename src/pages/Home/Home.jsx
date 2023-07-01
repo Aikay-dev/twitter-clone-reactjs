@@ -117,6 +117,13 @@ const Home = ({ profileBlur, setprofileBlur }) => {
   }
 
   useEffect(() => {
+    if(currentUser.badgedUser){
+      settweetData({...tweetData, badgedUser: true})
+      console.log("badged user")
+    }
+  }, [currentUser])
+
+  useEffect(() => {
     if (uploadComplete) {
       pushupTweet();
       console.log(tweetData);

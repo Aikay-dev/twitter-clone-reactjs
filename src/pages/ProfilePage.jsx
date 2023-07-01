@@ -15,6 +15,7 @@ import { storage } from "../config/firebase";
 import { uploadBytes, getDownloadURL } from "firebase/storage";
 import Loader from "../pages/auth/components/Loader";
 import UserTweets from "../database/UserTweets";
+import { BsFillPatchCheckFill } from "react-icons/bs";
 
 library.add(fas);
 library.add(fab);
@@ -394,8 +395,9 @@ function ProfilePage() {
               </span>
             </div>
             <div>
-              <p className=" text-xl font-semibold">
-                {profileDetails.displayName}
+              <p className=" text-xl font-semibold flex items-center gap-1">
+                <span>{profileDetails.displayName}</span>
+                {profileDetails.badgedUser && <span className="bluetext"><BsFillPatchCheckFill /></span>}
               </p>
               <p className="text-sm homelabelcolor">
                 <span>{Object.keys(profileDetails.userTweets).length - 1}</span>{" "}
@@ -441,9 +443,10 @@ function ProfilePage() {
               )}
 
               <div className="pl-4">
-                <p className=" font-black text-xl">
-                  {profileDetails.displayName}
-                </p>
+                <p className=" text-xl font-black flex items-center gap-1">
+                <span>{profileDetails.displayName}</span>
+                {profileDetails.badgedUser && <span className="bluetext"><BsFillPatchCheckFill /></span>}
+              </p>
                 <p className="text-sm homelabelcolor">
                   {profileDetails.username}
                 </p>

@@ -13,6 +13,7 @@ import { realTimeDatabase } from "../config/firebase";
 import { ref, onValue, off } from "firebase/database";
 import TextComponent from "../components/TextComponent";
 import Loader from "../pages/auth/components/Loader";
+import { BsFillPatchCheckFill } from "react-icons/bs";
 
 library.add(fas);
 library.add(fab);
@@ -97,7 +98,7 @@ const CommentTweet = ({ fulltweetData, setcommentTweet, setLoadedFullTweet }) =>
                         {item.displayName}
                       </p>
                       <p className="text-sm main-tweet-card-username whitespace-nowrap">
-                        {item.username} . {item.tweetDate}
+                        <span>{item.username} {item.badgedUser && <span className="bluetext"><BsFillPatchCheckFill /></span>}</span> . {item.tweetDate}
                       </p>
                     </div>
                     <div className="">
