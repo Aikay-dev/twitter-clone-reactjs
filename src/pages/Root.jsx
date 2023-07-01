@@ -446,7 +446,7 @@ const Root = ({ authState, setAuthState, currentUser }) => {
                 <FontAwesomeIcon icon="fa-solid fa-xmark" />
               </button>
             </nav>
-            <section className="pt-16  overflow-y-scroll text-white px-4 home-main-tweet-section">
+            <section className="pt-16  overflow-y-scroll inputtweetdetailboxnavhandler text-white px-4 home-main-tweet-section">
               <div className="flex">
                 <div>
                   <img

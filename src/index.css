@@ -1835,6 +1835,10 @@
     top: 0%;
     width: 100%;
   }
+
+  .inputtweetdetailboxnavhandler{
+    padding-top: 80px;
+  }
 }
 
 @media screen and (max-width: 500px) {
