@@ -7,13 +7,15 @@ import { far } from "@fortawesome/free-regular-svg-icons";
 import { Link } from "react-router-dom";
 import SettingsTwoToneIcon from "@mui/icons-material/SettingsTwoTone";
 import { useSelector, useDispatch } from "react-redux";
-import { mobileNavLeftState } from "../store";
+import { currentUserState, mobileNavLeftState } from "../store";
 
 library.add(fas);
 library.add(fab);
 library.add(far);
 
 function MessagesPage() {
+  const currentUser = useSelector((state) => state.currUsr.value);
+  console.log(currentUser)
   const dispatch = useDispatch();
     const mobNavleft = useSelector((state) => state.mobNavleft.value);
   return (
@@ -30,7 +32,7 @@ function MessagesPage() {
               }}
             >
               <img
-                src="https://picsum.photos/200/300"
+                src={currentUser? currentUser.profile_picture : ""}
                 alt="user profile image"
                 className=" rounded-full w-8 h-8 max-h-8"
               />

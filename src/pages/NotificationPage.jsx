@@ -60,7 +60,7 @@ function NotificationPage() {
               }}
             >
               <img
-                src="https://picsum.photos/200/300"
+                src={currentUser? currentUser.profile_picture : ""}
                 alt="user profile image"
                 className=" rounded-full w-8 h-8 max-h-8"
               />
@@ -81,41 +81,6 @@ function NotificationPage() {
         </header>
         <section className="pt-32 overflow-y-scroll  h-screen notificationmainsection">
           <NotificationStream streamData = {currentUser.notificationData}/>
-          <div className="notificationcard flex justify-center items-center py-3 px-6 gap-4 cursor-pointer">
-            <div className="text text-3xl">
-              <FontAwesomeIcon icon="fab fa-twitter" />
-            </div>
-            <div>
-              There was a login to your account @general_ik from a new device on
-              Jun 11, 2023.
-            </div>
-          </div>
-          <div className="notificationcard flex items-center py-3 px-6 gap-4 cursor-pointer">
-            <div className="text text-2xl text-blue-500">
-              <FontAwesomeIcon icon="fa-solid fa-user" />
-            </div>
-            <div>
-              <img
-                src="https://picsum.photos/200/300"
-                alt="user profile image"
-                className="rounded-full h-8 min-w-8 w-8 mb-2 max-w-14 mr-5 cursor-pointer"
-              />
-              <p>Kandis Beninato followed you</p>
-            </div>
-          </div>
-          <div className="notificationcard flex items-center py-3 px-6 gap-4 cursor-pointer">
-            <div className="text text-2xl text-pink-600">
-              <FontAwesomeIcon icon="fa-solid fa-heart" />
-            </div>
-            <div>
-              <img
-                src="https://picsum.photos/200/300"
-                alt="user profile image"
-                className="rounded-full h-8 min-w-8 w-8 mb-2 max-w-14 mr-5 cursor-pointer"
-              />
-              <p>Andrew Bello liked your post</p>
-            </div>
-          </div>
           <div className=" h-60"></div>
         </section>
       </section>
