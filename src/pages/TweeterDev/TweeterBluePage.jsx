@@ -25,6 +25,8 @@ function TweeterBluePage() {
   const [contactTab, setcontactTab] = useState(false);
   const dispatch = useDispatch();
   const mobNavleft = useSelector((state) => state.mobNavleft.value);
+  const currentUser = useSelector((state) => state.currUsr.value);
+  
   return (
     <>
       <section className="homepage-center h-screen relative overflow-hidden">
@@ -39,7 +41,7 @@ function TweeterBluePage() {
               }}
             >
               <img
-                src="https://picsum.photos/200/300"
+                src={currentUser? currentUser.profile_picture : ""}
                 alt="user profile image"
                 className=" rounded-full w-8 h-8 max-h-8"
               />
