@@ -169,7 +169,9 @@ function ProfilePage() {
       if (followUpdate.followingNumber[0] === 0) {
         followUpdate.followingNumber = [profileDetails.userId];
       } else {
-        followUpdate.followingNumber.push(profileDetails.userId);
+        const holder = [...followUpdate.followingNumber]
+        holder.push(profileDetails.userId)
+        followUpdate.followingNumber = holder
       }
 
       if (followedUpdate.followersNumber[0] === 0) {
@@ -189,7 +191,9 @@ function ProfilePage() {
         if (followUpdate.followingNumber.length === 1) {
           followUpdate.followingNumber = [0];
         } else {
-          followUpdate.followingNumber.splice(index, 1);
+          const holder = [...followUpdate.followingNumber]
+          holder.splice(index, 1)
+          followUpdate.followingNumber = holder
         }
       }
       updateNode("users/" + currentUser.userId, followUpdate);
