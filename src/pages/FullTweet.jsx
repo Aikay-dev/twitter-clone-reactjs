@@ -267,6 +267,8 @@ function FullTweet() {
       settweetData({ ...tweetData, badgedUser: true });
       console.log("kingin");
       updateTweetNode();
+    }else{
+      updateTweetNode();
     }
   }
 
@@ -740,13 +742,6 @@ function FullTweet() {
                       imageToUpload !== null
                     ) {
                       settweetingLoader(true);
-                      /* if(currentUser.badgedUser){
-                        settweetData({...tweetData, badgedUser: true})
-                        console.log("kingin")
-                        finalUploadTweet();
-                      }else{
-                        finalUploadTweet();
-                      } */
                       finalUploadTweet();
                       console.log(tweetData);
                       console.log(tweetTextareaRef);
