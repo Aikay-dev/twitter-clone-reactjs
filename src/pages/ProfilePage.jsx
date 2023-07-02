@@ -16,6 +16,7 @@ import { uploadBytes, getDownloadURL } from "firebase/storage";
 import Loader from "../pages/auth/components/Loader";
 import UserTweets from "../database/UserTweets";
 import { BsFillPatchCheckFill } from "react-icons/bs";
+import LikedTweets from "../database/LikedTweets";
 
 library.add(fas);
 library.add(fab);
@@ -50,7 +51,7 @@ function ProfilePage() {
       // Code to run when the component unmounts or when the URL changes again
       console.log("Component unmounted or URL changed again");
     };
-  }, [window.location.pathname])
+  }, [window.location.pathname]);
 
   useEffect(() => {
     if (profileDetailsOwner.length > 0) {
@@ -143,8 +144,6 @@ function ProfilePage() {
     }
   };
 
-  
-
   useEffect(() => {
     for (let i = 0; i < currentUser.followingNumber.length; i++) {
       if (profileDetails.userId === currentUser.followingNumber[i]) {
@@ -155,8 +154,8 @@ function ProfilePage() {
         setfollowStyle({ backgroundColor: "white" });
       }
     }
-    console.log("This is your profile details",profileDetails)
-    console.log("This is your profile details",currentUser.followingNumber[0])
+    console.log("This is your profile details", profileDetails);
+    console.log("This is your profile details", currentUser.followingNumber[0]);
   }, [profileDetails]);
 
   function handleFollow() {
@@ -187,24 +186,22 @@ function ProfilePage() {
       // Remove the profileDetails.userId from followUpdate.followingNumber if necessary
       const index = followUpdate.followingNumber.indexOf(profileDetails.userId);
       if (index !== -1) {
-        if(followUpdate.followingNumber.length === 1){
-          followUpdate.followingNumber = [0]
-        }else{
+        if (followUpdate.followingNumber.length === 1) {
+          followUpdate.followingNumber = [0];
+        } else {
           followUpdate.followingNumber.splice(index, 1);
         }
       }
       updateNode("users/" + currentUser.userId, followUpdate);
-      const index2 = followedUpdate.followersNumber.indexOf(
-        currentUser.userId
-      );
+      const index2 = followedUpdate.followersNumber.indexOf(currentUser.userId);
       if (index2 !== -1) {
-        if(followedUpdate.followersNumber.length === 1){
-          followedUpdate.followersNumber = [0]
-        }else{
+        if (followedUpdate.followersNumber.length === 1) {
+          followedUpdate.followersNumber = [0];
+        } else {
           followedUpdate.followersNumber.splice(index, 1);
         }
-      }else{
-        console.log("e no dey")
+      } else {
+        console.log("e no dey");
       }
       updateNode("users/" + profileDetails.userId, followedUpdate);
     }
@@ -397,7 +394,11 @@ function ProfilePage() {
             <div>
               <p className=" text-xl font-semibold flex items-center gap-1">
                 <span>{profileDetails.displayName}</span>
-                {profileDetails.badgedUser && <span className="bluetext"><BsFillPatchCheckFill /></span>}
+                {profileDetails.badgedUser && (
+                  <span className="bluetext">
+                    <BsFillPatchCheckFill />
+                  </span>
+                )}
               </p>
               <p className="text-sm homelabelcolor">
                 <span>{Object.keys(profileDetails.userTweets).length - 1}</span>{" "}
@@ -444,9 +445,13 @@ function ProfilePage() {
 
               <div className="pl-4">
                 <p className=" text-xl font-black flex items-center gap-1">
-                <span>{profileDetails.displayName}</span>
-                {profileDetails.badgedUser && <span className="bluetext"><BsFillPatchCheckFill /></span>}
-              </p>
+                  <span>{profileDetails.displayName}</span>
+                  {profileDetails.badgedUser && (
+                    <span className="bluetext">
+                      <BsFillPatchCheckFill />
+                    </span>
+                  )}
+                </p>
                 <p className="text-sm homelabelcolor">
                   {profileDetails.username}
                 </p>
@@ -561,8 +566,10 @@ function ProfilePage() {
               {profileTweetsTab && (
                 <UserTweets profileDetails={profileDetails} />
               )}
-              <div className=" h-52">
-              </div>
+              {!profileTweetsTab && (
+                <LikedTweets profileDetails={profileDetails} />
+              )}
+              <div className=" h-52"></div>
             </section>
           </section>
         </section>

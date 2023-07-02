@@ -267,7 +267,7 @@ function FullTweet() {
       settweetData({ ...tweetData, badgedUser: true });
       console.log("kingin");
       updateTweetNode();
-    }else{
+    } else {
       updateTweetNode();
     }
   }
@@ -462,11 +462,20 @@ function FullTweet() {
     });
     console.log(fulltweetData);
     const index = fulldata2push.likes.indexOf(currentUser.userId);
+    let updateUserLikes = { ...currentUser };
 
     if (index !== -1) {
       fulldata2push.likes.splice(index, 1);
+      if (updateUserLikes.likedTweets.length === 1) {
+        updateUserLikes.likedTweets = [0];
+      } else {
+        const liketweetHolder = [...updateUserLikes.likedTweets];
+        liketweetHolder.splice(index, 1);
+        updateUserLikes.likedTweets = liketweetHolder;
+      }
       if (commentTweet === false) {
         updateNodeSilent("tweetPool/" + fulltweetData.tweetId, fulldata2push);
+        updateNodeSilent("users/" + currentUser.userId, updateUserLikes);
       } else {
         updateNodeSilent(
           "commentTweetPool/" + fulltweetData.tweetId,
@@ -476,9 +485,17 @@ function FullTweet() {
 
       setShowLike(false);
     } else {
+      if (updateUserLikes.likedTweets[0] === 0) {
+        updateUserLikes.likedTweets = [fulltweetData.tweetId];
+      } else {
+        const userlikedTweetHolder = [...updateUserLikes.likedTweets];
+        userlikedTweetHolder.push(fulltweetData.tweetId);
+        updateUserLikes.likedTweets = userlikedTweetHolder;
+      }
       fulldata2push.likes.push(currentUser.userId);
       if (commentTweet === false) {
         updateNodeSilent("tweetPool/" + fulltweetData.tweetId, fulldata2push);
+        updateNodeSilent("users/" + currentUser.userId, updateUserLikes);
       } else {
         updateNodeSilent(
           "commentTweetPool/" + fulltweetData.tweetId,
@@ -564,7 +581,14 @@ function FullTweet() {
         {loadedFullTweet && (
           <section className="pt-20 pb-20 homepage-center-info overflow-y-scroll h-full">
             <div className="flex justify-between px-3">
-              <Link to={fulltweetData !== null ? "/Home/" + fulltweetData.username: ""} className="flex ">
+              <Link
+                to={
+                  fulltweetData !== null
+                    ? "/Home/" + fulltweetData.username
+                    : ""
+                }
+                className="flex "
+              >
                 <div>
                   <img
                     src={fulltweetData !== null ? fulltweetData.profilePic : ""}
