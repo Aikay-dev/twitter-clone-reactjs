@@ -181,6 +181,7 @@ const Home = ({
     update(dbRef, newData)
       .then(() => {
         console.log("Data updated successfully");
+        setdispatchNewTweets(true);
         toast.success("Tweeted successfully");
         tweetTextareaRef.current.style.height = "100px";
         settweetingLoader(false);
@@ -424,6 +425,7 @@ const Home = ({
                 newtweetsbuttonAnimation={newtweetsbuttonAnimation}
                 setnewtweetsbuttonAnimation={setnewtweetsbuttonAnimation}
                 dispatchNewTweets={dispatchNewTweets}
+                setdispatchNewTweets = {setdispatchNewTweets}
                 tweetLoaded={tweetLoaded}
                 setTweetLoaded={setTweetLoaded}
                 setloadMoreTweets={setloadMoreTweets}

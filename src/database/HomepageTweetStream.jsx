@@ -28,6 +28,7 @@ const HomepageTweetStream = ({
   tweetCache,
   setTweetCache,
   setReadyForScroll,
+  setdispatchNewTweets
 }) => {
   const [tweets, setTweets] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -52,10 +53,42 @@ const HomepageTweetStream = ({
   }, [loadMoreTweets]);
 
   useEffect(() => {
-    loadInitialTweets();
+    if(dispatchNewTweets){
+      loadNewTweets();
+      setdispatchNewTweets(false)
+    }
+    
   }, [dispatchNewTweets]);
 
   // Function to load initial tweets
+
+  const loadNewTweets = () => {
+    setIsLoading(true);
+    const tweetPoolRef = ref(realTimeDatabase, "tweetPool");
+
+    return new Promise((resolve, reject) => {
+      get(tweetPoolRef)
+        .then((snapshot) => {
+          const tweetPoolData = snapshot.val();
+          const tweetKeys = Object.keys(tweetPoolData);
+          const sortedKeys = tweetKeys.sort((a, b) => {
+            return tweetPoolData[a].timestamp - tweetPoolData[b].timestamp;
+          });
+          const last20Keys = sortedKeys.slice(-20);
+
+          const initialTweets = last20Keys
+            .map((key) => tweetPoolData[key])
+            .reverse();
+          setTweets(initialTweets);
+          console.log(initialTweets);
+          setIsLoading(false);
+          console.log(tweets);
+          setTweetLoaded(true);
+          UpdateListener();
+        })
+        .catch(reject);
+    });
+  };
 
   const loadInitialTweets = () => {
     if (tweetCache.length < 10) {
