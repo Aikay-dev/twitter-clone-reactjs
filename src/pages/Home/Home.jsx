@@ -186,6 +186,7 @@ const Home = ({
         tweetTextareaRef.current.style.height = "100px";
         settweetingLoader(false);
         setImageToUpload(null);
+        setImageToGrabLink(null)
         settweetData((prevData) => ({
           ...prevData,
           tweetImageLink: "",
