@@ -26,7 +26,16 @@ library.add(fas);
 library.add(fab);
 library.add(far);
 
-const Home = ({ tweetCache, setTweetCache, mainTweetScrollOffset, setmainTweetScrollOffset, profileBlur, setprofileBlur, scrollPositionHome, setScrollPositionHome }) => {
+const Home = ({
+  tweetCache,
+  setTweetCache,
+  mainTweetScrollOffset,
+  setmainTweetScrollOffset,
+  profileBlur,
+  setprofileBlur,
+  scrollPositionHome,
+  setScrollPositionHome,
+}) => {
   const dispatch = useDispatch();
   const mobNavleft = useSelector((state) => state.mobNavleft.value);
   const [ForyouTab, setForyouTab] = useState(true);
@@ -56,9 +65,8 @@ const Home = ({ tweetCache, setTweetCache, mainTweetScrollOffset, setmainTweetSc
   );
   const [tweetLoaded, setTweetLoaded] = useState(false);
   const [loadMoreTweets, setloadMoreTweets] = useState(false);
-  const [loadingOldTweets, setloadingOldTweets] = useState(false)
-
-
+  const [loadingOldTweets, setloadingOldTweets] = useState(false);
+  const [readyForScroll, setReadyForScroll] = useState(false);
 
   const scrollContainerRef = useRef(null);
 
@@ -74,19 +82,20 @@ const Home = ({ tweetCache, setTweetCache, mainTweetScrollOffset, setmainTweetSc
     scrollContainer.addEventListener("scroll", handleScroll);
 
     // Set the initial scroll position to the value of mainTweetScrollOffset
-    if (mainTweetScrollOffset > 0) {
-      scrollContainer.scrollTop = mainTweetScrollOffset;
-      console.log("twas higer than initial scroll position")
-    }else{
-      console.log("twas lower than initial scroll position")
-    }
 
     return () => {
       scrollContainer.removeEventListener("scroll", handleScroll);
     };
   }, []);
 
-  
+  useEffect(() => {
+    const scrollContainer = mainhomesectionRef.current;
+    if (readyForScroll) {
+      scrollContainer.scrollTop = mainTweetScrollOffset;
+      setTweetLoaded(true);
+    }
+  }, [readyForScroll]);
+
   function uploadTweetText(e) {
     settweetData({ ...tweetData, tweetText: e });
     return tweetData;
@@ -145,11 +154,11 @@ const Home = ({ tweetCache, setTweetCache, mainTweetScrollOffset, setmainTweetSc
   }
 
   useEffect(() => {
-    if(currentUser.badgedUser){
-      settweetData({...tweetData, badgedUser: true})
-      console.log("badged user")
+    if (currentUser.badgedUser) {
+      settweetData({ ...tweetData, badgedUser: true });
+      console.log("badged user");
     }
-  }, [currentUser])
+  }, [currentUser]);
 
   useEffect(() => {
     if (uploadComplete) {
@@ -173,7 +182,7 @@ const Home = ({ tweetCache, setTweetCache, mainTweetScrollOffset, setmainTweetSc
       .then(() => {
         console.log("Data updated successfully");
         toast.success("Tweeted successfully");
-        tweetTextareaRef.current.style.height = "100px"
+        tweetTextareaRef.current.style.height = "100px";
         settweetingLoader(false);
         setImageToUpload(null);
         settweetData((prevData) => ({
@@ -316,7 +325,7 @@ const Home = ({ tweetCache, setTweetCache, mainTweetScrollOffset, setmainTweetSc
           ref={mainhomesectionRef}
           className="h-full pt-32 w-full tweet-scroll-section overflow-y-scroll overflow-x-hidden"
         >
-          <section  className="py-3 px-3 home-main-tweet-section1">
+          <section className="py-3 px-3 home-main-tweet-section1">
             <div className="flex">
               <div>
                 <img
@@ -409,7 +418,7 @@ const Home = ({ tweetCache, setTweetCache, mainTweetScrollOffset, setmainTweetSc
               </button>
             </div>
           </section>
-          <section  className="main-tweet-flow-section">
+          <section className="main-tweet-flow-section">
             {ForyouTab && (
               <HomepageTweetStream
                 newtweetsbuttonAnimation={newtweetsbuttonAnimation}
@@ -419,7 +428,9 @@ const Home = ({ tweetCache, setTweetCache, mainTweetScrollOffset, setmainTweetSc
                 setTweetLoaded={setTweetLoaded}
                 setloadMoreTweets={setloadMoreTweets}
                 loadMoreTweets={loadMoreTweets}
-                tweetCache = {tweetCache} setTweetCache = {setTweetCache} 
+                tweetCache={tweetCache}
+                setTweetCache={setTweetCache}
+                setReadyForScroll={setReadyForScroll}
               />
             )}
             {FollowingTab && <FollowingTweetStream />}
@@ -427,11 +438,11 @@ const Home = ({ tweetCache, setTweetCache, mainTweetScrollOffset, setmainTweetSc
               {tweetLoaded && (
                 <button
                   onClick={() => {
-                    setloadingOldTweets(true)
+                    setloadingOldTweets(true);
                     setTimeout(() => {
-                      setloadingOldTweets(false)
+                      setloadingOldTweets(false);
                     }, 1000);
-                    if(!loadingOldTweets){
+                    if (!loadingOldTweets) {
                       setloadMoreTweets(true);
                     }
                   }}

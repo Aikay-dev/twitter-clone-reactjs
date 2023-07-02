@@ -27,15 +27,14 @@ const HomepageTweetStream = ({
   loadMoreTweets,
   tweetCache,
   setTweetCache,
+  setReadyForScroll,
 }) => {
   const [tweets, setTweets] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
-  const [previousupdateflag, setpreviousupdateflag] = useState("");
   const [startIndex, setStartIndex] = useState(-20);
   const [limitStopper, setlimitStopper] = useState(true);
 
   useEffect(() => {
-    
     loadInitialTweets();
 
     return () => {
@@ -59,33 +58,33 @@ const HomepageTweetStream = ({
   // Function to load initial tweets
 
   const loadInitialTweets = () => {
-    if(tweetCache.length < 10){
+    if (tweetCache.length < 10) {
       setIsLoading(true);
       const tweetPoolRef = ref(realTimeDatabase, "tweetPool");
 
-    return new Promise((resolve, reject) => {
-      get(tweetPoolRef)
-        .then((snapshot) => {
-          const tweetPoolData = snapshot.val();
-          const tweetKeys = Object.keys(tweetPoolData);
-          const sortedKeys = tweetKeys.sort((a, b) => {
-            return tweetPoolData[a].timestamp - tweetPoolData[b].timestamp;
-          });
-          const last20Keys = sortedKeys.slice(-20);
+      return new Promise((resolve, reject) => {
+        get(tweetPoolRef)
+          .then((snapshot) => {
+            const tweetPoolData = snapshot.val();
+            const tweetKeys = Object.keys(tweetPoolData);
+            const sortedKeys = tweetKeys.sort((a, b) => {
+              return tweetPoolData[a].timestamp - tweetPoolData[b].timestamp;
+            });
+            const last20Keys = sortedKeys.slice(-20);
 
-          const initialTweets = last20Keys
-            .map((key) => tweetPoolData[key])
-            .reverse();
-          setTweets(initialTweets);
-          console.log(initialTweets);
-          setIsLoading(false);
-          console.log(tweets);
-          setTweetLoaded(true);
-          UpdateListener();
-        })
-        .catch(reject);
-    });
-    }else{
+            const initialTweets = last20Keys
+              .map((key) => tweetPoolData[key])
+              .reverse();
+            setTweets(initialTweets);
+            console.log(initialTweets);
+            setIsLoading(false);
+            console.log(tweets);
+            setTweetLoaded(true);
+            UpdateListener();
+          })
+          .catch(reject);
+      });
+    } else {
       setTweets(tweetCache);
     }
   };
@@ -93,6 +92,7 @@ const HomepageTweetStream = ({
   useEffect(() => {
     console.log(tweets);
     setTweetCache(tweets);
+    setReadyForScroll(true);
   }, [tweets]);
 
   const loadNextTweets = () => {
@@ -166,7 +166,6 @@ const HomepageTweetStream = ({
       }
 
       previousLength = currentLength; // Update the previous length
-      setpreviousupdateflag(currentLength);
     });
   }
 

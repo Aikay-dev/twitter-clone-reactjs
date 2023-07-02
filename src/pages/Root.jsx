@@ -14,7 +14,7 @@ import {
   checkAuthState,
   mobileNavLeftState,
 } from "../store";
-import { auth, realtimeData } from "../config/firebase";
+import { auth } from "../config/firebase";
 import Home from "./Home/Home";
 import { AiOutlineUserAdd } from "react-icons/ai";
 import { FiLogOut } from "react-icons/fi";
