@@ -27,15 +27,16 @@ const CommentTweet = ({ fulltweetData, setcommentTweet, setLoadedFullTweet }) =>
 
 
   console.log(currentUser);
-  console.log(fulltweetData.comments);
 
   useEffect(() => {
-    const tweetdata = fulltweetData.comments;
+    if(fulltweetData !== null){
+      const tweetdata = fulltweetData.comments;
     console.log(tweetdata);
     const values = Object.values(tweetdata);
     console.log(values);
     setcommentKeys(values);
-  }, []);
+    }
+  }, [fulltweetData]);
 
   useEffect(() => {
     console.log(commentKeys);

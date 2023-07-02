@@ -25,13 +25,17 @@ const HomepageTweetStream = ({
   setTweetLoaded,
   setloadMoreTweets,
   loadMoreTweets,
+  tweetCache,
+  setTweetCache,
 }) => {
   const [tweets, setTweets] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [previousupdateflag, setpreviousupdateflag] = useState("");
+  const [startIndex, setStartIndex] = useState(-20);
+  const [limitStopper, setlimitStopper] = useState(true);
 
   useEffect(() => {
-    setIsLoading(true);
+    
     loadInitialTweets();
 
     return () => {
@@ -55,7 +59,9 @@ const HomepageTweetStream = ({
   // Function to load initial tweets
 
   const loadInitialTweets = () => {
-    const tweetPoolRef = ref(realTimeDatabase, "tweetPool");
+    if(tweetCache.length < 10){
+      setIsLoading(true);
+      const tweetPoolRef = ref(realTimeDatabase, "tweetPool");
 
     return new Promise((resolve, reject) => {
       get(tweetPoolRef)
@@ -79,11 +85,15 @@ const HomepageTweetStream = ({
         })
         .catch(reject);
     });
+    }else{
+      setTweets(tweetCache);
+    }
   };
 
-  console.log(tweets);
-  const [startIndex, setStartIndex] = useState(-20);
-  const [limitStopper, setlimitStopper] = useState(true);
+  useEffect(() => {
+    console.log(tweets);
+    setTweetCache(tweets);
+  }, [tweets]);
 
   const loadNextTweets = () => {
     const tweetPoolRef = ref(realTimeDatabase, "tweetPool");
@@ -174,13 +184,23 @@ const HomepageTweetStream = ({
                   }
                   className="main-tweet-card pt-3 w-full relative cursor-pointer flex"
                 >
-                  {tweetsItems.RetweetedBy ? <div className="absolute flex gap-2 left-6 justify-center items-center top-0 text-sm retweetedText">
-                    <div>
-                      <FaRetweet />{" "}
+                  {tweetsItems.RetweetedBy ? (
+                    <div className="absolute flex gap-2 left-6 justify-center items-center top-0 text-sm retweetedText">
+                      <div>
+                        <FaRetweet />{" "}
+                      </div>
+                      <div>{tweetsItems.RetweetedBy} Retweeted</div>
                     </div>
-                    <div>{tweetsItems.RetweetedBy} Retweeted</div>
-                  </div>: ""}
-                  <div className={tweetsItems.RetweetedBy ? "mt-3 ml-4 main-tweet-card-first-half" : "ml-2 main-tweet-card-first-half"}>
+                  ) : (
+                    ""
+                  )}
+                  <div
+                    className={
+                      tweetsItems.RetweetedBy
+                        ? "mt-3 ml-4 main-tweet-card-first-half"
+                        : "ml-2 main-tweet-card-first-half"
+                    }
+                  >
                     <img
                       src={tweetsItems.profilePic}
                       alt="user profile image"
@@ -193,7 +213,11 @@ const HomepageTweetStream = ({
                       <div className="flex items-center">
                         <p className="main-tweet-card-display-name flex items-center gap-1 font-semibold mr-2 whitespace-nowrap flex-wrap ">
                           <span>{tweetsItems.displayName}</span>
-                          {tweetsItems.badgedUser && <span className="bluetext"><BsFillPatchCheckFill /></span>}
+                          {tweetsItems.badgedUser && (
+                            <span className="bluetext">
+                              <BsFillPatchCheckFill />
+                            </span>
+                          )}
                         </p>
                         <p className="text-sm main-tweet-card-username whitespace-nowrap">
                           {tweetsItems.username} . {tweetsItems.tweetDate}

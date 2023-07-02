@@ -26,7 +26,7 @@ library.add(fas);
 library.add(fab);
 library.add(far);
 
-const Home = ({ profileBlur, setprofileBlur }) => {
+const Home = ({ tweetCache, setTweetCache, mainTweetScrollOffset, setmainTweetScrollOffset, profileBlur, setprofileBlur, scrollPositionHome, setScrollPositionHome }) => {
   const dispatch = useDispatch();
   const mobNavleft = useSelector((state) => state.mobNavleft.value);
   const [ForyouTab, setForyouTab] = useState(true);
@@ -57,7 +57,35 @@ const Home = ({ profileBlur, setprofileBlur }) => {
   const [tweetLoaded, setTweetLoaded] = useState(false);
   const [loadMoreTweets, setloadMoreTweets] = useState(false);
   const [loadingOldTweets, setloadingOldTweets] = useState(false)
-  
+
+
+
+  const scrollContainerRef = useRef(null);
+
+  useEffect(() => {
+    const scrollContainer = mainhomesectionRef.current;
+
+    const handleScroll = () => {
+      const currentPosition = scrollContainer.scrollTop;
+      console.log("Current scroll position:", currentPosition);
+      setmainTweetScrollOffset(currentPosition);
+    };
+
+    scrollContainer.addEventListener("scroll", handleScroll);
+
+    // Set the initial scroll position to the value of mainTweetScrollOffset
+    if (mainTweetScrollOffset > 0) {
+      scrollContainer.scrollTop = mainTweetScrollOffset;
+      console.log("twas higer than initial scroll position")
+    }else{
+      console.log("twas lower than initial scroll position")
+    }
+
+    return () => {
+      scrollContainer.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
   
   function uploadTweetText(e) {
     settweetData({ ...tweetData, tweetText: e });
@@ -288,7 +316,7 @@ const Home = ({ profileBlur, setprofileBlur }) => {
           ref={mainhomesectionRef}
           className="h-full pt-32 w-full tweet-scroll-section overflow-y-scroll overflow-x-hidden"
         >
-          <section className="py-3 px-3 home-main-tweet-section1">
+          <section  className="py-3 px-3 home-main-tweet-section1">
             <div className="flex">
               <div>
                 <img
@@ -381,7 +409,7 @@ const Home = ({ profileBlur, setprofileBlur }) => {
               </button>
             </div>
           </section>
-          <section className="main-tweet-flow-section">
+          <section  className="main-tweet-flow-section">
             {ForyouTab && (
               <HomepageTweetStream
                 newtweetsbuttonAnimation={newtweetsbuttonAnimation}
@@ -391,6 +419,7 @@ const Home = ({ profileBlur, setprofileBlur }) => {
                 setTweetLoaded={setTweetLoaded}
                 setloadMoreTweets={setloadMoreTweets}
                 loadMoreTweets={loadMoreTweets}
+                tweetCache = {tweetCache} setTweetCache = {setTweetCache} 
               />
             )}
             {FollowingTab && <FollowingTweetStream />}

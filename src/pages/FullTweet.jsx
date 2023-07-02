@@ -562,7 +562,7 @@ function FullTweet() {
         {loadedFullTweet && (
           <section className="pt-20 pb-20 homepage-center-info overflow-y-scroll h-full">
             <div className="flex justify-between px-3">
-              <Link to={"/Home/" + fulltweetData.username} className="flex ">
+              <Link to={fulltweetData !== null ? "/Home/" + fulltweetData.username: ""} className="flex ">
                 <div>
                   <img
                     src={fulltweetData !== null ? fulltweetData.profilePic : ""}

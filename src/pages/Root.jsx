@@ -80,6 +80,10 @@ const Root = ({ authState, setAuthState, currentUser }) => {
   const timestamp = Date.now();
   const [imageToGrabLink, setImageToGrabLink] = useState(null);
   const [showNotifAlert, setshowNotifAlert] = useState(false);
+  const [scrollPositionHome, setScrollPositionHome] = useState(0);
+  const [mainTweetScrollOffset, setmainTweetScrollOffset] = useState(0);
+  const [tweetCache, setTweetCache] = useState([]);
+
   /* END STATE MANAGEMENT */
   useEffect(() => {
     // Code to run when the component mounts and when the URL changes
@@ -832,7 +836,16 @@ const Root = ({ authState, setAuthState, currentUser }) => {
           </section>
           {authState &&
             (currentLocation === "/Home/" || currentLocation === "/Home") && (
-              <Home profileBlur={profileBlur} setprofileBlur={setprofileBlur} />
+              <Home
+                scrollPositionHome={scrollPositionHome}
+                setScrollPositionHome={setScrollPositionHome}
+                profileBlur={profileBlur}
+                setprofileBlur={setprofileBlur}
+                mainTweetScrollOffset={mainTweetScrollOffset}
+                setmainTweetScrollOffset={setmainTweetScrollOffset}
+                tweetCache={tweetCache}
+                setTweetCache={setTweetCache}
+              />
             )}
           {<Outlet />}
         </div>
