@@ -84,7 +84,7 @@ const LeftNav = ({
         <div className="flex items-center gap-4 ml-3">
           <p>
             <span className="font-semibold">
-              {currentUser.followingNumber.length === 1
+              {currentUser.followingNumber[0] === 0
                 ? 0
                 : [currentUser.followingNumber.length]}
             </span>{" "}
