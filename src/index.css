@@ -1854,6 +1854,7 @@
 @media screen and (max-width: 500px) {
   .homepage-center {
     width: 100%;
+    border-right: none;
   }
 
   .profilePageHeader {
