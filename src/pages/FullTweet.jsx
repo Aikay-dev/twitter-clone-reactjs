@@ -237,6 +237,14 @@ function FullTweet() {
       );
       push(commentTweetsRef, tweetData.tweetId)
         .then(() => {
+          const userDataNotify = userKey;
+          userDataNotify.notificationData.push({
+            displayName: currentUser.displayName,
+            message: "Commented on your post",
+            userId: currentUser.userId,
+            profilePicture: currentUser.profile_picture,
+          });
+          updateNodeSilent("users/" + Key, userDataNotify);
           console.log("TweetId added to comment Tweets array.");
         })
         .catch((error) => {

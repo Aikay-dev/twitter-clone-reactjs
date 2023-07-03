@@ -268,7 +268,6 @@ const HomepageTweetStream = ({
                           src={tweetsItems.tweetImageLink}
                           alt=""
                           className="main-tweet-image"
-                          loading="lazy"
                         />
                       )}
                       <div className="main-tweet-card-user-actions flex w-full pt-2 gap-6 overflow-x-scroll">

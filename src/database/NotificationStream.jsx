@@ -26,6 +26,11 @@ const NotificationStream = ({ streamData }) => {
                 <FontAwesomeIcon icon="fa-solid fa-user" />
               </div>
             )}
+            {notification.message === "Commented on your post" && (
+              <div className="text-2xl text-blue-500">
+                <FontAwesomeIcon icon="fa-solid fa-comments" />
+              </div>
+            )}
             {notification.message ===
               "There was a Login to Your Account Recently" && (
               <div className="text-3xl">
