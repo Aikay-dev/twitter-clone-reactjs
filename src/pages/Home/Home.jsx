@@ -21,6 +21,7 @@ import { realTimeDatabase } from "../../config/firebase";
 import toast, { Toaster } from "react-hot-toast";
 import HomepageTweetStream from "../../database/HomepageTweetStream";
 import WhiteStripeLoader from "../../components/WhiteStripeLoader";
+import FollowingTweets from "../../database/FollowingTweets";
 
 library.add(fas);
 library.add(fab);
@@ -34,7 +35,7 @@ const Home = ({
   profileBlur,
   setprofileBlur,
   scrollPositionHome,
-  setScrollPositionHome,
+  setScrollPositionHome,readyToShowButton, setreadyToShowButton
 }) => {
   const dispatch = useDispatch();
   const mobNavleft = useSelector((state) => state.mobNavleft.value);
@@ -92,7 +93,10 @@ const Home = ({
     const scrollContainer = mainhomesectionRef.current;
     if (readyForScroll) {
       scrollContainer.scrollTop = mainTweetScrollOffset;
-      setTweetLoaded(true);
+      if(readyToShowButton){
+        setTweetLoaded(true);
+      }
+      setreadyToShowButton(true)
     }
   }, [readyForScroll]);
 
@@ -186,7 +190,7 @@ const Home = ({
         tweetTextareaRef.current.style.height = "100px";
         settweetingLoader(false);
         setImageToUpload(null);
-        setImageToGrabLink(null)
+        setImageToGrabLink(null);
         settweetData((prevData) => ({
           ...prevData,
           tweetImageLink: "",
@@ -426,7 +430,7 @@ const Home = ({
                 newtweetsbuttonAnimation={newtweetsbuttonAnimation}
                 setnewtweetsbuttonAnimation={setnewtweetsbuttonAnimation}
                 dispatchNewTweets={dispatchNewTweets}
-                setdispatchNewTweets = {setdispatchNewTweets}
+                setdispatchNewTweets={setdispatchNewTweets}
                 tweetLoaded={tweetLoaded}
                 setTweetLoaded={setTweetLoaded}
                 setloadMoreTweets={setloadMoreTweets}
@@ -436,9 +440,12 @@ const Home = ({
                 setReadyForScroll={setReadyForScroll}
               />
             )}
-            {FollowingTab && <FollowingTweetStream />}
+
+            {FollowingTab && (
+              <FollowingTweets />
+            )}
             <div className=" h-52 flex justify-center pt-2">
-              {tweetLoaded && (
+              {tweetLoaded && ForyouTab && (
                 <button
                   onClick={() => {
                     setloadingOldTweets(true);
@@ -451,7 +458,7 @@ const Home = ({
                   }}
                   className="h-8 px-3 text-sm bluebackground rounded-full"
                 >
-                  {!loadingOldTweets && (
+                  {!loadingOldTweets &&  (
                     <p>
                       <FontAwesomeIcon icon="fa-solid fa-arrow-rotate-right" />{" "}
                       Load more Tweets

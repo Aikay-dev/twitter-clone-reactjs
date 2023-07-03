@@ -13,57 +13,61 @@ import { realTimeDatabase } from "../config/firebase";
 import { ref, onValue, off } from "firebase/database";
 import TextComponent from "../components/TextComponent";
 import { BsFillPatchCheckFill } from "react-icons/bs";
+import Loader from "../pages/auth/components/Loader";
 
 library.add(fas);
 library.add(fab);
 library.add(far);
 
-const FollowingTweets = ({ profileDetails }) => {
-
+const FollowingTweets = () => {
   const currentUser = useSelector((state) => state.currUsr.value);
   const [tweetsCardData, settweetsCardData] = useState([]);
   console.log(currentUser);
+  const [tweetIds, settweetIds] = useState([]);
+  const [loadingTweets, setloadingTweets] = useState(true);
 
   useEffect(() => {
-    settweetsCardData([]);
-    const tweetdata = currentUser.userTweets;
-    console.log(tweetdata);
-    for (const key in tweetdata) {
-      console.log(tweetdata[key]);
-      rtdbUsrTwtsRqsts(tweetdata[key]);
+    const userTogetDataFrom = currentUser.followingNumber;
+    for (let i = 0; i < userTogetDataFrom.length; i++) {
+      const TweetDataref = ref(
+        realTimeDatabase,
+        `users/${userTogetDataFrom[i]}`
+      );
+      onValue(TweetDataref, (snapshot) => {
+        const data = snapshot.val();
+        console.log(data);
+        console.log(i);
+        const tweetsObj = data.userTweets;
+        const tweets = Object.values(tweetsObj);
+        settweetIds((prevData) => [...prevData, ...tweets]);
+      });
     }
-
-    return () => {
-      // Unsubscribe from the previous listeners
-      for (const key in tweetdata) {
-        const tweetDataRef = ref(
-          realTimeDatabase,
-          `tweetPool/${tweetdata[key]}`
-        );
-        off(tweetDataRef);
-      }
-    };
+    console.log("done getting tweets");
+    console.log(tweetIds);
   }, []);
+
+  useEffect(() => {
+    console.log(tweetIds);
+    rtdbUsrTwtsRqsts(tweetIds);
+  }, [tweetIds]);
 
   function rtdbUsrTwtsRqsts(id) {
     const TweetDataref = ref(realTimeDatabase, `tweetPool/${id}`);
     onValue(TweetDataref, (snapshot) => {
       const data = snapshot.val();
       console.log(data);
-      settweetsCardData((prevData) => [...prevData, data]); // Use functional update to avoid repeated data
+      const tweetsData = Object.values(data);
+      tweetsData.reverse();
+      console.log(tweetsData);
+      setloadingTweets(false);
+      settweetsCardData(tweetsData);
     });
   }
-
-  useEffect(() => {
-    // Perform actions with the updated tweetsCardData
-    console.log(tweetsCardData);
-    tweetsCardData.reverse();
-    console.log(tweetsCardData.length);
-  }, [tweetsCardData]);
 
   return (
     <>
       {tweetsCardData.length > 0 &&
+        !loadingTweets &&
         tweetsCardData.reverse().map((item, index) => {
           if (!item) {
             return (
@@ -94,7 +98,13 @@ const FollowingTweets = ({ profileDetails }) => {
                 ) : (
                   ""
                 )}
-                <div className={item.RetweetedBy ? "mt-3 ml-4 main-tweet-card-first-half" : "mt-2 ml-4 main-tweet-card-first-half"}>
+                <div
+                  className={
+                    item.RetweetedBy
+                      ? "mt-3 ml-4 main-tweet-card-first-half"
+                      : "mt-2 ml-4 main-tweet-card-first-half"
+                  }
+                >
                   <img
                     src={item.profilePic}
                     alt="user profile image"
@@ -106,7 +116,12 @@ const FollowingTweets = ({ profileDetails }) => {
                   <div className="flex justify-between w-full pr-2 mt-3">
                     <div className="flex items-center overflow-x-scroll tweetcardprofilenameanddisplayholder">
                       <p className="main-tweet-card-display-name flex items-center gap-1 font-semibold mr-2 whitespace-nowrap flex-wrap ">
-                        {item.displayName} {item.badgedUser && <span className="bluetext"><BsFillPatchCheckFill /></span>}
+                        {item.displayName}{" "}
+                        {item.badgedUser && (
+                          <span className="bluetext">
+                            <BsFillPatchCheckFill />
+                          </span>
+                        )}
                       </p>
                       <p className="text-sm main-tweet-card-username whitespace-nowrap">
                         <span>{item.username} </span> . {item.tweetDate}
@@ -168,6 +183,7 @@ const FollowingTweets = ({ profileDetails }) => {
             </React.Fragment>
           );
         })}
+      {loadingTweets && <Loader />}
     </>
   );
 };

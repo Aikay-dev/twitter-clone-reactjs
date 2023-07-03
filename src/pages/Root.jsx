@@ -83,6 +83,7 @@ const Root = ({ authState, setAuthState, currentUser }) => {
   const [scrollPositionHome, setScrollPositionHome] = useState(0);
   const [mainTweetScrollOffset, setmainTweetScrollOffset] = useState(0);
   const [tweetCache, setTweetCache] = useState([]);
+  const [readyToShowButton, setreadyToShowButton] = useState(false);
 
   /* END STATE MANAGEMENT */
   useEffect(() => {
@@ -845,6 +846,8 @@ const Root = ({ authState, setAuthState, currentUser }) => {
                 setmainTweetScrollOffset={setmainTweetScrollOffset}
                 tweetCache={tweetCache}
                 setTweetCache={setTweetCache}
+                readyToShowButton={readyToShowButton}
+                setreadyToShowButton={setreadyToShowButton}
               />
             )}
           {<Outlet />}
