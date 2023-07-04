@@ -8,9 +8,8 @@ import { fab } from "@fortawesome/free-brands-svg-icons";
 import { far } from "@fortawesome/free-regular-svg-icons";
 import { FaRegCommentDots, FaRetweet } from "react-icons/fa";
 import { AiOutlineHeart } from "react-icons/ai";
-import { BiTrendingUp } from "react-icons/bi";
 import { realTimeDatabase } from "../config/firebase";
-import { ref, onValue, off } from "firebase/database";
+import { ref, onValue } from "firebase/database";
 import TextComponent from "../components/TextComponent";
 import { BsFillPatchCheckFill } from "react-icons/bs";
 import Loader from "../pages/auth/components/Loader";
@@ -21,29 +20,38 @@ library.add(far);
 
 const FollowingTweets = () => {
   const currentUser = useSelector((state) => state.currUsr.value);
+  console.log(currentUser.followingNumber[0] === 0);
   const [tweetsCardData, settweetsCardData] = useState([]);
   console.log(currentUser);
   const [tweetIds, settweetIds] = useState([]);
   const [loadingTweets, setloadingTweets] = useState(true);
+  const [noTweets, setnoTweets] = useState(false);
 
   useEffect(() => {
     const userTogetDataFrom = currentUser.followingNumber;
-    for (let i = 0; i < userTogetDataFrom.length; i++) {
-      const TweetDataref = ref(
-        realTimeDatabase,
-        `users/${userTogetDataFrom[i]}`
-      );
-      onValue(TweetDataref, (snapshot) => {
-        const data = snapshot.val();
-        console.log(data);
-        console.log(i);
-        const tweetsObj = data.userTweets;
-        const tweets = Object.values(tweetsObj);
-        settweetIds((prevData) => [...prevData, ...tweets]);
-      });
+    if (userTogetDataFrom.length === 1 && userTogetDataFrom[0] === 0) {
+      setnoTweets(true);
+      setloadingTweets(false);
+      console.log("not loadingTweets");
+      console.log("userTogetDataFrom : " + currentUser.followingNumber);
+    } else {
+      for (let i = 0; i < userTogetDataFrom.length; i++) {
+        const TweetDataref = ref(
+          realTimeDatabase,
+          `users/${userTogetDataFrom[i]}`
+        );
+        onValue(TweetDataref, (snapshot) => {
+          const data = snapshot.val();
+          console.log(data);
+          console.log(i);
+          const tweetsObj = data.userTweets;
+          const tweets = Object.values(tweetsObj);
+          settweetIds(tweets);
+        });
+      }
+      console.log("done getting tweets");
+      console.log(tweetIds);
     }
-    console.log("done getting tweets");
-    console.log(tweetIds);
   }, []);
 
   useEffect(() => {
@@ -52,35 +60,32 @@ const FollowingTweets = () => {
   }, [tweetIds]);
 
   function rtdbUsrTwtsRqsts(id) {
-    const TweetDataref = ref(realTimeDatabase, `tweetPool/${id}`);
-    onValue(TweetDataref, (snapshot) => {
-      const data = snapshot.val();
-      console.log(data);
-      const tweetsData = Object.values(data);
-      tweetsData.reverse();
-      console.log(tweetsData);
-      setloadingTweets(false);
-      settweetsCardData(tweetsData);
+    id.forEach((element) => {
+      const TweetDataref = ref(realTimeDatabase, `tweetPool/${element}`);
+      onValue(TweetDataref, (snapshot) => {
+        const data = snapshot.val();
+        console.log(data);
+        if (data) {
+          settweetsCardData((prev) => [...prev, data]);
+        }
+      });
     });
   }
 
+  useEffect(() => {
+    console.log(tweetsCardData);
+  }, [tweetsCardData]);
+
   return (
     <>
-      {tweetsCardData.length > 0 &&
-        !loadingTweets &&
+      {noTweets && (
+        <p className="p-3">
+          No tweets available for now, follow somebody and you will see their
+          tweets here
+        </p>
+      )}
+      {tweetsCardData !== undefined &&
         tweetsCardData.reverse().map((item, index) => {
-          if (!item) {
-            return (
-              <React.Fragment key={index}>
-                {tweetsCardData[0] === null && tweetsCardData.length < 2 && (
-                  <p className="p-3">
-                    No tweets available for now, make a tweet or a retweet and
-                    it will showup here
-                  </p>
-                )}
-              </React.Fragment>
-            ); // Skip rendering if item is null or undefined
-          }
           return (
             <React.Fragment key={item.tweetId}>
               <Link
@@ -135,13 +140,13 @@ const FollowingTweets = () => {
                   </div>
                   <div className="main-tweet-card-content overflow-x-hidden">
                     {item.tweetText && <TextComponent text={item.tweetText} />}
-                    {item.tweetImageLink.length > 0 && (
+                    {
                       <img
                         src={item.tweetImageLink}
                         alt=""
                         className="main-tweet-image"
                       />
-                    )}
+                    }
                     <div className="main-tweet-card-user-actions flex w-full pt-2 gap-6 overflow-x-scroll">
                       <button
                         className="flex gap-3 items-center main-tweet-comment-icon"

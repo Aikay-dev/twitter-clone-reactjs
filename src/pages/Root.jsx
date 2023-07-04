@@ -84,7 +84,7 @@ const Root = ({ authState, setAuthState, currentUser }) => {
   const [mainTweetScrollOffset, setmainTweetScrollOffset] = useState(0);
   const [tweetCache, setTweetCache] = useState([]);
   const [readyToShowButton, setreadyToShowButton] = useState(false);
-
+  
   /* END STATE MANAGEMENT */
   useEffect(() => {
     // Code to run when the component mounts and when the URL changes

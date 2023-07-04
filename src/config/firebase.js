@@ -93,8 +93,8 @@ export const writeUserData = (
 };
 
 const currentDate = new Date();
-  const UserjoinedDate = getJoinedMonthYear(currentDate)
-console.log(UserjoinedDate)
+const UserjoinedDate = getJoinedMonthYear(currentDate);
+console.log(UserjoinedDate);
 export const writeUserDataUserAndPass = (
   userId,
   name,
@@ -124,7 +124,6 @@ export const writeUserDataUserAndPass = (
   })
     .then(() => {
       console.log("Data written successfully");
-      
     })
     .catch((error) => {
       console.log("Error writing data:", error);
@@ -139,7 +138,7 @@ export const realtimeData = (data) => {
     data = snapshot.val();
   });
   return data;
-}
+};
 
 // Delete auth account cleanup
 
@@ -147,22 +146,23 @@ export const deleteUserWithEmailAndPassword = (email, password) => {
   signInWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
       // User signed in successfully
-      userCredential.user.delete()
+      userCredential.user
+        .delete()
         .then(() => {
           // User deleted successfully
-          console.log('User deleted successfully');
+          console.log("User deleted successfully");
         })
         .catch((error) => {
           // An error occurred while deleting the user
-          console.error('Error deleting user:', error);
+          console.error("Error deleting user:", error);
         });
     })
     .catch((error) => {
       // An error occurred while signing in the user
-      console.error('Error signing in user:', error);
+      console.error("Error signing in user:", error);
     });
 };
 
 // Get firebase Storage
 
-export const storage = getStorage()
+export const storage = getStorage();
