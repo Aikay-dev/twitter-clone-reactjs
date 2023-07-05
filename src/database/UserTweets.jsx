@@ -8,7 +8,6 @@ import { fab } from "@fortawesome/free-brands-svg-icons";
 import { far } from "@fortawesome/free-regular-svg-icons";
 import { FaRegCommentDots, FaRetweet } from "react-icons/fa";
 import { AiOutlineHeart } from "react-icons/ai";
-import { BiTrendingUp } from "react-icons/bi";
 import { realTimeDatabase } from "../config/firebase";
 import { ref, onValue, off } from "firebase/database";
 import TextComponent from "../components/TextComponent";
@@ -25,11 +24,27 @@ const UserTweets = ({ profileDetails }) => {
 
   useEffect(() => {
     settweetsCardData([]);
-    const tweetdata = currentUser.userTweets;
+    const tweetdata = cleaner(currentUser.userTweets);
     console.log(tweetdata);
-    for (const key in tweetdata) {
-      console.log(tweetdata[key]);
-      rtdbUsrTwtsRqsts(tweetdata[key]);
+
+    const tweetValues = Object.values(tweetdata);
+    tweetValues.forEach((el) => {
+      rtdbUsrTwtsRqsts(el);
+    });
+
+    function cleaner(obj) {
+      const uniqueValues = new Set(Object.values(obj));
+      const cleanedObj = {};
+
+      for (const key in obj) {
+        const value = obj[key];
+        if (uniqueValues.has(value)) {
+          cleanedObj[key] = value;
+          uniqueValues.delete(value);
+        }
+      }
+
+      return cleanedObj;
     }
 
     return () => {
@@ -55,9 +70,8 @@ const UserTweets = ({ profileDetails }) => {
 
   useEffect(() => {
     // Perform actions with the updated tweetsCardData
-    console.log(tweetsCardData);
     tweetsCardData.reverse();
-    console.log(tweetsCardData.length);
+    console.log(tweetsCardData);
   }, [tweetsCardData]);
 
   return (
@@ -93,7 +107,13 @@ const UserTweets = ({ profileDetails }) => {
                 ) : (
                   ""
                 )}
-                <div className={item.RetweetedBy ? "mt-3 ml-4 main-tweet-card-first-half" : "mt-2 ml-4 main-tweet-card-first-half"}>
+                <div
+                  className={
+                    item.RetweetedBy
+                      ? "mt-3 ml-4 main-tweet-card-first-half"
+                      : "mt-2 ml-4 main-tweet-card-first-half"
+                  }
+                >
                   <img
                     src={item.profilePic}
                     alt="user profile image"
@@ -105,7 +125,12 @@ const UserTweets = ({ profileDetails }) => {
                   <div className="flex justify-between w-full pr-2 mt-3">
                     <div className="flex items-center overflow-x-scroll tweetcardprofilenameanddisplayholder">
                       <p className="main-tweet-card-display-name flex items-center gap-1 font-semibold mr-2 whitespace-nowrap flex-wrap ">
-                        {item.displayName} {item.badgedUser && <span className="bluetext"><BsFillPatchCheckFill /></span>}
+                        {item.displayName}{" "}
+                        {item.badgedUser && (
+                          <span className="bluetext">
+                            <BsFillPatchCheckFill />
+                          </span>
+                        )}
                       </p>
                       <p className="text-sm main-tweet-card-username whitespace-nowrap">
                         <span>{item.username} </span> . {item.tweetDate}

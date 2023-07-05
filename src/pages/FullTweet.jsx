@@ -438,18 +438,20 @@ function FullTweet() {
       let foundKey = null;
 
       for (const key in data) {
-        if (
-          data.hasOwnProperty(key) &&
-          data[key].username === fulltweetData.username
-        ) {
-          foundKey = data[key];
-          console.log(foundKey);
-          console.log(fulltweetData.username);
-          setUserKey(foundKey);
-          setKey(key);
-          console.log("data: ", data);
-          console.log("fulltweet: ", fulltweetData);
-          break;
+        if (fulltweetData !== null) {
+          if (
+            data.hasOwnProperty(key) &&
+            data[key].username === fulltweetData.username
+          ) {
+            foundKey = data[key];
+            console.log(foundKey);
+            console.log(fulltweetData.username);
+            setUserKey(foundKey);
+            setKey(key);
+            console.log("data: ", data);
+            console.log("fulltweet: ", fulltweetData);
+            break;
+          }
         }
       }
     });
