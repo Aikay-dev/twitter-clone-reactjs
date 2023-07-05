@@ -575,7 +575,7 @@
 
 .homemain-head-search,
 .home-main-trends-for-you {
-  width: 300px;
+  width: 350px;
   background-color: rgb(32, 35, 39);
   color: var(--homeLabelColor);
 }
@@ -1699,6 +1699,12 @@
   .homepage-right-navbox {
     width: var(--loginContentWidth1);
   }
+
+  .homemain-head-search,
+.home-main-trends-for-you {
+  width: 300px;
+  color: var(--homeLabelColor);
+}
 
   .homepage-right-box {
     width: 300px;

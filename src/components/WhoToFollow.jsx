@@ -49,7 +49,7 @@ const WhoToFollow = () => {
   return (
     <div
       style={{ backgroundColor: "rgb(22,24,28)" }}
-      className="homepage-right-box mt-3 lg:mt-3 lg:m-auto px-5 py-3 ml-5 rounded-2xl flex flex-col "
+      className="homepage-right-box mt-3 px-5 py-3  rounded-2xl flex flex-col "
     >
       <p className="font-black text-lg pb-2 text-zinc-200">Who to follow</p>
 

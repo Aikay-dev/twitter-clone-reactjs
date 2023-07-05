@@ -182,7 +182,9 @@ const Explore = () => {
         )}
 
         {auth.currentUser !== null && (
-          <WhoToFollow/>
+          <div className="pl-5">
+            <WhoToFollow/>
+          </div>
         )}
         <AdministrativeLinks currentDate={currentDate} />
       </section>
