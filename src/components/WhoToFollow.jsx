@@ -183,7 +183,7 @@ const WhoToFollow = () => {
                     </div>
                     <div className="">
                       <div className=" font-semibold">{users.displayName}</div>
-                      <div className="homelabelcolor">{users.username}</div>
+                      <div className="homelabelcolor text-sm">{users.username}</div>
                     </div>
                   </div>
                   <div>
