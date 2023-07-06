@@ -24,6 +24,7 @@ import NotificationPage from "./pages/NotificationPage";
 import MessagesPage from "./pages/MessagesPage";
 import BookmarksPage from "./pages/BookmarksPage";
 import FullTweet from "./pages/FullTweet";
+import Search from "./pages/Search";
 
 const router = createBrowserRouter([
   {
@@ -96,6 +97,10 @@ const router = createBrowserRouter([
         path: "/Home/:username",
         element: <ProfilePage />,
       },
+      {
+        path: "Search",
+        element: <Search />
+      }
     ],
   },
   {
@@ -112,6 +117,7 @@ const router = createBrowserRouter([
       },
     ],
   },
+  
 
 ]);
 

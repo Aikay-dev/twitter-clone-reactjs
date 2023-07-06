@@ -185,7 +185,6 @@ function ProfilePage() {
     } else {
       setfollowState("follow");
       setfollowStyle({ backgroundColor: "white" });
-      // Remove the profileDetails.userId from followUpdate.followingNumber if necessary
       const index = followUpdate.followingNumber.indexOf(profileDetails.userId);
       if (index !== -1) {
         if (followUpdate.followingNumber.length === 1) {

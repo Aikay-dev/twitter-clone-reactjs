@@ -632,6 +632,10 @@
   width: 350px;
 }
 
+.homepage-right-box-who-to-follow {
+  width: 350px;
+}
+
 .homepage-right-sign-now,
 .homepage-right-By-sign {
   color: var(--homeLabelColor);
@@ -1727,6 +1731,10 @@
   }
 
   .homepage-right-box {
+    width: 300px;
+  }
+
+  .homepage-right-box-who-to-follow {
     width: 300px;
   }
 
