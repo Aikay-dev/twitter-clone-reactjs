@@ -183,10 +183,9 @@ const Explore = () => {
 
         {auth.currentUser !== null && (
           <div className="pl-5">
-            <WhoToFollow/>
+            <WhoToFollow />
           </div>
         )}
-        <AdministrativeLinks currentDate={currentDate} />
       </section>
       <div
         className="absolute inset-0 flex justify-center items-center text-white homepage-auth-overlay"

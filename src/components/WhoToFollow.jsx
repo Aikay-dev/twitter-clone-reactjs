@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getDatabase, ref, set, onValue } from "firebase/database";
 import { realTimeDatabase } from "../config/firebase";
 import Loader from "../pages/auth/components/Loader";
+import AdministrativeLinks from "./AdministrativeLinks";
 
 const WhoToFollow = () => {
   const currentUser = useSelector((state) => state.currUsr.value);
@@ -14,6 +15,8 @@ const WhoToFollow = () => {
   const [runPermit, setrunPermit] = useState(true);
   const [currUsrFollowing, setCurrUsrFollowing] = useState([]);
   const [othrUsrFollowing, setothrUsrFollowing] = useState([]);
+
+  let currentDate = new Date();
 
   useEffect(() => {
     const userDirRef = ref(realTimeDatabase, "users/");
@@ -158,68 +161,75 @@ const WhoToFollow = () => {
       });
   }
   return (
-    <div
-      style={{ backgroundColor: "rgb(22,24,28)" }}
-      className="homepage-right-box mt-3 px-5 py-3  rounded-2xl flex flex-col "
-    >
-      <p className="font-black text-lg pb-2 text-zinc-200">Who to follow</p>
+    <>
+      <div
+        style={{ backgroundColor: "rgb(22,24,28)" }}
+        className="homepage-right-box mt-3 px-5 py-3  rounded-2xl flex flex-col "
+      >
+        <p className="font-black text-lg pb-2 text-zinc-200">Who to follow</p>
 
-      <section className="flex flex-col gap-3">
-        {loadedUsers &&
-          selectedUsers.map((users, index) => {
-            return (
-              <div key={index} className="flex justify-between">
-                <div className="flex gap-3">
-                  <div className="">
-                    <img
-                      className="w-10 h-10 rounded-full"
-                      src={users.profile_picture}
-                      alt=""
-                    />
+        <section className="flex flex-col gap-3">
+          {loadedUsers &&
+            selectedUsers.map((users, index) => {
+              return (
+                <div key={index} className="flex justify-between">
+                  <div className="flex gap-3">
+                    <div className="">
+                      <img
+                        className="w-10 h-10 rounded-full"
+                        src={users.profile_picture}
+                        alt=""
+                      />
+                    </div>
+                    <div className="">
+                      <div className=" font-semibold">{users.displayName}</div>
+                      <div className="homelabelcolor">{users.username}</div>
+                    </div>
                   </div>
-                  <div className="">
-                    <div className=" font-semibold">{users.displayName}</div>
-                    <div className="homelabelcolor">{users.username}</div>
+                  <div>
+                    {users.followersNumber.map((user) => {
+                      if (user === currentUser.userId) {
+                        return (
+                          <span key={user}>
+                            <button
+                              onClick={() => {
+                                handleUnFollow(users.userId);
+                              }}
+                              style={{
+                                backgroundColor: "var(--homeLabelColor)",
+                              }}
+                              className="bg-white text-gray-900 text-sm px-4 w-28 py-1 rounded-full font-semibold"
+                            >
+                              Following
+                            </button>
+                          </span>
+                        );
+                      } else {
+                        return (
+                          <span key={user}>
+                            <button
+                              onClick={() => {
+                                handleFollow(users.userId);
+                              }}
+                              className="bg-white text-gray-900 text-sm px-4 w-28 py-1 rounded-full font-semibold"
+                            >
+                              Follow
+                            </button>
+                          </span>
+                        );
+                      }
+                    })}
                   </div>
                 </div>
-                <div>
-                  {users.followersNumber.map((user) => {
-                    if (user === currentUser.userId) {
-                      return (
-                        <span key={user}>
-                          <button
-                            onClick={() => {
-                              handleUnFollow(users.userId);
-                            }}
-                            style={{ backgroundColor: "var(--homeLabelColor)" }}
-                            className="bg-white text-gray-900 text-sm px-4 w-28 py-1 rounded-full font-semibold"
-                          >
-                            Following
-                          </button>
-                        </span>
-                      );
-                    } else {
-                      return (
-                        <span key={user}>
-                          <button
-                            onClick={() => {
-                              handleFollow(users.userId);
-                            }}
-                            className="bg-white text-gray-900 text-sm px-4 w-28 py-1 rounded-full font-semibold"
-                          >
-                            Follow
-                          </button>
-                        </span>
-                      );
-                    }
-                  })}
-                </div>
-              </div>
-            );
-          })}
-        {!loadedUsers && <Loader />}
-      </section>
-    </div>
+              );
+            })}
+          {!loadedUsers && <Loader />}
+        </section>
+      </div>
+      <div className="mb-32">
+        <AdministrativeLinks currentDate={currentDate} />
+      </div>
+    </>
   );
 };
 
