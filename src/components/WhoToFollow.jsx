@@ -276,7 +276,7 @@ const WhoToFollow = () => {
           {!loadedUsers && <Loader />}
         </section>
       </div>
-      <div className="mb-32">
+      <div className="mb-32 w-80">
         <AdministrativeLinks currentDate={currentDate} />
       </div>
     </>
