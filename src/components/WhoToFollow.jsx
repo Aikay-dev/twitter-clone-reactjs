@@ -10,7 +10,7 @@ const WhoToFollow = () => {
   const [userlist, setuserlist] = useState({});
   const [refneduserlist, setrefneduserlist] = useState([]);
   const [selectedUsers, setSelectedUsers] = useState([]);
-  const [loadedUsers, setloadedUsers] = useState(false)
+  const [loadedUsers, setloadedUsers] = useState(false);
   useEffect(() => {
     const userDirRef = ref(realTimeDatabase, "users/");
     onValue(userDirRef, (snapshot) => {
@@ -36,13 +36,19 @@ const WhoToFollow = () => {
     // Select only three dissimilar items
     const uniqueUsers = [...new Set(randomizedList)].slice(0, 3);
 
+    uniqueUsers.forEach((user) => {
+      user.userId === currentUser.userId
+        ? uniqueUsers.splice(uniqueUsers.indexOf(user), 1)
+        : uniqueUsers;
+    });
+    console.log(uniqueUsers);
     setSelectedUsers(uniqueUsers);
   }, [refneduserlist]);
 
   useEffect(() => {
     console.log("selected users:", selectedUsers.length);
-    if(selectedUsers.length === 3){
-      setloadedUsers(true)
+    if (selectedUsers.length > 1) {
+      setloadedUsers(true);
     }
   }, [selectedUsers]);
 
@@ -54,30 +60,52 @@ const WhoToFollow = () => {
       <p className="font-black text-lg pb-2 text-zinc-200">Who to follow</p>
 
       <section className="flex flex-col gap-3">
-        {loadedUsers && selectedUsers.map((users) => {
-          return (
-            <div className="flex justify-between">
-              <div className="flex gap-3">
-                <div className="">
-                  <img
-                    className="w-10 h-10 rounded-full"
-                    src={users.profile_picture}
-                    alt=""
-                  />
+        {loadedUsers &&
+          selectedUsers.map((users, index) => {
+            return (
+              <div key={index} className="flex justify-between">
+                <div className="flex gap-3">
+                  <div className="">
+                    <img
+                      className="w-10 h-10 rounded-full"
+                      src={users.profile_picture}
+                      alt=""
+                    />
+                  </div>
+                  <div className="">
+                    <div className=" font-semibold">{users.displayName}</div>
+                    <div className="homelabelcolor">{users.username}</div>
+                  </div>
                 </div>
-                <div className="">
-                  <div className=" font-semibold">{users.displayName}</div>
-                  <div className="homelabelcolor">{users.username}</div>
+                <div>
+                  {users.followersNumber.map((user) => {
+                    if (user === currentUser.userId) {
+                      return (
+                        <span key={user}>
+                          <button
+                            style={{ backgroundColor: "var(--homeLabelColor)" }}
+                            className="bg-white text-gray-900 text-sm px-4 w-28 py-1 rounded-full font-semibold"
+                          >
+                            Following
+                          </button>
+                        </span>
+                      );
+                    } else {
+                      return (
+                        <span key={user}>
+                          <button
+                            className="bg-white text-gray-900 text-sm px-4 w-28 py-1 rounded-full font-semibold"
+                          >
+                            Follow
+                          </button>
+                        </span>
+                      );
+                    }
+                  })}
                 </div>
               </div>
-              <div>
-                <button className=" bg-white text-gray-900 text-sm px-4 py-1 rounded-full font-semibold">
-                  Follow
-                </button>
-              </div>
-            </div>
-          );
-        })}
+            );
+          })}
         {!loadedUsers && <Loader />}
       </section>
     </div>

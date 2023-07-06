@@ -30,14 +30,11 @@ const TrendEngine = () => {
     tweets.length > 1 ? trendGen(tweets) : console.log("Data not recieved yet");
   }, [tweets]);
 
-  const wordCount = {};
-
   // Step 1: Extract tweet texts
   function trendGen() {
     const tweetTexts = tweets.map((tweet) => tweet.tweetText);
 
     const wordCount = {}; // Create an object to store word occurrences
-    const nonTweetTopics = []; // Create an array for non-tweet topic words
 
     tweetTexts.forEach((text) => {
       const cleanedText = text.replace(/[^\w\s]/g, "").toLowerCase();
@@ -46,8 +43,6 @@ const TrendEngine = () => {
       tokens.forEach((token) => {
         if (token.length > 4) {
           wordCount[token] = (wordCount[token] || 0) + 1;
-        } else {
-          nonTweetTopics.push(token);
         }
       });
     });
@@ -63,7 +58,6 @@ const TrendEngine = () => {
     setTrends(topTrends);
     setloader(false);
     console.log(topTrends);
-    console.log(nonTweetTopics.slice(0, 30));
   }
 
   return (
