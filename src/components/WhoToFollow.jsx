@@ -24,6 +24,7 @@ const WhoToFollow = () => {
       let data = snapshot.val();
       console.log(data);
       setuserlist(data);
+      console.log("has rerun");
     });
   }, []);
 
@@ -114,7 +115,7 @@ const WhoToFollow = () => {
 
     otherUsrdataClone.length === 1
       ? (otherUsrdataClone = [0])
-      : dataClone.splice(otherUsrdataClone.indexOf(userId), 1);
+      : otherUsrdataClone.splice(otherUsrdataClone.indexOf(userId), 1);
     set(OtherUsrUnfollowRef, otherUsrdataClone)
       .then(() => {
         console.log("unfollowed successfully");
@@ -131,12 +132,13 @@ const WhoToFollow = () => {
       `users/${currentUser.userId}/followingNumber`
     );
     let currUsrdataClone = currUsrFollowing;
-    currUsrdataClone.length === 1
+    currUsrdataClone.length === 1 && currUsrdataClone[0] === 0
       ? (currUsrdataClone = [userId])
       : currUsrdataClone.push(userId);
     set(CurrUsrfollowRef, currUsrdataClone)
       .then(() => {
         console.log("followed successfully");
+        console.log(selectedUsers);
       })
       .catch((error) => {
         console.log("error: " + error);
@@ -149,17 +151,19 @@ const WhoToFollow = () => {
 
     let otherUsrdataClone = [...othrUsrFollowing[userId].followersNumber];
 
-    otherUsrdataClone.length === 1
+    otherUsrdataClone.length === 1 && otherUsrdataClone[0] === 0
       ? (otherUsrdataClone = [currentUser.userId])
       : otherUsrdataClone.push(currentUser.userId);
     set(OtherUsrfollowRef, otherUsrdataClone)
       .then(() => {
         console.log("followed successfully");
+        console.log(selectedUsers);
       })
       .catch((error) => {
         console.log("error: " + error);
       });
   }
+
   return (
     <>
       <div
@@ -183,17 +187,42 @@ const WhoToFollow = () => {
                     </div>
                     <div className="">
                       <div className=" font-semibold">{users.displayName}</div>
-                      <div className="homelabelcolor text-sm">{users.username}</div>
+                      <div className="homelabelcolor text-sm">
+                        {users.username}
+                      </div>
                     </div>
                   </div>
                   <div>
                     {users.followersNumber.map((user) => {
+                      console.log(selectedUsers);
                       if (user === currentUser.userId) {
                         return (
-                          <span key={user}>
+                          <span key={users}>
                             <button
                               onClick={() => {
                                 handleUnFollow(users.userId);
+                                const selectholder = selectedUsers;
+                                selectedUsers.forEach((selusers) => {
+                                  if (selusers.userId === users.userId) {
+                                    console.log("hell yeah boyyyyy");
+                                    console.log(selusers);
+                                    const newselctduser = selusers;
+                                    newselctduser.followersNumber.length === 1
+                                      ? (newselctduser.followersNumber = [0])
+                                      : newselctduser.followersNumber.splice(
+                                          newselctduser.indexOf(
+                                            currentUser.userId
+                                          ),
+                                          1
+                                        );
+                                    selectholder.map((item) => {
+                                      return item === selusers
+                                        ? (item = newselctduser)
+                                        : item;
+                                    });
+                                    setSelectedUsers(selectholder);
+                                  }
+                                });
                               }}
                               style={{
                                 backgroundColor: "var(--homeLabelColor)",
@@ -210,6 +239,27 @@ const WhoToFollow = () => {
                             <button
                               onClick={() => {
                                 handleFollow(users.userId);
+                                const selectholder = selectedUsers;
+                                selectedUsers.forEach((selusers) => {
+                                  if (selusers.userId === users.userId) {
+                                    console.log("hell yeah boyyyyy");
+                                    console.log(selusers);
+                                    const newselctduser = selusers;
+                                    newselctduser.followersNumber.length === 1
+                                      ? (newselctduser.followersNumber = [
+                                          currentUser.userId,
+                                        ])
+                                      : newselctduser.followersNumber.push(
+                                          currentUser.userId
+                                        );
+                                    selectholder.map((item) => {
+                                      return item === selusers
+                                        ? (item = newselctduser)
+                                        : item;
+                                    });
+                                    setSelectedUsers(selectholder);
+                                  }
+                                });
                               }}
                               className="bg-white text-gray-900 text-sm px-4 w-28 py-1 rounded-full font-semibold"
                             >
