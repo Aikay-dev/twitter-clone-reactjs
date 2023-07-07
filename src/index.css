@@ -1677,7 +1677,8 @@
   }
 
   .homepage-header-searchbox {
-    width: 450px;
+    width: 100%;
+    max-width: 450px;
   }
 
   .homepage-auth-banner-holder {
@@ -1931,10 +1932,6 @@
 
   .home-main-header-text-home {
     display: none;
-  }
-
-  .homepage-header-label {
-    left: 90px;
   }
 
   .ellipses-mobile-explore-header {

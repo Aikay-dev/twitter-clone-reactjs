@@ -75,31 +75,17 @@ const Search = () => {
           )}
           {auth.currentUser !== null && (
             <div
-              className="home-nav-profile-image exploreProfileDiv pt-2 w-14 h-14  flex justify-center items-center"
-              onClick={() => {
-                dispatch(mobileNavLeftState(true));
-                document.body.classList.add("overlay-open");
-              }}
+              className="personalization-and-data-head-nav-arrow-holder flex items-center justify-center cursor-pointer rounded-full h-8 w-9"
+              onClick={() => window.history.back()}
             >
-              <img
-                src={currentUser.profile_picture}
-                alt="user profile image"
-                className="rounded-full w-8 h-8"
-              />
+              <span className="text-base">
+                <FontAwesomeIcon icon="fa-solid fa-arrow-left" />
+              </span>
             </div>
           )}
           <SearchBar currentUser={auth.currentUser} />
           <Link
-            onClick={() => {
-              dispatch(blurChangeState({ display: "block" }));
-            }}
-            to="/Home/Explore/Login"
-            className="homepage-header-settings-icon text-base p-2 flex justify-center items-center rounded-full cursor-pointer"
-          >
-            <SettingsTwoToneIcon fontSize="small" />
-          </Link>
-          <Link
-            className="ellipses-mobile-explore-header ml-4"
+            className="ml-4"
             onClick={() => {
               dispatch(
                 setGoToSettingsFeat(
