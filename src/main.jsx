@@ -24,7 +24,7 @@ import NotificationPage from "./pages/NotificationPage";
 import MessagesPage from "./pages/MessagesPage";
 import BookmarksPage from "./pages/BookmarksPage";
 import FullTweet from "./pages/FullTweet";
-import Search from "./pages/Search";
+import Search from './pages/search/Search'
 
 const router = createBrowserRouter([
   {

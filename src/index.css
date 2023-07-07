@@ -876,6 +876,14 @@
   background-color: rgb(24, 24, 24);
 }
 
+.search-top-nav-bar::-webkit-scrollbar{
+display: none;
+}
+
+.search-ellipse:hover{
+  background-color: rgb(24, 24, 24);
+}
+
 .home-nav-acc-button {
   width: 240px;
   justify-content: space-between;
