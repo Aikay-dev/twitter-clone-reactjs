@@ -243,7 +243,7 @@ const HomepageTweetStream = ({
                   <div className="w-full main-tweet-card-second-half">
                     <div className="flex justify-between w-full pr-2 mt-1">
                       <div className="flex items-center">
-                        <p className="main-tweet-card-display-name flex items-center gap-1 font-semibold mr-2 whitespace-nowrap flex-wrap ">
+                        <p className="main-tweet-card-display-name flex items-center gap-1 font-semibold mr-2 whitespace-nowrap flex-nowrap ">
                           <span>{tweetsItems.displayName}</span>
                           {tweetsItems.badgedUser && (
                             <span className="bluetext">
