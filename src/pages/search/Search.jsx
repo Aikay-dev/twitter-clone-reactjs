@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import AuthLoginButton from "../../components/Auth-LoginButton";
 import Trendstream from "../../components/TrendStream";
 import Happening from "../../components/Happening";
@@ -26,6 +26,17 @@ const Search = () => {
   const [topsearchTab, settopsearchTab] = useState(true);
   const [PeopleTab, setPeopleTab] = useState(false);
   const [PhotosTab, setPhotosTab] = useState(false);
+  const [searchPreText, setsearchPreText] = useState("");
+  const [searchPermit, setsearchPermit] = useState(true);
+  const [searchTweets, setSearchTweets] = useState([]);
+  useEffect(() => {
+    const currentDir = window.location.pathname;
+    const extractedText = currentDir.split("/").filter(Boolean).pop();
+    console.log(extractedText);
+    setsearchPreText(extractedText);
+    setsearchPermit(true);
+  }, []);
+
   const googleSignButton = (
     <div className="flex items-center justify-center">
       <img src={googleIcon} alt="" className="h-8 flex w-8" />
@@ -42,7 +53,6 @@ const Search = () => {
   let currentDate = new Date();
   const join_create_account = "Create account";
   const dispatch = useDispatch();
-  const mobNavleft = useSelector((state) => state.mobNavleft.value);
   const HandleSignIn = () => {
     const screenWidth = window.innerWidth;
     console.log("first2");
@@ -78,7 +88,15 @@ const Search = () => {
                 </span>
               </div>
             )}
-            <SearchBar currentUser={auth.currentUser} />
+            <SearchBar
+              currentUser={auth.currentUser}
+              searchPreText={searchPreText}
+              setsearchPreText={setsearchPreText}
+              searchPermit={searchPermit}
+              setsearchPermit={setsearchPermit}
+              setSearchTweets={setSearchTweets}
+              searchTweets={searchTweets}
+            />
             <Link
               className="ml-4 p-2 flex justify-center items-center rounded-full search-ellipse"
               onClick={() => {
@@ -93,7 +111,7 @@ const Search = () => {
               <FontAwesomeIcon icon="fa-solid fa-ellipsis" />
             </Link>
           </div>
-          <div  className="flex  overflow-x-scroll search-top-nav-bar">
+          <div className="flex  overflow-x-scroll search-top-nav-bar">
             <button
               onClick={() => {
                 settopsearchTab(true);
@@ -103,14 +121,17 @@ const Search = () => {
               className="px-10 search-nav-button-hover pt-3 cursor-pointer"
             >
               <div
-              className=" h-full "
+                className=" h-full "
                 style={
                   topsearchTab
-                    ? { borderBottom: "3px solid rgb(29, 155, 240)", fontWeight: 600 }
-                    : {color: "rgb(113, 118, 123)"}
+                    ? {
+                        borderBottom: "3px solid rgb(29, 155, 240)",
+                        fontWeight: 600,
+                      }
+                    : { color: "rgb(113, 118, 123)" }
                 }
               >
-                <p className = "pb-2">Top</p>
+                <p className="pb-2">Top</p>
               </div>
             </button>
             <button
@@ -122,14 +143,17 @@ const Search = () => {
               className="px-10 search-nav-button-hover pt-3 cursor-pointer"
             >
               <div
-              className=" h-full "
+                className=" h-full "
                 style={
                   PeopleTab
-                    ? { borderBottom: "3px solid rgb(29, 155, 240)", fontWeight: 600 }
-                    : {color: "rgb(113, 118, 123)"}
+                    ? {
+                        borderBottom: "3px solid rgb(29, 155, 240)",
+                        fontWeight: 600,
+                      }
+                    : { color: "rgb(113, 118, 123)" }
                 }
               >
-                <p className = "pb-2">People</p>
+                <p className="pb-2">People</p>
               </div>
             </button>
             <button
@@ -141,22 +165,25 @@ const Search = () => {
               className="px-10 search-nav-button-hover pt-3 cursor-pointer"
             >
               <div
-              className=" h-full "
+                className=" h-full "
                 style={
                   PhotosTab
-                    ? { borderBottom: "3px solid rgb(29, 155, 240)", fontWeight: 600 }
-                    : {color: "rgb(113, 118, 123)"}
+                    ? {
+                        borderBottom: "3px solid rgb(29, 155, 240)",
+                        fontWeight: 600,
+                      }
+                    : { color: "rgb(113, 118, 123)" }
                 }
               >
-                <p className = "pb-2">Photos</p>
+                <p className="pb-2">Photos</p>
               </div>
             </button>
           </div>
         </header>
-        <section >
-          {PhotosTab && <PhotoSearch />}
-          {topsearchTab && <TopSearch />}
-          {PeopleTab && <PeopleSearch />}
+        <section className=" overflow-y-scroll">
+          {PhotosTab && <PhotoSearch searchTweets = {searchTweets}/>}
+          {topsearchTab && <TopSearch searchTweets = {searchTweets}/>}
+          {PeopleTab && <PeopleSearch searchTweets = {searchTweets}/>}
         </section>
       </section>
       <section className="homepage-right h-screen">

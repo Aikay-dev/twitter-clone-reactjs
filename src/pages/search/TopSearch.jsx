@@ -1,9 +1,7 @@
-import React from 'react'
+import React from "react";
 
-const TopSearch = () => {
-  return (
-    <div>TopSearch</div>
-  )
-}
+const TopSearch = ({ searchTweets }) => {
+  return <div>TopSearch</div>;
+};
 
-export default TopSearch
+export default TopSearch;
