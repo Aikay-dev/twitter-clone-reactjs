@@ -23,7 +23,6 @@ const Search = () => {
   console.log(currentUser);
   const ifBlur = useSelector((state) => state.user.value.display);
   const [showSignUpCard, setshowSignUpCard] = useState(false);
-  const [happeningDataLoaded, sethappeningDataLoaded] = useState(false);
   const [topsearchTab, settopsearchTab] = useState(true);
   const [PeopleTab, setPeopleTab] = useState(false);
   const [PhotosTab, setPhotosTab] = useState(false);
@@ -59,7 +58,7 @@ const Search = () => {
         </div>
       )}
       <section className="homepage-center h-screen relative overflow-hidden">
-        <header>
+        <header className="homeBorder-bottom">
           <div className="homepage-header sticky py-3 w-full flex h-16 px-4 gap-1 items-center justify-between">
             {auth.currentUser === null && (
               <Link
@@ -94,23 +93,24 @@ const Search = () => {
               <FontAwesomeIcon icon="fa-solid fa-ellipsis" />
             </Link>
           </div>
-          <div className="flex overflow-x-scroll search-top-nav-bar">
+          <div  className="flex  overflow-x-scroll search-top-nav-bar">
             <button
               onClick={() => {
                 settopsearchTab(true);
                 setPeopleTab(false);
                 setPhotosTab(false);
               }}
-              className="px-10 hover:bg-slate-500 py-3 cursor-pointer"
+              className="px-10 search-nav-button-hover pt-3 cursor-pointer"
             >
               <div
+              className=" h-full "
                 style={
                   topsearchTab
-                    ? { borderBottom: "3px solid rgb(29, 155, 240)" }
-                    : {}
+                    ? { borderBottom: "3px solid rgb(29, 155, 240)", fontWeight: 600 }
+                    : {color: "rgb(113, 118, 123)"}
                 }
               >
-                Top
+                <p className = "pb-2">Top</p>
               </div>
             </button>
             <button
@@ -119,16 +119,17 @@ const Search = () => {
                 setPeopleTab(true);
                 setPhotosTab(false);
               }}
-              className="px-10 hover:bg-slate-500 py-3 cursor-pointer"
+              className="px-10 search-nav-button-hover pt-3 cursor-pointer"
             >
               <div
+              className=" h-full "
                 style={
                   PeopleTab
-                    ? { borderBottom: "3px solid rgb(29, 155, 240)" }
-                    : {}
+                    ? { borderBottom: "3px solid rgb(29, 155, 240)", fontWeight: 600 }
+                    : {color: "rgb(113, 118, 123)"}
                 }
               >
-                People
+                <p className = "pb-2">People</p>
               </div>
             </button>
             <button
@@ -137,21 +138,22 @@ const Search = () => {
                 setPeopleTab(false);
                 setPhotosTab(true);
               }}
-              className="px-10 hover:bg-slate-500 py-3 cursor-pointer"
+              className="px-10 search-nav-button-hover pt-3 cursor-pointer"
             >
               <div
+              className=" h-full "
                 style={
                   PhotosTab
-                    ? { borderBottom: "3px solid rgb(29, 155, 240)" }
-                    : {}
+                    ? { borderBottom: "3px solid rgb(29, 155, 240)", fontWeight: 600 }
+                    : {color: "rgb(113, 118, 123)"}
                 }
               >
-                Photos
+                <p className = "pb-2">Photos</p>
               </div>
             </button>
           </div>
         </header>
-        <section>
+        <section >
           {PhotosTab && <PhotoSearch />}
           {topsearchTab && <TopSearch />}
           {PeopleTab && <PeopleSearch />}

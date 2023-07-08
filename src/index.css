@@ -50,6 +50,10 @@
   background-color: rgb(24, 25, 25);
 }
 
+.homeBorder-bottom{
+  border-bottom: var(--homeBorder);
+}
+
 .homelogouthovercancel {
   border: 2px solid rgb(113, 118, 123);
 }
@@ -269,6 +273,10 @@
 }
 .ldio-02vutb3eyc03 div {
   box-sizing: content-box;
+}
+
+.search-nav-button-hover:hover{
+  background-color: var(--buttonHover);
 }
 
 @keyframes identifier {
