@@ -24,7 +24,7 @@ import NotificationPage from "./pages/NotificationPage";
 import MessagesPage from "./pages/MessagesPage";
 import BookmarksPage from "./pages/BookmarksPage";
 import FullTweet from "./pages/FullTweet";
-import Search from './pages/search/Search'
+import Search from "./pages/search/Search";
 
 const router = createBrowserRouter([
   {
@@ -46,25 +46,25 @@ const router = createBrowserRouter([
       },
       {
         path: "Settings",
-        element: <SettingsPage/>,
+        element: <SettingsPage />,
         children: [
           {
             path: "personalization",
-            element: <PersonalizationAndData/>
+            element: <PersonalizationAndData />,
           },
           {
             path: "your_twitter_data",
-            element: <TweeterData/>
+            element: <TweeterData />,
           },
           {
             path: "about",
-            element: <AdditionalResources/>
+            element: <AdditionalResources />,
           },
-        ]
+        ],
       },
       {
         path: "Explore",
-        element: <Explore/>,
+        element: <Explore />,
         children: [
           {
             path: "Login",
@@ -74,33 +74,44 @@ const router = createBrowserRouter([
             path: "Signup",
             element: <SignUp />,
           },
-        ]
-      },{
+        ],
+      },
+      {
         path: "Bookmarks",
         element: <BookmarksPage />,
-      },{
+      },
+      {
         path: "Messages",
         element: <MessagesPage />,
-      },{
+      },
+      {
         path: "Notifications",
         element: <NotificationPage />,
-      },{
+      },
+      {
         path: "Profile",
         element: <ProfilePage />,
-      },{
+      },
+      {
         path: "Tweeter Blue",
         element: <TweeterBluePage />,
-      },{
-        path: "/Home/:username/:timestamp",
+      },
+      {
+        path: ":username/:timestamp",
         element: <FullTweet />,
-      },{
-        path: "/Home/:username",
+      },
+      {
+        path: ":username",
         element: <ProfilePage />,
       },
       {
         path: "Search",
-        element: <Search />
-      }
+        element: <Navigate replace to="/Home/Explore" />,
+      },
+      {
+        path: "Search/:query",
+        element: <Search />,
+      },
     ],
   },
   {
@@ -117,13 +128,11 @@ const router = createBrowserRouter([
       },
     ],
   },
-  
-
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <Provider store = {store}>
+    <Provider store={store}>
       <RouterProvider router={router} />
     </Provider>
   </React.StrictMode>
