@@ -6,16 +6,22 @@ import { useNavigate } from "react-router-dom"; // Import useHistory hook
 
 const SearchBar = ({
   currentUser,
-  searchPreText,
-  setsearchPreText,
-  searchPermit,
-  setsearchPermit,
   setSearchTweets,
-  searchTweets
+  searchTweets,
+  setSearchPeople,
+  searchExtractText
 }) => {
+  const [searchPermit, setsearchPermit] = useState(true);
+
+  const [searchPreText, setsearchPreText] = useState("");
   const searchbarRef = useRef();
   const navigate = useNavigate(); // Initialize history object
 
+  useEffect(() => {
+if(searchExtractText){
+setsearchPreText(searchExtractText)
+}
+  }, [searchExtractText])
   useEffect(() => {
     if (searchPermit && searchPreText.length > 0) {
       const tweetRef = ref(realTimeDatabase, "tweetPool/");
@@ -26,13 +32,48 @@ const SearchBar = ({
         const foundTweets = [];
 
         Object.values(data).forEach((element) => {
-          console.log(element.tweetText.split(" "));
           element.tweetText.split(" ").forEach((text) => {
             text === searchPreText ? foundTweets.push(element) : text;
           });
           console.log(foundTweets);
-          setSearchTweets(foundTweets)
+          setSearchTweets(foundTweets);
         });
+      });
+      const userRef = ref(realTimeDatabase, "users/");
+      onValue(userRef, (snapshot) => {
+        const data = snapshot.val();
+        console.log(data);
+        const foundUser = [];
+
+        Object.values(data).forEach((element) => {
+          const regexDN = new RegExp(element.displayName.replace(/\s/g, "").toLowerCase(), "i");
+          const regexUN = new RegExp(element.username.replace(/\s/g, "").toLowerCase(), "i");
+
+          const sanitizedSearchPreText = searchPreText
+            .replace(/\s/g, "")
+            .toLowerCase();
+
+          if (
+            regexDN.test(sanitizedSearchPreText) ||
+            regexUN.test(sanitizedSearchPreText)
+          ) {
+            foundUser.push(element);
+            console.log(foundUser);
+          } else {
+            /* console.log(regexDN + " and " + sanitizedSearchPreText);
+            console.log("No match");
+            console.log(regexDN.test(sanitizedSearchPreText)); */
+            const displayName = "Sapa Bro";
+            const searchQuery = "sapa";
+
+            const regexDN = new RegExp(searchQuery.replace(/\s/g, "").toLowerCase(), "i");
+            const isMatch = regexDN.test(displayName);
+
+            console.log(isMatch); // Output: true
+          }
+        });
+
+        console.log(foundUser);
       });
     }
   }, [searchPreText, searchPermit]);
@@ -42,14 +83,14 @@ const SearchBar = ({
       console.log("search for: " + searchPreText);
       setsearchPermit(false);
     }
-    console.log(searchPreText)
+    console.log(searchPreText);
   }, [searchPreText]);
 
   function handleSearch(e) {
     e.preventDefault();
     setsearchPermit(true);
     console.log(window.location.pathname);
-    navigate(`/Home/Search/${searchPreText}`)
+    navigate(`/Home/Search/${searchPreText}`);
   }
 
   return (

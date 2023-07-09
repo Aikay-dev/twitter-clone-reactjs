@@ -26,15 +26,15 @@ const Search = () => {
   const [topsearchTab, settopsearchTab] = useState(true);
   const [PeopleTab, setPeopleTab] = useState(false);
   const [PhotosTab, setPhotosTab] = useState(false);
-  const [searchPreText, setsearchPreText] = useState("");
-  const [searchPermit, setsearchPermit] = useState(true);
   const [searchTweets, setSearchTweets] = useState([]);
+  const [searchPeople, setSearchPeople] = useState([]);
+  const [searchExtractText, setsearchExtractText] = useState('')
+
   useEffect(() => {
     const currentDir = window.location.pathname;
     const extractedText = currentDir.split("/").filter(Boolean).pop();
     console.log(extractedText);
-    setsearchPreText(extractedText);
-    setsearchPermit(true);
+    setsearchExtractText(extractedText);
   }, []);
 
   const googleSignButton = (
@@ -90,12 +90,10 @@ const Search = () => {
             )}
             <SearchBar
               currentUser={auth.currentUser}
-              searchPreText={searchPreText}
-              setsearchPreText={setsearchPreText}
-              searchPermit={searchPermit}
-              setsearchPermit={setsearchPermit}
               setSearchTweets={setSearchTweets}
               searchTweets={searchTweets}
+              setSearchPeople={setSearchPeople}
+              searchExtractText = {searchExtractText}
             />
             <Link
               className="ml-4 p-2 flex justify-center items-center rounded-full search-ellipse"
@@ -181,9 +179,15 @@ const Search = () => {
           </div>
         </header>
         <section className=" overflow-y-scroll">
-          {PhotosTab && <PhotoSearch searchTweets = {searchTweets}/>}
-          {topsearchTab && <TopSearch searchTweets = {searchTweets}/>}
-          {PeopleTab && <PeopleSearch searchTweets = {searchTweets}/>}
+          {PhotosTab && <PhotoSearch searchTweets={searchTweets} />}
+          {topsearchTab && <TopSearch searchTweets={searchTweets} />}
+          {PeopleTab && (
+            <PeopleSearch
+              searchTweets={searchTweets}
+              setSearchPeople={setSearchPeople}
+              searchPeople={searchPeople}
+            />
+          )}
         </section>
       </section>
       <section className="homepage-right h-screen">
