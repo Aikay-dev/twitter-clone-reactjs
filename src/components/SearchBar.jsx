@@ -9,19 +9,18 @@ const SearchBar = ({
   setSearchTweets,
   searchTweets,
   setSearchPeople,
-  searchExtractText
+  searchExtractText,
 }) => {
   const [searchPermit, setsearchPermit] = useState(true);
-
   const [searchPreText, setsearchPreText] = useState("");
   const searchbarRef = useRef();
   const navigate = useNavigate(); // Initialize history object
 
   useEffect(() => {
-if(searchExtractText){
-setsearchPreText(searchExtractText)
-}
-  }, [searchExtractText])
+    if (searchExtractText) {
+      setsearchPreText(searchExtractText);
+    }
+  }, [searchExtractText]);
   useEffect(() => {
     if (searchPermit && searchPreText.length > 0) {
       const tweetRef = ref(realTimeDatabase, "tweetPool/");
@@ -36,7 +35,9 @@ setsearchPreText(searchExtractText)
             text === searchPreText ? foundTweets.push(element) : text;
           });
           console.log(foundTweets);
-          setSearchTweets(foundTweets);
+          if(searchTweets){
+            setSearchTweets(foundTweets);
+          }
         });
       });
       const userRef = ref(realTimeDatabase, "users/");
@@ -46,8 +47,14 @@ setsearchPreText(searchExtractText)
         const foundUser = [];
 
         Object.values(data).forEach((element) => {
-          const regexDN = new RegExp(element.displayName.replace(/\s/g, "").toLowerCase(), "i");
-          const regexUN = new RegExp(element.username.replace(/\s/g, "").toLowerCase(), "i");
+          const regexDN = new RegExp(
+            element.displayName.replace(/\s/g, "").toLowerCase(),
+            "i"
+          );
+          const regexUN = new RegExp(
+            element.username.replace(/\s/g, "").toLowerCase(),
+            "i"
+          );
 
           const sanitizedSearchPreText = searchPreText
             .replace(/\s/g, "")
@@ -66,7 +73,10 @@ setsearchPreText(searchExtractText)
             const displayName = "Sapa Bro";
             const searchQuery = "sapa";
 
-            const regexDN = new RegExp(searchQuery.replace(/\s/g, "").toLowerCase(), "i");
+            const regexDN = new RegExp(
+              searchQuery.replace(/\s/g, "").toLowerCase(),
+              "i"
+            );
             const isMatch = regexDN.test(displayName);
 
             console.log(isMatch); // Output: true
@@ -75,11 +85,13 @@ setsearchPreText(searchExtractText)
 
         console.log(foundUser);
       });
+    }else{
+      console.log("no search permit")
     }
   }, [searchPreText, searchPermit]);
 
   useEffect(() => {
-    if (searchPermit) {
+    if (searchPermit && searchPreText.length > 0) {
       console.log("search for: " + searchPreText);
       setsearchPermit(false);
     }
