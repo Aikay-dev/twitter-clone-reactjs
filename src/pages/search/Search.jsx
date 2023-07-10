@@ -16,6 +16,8 @@ import WhoToFollow from "../../components/WhoToFollow";
 import PhotoSearch from "./PhotoSearch";
 import TopSearch from "./TopSearch";
 import PeopleSearch from "./PeopleSearch";
+import { onValue, ref } from "firebase/database";
+import { realTimeDatabase } from "../../config/firebase";
 
 const Search = () => {
   console.log(auth.currentUser);
@@ -27,8 +29,10 @@ const Search = () => {
   const [PeopleTab, setPeopleTab] = useState(false);
   const [PhotosTab, setPhotosTab] = useState(false);
   const [searchTweets, setSearchTweets] = useState([]);
+  const [searchPermit, setsearchPermit] = useState(true);
   const [searchPeople, setSearchPeople] = useState([]);
   const [searchExtractText, setsearchExtractText] = useState('')
+  const [searchPreText, setsearchPreText] = useState("");
 
   useEffect(() => {
     const currentDir = window.location.pathname;
@@ -36,6 +40,88 @@ const Search = () => {
     console.log(extractedText);
     setsearchExtractText(extractedText);
   }, []);
+
+  useEffect(() => {
+    if (searchExtractText) {
+      setsearchPreText(searchExtractText);
+    }
+  }, [searchExtractText]);
+
+  useEffect(() => {
+    if (searchPermit && searchPreText.length > 0) {
+      const tweetRef = ref(realTimeDatabase, "tweetPool/");
+      onValue(tweetRef, (snapshot) => {
+        const data = snapshot.val();
+        console.log(data);
+        console.log(searchPreText);
+        const foundTweets = [];
+
+        Object.values(data).forEach((element) => {
+          element.tweetText.split(" ").forEach((text) => {
+            const trimmedSearchPreText = searchPreText.trim();
+            if (text.toLowerCase() === trimmedSearchPreText.toLowerCase()) {
+              foundTweets.push(element);
+            }
+          });
+        });
+        
+        console.log(foundTweets);
+        
+        searchTweets.length > 0
+          ? setSearchTweets(foundTweets)
+          : setSearchTweets([null]);
+      });
+
+      const userRef = ref(realTimeDatabase, "users/");
+      onValue(userRef, (snapshot) => {
+        const data = snapshot.val();
+        console.log(data);
+        const foundUser = [];
+
+        Object.values(data).forEach((element) => {
+          const regexDN = new RegExp(
+            element.displayName.replace(/\s/g, "").toLowerCase(),
+            "i"
+          );
+          const regexUN = new RegExp(
+            element.username.replace(/\s/g, "").toLowerCase(),
+            "i"
+          );
+
+          const sanitizedSearchPreText = searchPreText
+            .replace(/\s/g, "")
+            .toLowerCase();
+
+          if (
+            regexDN.test(sanitizedSearchPreText) ||
+            regexUN.test(sanitizedSearchPreText)
+          ) {
+            foundUser.push(element);
+            console.log(foundUser);
+          } else {
+            /* console.log(regexDN + " and " + sanitizedSearchPreText);
+            console.log("No match");
+            console.log(regexDN.test(sanitizedSearchPreText)); */
+            const displayName = "Sapa Bro";
+            const searchQuery = "sapa";
+
+            const regexDN = new RegExp(
+              searchQuery.replace(/\s/g, "").toLowerCase(),
+              "i"
+            );
+            const isMatch = regexDN.test(displayName);
+
+            console.log(isMatch); // Output: true
+          }
+        });
+
+        console.log(foundUser);
+      });
+      setsearchPermit(false);
+    } else {
+      console.log("no search permit");
+    }
+  }, [searchPreText, searchPermit]);
 
   const googleSignButton = (
     <div className="flex items-center justify-center">
@@ -92,8 +178,6 @@ const Search = () => {
               currentUser={auth.currentUser}
               setSearchTweets={setSearchTweets}
               searchTweets={searchTweets}
-              setSearchPeople={setSearchPeople}
-              searchExtractText = {searchExtractText}
             />
             <Link
               className="ml-4 p-2 flex justify-center items-center rounded-full search-ellipse"
@@ -178,13 +262,12 @@ const Search = () => {
             </button>
           </div>
         </header>
-        <section className=" overflow-y-scroll">
+        <section className="h-screen overflow-y-scroll">
           {PhotosTab && <PhotoSearch searchTweets={searchTweets} />}
           {topsearchTab && <TopSearch searchTweets={searchTweets} />}
           {PeopleTab && (
             <PeopleSearch
               searchTweets={searchTweets}
-              setSearchPeople={setSearchPeople}
               searchPeople={searchPeople}
             />
           )}

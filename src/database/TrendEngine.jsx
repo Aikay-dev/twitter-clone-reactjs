@@ -1,16 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { library } from "@fortawesome/fontawesome-svg-core";
-import { fas } from "@fortawesome/free-solid-svg-icons";
-import { fab } from "@fortawesome/free-brands-svg-icons";
-import { far } from "@fortawesome/free-regular-svg-icons";
 import { onValue, ref } from "firebase/database";
 import { realTimeDatabase } from "../config/firebase";
 import Loader from "../pages/auth/components/Loader";
-
-library.add(fas);
-library.add(fab);
-library.add(far);
+import { Link } from "react-router-dom";
 
 const TrendEngine = () => {
   const [tweets, setTweets] = useState([]);
@@ -66,7 +59,8 @@ const TrendEngine = () => {
         <div className="homepage-center-trends">
           {trends.map((items, index) => {
             return (
-              <div
+              <Link
+              to={`/Home/Search/${items[0]}`}
                 key={index}
                 className="homepage-center-current-trend px-3 py-3 cursor-pointer flex items-center justify-between"
               >
@@ -80,7 +74,7 @@ const TrendEngine = () => {
                 <div className="homepage-center-current-trend-more mb-9 font-bold rounded-full cursor-pointer">
                   <FontAwesomeIcon icon="fa-solid fa-ellipsis" />
                 </div>
-              </div>
+              </Link>
             );
           })}
         </div>
