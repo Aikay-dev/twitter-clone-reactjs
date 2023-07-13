@@ -655,15 +655,6 @@ const Root = ({ authState, setAuthState, currentUser }) => {
               </Link>
 
               {!authState && (
-                <div
-                  aria-label="Search"
-                  className="section1-main-search text-xl font-semibold flex justify-center items-center"
-                >
-                  <FontAwesomeIcon icon="fa-solid fa-magnifying-glass" />
-                </div>
-              )}
-
-              {!authState && (
                 <Link
                   aria-label="Settings"
                   to={windowWidth}

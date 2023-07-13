@@ -1,4 +1,5 @@
 import "./App.css";
+import React from "react";
 import Root from "./pages/Root";
 import { useState, useEffect } from "react";
 import LoadingSite from "./screen/LoadingSite";

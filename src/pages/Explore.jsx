@@ -45,7 +45,6 @@ const Explore = () => {
       <span className="pl-1 text-black">Sign in with Apple</span>
     </>
   );
-  let currentDate = new Date();
   const join_create_account = "Create account";
   const dispatch = useDispatch();
   const mobNavleft = useSelector((state) => state.mobNavleft.value);
