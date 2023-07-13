@@ -33,12 +33,17 @@ const Home = ({
   profileBlur,
   setprofileBlur,
   scrollPositionHome,
-  setScrollPositionHome,readyToShowButton, setreadyToShowButton
+  setScrollPositionHome,
+  readyToShowButton,
+  setreadyToShowButton,
+  ForyouTab, setForyouTab,
+FollowingTab, setFollowingTab,
+setFollowingTweetsCache,
+followingTweetsCache
 }) => {
   const dispatch = useDispatch();
   const mobNavleft = useSelector((state) => state.mobNavleft.value);
-  const [ForyouTab, setForyouTab] = useState(true);
-  const [FollowingTab, setFollowingTab] = useState(false);
+  
   const currentUser = useSelector((state) => state.currUsr.value);
   const [tweetData, settweetData] = useState({
     profilePic: currentUser.profile_picture,
@@ -75,7 +80,15 @@ const Home = ({
     const handleScroll = () => {
       const currentPosition = scrollContainer.scrollTop;
       console.log("Current scroll position:", currentPosition);
-      setmainTweetScrollOffset(currentPosition);
+      ForyouTab
+        ? setmainTweetScrollOffset({
+            ...mainTweetScrollOffset,
+            forYou: currentPosition,
+          })
+        : setmainTweetScrollOffset({
+            ...mainTweetScrollOffset,
+            following: currentPosition,
+          });
     };
 
     scrollContainer.addEventListener("scroll", handleScroll);
@@ -90,11 +103,10 @@ const Home = ({
   useEffect(() => {
     const scrollContainer = mainhomesectionRef.current;
     if (readyForScroll) {
-      scrollContainer.scrollTop = mainTweetScrollOffset;
-      if(readyToShowButton){
-        setTweetLoaded(true);
-      }
-      setreadyToShowButton(true)
+      ForyouTab
+        ? (scrollContainer.scrollTop = mainTweetScrollOffset.forYou)
+        : (scrollContainer.scrollTop = mainTweetScrollOffset.following);
+      readyToShowButton ? setTweetLoaded(true) : setreadyToShowButton(true);
     }
   }, [readyForScroll]);
 
@@ -439,9 +451,7 @@ const Home = ({
               />
             )}
 
-            {FollowingTab && (
-              <FollowingTweets />
-            )}
+            {FollowingTab && <FollowingTweets setFollowingTweetsCache = {setFollowingTweetsCache} followingTweetsCache ={followingTweetsCache} />}
             <div className=" h-52 flex justify-center pt-2">
               {tweetLoaded && ForyouTab && (
                 <button
@@ -456,7 +466,7 @@ const Home = ({
                   }}
                   className="h-8 px-3 text-sm bluebackground rounded-full"
                 >
-                  {!loadingOldTweets &&  (
+                  {!loadingOldTweets && (
                     <p>
                       <FontAwesomeIcon icon="fa-solid fa-arrow-rotate-right" />{" "}
                       Load more Tweets

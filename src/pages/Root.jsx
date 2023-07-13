@@ -81,10 +81,16 @@ const Root = ({ authState, setAuthState, currentUser }) => {
   const [imageToGrabLink, setImageToGrabLink] = useState(null);
   const [showNotifAlert, setshowNotifAlert] = useState(false);
   const [scrollPositionHome, setScrollPositionHome] = useState(0);
-  const [mainTweetScrollOffset, setmainTweetScrollOffset] = useState(0);
+  const [mainTweetScrollOffset, setmainTweetScrollOffset] = useState({
+    forYou: 0,
+    following: 0,
+  });
   const [tweetCache, setTweetCache] = useState([]);
+  const [followingTweetsCache, setFollowingTweetsCache] = useState([])
   const [readyToShowButton, setreadyToShowButton] = useState(false);
-  
+  const [ForyouTab, setForyouTab] = useState(true);
+  const [FollowingTab, setFollowingTab] = useState(false);
+
   /* END STATE MANAGEMENT */
   useEffect(() => {
     // Code to run when the component mounts and when the URL changes
@@ -839,6 +845,12 @@ const Root = ({ authState, setAuthState, currentUser }) => {
                 setTweetCache={setTweetCache}
                 readyToShowButton={readyToShowButton}
                 setreadyToShowButton={setreadyToShowButton}
+                ForyouTab={ForyouTab}
+                setForyouTab={setForyouTab}
+                FollowingTab={FollowingTab}
+                setFollowingTab={setFollowingTab}
+                setFollowingTweetsCache ={setFollowingTweetsCache}
+followingTweetsCache ={followingTweetsCache}
               />
             )}
           {<Outlet />}

@@ -2,10 +2,6 @@ import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { library } from "@fortawesome/fontawesome-svg-core";
-import { fas } from "@fortawesome/free-solid-svg-icons";
-import { fab } from "@fortawesome/free-brands-svg-icons";
-import { far } from "@fortawesome/free-regular-svg-icons";
 import { FaRegCommentDots, FaRetweet } from "react-icons/fa";
 import { AiOutlineHeart } from "react-icons/ai";
 import { realTimeDatabase } from "../config/firebase";
@@ -14,11 +10,7 @@ import TextComponent from "../components/TextComponent";
 import { BsFillPatchCheckFill } from "react-icons/bs";
 import Loader from "../pages/auth/components/Loader";
 
-library.add(fas);
-library.add(fab);
-library.add(far);
-
-const FollowingTweets = () => {
+const FollowingTweets = ({ setFollowingTweetsCache, followingTweetsCache }) => {
   const currentUser = useSelector((state) => state.currUsr.value);
   console.log(currentUser.followingNumber[0] === 0);
   const [tweetsCardData, settweetsCardData] = useState([]);
@@ -29,28 +21,32 @@ const FollowingTweets = () => {
 
   useEffect(() => {
     const userTogetDataFrom = currentUser.followingNumber;
-    if (userTogetDataFrom.length === 1 && userTogetDataFrom[0] === 0) {
-      setnoTweets(true);
-      setloadingTweets(false);
-      console.log("not loadingTweets");
-      console.log("userTogetDataFrom : " + currentUser.followingNumber);
-    } else {
-      for (let i = 0; i < userTogetDataFrom.length; i++) {
-        const TweetDataref = ref(
-          realTimeDatabase,
-          `users/${userTogetDataFrom[i]}`
-        );
-        onValue(TweetDataref, (snapshot) => {
-          const data = snapshot.val();
-          console.log(data);
-          console.log(i);
-          const tweetsObj = data.userTweets;
-          const tweets = Object.values(tweetsObj);
-          settweetIds(tweets);
-        });
+    if (followingTweetsCache.length === 0) {
+      if (userTogetDataFrom.length === 1 && userTogetDataFrom[0] === 0) {
+        setnoTweets(true);
+        setloadingTweets(false);
+        console.log("not loadingTweets");
+        console.log("userTogetDataFrom : " + currentUser.followingNumber);
+      } else {
+        for (let i = 0; i < userTogetDataFrom.length; i++) {
+          const TweetDataref = ref(
+            realTimeDatabase,
+            `users/${userTogetDataFrom[i]}`
+          );
+          onValue(TweetDataref, (snapshot) => {
+            const data = snapshot.val();
+            console.log(data);
+            console.log(i);
+            const tweetsObj = data.userTweets;
+            const tweets = Object.values(tweetsObj);
+            settweetIds(tweets);
+          });
+        }
+        console.log("done getting tweets");
+        console.log(tweetIds);
       }
-      console.log("done getting tweets");
-      console.log(tweetIds);
+    } else {
+      settweetsCardData(followingTweetsCache);
     }
   }, []);
 
@@ -73,6 +69,7 @@ const FollowingTweets = () => {
   }
 
   useEffect(() => {
+    setFollowingTweetsCache(tweetsCardData);
     console.log(tweetsCardData);
   }, [tweetsCardData]);
 
