@@ -16,10 +16,9 @@ const NotificationStream = ({ streamData }) => {
   }
 
   const reversedStreamData = [...streamData].reverse();
-  return reversedStreamData.map((notification) => {
+  return reversedStreamData.map((notification, index) => {
     return (
-      <>
-        <div className="notificationcard flex items-center py-3 px-6 gap-4 cursor-pointer">
+        <div key={index} className="notificationcard flex items-center py-3 px-6 gap-4 cursor-pointer">
           <div>
             {notification.message === "Followed you" && (
               <div className="text-2xl text-blue-500">
@@ -61,7 +60,6 @@ const NotificationStream = ({ streamData }) => {
             </p>
           </div>
         </div>
-      </>
     );
   });
 };
