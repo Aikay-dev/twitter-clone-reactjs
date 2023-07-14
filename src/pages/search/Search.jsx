@@ -31,7 +31,7 @@ const Search = () => {
   const [searchTweets, setSearchTweets] = useState([]);
   const [searchPermit, setsearchPermit] = useState(true);
   const [searchPeople, setSearchPeople] = useState([]);
-  const [searchExtractText, setsearchExtractText] = useState('')
+  const [searchExtractText, setsearchExtractText] = useState("");
   const [searchPreText, setsearchPreText] = useState("");
 
   useEffect(() => {
@@ -64,9 +64,9 @@ const Search = () => {
             }
           });
         });
-        
+
         console.log(foundTweets);
-        
+
         foundTweets.length > 0
           ? setSearchTweets(foundTweets)
           : setSearchTweets([null]);
