@@ -44,9 +44,11 @@ const FollowingTweets = ({ setFollowingTweetsCache, followingTweetsCache }) => {
         }
         console.log("done getting tweets");
         console.log(tweetIds);
+        setloadingTweets(false)
       }
     } else {
       settweetsCardData(followingTweetsCache);
+      setloadingTweets(false)
     }
   }, []);
 
