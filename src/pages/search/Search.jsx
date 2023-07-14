@@ -67,7 +67,7 @@ const Search = () => {
         
         console.log(foundTweets);
         
-        searchTweets.length > 0
+        foundTweets.length > 0
           ? setSearchTweets(foundTweets)
           : setSearchTweets([null]);
       });

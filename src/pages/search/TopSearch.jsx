@@ -11,22 +11,23 @@ import { realTimeDatabase } from "../../config/firebase";
 const TopSearch = ({ searchTweets }) => {
   const [isLoading, setisLoading] = useState(true);
   const [notweetfound, setnotweetfound] = useState(false);
-  
-
-
-  
-  
+  const [filteredTweets, setfilteredTweets] = useState([]);
   useEffect(() => {
     setisLoading(true);
     setTimeout(() => {
-      const tweetholder = [];
-      searchTweets.length > 0 && searchTweets[0] !== null
-        ? searchTweets.forEach((tweets) =>
-            tweetholder.indexOf(tweets.tweetId) === -1
-              ? tweetholder.push(tweets.tweetId)
-              : searchTweets.splice(searchTweets.indexOf(tweets), 1)
-          )
-        : searchTweets;
+      let uniqueTweets = [];
+      let uniqueIds = [];
+      if (searchTweets.length > 0 && searchTweets[0] !== null) {
+        searchTweets.forEach((tweet) => {
+          if (!uniqueIds.includes(tweet.tweetId)) {
+            uniqueIds.push(tweet.tweetId);
+            uniqueTweets.push(tweet);
+          }
+        });
+      }
+      setfilteredTweets(uniqueTweets);
+      console.log(uniqueTweets);
+
       if (searchTweets[0] === null && searchTweets.length === 1) {
         setnotweetfound(true);
         setisLoading(false);
@@ -45,7 +46,7 @@ const TopSearch = ({ searchTweets }) => {
       {!isLoading &&
         !notweetfound &&
         searchTweets[0] !== null &&
-        searchTweets.reverse().map((tweetsItems) => {
+        filteredTweets.reverse().map((tweetsItems) => {
           return (
             <React.Fragment key={tweetsItems.tweetId}>
               {
