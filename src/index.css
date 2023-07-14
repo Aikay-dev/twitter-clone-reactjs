@@ -571,8 +571,7 @@
 .main-tweet-image {
   max-height: 1000px;
   border-radius: 10px;
-  overflow: hidden;
-  max-width: 500px;
+  width: 100%;
 }
 
 .main-tweet-image-border {

@@ -58,7 +58,9 @@ const FollowingTweets = ({
 
   useEffect(() => {
     console.log(tweetIds);
-    rtdbUsrTwtsRqsts(tweetIds);
+    let uniqueItems = [...new Set(tweetIds)];
+    console.log(uniqueItems); 
+    rtdbUsrTwtsRqsts(uniqueItems);
   }, [tweetIds]);
 
   function rtdbUsrTwtsRqsts(id) {
@@ -144,11 +146,11 @@ const FollowingTweets = ({
                   </div>
                   <div className="main-tweet-card-content overflow-x-hidden">
                     {item.tweetText && <TextComponent text={item.tweetText} />}
-                    {
+                    { item.tweetImageLink.length > 0 &&
                       <div className="main-tweet-image-border">
                         <img
                           src={item.tweetImageLink}
-                          alt=""
+                          alt={item.tweetText}
                           className="main-tweet-image"
                         />
                       </div>
