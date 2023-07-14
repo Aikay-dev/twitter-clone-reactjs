@@ -581,6 +581,7 @@
   border-radius: 10px;
   overflow: hidden;
   max-width: 500px;
+  display: flex;
 }
 
 .main-tweet-image-tweetfull {

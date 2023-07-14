@@ -104,11 +104,13 @@ const TopSearch = ({ searchTweets }) => {
                     <div className="main-tweet-card-content overflow-x-hidden">
                       <TextComponent text={tweetsItems.tweetText} />
                       {tweetsItems.tweetImageLink.length > 0 && (
-                        <img
-                          src={tweetsItems.tweetImageLink}
-                          alt=""
-                          className="main-tweet-image"
-                        />
+                        <div className="main-tweet-image-border">
+                          <img
+                            src={tweetsItems.tweetImageLink}
+                            alt=""
+                            className="main-tweet-image"
+                          />
+                        </div>
                       )}
                       <div className="main-tweet-card-user-actions flex w-full pt-2 gap-6 overflow-x-scroll">
                         <button

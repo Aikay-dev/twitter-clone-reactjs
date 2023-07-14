@@ -271,6 +271,7 @@ const Search = () => {
               searchPeople={searchPeople}
             />
           )}
+          <div className=" h-48"></div>
         </section>
       </section>
       <section className="homepage-right h-screen">
