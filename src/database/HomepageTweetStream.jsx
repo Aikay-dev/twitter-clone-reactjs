@@ -28,7 +28,7 @@ const HomepageTweetStream = ({
   tweetCache,
   setTweetCache,
   setReadyForScroll,
-  setdispatchNewTweets
+  setdispatchNewTweets,
 }) => {
   const [tweets, setTweets] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -53,11 +53,10 @@ const HomepageTweetStream = ({
   }, [loadMoreTweets]);
 
   useEffect(() => {
-    if(dispatchNewTweets){
+    if (dispatchNewTweets) {
       loadNewTweets();
-      setdispatchNewTweets(false)
+      setdispatchNewTweets(false);
     }
-    
   }, [dispatchNewTweets]);
 
   // Function to load initial tweets
@@ -264,11 +263,13 @@ const HomepageTweetStream = ({
                     <div className="main-tweet-card-content overflow-x-hidden">
                       <TextComponent text={tweetsItems.tweetText} />
                       {tweetsItems.tweetImageLink.length > 0 && (
-                        <img
-                          src={tweetsItems.tweetImageLink}
-                          alt=""
-                          className="main-tweet-image"
-                        />
+                        <div className="main-tweet-image-border">
+                          <img
+                            src={tweetsItems.tweetImageLink}
+                            alt=""
+                            className="main-tweet-image"
+                          />
+                        </div>
                       )}
                       <div className="main-tweet-card-user-actions flex w-full pt-2 gap-6 overflow-x-scroll">
                         <button

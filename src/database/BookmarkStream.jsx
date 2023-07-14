@@ -96,7 +96,11 @@ const BookmarkStream = () => {
                     <div className="flex items-center overflow-x-scroll tweetcardprofilenameanddisplayholder">
                       <p className=" flex items-center gap-1 main-tweet-card-display-name font-semibold mr-2 whitespace-nowrap flex-wrap ">
                         {item.displayName}
-                        {item.badgedUser && <span className="bluetext"><BsFillPatchCheckFill /></span>}
+                        {item.badgedUser && (
+                          <span className="bluetext">
+                            <BsFillPatchCheckFill />
+                          </span>
+                        )}
                       </p>
                       <p className="text-sm main-tweet-card-username whitespace-nowrap">
                         {item.username} . {item.tweetDate}
@@ -111,11 +115,13 @@ const BookmarkStream = () => {
                   <div className="main-tweet-card-content overflow-x-hidden">
                     {item.tweetText && <TextComponent text={item.tweetText} />}
                     {item.tweetImageLink.length > 0 && (
-                      <img
-                        src={item.tweetImageLink}
-                        alt=""
-                        className="main-tweet-image"
-                      />
+                      <div className="main-tweet-image-border">
+                        <img
+                          src={item.tweetImageLink}
+                          alt=""
+                          className="main-tweet-image"
+                        />
+                      </div>
                     )}
                     <div className="main-tweet-card-user-actions flex w-full pt-2 gap-6 overflow-x-scroll">
                       <button

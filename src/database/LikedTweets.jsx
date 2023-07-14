@@ -93,7 +93,13 @@ const LikedTweets = ({ profileDetails }) => {
                 ) : (
                   ""
                 )}
-                <div className={item.RetweetedBy ? "mt-3 ml-4 main-tweet-card-first-half" : "mt-2 ml-4 main-tweet-card-first-half"}>
+                <div
+                  className={
+                    item.RetweetedBy
+                      ? "mt-3 ml-4 main-tweet-card-first-half"
+                      : "mt-2 ml-4 main-tweet-card-first-half"
+                  }
+                >
                   <img
                     src={item.profilePic}
                     alt="user profile image"
@@ -105,7 +111,12 @@ const LikedTweets = ({ profileDetails }) => {
                   <div className="flex justify-between w-full pr-2 mt-3">
                     <div className="flex items-center overflow-x-scroll tweetcardprofilenameanddisplayholder">
                       <p className="main-tweet-card-display-name flex items-center gap-1 font-semibold mr-2 whitespace-nowrap flex-wrap ">
-                        {item.displayName} {item.badgedUser && <span className="bluetext"><BsFillPatchCheckFill /></span>}
+                        {item.displayName}{" "}
+                        {item.badgedUser && (
+                          <span className="bluetext">
+                            <BsFillPatchCheckFill />
+                          </span>
+                        )}
                       </p>
                       <p className="text-sm main-tweet-card-username whitespace-nowrap">
                         <span>{item.username} </span> . {item.tweetDate}
@@ -120,11 +131,13 @@ const LikedTweets = ({ profileDetails }) => {
                   <div className="main-tweet-card-content overflow-x-hidden">
                     {item.tweetText && <TextComponent text={item.tweetText} />}
                     {item.tweetImageLink.length > 0 && (
-                      <img
-                        src={item.tweetImageLink}
-                        alt=""
-                        className="main-tweet-image"
-                      />
+                      <div className="main-tweet-image-border">
+                        <img
+                          src={item.tweetImageLink}
+                          alt=""
+                          className="main-tweet-image"
+                        />
+                      </div>
                     )}
                     <div className="main-tweet-card-user-actions flex w-full pt-2 gap-6 overflow-x-scroll">
                       <button

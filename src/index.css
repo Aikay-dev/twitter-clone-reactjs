@@ -7,7 +7,7 @@
   --twitterWtext: rgb(231, 233, 234);
   --loginButton: rgb(247, 250, 254);
   --loginContentWidth: 300px;
-  --loginContentWidth1: 270px;
+  --loginContemain-tweet-imagentWidth1: 270px;
   --logBHover: rgb(230, 240, 250);
   --homeBorder: 1px solid rgb(47, 51, 54);
   --homeLabelColor: rgb(113, 118, 123);
@@ -570,6 +570,14 @@
 
 .main-tweet-image {
   max-height: 1000px;
+  border-radius: 10px;
+  overflow: hidden;
+  max-width: 500px;
+}
+
+.main-tweet-image-border {
+  max-height: 1000px;
+  min-height: 300px;
   border: var(--homeBorder);
   border-radius: 10px;
   overflow: hidden;

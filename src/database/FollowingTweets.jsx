@@ -77,7 +77,7 @@ const FollowingTweets = ({
   useEffect(() => {
     setFollowingTweetsCache(tweetsCardData);
     console.log(tweetsCardData);
-    setReadyForScroll(true)
+    setReadyForScroll(true);
   }, [tweetsCardData]);
 
   return (
@@ -145,11 +145,13 @@ const FollowingTweets = ({
                   <div className="main-tweet-card-content overflow-x-hidden">
                     {item.tweetText && <TextComponent text={item.tweetText} />}
                     {
-                      <img
-                        src={item.tweetImageLink}
-                        alt=""
-                        className="main-tweet-image"
-                      />
+                      <div className="main-tweet-image-border">
+                        <img
+                          src={item.tweetImageLink}
+                          alt=""
+                          className="main-tweet-image"
+                        />
+                      </div>
                     }
                     <div className="main-tweet-card-user-actions flex w-full pt-2 gap-6 overflow-x-scroll">
                       <button

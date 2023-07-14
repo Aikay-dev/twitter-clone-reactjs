@@ -19,22 +19,25 @@ library.add(fas);
 library.add(fab);
 library.add(far);
 
-const CommentTweet = ({ fulltweetData, setcommentTweet, setLoadedFullTweet }) => {
+const CommentTweet = ({
+  fulltweetData,
+  setcommentTweet,
+  setLoadedFullTweet,
+}) => {
   const currentUser = useSelector((state) => state.currUsr.value);
   const [tweetsCardData, settweetsCardData] = useState([]);
   const [commentKeys, setcommentKeys] = useState({});
-  const [commentLoaded, setcommentLoaded] = useState(false)
-
+  const [commentLoaded, setcommentLoaded] = useState(false);
 
   console.log(currentUser);
 
   useEffect(() => {
-    if(fulltweetData !== null){
+    if (fulltweetData !== null) {
       const tweetdata = fulltweetData.comments;
-    console.log(tweetdata);
-    const values = Object.values(tweetdata);
-    console.log(values);
-    setcommentKeys(values);
+      console.log(tweetdata);
+      const values = Object.values(tweetdata);
+      console.log(values);
+      setcommentKeys(values);
     }
   }, [fulltweetData]);
 
@@ -51,14 +54,15 @@ const CommentTweet = ({ fulltweetData, setcommentTweet, setLoadedFullTweet }) =>
       const data = snapshot.val();
       console.log(data);
       settweetsCardData((prevData) => [...prevData, data]); // Use functional update to avoid repeated data
-      setcommentLoaded(true)
+      setcommentLoaded(true);
     });
   }
 
   return (
     <>
-    {!commentLoaded && <Loader/>}
-      {commentLoaded && tweetsCardData.length > 0 &&
+      {!commentLoaded && <Loader />}
+      {commentLoaded &&
+        tweetsCardData.length > 0 &&
         tweetsCardData.reverse().map((item, index) => {
           if (!item) {
             return (
@@ -75,11 +79,11 @@ const CommentTweet = ({ fulltweetData, setcommentTweet, setLoadedFullTweet }) =>
           return (
             <React.Fragment key={item.tweetId}>
               <Link
-              onClick = {() => {
-                setcommentTweet(false)
-                 setLoadedFullTweet(false)
-                 setcommentLoaded(false)
-              }}
+                onClick={() => {
+                  setcommentTweet(false);
+                  setLoadedFullTweet(false);
+                  setcommentLoaded(false);
+                }}
                 key={item.tweetId}
                 to={"/Home/" + item.username + "/" + item.tweetId}
                 className="main-tweet-card w-full relative cursor-pointer flex"
@@ -96,7 +100,12 @@ const CommentTweet = ({ fulltweetData, setcommentTweet, setLoadedFullTweet }) =>
                   <div className="flex justify-between w-full pr-2 mt-3">
                     <div className="flex items-center overflow-x-scroll tweetcardprofilenameanddisplayholder">
                       <p className="main-tweet-card-display-name flex flex-nowrap items-center gap-1 font-semibold mr-2 whitespace-nowrap">
-                        <span>{item.displayName}</span> {item.badgedUser && <span className="bluetext"><BsFillPatchCheckFill /></span>}
+                        <span>{item.displayName}</span>{" "}
+                        {item.badgedUser && (
+                          <span className="bluetext">
+                            <BsFillPatchCheckFill />
+                          </span>
+                        )}
                       </p>
                       <p className="text-sm main-tweet-card-username whitespace-nowrap">
                         <span>{item.username} </span> . {item.tweetDate}
@@ -111,11 +120,13 @@ const CommentTweet = ({ fulltweetData, setcommentTweet, setLoadedFullTweet }) =>
                   <div className="main-tweet-card-content overflow-x-hidden">
                     {item.tweetText && <TextComponent text={item.tweetText} />}
                     {item.tweetImageLink.length > 0 && (
-                      <img
-                        src={item.tweetImageLink}
-                        alt=""
-                        className="main-tweet-image"
-                      />
+                      <div className="main-tweet-image-border">
+                        <img
+                          src={item.tweetImageLink}
+                          alt=""
+                          className="main-tweet-image"
+                        />
+                      </div>
                     )}
                     <div className="main-tweet-card-user-actions flex w-full pt-2 gap-6 overflow-x-scroll">
                       <button
@@ -125,9 +136,7 @@ const CommentTweet = ({ fulltweetData, setcommentTweet, setLoadedFullTweet }) =>
                         <div className="p p-1.5 rounded-full main-comment-icon-surround">
                           <FaRegCommentDots />
                         </div>
-                        <span>
-                        { Object.keys(item.comments).length - 1}
-                        </span>
+                        <span>{Object.keys(item.comments).length - 1}</span>
                       </button>
                       <button
                         className="flex gap-3 items-center main-tweet-retweet-icon"
@@ -150,7 +159,9 @@ const CommentTweet = ({ fulltweetData, setcommentTweet, setLoadedFullTweet }) =>
                           <AiOutlineHeart />
                         </div>
                         <span>
-                          {item.likes.length === 1 ? "0" : item.likes.length - 1}
+                          {item.likes.length === 1
+                            ? "0"
+                            : item.likes.length - 1}
                         </span>
                       </button>
                     </div>
