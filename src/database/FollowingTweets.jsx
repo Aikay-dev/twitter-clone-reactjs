@@ -10,7 +10,11 @@ import TextComponent from "../components/TextComponent";
 import { BsFillPatchCheckFill } from "react-icons/bs";
 import Loader from "../pages/auth/components/Loader";
 
-const FollowingTweets = ({ setFollowingTweetsCache, followingTweetsCache }) => {
+const FollowingTweets = ({
+  setReadyForScroll,
+  setFollowingTweetsCache,
+  followingTweetsCache,
+}) => {
   const currentUser = useSelector((state) => state.currUsr.value);
   console.log(currentUser.followingNumber[0] === 0);
   const [tweetsCardData, settweetsCardData] = useState([]);
@@ -44,11 +48,11 @@ const FollowingTweets = ({ setFollowingTweetsCache, followingTweetsCache }) => {
         }
         console.log("done getting tweets");
         console.log(tweetIds);
-        setloadingTweets(false)
+        setloadingTweets(false);
       }
     } else {
       settweetsCardData(followingTweetsCache);
-      setloadingTweets(false)
+      setloadingTweets(false);
     }
   }, []);
 
@@ -73,6 +77,7 @@ const FollowingTweets = ({ setFollowingTweetsCache, followingTweetsCache }) => {
   useEffect(() => {
     setFollowingTweetsCache(tweetsCardData);
     console.log(tweetsCardData);
+    setReadyForScroll(true)
   }, [tweetsCardData]);
 
   return (

@@ -36,14 +36,16 @@ const Home = ({
   setScrollPositionHome,
   readyToShowButton,
   setreadyToShowButton,
-  ForyouTab, setForyouTab,
-FollowingTab, setFollowingTab,
-setFollowingTweetsCache,
-followingTweetsCache
+  ForyouTab,
+  setForyouTab,
+  FollowingTab,
+  setFollowingTab,
+  setFollowingTweetsCache,
+  followingTweetsCache,
 }) => {
   const dispatch = useDispatch();
   const mobNavleft = useSelector((state) => state.mobNavleft.value);
-  
+
   const currentUser = useSelector((state) => state.currUsr.value);
   const [tweetData, settweetData] = useState({
     profilePic: currentUser.profile_picture,
@@ -72,15 +74,13 @@ followingTweetsCache
   const [loadingOldTweets, setloadingOldTweets] = useState(false);
   const [readyForScroll, setReadyForScroll] = useState(false);
 
-  const scrollContainerRef = useRef(null);
-
   useEffect(() => {
     const scrollContainer = mainhomesectionRef.current;
 
     const handleScroll = () => {
       const currentPosition = scrollContainer.scrollTop;
       console.log("Current scroll position:", currentPosition);
-      ForyouTab
+      ForyouTab === true
         ? setmainTweetScrollOffset({
             ...mainTweetScrollOffset,
             forYou: currentPosition,
@@ -99,6 +99,12 @@ followingTweetsCache
       scrollContainer.removeEventListener("scroll", handleScroll);
     };
   }, []);
+
+  useEffect(() => {
+    console.log("maintoff");
+    console.log(mainTweetScrollOffset);
+    console.log(ForyouTab);
+  }, [mainTweetScrollOffset]);
 
   useEffect(() => {
     const scrollContainer = mainhomesectionRef.current;
@@ -299,8 +305,8 @@ followingTweetsCache
             <button
               className="w-1/2 homepage-center-top-nav-foryou flex justify-center items-center"
               onClick={() => {
-                setFollowingTab(!FollowingTab);
-                setForyouTab(!ForyouTab);
+                setFollowingTab(false);
+                setForyouTab(true);
               }}
             >
               <div
@@ -317,8 +323,8 @@ followingTweetsCache
             <button
               className="w-1/2 homepage-center-top-nav-following flex justify-center items-center"
               onClick={() => {
-                setFollowingTab(!FollowingTab);
-                setForyouTab(!ForyouTab);
+                setFollowingTab(true);
+                setForyouTab(false);
               }}
             >
               <div
@@ -451,7 +457,13 @@ followingTweetsCache
               />
             )}
 
-            {FollowingTab && <FollowingTweets setFollowingTweetsCache = {setFollowingTweetsCache} followingTweetsCache ={followingTweetsCache} />}
+            {FollowingTab && (
+              <FollowingTweets
+                setFollowingTweetsCache={setFollowingTweetsCache}
+                followingTweetsCache={followingTweetsCache}
+                setReadyForScroll={setReadyForScroll}
+              />
+            )}
             <div className=" h-52 flex justify-center pt-2">
               {tweetLoaded && ForyouTab && (
                 <button
