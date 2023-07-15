@@ -24,7 +24,18 @@ const WhoToFollow = () => {
       let data = snapshot.val();
       console.log(data);
       setuserlist(data);
-      setothrUsrFollowing(data)
+      setothrUsrFollowing(data);
+    });
+
+    const CurrUsrfollowRef = ref(
+      realTimeDatabase,
+      `users/${currentUser.userId}/followingNumber`
+    );
+    onValue(CurrUsrfollowRef, (snapshot) => {
+      const data = snapshot.val();
+      let dataClone = [...data];
+      console.log(dataClone);
+      setCurrUsrFollowing(dataClone);
     });
   }, []);
 
@@ -54,7 +65,13 @@ const WhoToFollow = () => {
           : uniqueUsers;
       });
       console.log(uniqueUsers);
-      setSelectedUsers(uniqueUsers);
+      setSelectedUsers(uniqueUsers.map((user) => {
+        const isFollowing = currUsrFollowing.includes(user.userId);
+        return {
+          ...user,
+          isFollowing
+        };
+      }));
       uniqueUsers.length === 0 ? setrunPermit(true) : setrunPermit(false);
     }
   }, [refneduserlist]);
@@ -66,53 +83,69 @@ const WhoToFollow = () => {
     }
   }, [selectedUsers]);
 
-  useEffect(() => {
-    const CurrUsrfollowRef = ref(
-      realTimeDatabase,
-      `users/${currentUser.userId}/followingNumber`
-    );
-    onValue(CurrUsrfollowRef, (snapshot) => {
-      const data = snapshot.val();
-      let dataClone = [...data];
-      console.log(dataClone);
-      setCurrUsrFollowing(dataClone);
-    });
-    
-  }, []);
-
   function handleUnFollow(userId) {
     console.log(userId);
     const CurrUsrUnfollowRef = ref(
       realTimeDatabase,
       `users/${currentUser.userId}/followingNumber`
     );
-
+  
     let currentUserdataClone = currUsrFollowing;
-
+  
     currentUserdataClone.length === 1
       ? (currentUserdataClone = [0])
       : currentUserdataClone.splice(currentUserdataClone.indexOf(userId), 1);
     set(CurrUsrUnfollowRef, currentUserdataClone)
       .then(() => {
         console.log("unfollowed successfully");
+        // Re-fetch current user's following list
+        const CurrUsrfollowRef = ref(
+          realTimeDatabase,
+          `users/${currentUser.userId}/followingNumber`
+        );
+        onValue(CurrUsrfollowRef, (snapshot) => {
+          const data = snapshot.val();
+          let dataClone = [...data];
+          console.log(dataClone);
+          setCurrUsrFollowing(dataClone);
+        });
+        // Update UI by setting isFollowing value to false
+        setSelectedUsers((prev) =>
+          prev.map((user) => {
+            if (user.userId === userId) {
+              return {
+                ...user,
+                isFollowing: false,
+              };
+            }
+            return user;
+          })
+        );
       })
       .catch((error) => {
         console.log("error: " + error);
       });
-
+  
     const OtherUsrUnfollowRef = ref(
       realTimeDatabase,
       `users/${userId}/followersNumber`
     );
-
+  
     let otherUsrdataClone = [...othrUsrFollowing[userId].followersNumber];
-
+  
     otherUsrdataClone.length === 1
       ? (otherUsrdataClone = [0])
       : otherUsrdataClone.splice(otherUsrdataClone.indexOf(userId), 1);
     set(OtherUsrUnfollowRef, otherUsrdataClone)
       .then(() => {
         console.log("unfollowed successfully");
+        // Re-fetch other user's followers list
+        const userDirRef = ref(realTimeDatabase, "users/");
+        onValue(userDirRef, (snapshot) => {
+          let data = snapshot.val();
+          console.log(data);
+          setothrUsrFollowing(data);
+        });
       })
       .catch((error) => {
         console.log("error: " + error);
@@ -132,7 +165,31 @@ const WhoToFollow = () => {
     set(CurrUsrfollowRef, currUsrdataClone)
       .then(() => {
         console.log("followed successfully");
-        console.log(selectedUsers);
+        // Re-fetch current user's following list
+        const CurrUsrfollowRef = ref(
+          realTimeDatabase,
+          `users/${currentUser.userId}/followingNumber`
+        );
+        onValue(CurrUsrfollowRef, (snapshot) => {
+          const data = snapshot.val();
+          if(data){
+            let dataClone = [...data];
+          console.log(dataClone);
+          setCurrUsrFollowing(dataClone);
+          }
+        });
+        // Update UI by setting isFollowing value to true
+        setSelectedUsers((prev) =>
+          prev.map((user) => {
+            if (user.userId === userId) {
+              return {
+                ...user,
+                isFollowing: true,
+              };
+            }
+            return user;
+          })
+        );
       })
       .catch((error) => {
         console.log("error: " + error);
@@ -151,7 +208,13 @@ const WhoToFollow = () => {
     set(OtherUsrfollowRef, otherUsrdataClone)
       .then(() => {
         console.log("followed successfully");
-        console.log(selectedUsers);
+        // Re-fetch other user's followers list
+        const userDirRef = ref(realTimeDatabase, "users/");
+        onValue(userDirRef, (snapshot) => {
+          let data = snapshot.val();
+          console.log(data);
+          setothrUsrFollowing(data);
+        });
       })
       .catch((error) => {
         console.log("error: " + error);
@@ -168,101 +231,51 @@ const WhoToFollow = () => {
 
         <section className="flex flex-col gap-3">
           {loadedUsers &&
-            selectedUsers.map((users, index) => {
+            selectedUsers.map((user, index) => {
               return (
                 <div key={index} className="flex justify-between">
                   <div className="flex gap-3">
                     <div className="">
                       <img
                         className="w-10 h-10 rounded-full"
-                        src={users.profile_picture}
+                        src={user.profile_picture}
                         alt=""
                       />
                     </div>
                     <div className="">
-                      <div className=" font-semibold">{users.displayName}</div>
+                      <div className=" font-semibold">{user.displayName}</div>
                       <div className="homelabelcolor text-sm">
-                        {users.username}
+                        {user.username}
                       </div>
                     </div>
                   </div>
                   <div>
-                    {users.followersNumber.map((user) => {
-                      console.log(selectedUsers);
-                      if (user === currentUser.userId) {
-                        return (
-                          <span key={users}>
-                            <button
-                              onClick={() => {
-                                handleUnFollow(users.userId);
-                                const selectholder = selectedUsers;
-                                selectedUsers.forEach((selusers) => {
-                                  if (selusers.userId === users.userId) {
-                                    console.log("hell yeah boyyyyy");
-                                    console.log(selusers);
-                                    const newselctduser = selusers;
-                                    newselctduser.followersNumber.length === 1
-                                      ? (newselctduser.followersNumber = [0])
-                                      : newselctduser.followersNumber.splice(
-                                          newselctduser.indexOf(
-                                            currentUser.userId
-                                          ),
-                                          1
-                                        );
-                                    selectholder.map((item) => {
-                                      return item === selusers
-                                        ? (item = newselctduser)
-                                        : item;
-                                    });
-                                    setSelectedUsers(selectholder);
-                                  }
-                                });
-                              }}
-                              style={{
-                                backgroundColor: "var(--homeLabelColor)",
-                              }}
-                              className="bg-white text-gray-900 text-sm px-4 w-28 py-1 rounded-full font-semibold"
-                            >
-                              Following
-                            </button>
-                          </span>
-                        );
-                      } else {
-                        return (
-                          <span key={user}>
-                            <button
-                              onClick={() => {
-                                handleFollow(users.userId);
-                                const selectholder = selectedUsers;
-                                selectedUsers.forEach((selusers) => {
-                                  if (selusers.userId === users.userId) {
-                                    console.log("hell yeah boyyyyy");
-                                    console.log(selusers);
-                                    const newselctduser = selusers;
-                                    newselctduser.followersNumber.length === 1
-                                      ? (newselctduser.followersNumber = [
-                                          currentUser.userId,
-                                        ])
-                                      : newselctduser.followersNumber.push(
-                                          currentUser.userId
-                                        );
-                                    selectholder.map((item) => {
-                                      return item === selusers
-                                        ? (item = newselctduser)
-                                        : item;
-                                    });
-                                    setSelectedUsers(selectholder);
-                                  }
-                                });
-                              }}
-                              className="bg-white text-gray-900 text-sm px-4 w-28 py-1 rounded-full font-semibold"
-                            >
-                              Follow
-                            </button>
-                          </span>
-                        );
-                      }
-                    })}
+                    {user.isFollowing ? 
+                      <span >
+                        <button
+                          onClick={() => {
+                            handleUnFollow(user.userId);
+                          }}
+                          style={{
+                            backgroundColor: "var(--homeLabelColor)",
+                          }}
+                          className="bg-white text-gray-900 text-sm px-4 w-28 py-1 rounded-full font-semibold"
+                        >
+                          Following
+                        </button>
+                      </span>
+                    :
+                      <span >
+                        <button
+                          onClick={() => {
+                            handleFollow(user.userId);
+                          }}
+                          className="bg-white text-gray-900 text-sm px-4 w-28 py-1 rounded-full font-semibold"
+                        >
+                          Follow
+                        </button>
+                      </span>
+                    }
                   </div>
                 </div>
               );

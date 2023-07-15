@@ -25,7 +25,7 @@ const TopSearch = ({ searchTweets }) => {
           }
         });
       }
-      setfilteredTweets(uniqueTweets);
+      setfilteredTweets(uniqueTweets.reverse());
       console.log(uniqueTweets);
 
       if (searchTweets[0] === null && searchTweets.length === 1) {
@@ -46,7 +46,7 @@ const TopSearch = ({ searchTweets }) => {
       {!isLoading &&
         !notweetfound &&
         searchTweets[0] !== null &&
-        filteredTweets.reverse().map((tweetsItems) => {
+        filteredTweets.map((tweetsItems) => {
           return (
             <React.Fragment key={tweetsItems.tweetId}>
               {
