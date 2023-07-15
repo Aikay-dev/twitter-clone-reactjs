@@ -22,7 +22,7 @@ const WhoToFollow = () => {
     const userDirRef = ref(realTimeDatabase, "users/");
     onValue(userDirRef, (snapshot) => {
       let data = snapshot.val();
-      console.log(data);
+      /* console.log(data); */
       setuserlist(data);
       setothrUsrFollowing(data);
     });
@@ -33,11 +33,21 @@ const WhoToFollow = () => {
     );
     onValue(CurrUsrfollowRef, (snapshot) => {
       const data = snapshot.val();
-      let dataClone = [...data];
-      console.log(dataClone);
-      setCurrUsrFollowing(dataClone);
+      if (data) {
+        let dataClone = [...data];
+        /* console.log(dataClone); */
+        setCurrUsrFollowing(dataClone);
+        dataClone.forEach((data) => {
+          /* listenAndUpdate(data) */
+        });
+      }
     });
   }, []);
+
+  function listenAndUpdate(data) {
+    handleFollow(data);
+    handleUnFollow(data);
+  }
 
   useEffect(() => {
     console.log(userlist);
@@ -65,13 +75,15 @@ const WhoToFollow = () => {
           : uniqueUsers;
       });
       console.log(uniqueUsers);
-      setSelectedUsers(uniqueUsers.map((user) => {
-        const isFollowing = currUsrFollowing.includes(user.userId);
-        return {
-          ...user,
-          isFollowing
-        };
-      }));
+      setSelectedUsers(
+        uniqueUsers.map((user) => {
+          const isFollowing = currUsrFollowing.includes(user.userId);
+          return {
+            ...user,
+            isFollowing,
+          };
+        })
+      );
       uniqueUsers.length === 0 ? setrunPermit(true) : setrunPermit(false);
     }
   }, [refneduserlist]);
@@ -89,9 +101,9 @@ const WhoToFollow = () => {
       realTimeDatabase,
       `users/${currentUser.userId}/followingNumber`
     );
-  
+
     let currentUserdataClone = currUsrFollowing;
-  
+
     currentUserdataClone.length === 1
       ? (currentUserdataClone = [0])
       : currentUserdataClone.splice(currentUserdataClone.indexOf(userId), 1);
@@ -125,31 +137,33 @@ const WhoToFollow = () => {
       .catch((error) => {
         console.log("error: " + error);
       });
-  
+
     const OtherUsrUnfollowRef = ref(
       realTimeDatabase,
       `users/${userId}/followersNumber`
     );
-  
-    let otherUsrdataClone = [...othrUsrFollowing[userId].followersNumber];
-  
-    otherUsrdataClone.length === 1
-      ? (otherUsrdataClone = [0])
-      : otherUsrdataClone.splice(otherUsrdataClone.indexOf(userId), 1);
-    set(OtherUsrUnfollowRef, otherUsrdataClone)
-      .then(() => {
-        console.log("unfollowed successfully");
-        // Re-fetch other user's followers list
-        const userDirRef = ref(realTimeDatabase, "users/");
-        onValue(userDirRef, (snapshot) => {
-          let data = snapshot.val();
-          console.log(data);
-          setothrUsrFollowing(data);
+
+    if (othrUsrFollowing) {
+      let otherUsrdataClone = [...othrUsrFollowing[userId].followersNumber];
+
+      otherUsrdataClone.length === 1
+        ? (otherUsrdataClone = [0])
+        : otherUsrdataClone.splice(otherUsrdataClone.indexOf(userId), 1);
+      set(OtherUsrUnfollowRef, otherUsrdataClone)
+        .then(() => {
+          console.log("unfollowed successfully");
+          // Re-fetch other user's followers list
+          const userDirRef = ref(realTimeDatabase, "users/");
+          onValue(userDirRef, (snapshot) => {
+            let data = snapshot.val();
+            console.log(data);
+            setothrUsrFollowing(data);
+          });
+        })
+        .catch((error) => {
+          console.log("error: " + error);
         });
-      })
-      .catch((error) => {
-        console.log("error: " + error);
-      });
+    }
   }
 
   function handleFollow(userId) {
@@ -164,7 +178,7 @@ const WhoToFollow = () => {
       : currUsrdataClone.push(userId);
     set(CurrUsrfollowRef, currUsrdataClone)
       .then(() => {
-        console.log("followed successfully");
+        /* console.log("followed successfully"); */
         // Re-fetch current user's following list
         const CurrUsrfollowRef = ref(
           realTimeDatabase,
@@ -172,10 +186,10 @@ const WhoToFollow = () => {
         );
         onValue(CurrUsrfollowRef, (snapshot) => {
           const data = snapshot.val();
-          if(data){
+          if (data) {
             let dataClone = [...data];
-          console.log(dataClone);
-          setCurrUsrFollowing(dataClone);
+            console.log(dataClone);
+            setCurrUsrFollowing(dataClone);
           }
         });
         // Update UI by setting isFollowing value to true
@@ -200,25 +214,29 @@ const WhoToFollow = () => {
       `users/${userId}/followersNumber`
     );
 
-    let otherUsrdataClone = [...othrUsrFollowing[userId].followersNumber];
+    if (othrUsrFollowing) {
+      console.log("who to follow hereeeeee")
+      console.log(othrUsrFollowing)
+      let otherUsrdataClone = [...othrUsrFollowing[userId].followersNumber];
 
-    otherUsrdataClone.length === 1 && otherUsrdataClone[0] === 0
-      ? (otherUsrdataClone = [currentUser.userId])
-      : otherUsrdataClone.push(currentUser.userId);
-    set(OtherUsrfollowRef, otherUsrdataClone)
-      .then(() => {
-        console.log("followed successfully");
-        // Re-fetch other user's followers list
-        const userDirRef = ref(realTimeDatabase, "users/");
-        onValue(userDirRef, (snapshot) => {
-          let data = snapshot.val();
-          console.log(data);
-          setothrUsrFollowing(data);
+      otherUsrdataClone.length === 1 && otherUsrdataClone[0] === 0
+        ? (otherUsrdataClone = [currentUser.userId])
+        : otherUsrdataClone.push(currentUser.userId);
+      set(OtherUsrfollowRef, otherUsrdataClone)
+        .then(() => {
+          /* console.log("followed successfully"); */
+          // Re-fetch other user's followers list
+          const userDirRef = ref(realTimeDatabase, "users/");
+          onValue(userDirRef, (snapshot) => {
+            let data = snapshot.val();
+            console.log(data);
+            setothrUsrFollowing(data);
+          });
+        })
+        .catch((error) => {
+          console.log("error: " + error);
         });
-      })
-      .catch((error) => {
-        console.log("error: " + error);
-      });
+    }
   }
 
   return (
@@ -250,8 +268,8 @@ const WhoToFollow = () => {
                     </div>
                   </div>
                   <div>
-                    {user.isFollowing ? 
-                      <span >
+                    {user.isFollowing ? (
+                      <span>
                         <button
                           onClick={() => {
                             handleUnFollow(user.userId);
@@ -264,8 +282,8 @@ const WhoToFollow = () => {
                           Following
                         </button>
                       </span>
-                    :
-                      <span >
+                    ) : (
+                      <span>
                         <button
                           onClick={() => {
                             handleFollow(user.userId);
@@ -275,7 +293,7 @@ const WhoToFollow = () => {
                           Follow
                         </button>
                       </span>
-                    }
+                    )}
                   </div>
                 </div>
               );

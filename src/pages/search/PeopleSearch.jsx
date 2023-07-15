@@ -46,28 +46,56 @@ const PeopleSearch = ({ searchPeople }) => {
       realTimeDatabase,
       `users/${currentUser.userId}/followingNumber`
     );
-    let currUsrdataClone = [...currUsrFollowing, userId];
-    set(CurrUsrfollowRef, currUsrdataClone)
-      .then(() => {
-        console.log("followed successfully");
-      })
-      .catch((error) => {
-        console.log("error: " + error);
-      });
+    if (currUsrFollowing[0] === 0 && currUsrFollowing.length === 1) {
+      let currUsrdataClone = [userId];
+      set(CurrUsrfollowRef, currUsrdataClone)
+        .then(() => {
+          console.log("followed successfully");
+        })
+        .catch((error) => {
+          console.log("error: " + error);
+        });
+    } else {
+      let currUsrdataClone = [...currUsrFollowing, userId];
+      set(CurrUsrfollowRef, currUsrdataClone)
+        .then(() => {
+          console.log("followed successfully");
+        })
+        .catch((error) => {
+          console.log("error: " + error);
+        });
+    }
 
     const OtherUsrfollowRef = ref(
       realTimeDatabase,
       `users/${userId}/followersNumber`
     );
 
-    let otherUsrdataClone = [...othrUsrFollowing[userId].followersNumber, currentUser.userId];
-    set(OtherUsrfollowRef, otherUsrdataClone)
-      .then(() => {
-        console.log("followed successfully");
-      })
-      .catch((error) => {
-        console.log("error: " + error);
-      });
+    if (
+      othrUsrFollowing[userId].followersNumber[0] === 0 &&
+      othrUsrFollowing[userId].followersNumber.length === 1
+    ) {
+      let otherUsrdataClone = [currentUser.userId];
+      set(OtherUsrfollowRef, otherUsrdataClone)
+        .then(() => {
+          console.log("followed successfully");
+        })
+        .catch((error) => {
+          console.log("error: " + error);
+        });
+    } else {
+      let otherUsrdataClone = [
+        ...othrUsrFollowing[userId].followersNumber,
+        currentUser.userId,
+      ];
+      set(OtherUsrfollowRef, otherUsrdataClone)
+        .then(() => {
+          console.log("followed successfully");
+        })
+        .catch((error) => {
+          console.log("error: " + error);
+        });
+    }
   }
 
   function handleUnFollow(userId) {
@@ -77,65 +105,88 @@ const PeopleSearch = ({ searchPeople }) => {
       `users/${currentUser.userId}/followingNumber`
     );
 
-    let currentUserdataClone = [...currUsrFollowing];
-    currentUserdataClone.splice(
-      currentUserdataClone.indexOf(userId),
-      1
-    );
-    set(CurrUsrUnfollowRef, currentUserdataClone)
-      .then(() => {
-        console.log("unfollowed successfully");
-      })
-      .catch((error) => {
-        console.log("error: " + error);
-      });
+    if (currUsrFollowing.length === 1) {
+      let currentUserdataClone = [0];
+      set(CurrUsrUnfollowRef, currentUserdataClone)
+        .then(() => {
+          console.log("unfollowed successfully");
+        })
+        .catch((error) => {
+          console.log("error: " + error);
+        });
+    } else {
+      let currentUserdataClone = [...currUsrFollowing];
+      currentUserdataClone.splice(currentUserdataClone.indexOf(userId), 1);
+      set(CurrUsrUnfollowRef, currentUserdataClone)
+        .then(() => {
+          console.log("unfollowed successfully");
+        })
+        .catch((error) => {
+          console.log("error: " + error);
+        });
+    }
 
     const OtherUsrUnfollowRef = ref(
       realTimeDatabase,
       `users/${userId}/followersNumber`
     );
 
-    let otherUsrdataClone = [...othrUsrFollowing[userId].followersNumber];
-    otherUsrdataClone.splice(
-      otherUsrdataClone.indexOf(currentUser.userId),
-      1
-    );
-    set(OtherUsrUnfollowRef, otherUsrdataClone)
-      .then(() => {
-        console.log("unfollowed successfully");
-      })
-      .catch((error) => {
-        console.log("error: " + error);
-      });
+    if (othrUsrFollowing[userId].followersNumber.length === 1) {
+      let otherUsrdataClone = [0];
+      set(OtherUsrUnfollowRef, otherUsrdataClone)
+        .then(() => {
+          console.log("unfollowed successfully");
+        })
+        .catch((error) => {
+          console.log("error: " + error);
+        });
+    } else {
+      let otherUsrdataClone = [...othrUsrFollowing[userId].followersNumber];
+      otherUsrdataClone.splice(
+        otherUsrdataClone.indexOf(currentUser.userId),
+        1
+      );
+      set(OtherUsrUnfollowRef, otherUsrdataClone)
+        .then(() => {
+          console.log("unfollowed successfully");
+        })
+        .catch((error) => {
+          console.log("error: " + error);
+        });
+    }
   }
 
   return (
     <>
       {filteredCurrentUser.length > 0 ? (
         filteredCurrentUser.map((person) => {
-          if(person.followersNumber){
-            const isCurrentUserAFollower = person.followersNumber.includes(currentUser.userId);
-          
-          return (
-            <div className="flex w-full search-people-card" key={person.userId}>
-              <div className="ml-3 my-3">
-                <img
-                  src={person.profile_picture}
-                  alt="Profile picture"
-                  className="rounded-full h-10 w-10 mr-5 cursor-pointer main-card-profile-pic"
-                />
-              </div>
-              <div className="my-3 mr-3 w-full">
-                <div className="flex justify-between">
-                  <Link to={"/Home/" + person.username}>
-                    <p className=" font-semibold">{person.displayName}</p>
-                    <p className=" text-sm homelabelcolor pb-1">
-                      {person.username}
-                    </p>
-                  </Link>
-                  <div>
-                    {
-                      isCurrentUserAFollower ? (
+          if (person.followersNumber) {
+            const isCurrentUserAFollower = person.followersNumber.includes(
+              currentUser.userId
+            );
+
+            return (
+              <div
+                className="flex w-full search-people-card"
+                key={person.userId}
+              >
+                <div className="ml-3 my-3">
+                  <img
+                    src={person.profile_picture}
+                    alt="Profile picture"
+                    className="rounded-full h-10 w-10 mr-5 cursor-pointer main-card-profile-pic"
+                  />
+                </div>
+                <div className="my-3 mr-3 w-full">
+                  <div className="flex justify-between">
+                    <Link to={"/Home/" + person.username}>
+                      <p className=" font-semibold">{person.displayName}</p>
+                      <p className=" text-sm homelabelcolor pb-1">
+                        {person.username}
+                      </p>
+                    </Link>
+                    <div>
+                      {isCurrentUserAFollower ? (
                         <span key={person.userId}>
                           <button
                             onClick={() => {
@@ -160,14 +211,13 @@ const PeopleSearch = ({ searchPeople }) => {
                             Follow
                           </button>
                         </span>
-                      )
-                    }
+                      )}
+                    </div>
                   </div>
+                  <p>{person.bioData}</p>
                 </div>
-                <p>{person.bioData}</p>
               </div>
-            </div>
-          );
+            );
           }
         })
       ) : (
