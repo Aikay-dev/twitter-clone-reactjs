@@ -24,7 +24,7 @@ const WhoToFollow = () => {
       let data = snapshot.val();
       console.log(data);
       setuserlist(data);
-      console.log("has rerun");
+      setothrUsrFollowing(data)
     });
   }, []);
 
@@ -77,13 +77,7 @@ const WhoToFollow = () => {
       console.log(dataClone);
       setCurrUsrFollowing(dataClone);
     });
-
-    const OtherUsrUnfollowRef = ref(realTimeDatabase, `users/`);
-    onValue(OtherUsrUnfollowRef, (snapshot) => {
-      const data = snapshot.val();
-      console.log(data);
-      setothrUsrFollowing(data);
-    });
+    
   }, []);
 
   function handleUnFollow(userId) {

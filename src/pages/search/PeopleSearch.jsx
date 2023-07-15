@@ -4,7 +4,18 @@ import { useSelector } from "react-redux";
 
 const PeopleSearch = ({ searchPeople }) => {
   const currentUser = useSelector((state) => state.currUsr.value);
-  console.log(currentUser);
+  const [userlist, setuserlist] = useState({});
+
+  useEffect(() => {
+    const userDirRef = ref(realTimeDatabase, "users/");
+    onValue(userDirRef, (snapshot) => {
+      let data = snapshot.val();
+      console.log(data);
+      setuserlist(data);
+    });
+  }, []);
+
+  
 
   const filteredCurrentUser = searchPeople.filter((person) => {
     return person.userId !== currentUser.userId;
