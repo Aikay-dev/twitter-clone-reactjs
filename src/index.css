@@ -178,6 +178,10 @@
   font-weight: 700;
 }
 
+.search-people-card:hover{
+  background-color: var(--faintHover);
+}
+
 .forgot-pass-siginin:hover {
   background-color: rgb(24, 25, 25);
 }

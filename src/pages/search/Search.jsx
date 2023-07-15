@@ -78,40 +78,22 @@ const Search = () => {
         console.log(data);
         const foundUser = [];
 
-        Object.values(data).forEach((element) => {
-          const regexDN = new RegExp(
-            element.displayName.replace(/\s/g, "").toLowerCase(),
-            "i"
-          );
-          const regexUN = new RegExp(
-            element.username.replace(/\s/g, "").toLowerCase(),
-            "i"
-          );
-
-          const sanitizedSearchPreText = searchPreText
-            .replace(/\s/g, "")
-            .toLowerCase();
-
-          if (
-            regexDN.test(sanitizedSearchPreText) ||
-            regexUN.test(sanitizedSearchPreText)
-          ) {
+        function stripEmojis(text) {
+          // remove emojis from the text
+          return text.replace(/[\u{1F600}-\u{1F64F}\u{1F300}-\u{1F5FF}\u{1F680}-\u{1F6FF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}\u{1F900}-\u{1F9FF}\u{1F1E0}-\u{1F1FF}\u{1FAD0}-\u{1FAFF}\u{1F6F4}-\u{1F6FF}\u{1F3FB}-\u{1F3FF}]/gu, '');
+        }
+        
+        Object.values(data).forEach(element => {
+          const displayNameRegex = stripEmojis(element.displayName.replace(/\s/g, ''));
+          const usernameRegex = stripEmojis(element.username.replace(/\s/g, ''));
+          const sanitizedSearchRegex = new RegExp(stripEmojis(searchPreText.replace(/\s/g, '')), 'i');
+          
+          const sanitizedSearchPreText = stripEmojis(searchPreText.replace(/\s/g, ''));
+          
+          if (sanitizedSearchRegex.test(displayNameRegex) || sanitizedSearchRegex.test(usernameRegex)) {
             foundUser.push(element);
             console.log(foundUser);
-          } else {
-            /* console.log(regexDN + " and " + sanitizedSearchPreText);
-            console.log("No match");
-            console.log(regexDN.test(sanitizedSearchPreText)); */
-            const displayName = "Sapa Bro";
-            const searchQuery = "sapa";
-
-            const regexDN = new RegExp(
-              searchQuery.replace(/\s/g, "").toLowerCase(),
-              "i"
-            );
-            const isMatch = regexDN.test(displayName);
-
-            console.log(isMatch); // Output: true
+            setSearchPeople(foundUser)
           }
         });
 

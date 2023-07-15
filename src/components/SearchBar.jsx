@@ -12,7 +12,8 @@ const SearchBar = ({ currentUser }) => {
     const pathArray = path.split("/");
     if(pathArray.indexOf("Search") !== -1) {
       const lastWord = pathArray[pathArray.length - 1];
-      setsearchPreText(lastWord); 
+      const uncodedString = decodeURIComponent(lastWord);
+      setsearchPreText(uncodedString); 
     }
     
   }, []);

@@ -153,7 +153,7 @@ const PhotoSearch = ({ searchTweets }) => {
             </React.Fragment>
           );
         })}
-      {searchTweets[0] === null && <div>No tweet found</div>}
+      {searchTweets[0] === null && <p className="p-3">No tweet found</p>}
       {isLoading && (
         <div>
           <Loader />
