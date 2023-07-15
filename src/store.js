@@ -10,6 +10,16 @@ const userAuthStateSlice = createSlice({
   },
 });
 
+const searchMountSlice = createSlice({
+  name: "UserAuthState",
+  initialState: { value: 0 },
+  reducers: {
+    changeState: (state, action) => {
+      state.value = action.payload;
+    },
+  },
+});
+
 const currentUserSlice = createSlice({
   name: "currentUserState",
   initialState: { value: null },
@@ -99,10 +109,12 @@ export const { changeState: checkboxsettingsChangeState } = settingsCheckboxStyl
 export const { changeState: setGoToSettingsFeat } = goToSettingsFeatSlice.actions;
 export const { changeState: checkAuthState } = userAuthStateSlice.actions;
 export const { changeState: mobileNavLeftState } = mobileNavLeftSlice.actions;
+export const { changeState: searchMounttState } = searchMountSlice.actions;
 
 export const store = configureStore({
   reducer: {
     currUsr: currentUserSlice.reducer,
+    mntSt: searchMountSlice.reducer,
     user: userSlice.reducer,
     exp: exploreSlice.reducer,
     set: settingSlice.reducer,

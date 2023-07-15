@@ -684,6 +684,10 @@
   width: 10px;
 }
 
+.leftnavbackcover{
+  display: none;
+}
+
 .homepage-center-info::-webkit-scrollbar-track {
   background-color: rgb(20, 20, 20);
 }
@@ -1914,6 +1918,10 @@ display: none;
   .homepage-center {
     width: 100%;
     border-right: none;
+  }
+
+  .leftnavbackcover{
+    display: block;
   }
 
   .profilePageHeader {

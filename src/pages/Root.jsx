@@ -956,7 +956,7 @@ followingTweetsCache ={followingTweetsCache}
             setshowNotifAlert={setshowNotifAlert}
           />
           <div
-            className="absolute top-0 h-screen w-screen"
+            className="leftnavbackcover absolute top-0 h-screen w-screen"
             style={{ backgroundColor: "rgba(77, 91, 102, 0.5)" }}
           ></div>
         </>

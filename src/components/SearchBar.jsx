@@ -1,12 +1,19 @@
 import React, { useEffect, useRef, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useNavigate } from "react-router-dom"; // Import useHistory hook
+import { useDispatch, useSelector } from "react-redux";
+import { searchMounttState } from "../store";
 
 const SearchBar = ({ currentUser }) => {
   const [searchPreText, setsearchPreText] = useState("");
   const searchbarRef = useRef();
   const navigate = useNavigate(); // Initialize history object
+  const dispatch = useDispatch();
+  const key = useSelector((state) => state.mntSt.value);
 
+  function remount() {
+      dispatch(searchMounttState(key + 1));
+    }
   useEffect(() => {
     const path = window.location.pathname;
     const pathArray = path.split("/");
@@ -31,6 +38,7 @@ const SearchBar = ({ currentUser }) => {
         onKeyDown={(e) => {
           if (e.key === "Enter") {
             handleSearch(e);
+            remount()
           }
         }}
         type="text"

@@ -25,6 +25,7 @@ import MessagesPage from "./pages/MessagesPage";
 import BookmarksPage from "./pages/BookmarksPage";
 import FullTweet from "./pages/FullTweet";
 import Search from "./pages/search/Search";
+import SearchWrapper from "./pages/search/SearchWrapper";
 
 const router = createBrowserRouter([
   {
@@ -110,7 +111,7 @@ const router = createBrowserRouter([
       },
       {
         path: "Search/:query",
-        element: <Search />,
+        element: <SearchWrapper />,
       },
     ],
   },
