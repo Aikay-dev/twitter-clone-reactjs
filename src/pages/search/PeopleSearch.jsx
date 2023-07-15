@@ -1,12 +1,20 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const PeopleSearch = ({ searchPeople }) => {
-  console.log(searchPeople);
+  const currentUser = useSelector((state) => state.currUsr.value);
+  console.log(currentUser);
+
+  const filteredCurrentUser = searchPeople.filter((person) => {
+    return person.userId !== currentUser.userId;
+  });
+  console.log("after filter");
+  console.log(filteredCurrentUser);
   return (
     <>
-      {searchPeople.length > 0 ? (
-        searchPeople.map((person) => {
+      {filteredCurrentUser.length > 0 ? (
+        filteredCurrentUser.map((person) => {
           return (
             <Link
               to={"/Home/" + person.username}

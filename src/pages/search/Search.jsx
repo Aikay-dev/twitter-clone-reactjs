@@ -87,9 +87,7 @@ const Search = () => {
           const displayNameRegex = stripEmojis(element.displayName.replace(/\s/g, ''));
           const usernameRegex = stripEmojis(element.username.replace(/\s/g, ''));
           const sanitizedSearchRegex = new RegExp(stripEmojis(searchPreText.replace(/\s/g, '')), 'i');
-          
-          const sanitizedSearchPreText = stripEmojis(searchPreText.replace(/\s/g, ''));
-          
+                    
           if (sanitizedSearchRegex.test(displayNameRegex) || sanitizedSearchRegex.test(usernameRegex)) {
             foundUser.push(element);
             console.log(foundUser);
