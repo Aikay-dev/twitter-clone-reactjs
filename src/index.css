@@ -1158,7 +1158,6 @@
 
 .notificationcard {
   border-bottom: var(--homeBorder);
-  border-top: var(--homeBorder);
 }
 
 .custom-checkbox:hover {

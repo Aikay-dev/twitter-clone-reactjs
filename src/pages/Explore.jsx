@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import AuthLoginButton from "../components/Auth-LoginButton";
-import AdministrativeLinks from "../components/AdministrativeLinks";
 import Trendstream from "../components/TrendStream";
 import Happening from "../components/Happening";
 import { blurChangeState, setGoToSettingsFeat } from "../store";
@@ -12,7 +11,7 @@ import { fab } from "@fortawesome/free-brands-svg-icons";
 import { far } from "@fortawesome/free-regular-svg-icons";
 import SettingsTwoToneIcon from "@mui/icons-material/SettingsTwoTone";
 import googleIcon from "../assets/google_icon.svg";
-import { useLocation, Outlet } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import SignUp from "./auth/SignUp";
 import SearchBar from "../components/SearchBar";

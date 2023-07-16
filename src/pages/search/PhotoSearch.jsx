@@ -6,7 +6,6 @@ import TextComponent from "../../components/TextComponent";
 import { FaRegCommentDots, FaRetweet } from "react-icons/fa";
 import { AiOutlineHeart } from "react-icons/ai";
 import { BsFillPatchCheckFill } from "react-icons/bs";
-import { realTimeDatabase } from "../../config/firebase";
 
 const PhotoSearch = ({ searchTweets }) => {
   const [isLoading, setisLoading] = useState(true);

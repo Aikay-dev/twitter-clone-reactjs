@@ -1,21 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { library } from "@fortawesome/fontawesome-svg-core";
-import { fas } from "@fortawesome/free-solid-svg-icons";
-import { fab } from "@fortawesome/free-brands-svg-icons";
-import { far } from "@fortawesome/free-regular-svg-icons";
 import { Link } from "react-router-dom";
 import { FaRegCommentDots, FaRetweet } from "react-icons/fa";
 import { AiOutlineHeart } from "react-icons/ai";
-import { off, onChildChanged, ref, get, onValue } from "firebase/database";
+import { off, ref, get, onValue } from "firebase/database";
 import { realTimeDatabase } from "../config/firebase";
 import Loader from "../pages/auth/components/Loader";
 import TextComponent from "../components/TextComponent";
 import { BsFillPatchCheckFill } from "react-icons/bs";
-
-library.add(fas);
-library.add(fab);
-library.add(far);
 
 const HomepageTweetStream = ({
   dispatchNewTweets,

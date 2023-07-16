@@ -1,24 +1,20 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { library } from "@fortawesome/fontawesome-svg-core";
-import { fas } from "@fortawesome/free-solid-svg-icons";
-import { fab } from "@fortawesome/free-brands-svg-icons";
-import { far } from "@fortawesome/free-regular-svg-icons";
 import Loader from "../pages/auth/components/Loader";
-
-library.add(fas);
-library.add(fab);
-library.add(far);
 
 const NotificationStream = ({ streamData }) => {
   if (!streamData || streamData.length === 0) {
-    return <Loader/>; 
+    return <Loader />;
   }
 
   const reversedStreamData = [...streamData].reverse();
   return reversedStreamData.map((notification, index) => {
-    return (
-        <div key={index} className="notificationcard flex items-center py-3 px-6 gap-4 cursor-pointer">
+    if (notification !== 0) {
+      return (
+        <div
+          key={index}
+          className="notificationcard flex items-center py-3 px-6 gap-4 cursor-pointer"
+        >
           <div>
             {notification.message === "Followed you" && (
               <div className="text-2xl text-blue-500">
@@ -60,7 +56,8 @@ const NotificationStream = ({ streamData }) => {
             </p>
           </div>
         </div>
-    );
+      );
+    }
   });
 };
 
