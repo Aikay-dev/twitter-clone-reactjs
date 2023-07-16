@@ -1,32 +1,34 @@
 import React, { useEffect, useRef, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useNavigate } from "react-router-dom"; // Import useHistory hook
+import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { searchMounttState } from "../store";
 
 const SearchBar = ({ currentUser }) => {
   const [searchPreText, setsearchPreText] = useState("");
   const searchbarRef = useRef();
-  const navigate = useNavigate(); // Initialize history object
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const key = useSelector((state) => state.mntSt.value);
 
   function remount() {
-      dispatch(searchMounttState(key + 1));
-    }
+    dispatch(searchMounttState(key + 1));
+  }
+
   useEffect(() => {
     const path = window.location.pathname;
     const pathArray = path.split("/");
-    if(pathArray.indexOf("Search") !== -1) {
+    if (pathArray.indexOf("Search") !== -1) {
       const lastWord = pathArray[pathArray.length - 1];
       const uncodedString = decodeURIComponent(lastWord);
-      setsearchPreText(uncodedString); 
+      setsearchPreText(uncodedString);
     }
-    
   }, []);
+
   function handleSearch(e) {
     e.preventDefault();
     navigate(`/Home/Search/${searchPreText}`);
+    remount();
   }
 
   return (
@@ -38,7 +40,7 @@ const SearchBar = ({ currentUser }) => {
         onKeyDown={(e) => {
           if (e.key === "Enter") {
             handleSearch(e);
-            remount()
+            remount();
           }
         }}
         type="text"
@@ -47,11 +49,8 @@ const SearchBar = ({ currentUser }) => {
       />
 
       <label
-        className={
-          currentUser === null
-            ? "homepage-header-label absolute left-5 top-2 outline-none"
-            : "homepage-header-label absolute left-5 top-2 outline-none"
-        }
+        onClick={handleSearch}
+        className="homepage-header-label absolute left-5 top-2 outline-none"
       >
         <FontAwesomeIcon icon="fas fa-magnifying-glass" />
       </label>
