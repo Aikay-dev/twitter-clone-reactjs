@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import AuthLoginButton from "../components/Auth-LoginButton";
 import AdministrativeLinks from "../components/AdministrativeLinks";
 import Trendstream from "../components/TrendStream";
@@ -16,11 +16,13 @@ import { useLocation, Outlet } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import SignUp from "./auth/SignUp";
 import SearchBar from "../components/SearchBar";
-import { auth, signInWithGoogle } from "../config/firebase";
+import { auth, realTimeDatabase, signInWithGoogle } from "../config/firebase";
 import { mobileNavLeftState } from "../store";
 import Loader from "./auth/components/Loader";
 import WhoToFollow from "../components/WhoToFollow";
-
+import { onValue, ref } from "firebase/database";
+import SmLoader from "./auth/components/SmLoader";
+import { useNavigate } from "react-router-dom";
 library.add(fas);
 library.add(fab);
 library.add(far);
@@ -38,7 +40,8 @@ const Explore = () => {
       Sign in with Google
     </div>
   );
-
+  const [mostfollowedLoading, setmostfollowedLoading] = useState(true);
+  const [mostfollowedData, setmostfollowedData] = useState({});
   const appleSignButton = (
     <>
       <FontAwesomeIcon icon="fa-brands fa-apple" className="apple-in-login" />
@@ -54,6 +57,41 @@ const Explore = () => {
 
     signInWithGoogle();
   };
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const usersRef = ref(realTimeDatabase, "users");
+    onValue(usersRef, (snapshot) => {
+      const data = snapshot.val();
+      if (data) {
+        const dataArr = Object.values(data);
+        console.log(dataArr);
+        let largestFollowercount = 0;
+        let largestfollowerdata;
+        dataArr.forEach((user) => {
+          if (
+            user.followersNumber[0] !== 0 &&
+            user.followersNumber.length !== 1
+          ) {
+            if (user.followersNumber.length > largestFollowercount) {
+              largestFollowercount = user.followersNumber.length;
+              largestfollowerdata = user;
+            }
+          }
+        });
+        Object.values(largestfollowerdata).length > 1
+          ? handlemostfolloweddisp(largestfollowerdata)
+          : setmostfollowedLoading(true);
+        console.log(largestFollowercount);
+        console.log(largestfollowerdata);
+      }
+    });
+  }, []);
+
+  function handlemostfolloweddisp(largestfollowerdata) {
+    setmostfollowedLoading(false);
+    setmostfollowedData(largestfollowerdata);
+  }
 
   return (
     <>
@@ -111,7 +149,50 @@ const Explore = () => {
             <FontAwesomeIcon icon="fa-solid fa-ellipsis" />
           </Link>
         </div>
-        <div className="homepage-center-info h-full overflow-y-scroll ">
+
+        <div className="homepage-center-info cursor-pointer h-full overflow-y-scroll ">
+          {!mostfollowedLoading && mostfollowedData && (
+            <div
+              onClick={() => {
+                auth.currentUser === null
+                  ? navigate("/auth/Login")
+                  : navigate("/Home/" + mostfollowedData.username);
+              }}
+              className=" overflow-scroll mx-3 rounded-xl most-followed-user-card"
+            >
+              <p className=" whitespace-nowrap text-2xl pl-3 font-bold pt-2 text-fuchsia-200">
+                Most followed user 🤩🎊
+              </p>
+              <div className="flex">
+                <div className=" flex w-14 flex-col gap-10 items-center justify-center">
+                  <div>
+                    <img
+                      src={mostfollowedData.profile_picture}
+                      alt="user profile image"
+                      className="rounded-full h-12 w-12 cursor-pointer"
+                      style={{ marginLeft: "9px" }}
+                    />
+                  </div>
+                  <p className="text-fuchsia-200 font-extrabold text-3xl">
+                    #{mostfollowedData.followersNumber.length}
+                  </p>
+                </div>
+                <div className=" pl-5 w-full flex flex-col">
+                  <p className=" text-2xl font-bold whitespace-nowrap">
+                    {mostfollowedData.displayName}
+                  </p>
+                  <div></div>
+                  <p className="text-sm">{mostfollowedData.bioData}</p>
+                </div>
+              </div>
+              <div className="flex items-center justify-end pr-3 whitespace-nowrap">
+                <p className="text-sm">
+                  Tweeter inc. {new Date().getFullYear()}
+                </p>
+              </div>
+            </div>
+          )}
+          {mostfollowedLoading && <SmLoader />}
           <p className="homepage-center-info-trends text-xl font-extrabold pb-3 px-3">
             Trends for you
           </p>
