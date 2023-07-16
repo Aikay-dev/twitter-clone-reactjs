@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { getDatabase, ref, set, onValue } from "firebase/database";
+import { useSelector } from "react-redux";
+import { ref, set, onValue } from "firebase/database";
 import { realTimeDatabase } from "../config/firebase";
 import Loader from "../pages/auth/components/Loader";
 import AdministrativeLinks from "./AdministrativeLinks";
+import { useRef } from "react";
 
 const WhoToFollow = () => {
   const currentUser = useSelector((state) => state.currUsr.value);
-  console.log(currentUser);
   const [userlist, setuserlist] = useState({});
   const [refneduserlist, setrefneduserlist] = useState([]);
   const [selectedUsers, setSelectedUsers] = useState([]);
@@ -17,12 +17,12 @@ const WhoToFollow = () => {
   const [othrUsrFollowing, setothrUsrFollowing] = useState([]);
 
   let currentDate = new Date();
+  const selectedUsersRef = useRef(selectedUsers);
 
   useEffect(() => {
     const userDirRef = ref(realTimeDatabase, "users/");
     onValue(userDirRef, (snapshot) => {
       let data = snapshot.val();
-      /* console.log(data); */
       setuserlist(data);
       setothrUsrFollowing(data);
     });
@@ -35,38 +35,31 @@ const WhoToFollow = () => {
       const data = snapshot.val();
       if (data) {
         let dataClone = [...data];
-        /* console.log(dataClone); */
         setCurrUsrFollowing(dataClone);
-        dataClone.forEach((data) => {
-          /* listenAndUpdate(data) */
-        });
+
+        // Update UI based on the new data
+        setSelectedUsers((prevUsers) =>
+          prevUsers.map((user) => {
+            const isFollowing = dataClone.includes(user.userId);
+            return {
+              ...user,
+              isFollowing,
+            };
+          })
+        );
       }
     });
   }, []);
 
-  function listenAndUpdate(data) {
-    handleFollow(data);
-    handleUnFollow(data);
-  }
-
   useEffect(() => {
-    console.log(userlist);
     for (const key in userlist) {
-      console.log(userlist[key]);
       setrefneduserlist((prev) => [...prev, userlist[key]]);
-      console.log(refneduserlist);
     }
   }, [userlist]);
 
   useEffect(() => {
     if (runPermit) {
-      console.log("has run");
-      // Randomize the array
-      const randomizedList = [...refneduserlist].sort(
-        () => 0.5 - Math.random()
-      );
-
-      // Select only three dissimilar items
+      const randomizedList = [...refneduserlist].sort(() => 0.5 - Math.random());
       const uniqueUsers = [...new Set(randomizedList)].slice(0, 3);
 
       uniqueUsers.forEach((user) => {
@@ -74,7 +67,7 @@ const WhoToFollow = () => {
           ? uniqueUsers.splice(uniqueUsers.indexOf(user), 1)
           : uniqueUsers;
       });
-      console.log(uniqueUsers);
+
       setSelectedUsers(
         uniqueUsers.map((user) => {
           const isFollowing = currUsrFollowing.includes(user.userId);
@@ -89,14 +82,12 @@ const WhoToFollow = () => {
   }, [refneduserlist]);
 
   useEffect(() => {
-    console.log("selected users:", selectedUsers.length);
     if (selectedUsers.length > 1) {
       setloadedUsers(true);
     }
   }, [selectedUsers]);
 
   function handleUnFollow(userId) {
-    console.log(userId);
     const CurrUsrUnfollowRef = ref(
       realTimeDatabase,
       `users/${currentUser.userId}/followingNumber`
@@ -107,67 +98,65 @@ const WhoToFollow = () => {
     currentUserdataClone.length === 1
       ? (currentUserdataClone = [0])
       : currentUserdataClone.splice(currentUserdataClone.indexOf(userId), 1);
+
     set(CurrUsrUnfollowRef, currentUserdataClone)
       .then(() => {
         console.log("unfollowed successfully");
-        // Re-fetch current user's following list
+
         const CurrUsrfollowRef = ref(
           realTimeDatabase,
           `users/${currentUser.userId}/followingNumber`
         );
+
         onValue(CurrUsrfollowRef, (snapshot) => {
           const data = snapshot.val();
           let dataClone = [...data];
-          console.log(dataClone);
           setCurrUsrFollowing(dataClone);
+
+          setSelectedUsers((prev) =>
+            prev.map((user) => {
+              if (user.userId === userId) {
+                return {
+                  ...user,
+                  isFollowing: false,
+                };
+              }
+              return user;
+            })
+          );
         });
-        // Update UI by setting isFollowing value to false
-        setSelectedUsers((prev) =>
-          prev.map((user) => {
-            if (user.userId === userId) {
-              return {
-                ...user,
-                isFollowing: false,
-              };
-            }
-            return user;
-          })
+
+        const OtherUsrUnfollowRef = ref(
+          realTimeDatabase,
+          `users/${userId}/followersNumber`
         );
+
+        if (othrUsrFollowing) {
+          let otherUsrdataClone = [...othrUsrFollowing[userId].followersNumber];
+
+          otherUsrdataClone.length === 1
+            ? (otherUsrdataClone = [0])
+            : otherUsrdataClone.splice(otherUsrdataClone.indexOf(userId), 1);
+
+          set(OtherUsrUnfollowRef, otherUsrdataClone)
+            .then(() => {
+              const userDirRef = ref(realTimeDatabase, "users/");
+              onValue(userDirRef, (snapshot) => {
+                let data = snapshot.val();
+                setothrUsrFollowing(data);
+              });
+            })
+            .catch((error) => {
+              console.log("error: " + error);
+            });
+        }
       })
       .catch((error) => {
         console.log("error: " + error);
       });
-
-    const OtherUsrUnfollowRef = ref(
-      realTimeDatabase,
-      `users/${userId}/followersNumber`
-    );
-
-    if (othrUsrFollowing) {
-      let otherUsrdataClone = [...othrUsrFollowing[userId].followersNumber];
-
-      otherUsrdataClone.length === 1
-        ? (otherUsrdataClone = [0])
-        : otherUsrdataClone.splice(otherUsrdataClone.indexOf(userId), 1);
-      set(OtherUsrUnfollowRef, otherUsrdataClone)
-        .then(() => {
-          console.log("unfollowed successfully");
-          // Re-fetch other user's followers list
-          const userDirRef = ref(realTimeDatabase, "users/");
-          onValue(userDirRef, (snapshot) => {
-            let data = snapshot.val();
-            console.log(data);
-            setothrUsrFollowing(data);
-          });
-        })
-        .catch((error) => {
-          console.log("error: " + error);
-        });
-    }
   }
 
   function handleFollow(userId) {
-    console.log(userId);
     const CurrUsrfollowRef = ref(
       realTimeDatabase,
       `users/${currentUser.userId}/followingNumber`
@@ -176,10 +165,9 @@ const WhoToFollow = () => {
     currUsrdataClone.length === 1 && currUsrdataClone[0] === 0
       ? (currUsrdataClone = [userId])
       : currUsrdataClone.push(userId);
+
     set(CurrUsrfollowRef, currUsrdataClone)
       .then(() => {
-        /* console.log("followed successfully"); */
-        // Re-fetch current user's following list
         const CurrUsrfollowRef = ref(
           realTimeDatabase,
           `users/${currentUser.userId}/followingNumber`
@@ -188,55 +176,50 @@ const WhoToFollow = () => {
           const data = snapshot.val();
           if (data) {
             let dataClone = [...data];
-            console.log(dataClone);
             setCurrUsrFollowing(dataClone);
+
+            setSelectedUsers((prev) =>
+              prev.map((user) => {
+                if (user.userId === userId) {
+                  return {
+                    ...user,
+                    isFollowing: true,
+                  };
+                }
+                return user;
+              })
+            );
           }
         });
-        // Update UI by setting isFollowing value to true
-        setSelectedUsers((prev) =>
-          prev.map((user) => {
-            if (user.userId === userId) {
-              return {
-                ...user,
-                isFollowing: true,
-              };
-            }
-            return user;
-          })
+
+        const OtherUsrfollowRef = ref(
+          realTimeDatabase,
+          `users/${userId}/followersNumber`
         );
+
+        if (othrUsrFollowing) {
+          let otherUsrdataClone = [...othrUsrFollowing[userId].followersNumber];
+
+          otherUsrdataClone.length === 1 && otherUsrdataClone[0] === 0
+            ? (otherUsrdataClone = [currentUser.userId])
+            : otherUsrdataClone.push(currentUser.userId);
+
+          set(OtherUsrfollowRef, otherUsrdataClone)
+            .then(() => {
+              const userDirRef = ref(realTimeDatabase, "users/");
+              onValue(userDirRef, (snapshot) => {
+                let data = snapshot.val();
+                setothrUsrFollowing(data);
+              });
+            })
+            .catch((error) => {
+              console.log("error: " + error);
+            });
+        }
       })
       .catch((error) => {
         console.log("error: " + error);
       });
-
-    const OtherUsrfollowRef = ref(
-      realTimeDatabase,
-      `users/${userId}/followersNumber`
-    );
-
-    if (othrUsrFollowing) {
-      console.log("who to follow hereeeeee")
-      console.log(othrUsrFollowing)
-      let otherUsrdataClone = [...othrUsrFollowing[userId].followersNumber];
-
-      otherUsrdataClone.length === 1 && otherUsrdataClone[0] === 0
-        ? (otherUsrdataClone = [currentUser.userId])
-        : otherUsrdataClone.push(currentUser.userId);
-      set(OtherUsrfollowRef, otherUsrdataClone)
-        .then(() => {
-          /* console.log("followed successfully"); */
-          // Re-fetch other user's followers list
-          const userDirRef = ref(realTimeDatabase, "users/");
-          onValue(userDirRef, (snapshot) => {
-            let data = snapshot.val();
-            console.log(data);
-            setothrUsrFollowing(data);
-          });
-        })
-        .catch((error) => {
-          console.log("error: " + error);
-        });
-    }
   }
 
   return (

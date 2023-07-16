@@ -40,7 +40,7 @@ const PeopleSearch = ({ searchPeople }) => {
   console.log("after filter");
   console.log(filteredCurrentUser);
 
-  function handleFollow(userId) {
+  function followHandler(userId) {
     console.log(userId);
     const CurrUsrfollowRef = ref(
       realTimeDatabase,
@@ -51,6 +51,7 @@ const PeopleSearch = ({ searchPeople }) => {
       set(CurrUsrfollowRef, currUsrdataClone)
         .then(() => {
           console.log("followed successfully");
+          console.log(currUsrdataClone)
         })
         .catch((error) => {
           console.log("error: " + error);
@@ -98,7 +99,7 @@ const PeopleSearch = ({ searchPeople }) => {
     }
   }
 
-  function handleUnFollow(userId) {
+  function UnFollowhandler(userId) {
     console.log(userId);
     const CurrUsrUnfollowRef = ref(
       realTimeDatabase,
@@ -190,7 +191,7 @@ const PeopleSearch = ({ searchPeople }) => {
                         <span key={person.userId}>
                           <button
                             onClick={() => {
-                              handleUnFollow(person.userId);
+                              UnFollowhandler(person.userId);
                             }}
                             style={{
                               backgroundColor: "var(--homeLabelColor)",
@@ -204,7 +205,7 @@ const PeopleSearch = ({ searchPeople }) => {
                         <span key={person.userId}>
                           <button
                             onClick={() => {
-                              handleFollow(person.userId);
+                              followHandler(person.userId);
                             }}
                             className="bg-white h-7 text-gray-900 text-sm px-4 w-28 py-1 rounded-full font-semibold"
                           >
