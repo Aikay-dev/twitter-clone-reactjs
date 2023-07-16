@@ -22,49 +22,44 @@ const FollowingTweets = ({
   const [tweetIds, settweetIds] = useState([]);
   const [loadingTweets, setloadingTweets] = useState(true);
   const [noTweets, setnoTweets] = useState(false);
-  const [runTweetPermit, setrunTweetPermit] = useState(true);
 
   useEffect(() => {
-    if (runTweetPermit) {
-      const userTogetDataFrom = currentUser.followingNumber;
-      if (followingTweetsCache.length === 0) {
-        if (userTogetDataFrom.length === 1 && userTogetDataFrom[0] === 0) {
-          setnoTweets(true);
-          setloadingTweets(false);
-          console.log("not loadingTweets");
-          console.log("userTogetDataFrom : " + currentUser.followingNumber);
-        } else {
-          for (let i = 0; i < userTogetDataFrom.length; i++) {
-            const TweetDataref = ref(
-              realTimeDatabase,
-              `users/${userTogetDataFrom[i]}`
-            );
-            onValue(TweetDataref, (snapshot) => {
-              const data = snapshot.val();
-              console.log(data);
-              console.log(i);
-              const tweetsObj = data.userTweets;
-              const tweets = Object.values(tweetsObj);
-              settweetIds(tweets);
-            });
-          }
-          console.log("done getting tweets");
-          console.log(tweetIds);
-          setloadingTweets(false);
-          setrunTweetPermit(false);
-        }
-      } else {
-        settweetsCardData(followingTweetsCache);
+    const userTogetDataFrom = currentUser.followingNumber;
+    if (followingTweetsCache.length === 0) {
+      if (userTogetDataFrom.length === 1 && userTogetDataFrom[0] === 0) {
+        setnoTweets(true);
         setloadingTweets(false);
-        setrunTweetPermit(false);
+        console.log("not loadingTweets");
+        console.log("userTogetDataFrom : " + currentUser.followingNumber);
+      } else {
+        for (let i = 0; i < userTogetDataFrom.length; i++) {
+          const TweetDataref = ref(
+            realTimeDatabase,
+            `users/${userTogetDataFrom[i]}`
+          );
+          onValue(TweetDataref, (snapshot) => {
+            const data = snapshot.val();
+            console.log(data);
+            console.log(i);
+            const tweetsObj = data.userTweets;
+            const tweets = Object.values(tweetsObj);
+            settweetIds(tweets);
+          });
+        }
+        console.log("done getting tweets");
+        console.log(tweetIds);
+        setloadingTweets(false);
       }
+    } else {
+      settweetsCardData(followingTweetsCache);
+      setloadingTweets(false);
     }
   }, []);
 
   useEffect(() => {
     console.log(tweetIds);
     let uniqueItems = [...new Set(tweetIds)];
-    console.log(uniqueItems);
+    console.log(uniqueItems); 
     rtdbUsrTwtsRqsts(uniqueItems);
   }, [tweetIds]);
 
@@ -75,7 +70,8 @@ const FollowingTweets = ({
         const data = snapshot.val();
         console.log(data);
         if (data) {
-          settweetsCardData((prev) => [...prev, data]);
+          settweetsCardData((prev) => [...prev, data].reverse());
+        console.log("reversing")
         }
       });
     });
@@ -96,7 +92,7 @@ const FollowingTweets = ({
         </p>
       )}
       {tweetsCardData !== undefined &&
-        tweetsCardData.reverse().map((item) => {
+        tweetsCardData.map((item) => {
           return (
             <React.Fragment key={item.tweetId}>
               <Link
@@ -151,7 +147,7 @@ const FollowingTweets = ({
                   </div>
                   <div className="main-tweet-card-content overflow-x-hidden">
                     {item.tweetText && <TextComponent text={item.tweetText} />}
-                    {item.tweetImageLink.length > 0 && (
+                    { item.tweetImageLink.length > 0 &&
                       <div className="main-tweet-image-border">
                         <img
                           src={item.tweetImageLink}
@@ -159,7 +155,7 @@ const FollowingTweets = ({
                           className="main-tweet-image"
                         />
                       </div>
-                    )}
+                    }
                     <div className="main-tweet-card-user-actions flex w-full pt-2 gap-6 overflow-x-scroll">
                       <button
                         className="flex gap-3 items-center main-tweet-comment-icon"
