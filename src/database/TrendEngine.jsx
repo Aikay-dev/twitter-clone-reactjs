@@ -4,11 +4,16 @@ import { onValue, ref } from "firebase/database";
 import { realTimeDatabase } from "../config/firebase";
 import Loader from "../pages/auth/components/Loader";
 import { Link } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+
 
 const TrendEngine = () => {
+  const currentUser = useSelector((state) => state.currUsr.value);
+  console.log(currentUser)
   const [tweets, setTweets] = useState([]);
   const [loader, setloader] = useState(true);
   const [trends, setTrends] = useState([]);
+
   useEffect(() => {
     const wholeTweetsRef = ref(realTimeDatabase, "tweetPool/");
     onValue(wholeTweetsRef, (snapshot) => {
@@ -60,9 +65,9 @@ const TrendEngine = () => {
           {trends.map((items, index) => {
             return (
               <Link
-              to={`/Home/Search/${items[0]}`}
+              to={currentUser !== null ? `/Home/Search/${items[0]}`: "/Auth/Login"}
                 key={index}
-                className="homepage-center-current-trend px-3 py-3 cursor-pointer flex items-center justify-between"
+                className="homepage-center-current-trend p-3 cursor-pointer flex items-center justify-between"
               >
                 <div className="homepage-center-current-trend-info">
                   <p className="trend-category text-sm">Music . Trending</p>
