@@ -1,19 +1,7 @@
 import React from "react";
-import { AiOutlineHeart } from "react-icons/ai";
-import { BiTrendingUp } from "react-icons/bi";
-import { FaRegCommentDots, FaRetweet } from "react-icons/fa";
-import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { library } from "@fortawesome/fontawesome-svg-core";
-import { fas } from "@fortawesome/free-solid-svg-icons";
-import { fab } from "@fortawesome/free-brands-svg-icons";
-import { far } from "@fortawesome/free-regular-svg-icons";
 import blogOne from "../../assets/blog1.jpg";
 import blogTwo from "../../assets/blog2.jpg";
-
-library.add(fas);
-library.add(fab);
-library.add(far);
 
 function BlogTab() {
   return (

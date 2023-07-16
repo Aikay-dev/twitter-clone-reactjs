@@ -1,16 +1,8 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { library } from "@fortawesome/fontawesome-svg-core";
-import { fas } from "@fortawesome/free-solid-svg-icons";
-import { fab } from "@fortawesome/free-brands-svg-icons";
-import { far } from "@fortawesome/free-regular-svg-icons";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import randColor from "../utility/randomColorgen";
-
-library.add(fas);
-library.add(fab);
-library.add(far);
 
 const Happening = ({ happeningDataLoaded, sethappeningDataLoaded }) => {
   const [sportData, setSportData] = useState([]);
@@ -31,7 +23,9 @@ const Happening = ({ happeningDataLoaded, sethappeningDataLoaded }) => {
   let scoreCards = sportData.map((matches) => {
     `Team-1: ${matches.goals[0].scoreTeam1}, Team-2 ${matches.goals[0].scoreTeam2}`;
     return (
-      <div
+      <a
+      target="_blank"
+      href="https://www.bundesliga.com/en/bundesliga/table"
         className="homepage-center-whats-happening-card flex flex-col  justify-center  cursor-pointer py-2 px-3 mt-5 mb-5"
         key={sportData.indexOf(matches)}
       >
@@ -90,7 +84,7 @@ const Happening = ({ happeningDataLoaded, sethappeningDataLoaded }) => {
             </p>
           </div>
         </div>
-      </div>
+      </a>
     );
   });
 
