@@ -169,9 +169,9 @@ function ProfilePage() {
       if (followUpdate.followingNumber[0] === 0) {
         followUpdate.followingNumber = [profileDetails.userId];
       } else {
-        const holder = [...followUpdate.followingNumber]
-        holder.push(profileDetails.userId)
-        followUpdate.followingNumber = holder
+        const holder = [...followUpdate.followingNumber];
+        holder.push(profileDetails.userId);
+        followUpdate.followingNumber = holder;
       }
 
       if (followedUpdate.followersNumber[0] === 0) {
@@ -190,9 +190,9 @@ function ProfilePage() {
         if (followUpdate.followingNumber.length === 1) {
           followUpdate.followingNumber = [0];
         } else {
-          const holder = [...followUpdate.followingNumber]
-          holder.splice(index, 1)
-          followUpdate.followingNumber = holder
+          const holder = [...followUpdate.followingNumber];
+          holder.splice(index, 1);
+          followUpdate.followingNumber = holder;
         }
       }
       updateNode("users/" + currentUser.userId, followUpdate);
@@ -498,7 +498,7 @@ function ProfilePage() {
                         <p>
                           <FontAwesomeIcon icon="fa-solid fa-link" />{" "}
                         </p>
-                        <a href={profileDetails.websiteData}>
+                        <a href={profileDetails.websiteData} target="_blank">
                           <p className="signup-link">
                             {profileDetails.websiteData}
                           </p>
