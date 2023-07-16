@@ -195,8 +195,6 @@ const SignUp = ({ setshowSignUpCard }) => {
       });
   }
 
-  console.log(usersEmail.length);
-
   return (
     <>
     <div>

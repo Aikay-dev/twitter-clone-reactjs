@@ -192,7 +192,9 @@ const Explore = () => {
               </div>
             </div>
           )}
-          {mostfollowedLoading && <SmLoader />}
+          <div className="flex items-center justify-center">
+            {mostfollowedLoading && <SmLoader />}
+          </div>
           <p className="homepage-center-info-trends text-xl font-extrabold pb-3 px-3">
             Trends for you
           </p>
