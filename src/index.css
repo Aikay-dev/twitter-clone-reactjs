@@ -576,6 +576,7 @@
   max-height: 1000px;
   border-radius: 10px;
   width: 100%;
+  object-fit: cover; 
 }
 
 .main-tweet-image-border {
