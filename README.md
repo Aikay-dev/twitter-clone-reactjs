@@ -74,6 +74,15 @@ Contributions are welcome! If you'd like to contribute to Tweeter, please follow
 
 Please ensure that your contributions align with the project's coding standards and guidelines.
 
+## Testing
+
+If you want to clone the project and make further advancements or solve an issue, please clone the `testing` branch, which contains the tests to ensure that your changes do not break any existing code. If you are cloning for personal purposes, you can clone the `main` branch.
+
+To clone the `testing` branch, use the following command:
+```
+git clone -b testing https://github.com/GeneralAike/twitter-clone-reactjs.git
+```
+
 ## License
 
 The Tweeter project is licensed under the [MIT License](LICENSE).
