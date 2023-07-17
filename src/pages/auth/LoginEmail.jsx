@@ -217,11 +217,7 @@ const LoginEmail = ({
         <p className="signin-dont-have">
           Don't have an account?{" "}
           <Link
-            to={
-              location.pathname === "/auth/Login"
-                ? "/auth/Signup"
-                : "/Home/Explore/Signup"
-            }
+            to={"/auth/Signup"}
             className="signup-link"
           >
             Sign up

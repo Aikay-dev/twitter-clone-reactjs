@@ -7,15 +7,24 @@ import { getDatabase, ref, set, onValue } from "firebase/database";
 import { getStorage } from "firebase/storage";
 import getJoinedMonthYear from "../utility/dateJoined";
 
+const apiKey = import.meta.env.VITE_FIREBASE_API_KEY;
+const authDomain = import.meta.env.VITE_FIREBASE_AUTH_DOMAIN;
+const projectId = import.meta.env.VITE_FIREBASE_PROJECT_ID;
+const storageBucket = import.meta.env.VITE_FIREBASE_STORAGE_BUCKET;
+const messagingSenderId = import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID;
+const appId = import.meta.env.VITE_FIREBASE_APP_ID;
+const measurementId = import.meta.env.VITE_FIREBASE_MEASUREMENT_ID;
+const databaseURL = import.meta.env.VITE_FIREBASE_DATABASE_URL;
+
 const firebaseConfig = {
-  apiKey: "AIzaSyA3yyc5qbksW5oLXZ8y0jciO_bVqfcg1kA",
-  authDomain: "tweeter-clone.firebaseapp.com",
-  projectId: "tweeter-74fca",
-  storageBucket: "tweeter-74fca.appspot.com",
-  messagingSenderId: "231809244528",
-  appId: "1:231809244528:web:0cba97c0d91e37ebd943b5",
-  measurementId: "G-4RF83VGLCV",
-  databaseURL: "https://tweeter-74fca-default-rtdb.firebaseio.com/",
+  apiKey,
+  authDomain,
+  projectId,
+  storageBucket,
+  messagingSenderId,
+  appId,
+  measurementId,
+  databaseURL
 };
 
 // Initialize Firebase
