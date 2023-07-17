@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import AuthLoginButton from "../../components/Auth-LoginButton";
 import googleIcon from "../../assets/google_icon.svg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -14,7 +14,6 @@ import StepTwo from "./createAccount/StepTwo";
 import StepFive from "./createAccount/StepFive";
 import StepFour from "./createAccount/StepFour";
 import StepThree from "./createAccount/StepThree";
-import { signUpWithGoogle } from "../../config/firebase";
 import GoogleUsername from "./createAccount/GoogleUsername";
 import { colRef } from "../../config/firebase";
 import { getDocs } from "firebase/firestore";

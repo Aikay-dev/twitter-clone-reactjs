@@ -106,7 +106,7 @@ const LoginEmail = ({
       });
   };
   console.log(usersEmail);
-  
+
   return (
     <div className="login-info">
       <div>
@@ -208,10 +208,7 @@ const LoginEmail = ({
         />
         <p className="signin-dont-have">
           Don't have an account?{" "}
-          <Link
-            to={"/auth/Signup"}
-            className="signup-link"
-          >
+          <Link to={"/auth/Signup"} className="signup-link">
             Sign up
           </Link>
         </p>
