@@ -58,6 +58,8 @@ function FullTweet() {
   const [showLike, setShowLike] = useState(false);
   const [showBookmark, setshowBookmark] = useState(false);
   const [pushupAfterImage, setpushupAfterImage] = useState(false);
+  const [tweetNotFound, settweetNotFound] = useState(false)
+  const [loader, setloader] = useState(true)
   useEffect(() => {
     const url = window.location.pathname;
     const extractedTimestamp = url.substring(url.lastIndexOf("/") + 1);
@@ -102,7 +104,15 @@ function FullTweet() {
         const data = snapshot.val();
         console.log(data);
         setfulltweetData(data);
-        setLoadedFullTweet(true);
+        if(data !== null){
+          setLoadedFullTweet(true)
+          settweetNotFound(true)
+          setloader(false)
+        }else{
+          setloader(false)
+          settweetNotFound(true)
+        }
+
       });
     }
   }, [commentTweet]);
@@ -794,8 +804,10 @@ function FullTweet() {
             </section>
           </section>
         )}
-        {!loadedFullTweet && <Loader />}
+        {!loadedFullTweet && loader &&  <Loader />}
+        {tweetNotFound && <div className=" pt-16 pl-3">Tweet Not found</div>}
       </section>
+      
       <HomeRight />
     </>
   );
