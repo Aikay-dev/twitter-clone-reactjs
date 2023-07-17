@@ -568,7 +568,7 @@ function ProfilePage() {
           </section>
         </section>
       )}
-      {!gottenProfile && <Loader />}
+      {!gottenProfile && <div className=" homepage-center"><Loader /></div>}
       <HomeRight />
     </>
   );
