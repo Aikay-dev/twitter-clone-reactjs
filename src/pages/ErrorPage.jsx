@@ -1,6 +1,7 @@
 import { useRouteError } from "react-router-dom";
-
+import { useNavigate } from "react-router-dom";
 export default function ErrorPage() {
+  const navigate = useNavigate()
   const error = useRouteError();
   console.error(error);
 
@@ -11,6 +12,9 @@ export default function ErrorPage() {
       <p>
         <i>Page {error.statusText || error.message}</i>
       </p>
+      <button className="lets-go-home py-2 px-4 rounded-full" onClick={() => {
+        navigate("/")
+      }}>lets go home!</button>
     </div>
   );
 }

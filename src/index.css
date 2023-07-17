@@ -32,6 +32,10 @@
   color: rgb(231, 233, 234);
 }
 
+.lets-go-home{
+  background-color: var(--smallButtonColor);
+}
+
 .app {
   height: 1000px;
   width: 100%;
