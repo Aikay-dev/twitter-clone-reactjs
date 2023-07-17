@@ -1,16 +1,8 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { library } from "@fortawesome/fontawesome-svg-core";
-import { fas } from "@fortawesome/free-solid-svg-icons";
-import { fab } from "@fortawesome/free-brands-svg-icons";
-import { far } from "@fortawesome/free-regular-svg-icons";
 import { useDispatch } from "react-redux";
 import { exploreChangeState, settingsChangeState } from "../../store";
-
-library.add(fas);
-library.add(fab);
-library.add(far);
 
 const SettingsMainNav = ({ navStyleOnPop }) => {
   const dispatch = useDispatch();

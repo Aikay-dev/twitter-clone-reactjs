@@ -1,21 +1,13 @@
-import React, { useRef, useState, useEffect } from "react";
+import { useRef, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import AuthLoginButton from "../../components/Auth-LoginButton";
 import { useDispatch } from "react-redux";
 import googleIcon from "../../assets/google_icon.svg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { library } from "@fortawesome/fontawesome-svg-core";
-import { fas } from "@fortawesome/free-solid-svg-icons";
-import { fab } from "@fortawesome/free-brands-svg-icons";
-import { far } from "@fortawesome/free-regular-svg-icons";
 import { auth } from "../../config/firebase";
 import { signInWithPopup } from "firebase/auth";
 import { Provider } from "../../config/firebase";
 import toast, { Toaster } from "react-hot-toast";
-
-library.add(fas);
-library.add(fab);
-library.add(far);
 
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const LoginEmail = ({

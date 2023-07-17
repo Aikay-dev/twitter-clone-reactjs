@@ -1,16 +1,7 @@
-import React from "react";
 import HomeRight from "./Home/HomeRight";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { library } from "@fortawesome/fontawesome-svg-core";
-import { fas } from "@fortawesome/free-solid-svg-icons";
-import { fab } from "@fortawesome/free-brands-svg-icons";
-import { far } from "@fortawesome/free-regular-svg-icons";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import BookmarkStream from "../database/BookmarkStream";
-
-library.add(fas);
-library.add(fab);
-library.add(far);
 
 function BookmarksPage() {
   const currentUser = useSelector((state) => state.currUsr.value);

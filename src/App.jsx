@@ -1,5 +1,4 @@
 import "./App.css";
-import React from "react";
 import Root from "./pages/Root";
 import { useState, useEffect } from "react";
 import LoadingSite from "./screen/LoadingSite";
@@ -7,7 +6,7 @@ import { auth } from "./config/firebase";
 import { useSelector, useDispatch } from "react-redux";
 import { checkAuthState, currentUserState } from "./store";
 import { useNavigate } from "react-router-dom";
-import { getDatabase, ref, set, onValue } from "firebase/database";
+import { ref, onValue } from "firebase/database";
 import { realTimeDatabase } from "./config/firebase";
 
 function App() {

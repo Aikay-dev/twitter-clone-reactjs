@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef } from "react";
 import { Link, Outlet, useNavigate, useParams } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { library } from "@fortawesome/fontawesome-svg-core";
@@ -26,7 +26,7 @@ import LoaderWhite from "../components/LoaderWhite";
 import { ref as strgRef } from "firebase/storage";
 import { ref, update, push } from "firebase/database";
 import { realTimeDatabase } from "../config/firebase";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 import { storage } from "../config/firebase";
 import { uploadBytes, getDownloadURL } from "firebase/storage";
 

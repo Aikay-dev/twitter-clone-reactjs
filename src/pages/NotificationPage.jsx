@@ -1,9 +1,4 @@
-import React, { useEffect, useState } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { library } from "@fortawesome/fontawesome-svg-core";
-import { fas } from "@fortawesome/free-solid-svg-icons";
-import { fab } from "@fortawesome/free-brands-svg-icons";
-import { far } from "@fortawesome/free-regular-svg-icons";
+import { useEffect } from "react";
 import HomeRight from "./Home/HomeRight";
 import SettingsTwoToneIcon from "@mui/icons-material/SettingsTwoTone";
 import { Link } from "react-router-dom";
@@ -12,10 +7,6 @@ import { mobileNavLeftState } from "../store";
 import { realTimeDatabase } from "../config/firebase";
 import { ref, update } from "firebase/database";
 import NotificationStream from "../database/NotificationStream";
-
-library.add(fas);
-library.add(fab);
-library.add(far);
 
 function NotificationPage() {
   const currentUser = useSelector((state) => state.currUsr.value);

@@ -1,9 +1,4 @@
-import React, { useState } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { library } from "@fortawesome/fontawesome-svg-core";
-import { fas } from "@fortawesome/free-solid-svg-icons";
-import { fab } from "@fortawesome/free-brands-svg-icons";
-import { far } from "@fortawesome/free-regular-svg-icons";
+import { useState } from "react";
 import HomeRight from "../Home/HomeRight";
 import SettingsTwoToneIcon from "@mui/icons-material/SettingsTwoTone";
 import { Link } from "react-router-dom";
@@ -13,10 +8,6 @@ import AboutDevTab from "./AboutDevTab";
 import BlogTab from "./BlogTab";
 import ServicesTab from "./ServicesTab";
 import ContactTab from "./ContactTab";
-
-library.add(fas);
-library.add(fab);
-library.add(far);
 
 function TweeterBluePage() {
   const [aboutdevTab, setaboutdevTab] = useState(true);

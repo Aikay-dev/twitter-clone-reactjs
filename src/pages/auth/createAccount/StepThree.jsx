@@ -1,17 +1,9 @@
-import React, { useRef, useState, useEffect } from "react";
+import { useRef, useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { library } from "@fortawesome/fontawesome-svg-core";
-import { fas } from "@fortawesome/free-solid-svg-icons";
-import { fab } from "@fortawesome/free-brands-svg-icons";
-import { far } from "@fortawesome/free-regular-svg-icons";
 import { Link } from "react-router-dom";
 import Loader from "../components/Loader";
 import { colRef } from "../../../config/firebase";
 import { getDocs } from "firebase/firestore";
-
-library.add(fas);
-library.add(fab);
-library.add(far);
 
 /* Get all user mail */
 
@@ -23,7 +15,6 @@ const StepThree = ({
   setshowStepFive,
   setshowsignupPage,
   stepOneDetails,
-  setStepOneDetails,
 }) => {
   const [mailError, setMailError] = useState(true);
   const [checkmail, setCheckMail] = useState(true);

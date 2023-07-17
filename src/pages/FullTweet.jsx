@@ -1,18 +1,13 @@
-import React, { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef } from "react";
 import HomeRight from "./Home/HomeRight";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { library } from "@fortawesome/fontawesome-svg-core";
-import { fas } from "@fortawesome/free-solid-svg-icons";
-import { fab } from "@fortawesome/free-brands-svg-icons";
-import { far } from "@fortawesome/free-regular-svg-icons";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { FaRegComment, FaRegCommentDots, FaRetweet } from "react-icons/fa";
+import { FaRegComment, FaRetweet } from "react-icons/fa";
 import { AiOutlineHeart } from "react-icons/ai";
 import { BsBookmark, BsFillPatchCheckFill } from "react-icons/bs";
-import { BiTrendingUp } from "react-icons/bi";
 import { useParams } from "react-router-dom";
-import { onValue, ref, update, push, remove } from "firebase/database";
+import { onValue, ref, update, push } from "firebase/database";
 import { realTimeDatabase } from "../config/firebase";
 import { getTweetDate } from "../utility/dateJoined";
 import LoaderWhite from "../components/LoaderWhite";
@@ -23,17 +18,11 @@ import { uploadBytes, getDownloadURL } from "firebase/storage";
 import CommentTweet from "../database/CommentTweet";
 import Loader from "./auth/components/Loader";
 
-library.add(fas);
-library.add(fab);
-library.add(far);
-
 function FullTweet() {
   const [fulltweetData, setfulltweetData] = useState(null);
   const { timestamp } = useParams();
   const currentUser = useSelector((state) => state.currUsr.value);
   const tweetTextareaRef = useRef(null);
-  const [uploadComplete, setUploadComplete] = useState(false);
-  const [dispatchNewTweets, setdispatchNewTweets] = useState(false);
   const [imageToUpload, setImageToUpload] = useState(null);
   const [imageToGrabLink, setImageToGrabLink] = useState(null);
   const [tweetingLoader, settweetingLoader] = useState(false);
@@ -304,7 +293,6 @@ function FullTweet() {
           })
           .finally(() => {
             console.log(tweetData);
-            setUploadComplete(true);
           });
       });
     } else {

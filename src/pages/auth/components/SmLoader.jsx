@@ -1,5 +1,3 @@
-import React from "react";
-
 const SmLoader = () => {
   return (
     <div class="loadingio-spinner-rolling-o8a0fs8tskj">

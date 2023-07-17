@@ -1,12 +1,7 @@
-import React, { useState, useRef, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { useState, useRef, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { library } from "@fortawesome/fontawesome-svg-core";
-import { fas } from "@fortawesome/free-solid-svg-icons";
-import { fab } from "@fortawesome/free-brands-svg-icons";
-import { far } from "@fortawesome/free-regular-svg-icons";
 import HomeRight from "./Home/HomeRight";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { realTimeDatabase } from "../config/firebase";
 import { ref, onValue } from "firebase/database";
 import { ref as strgRef } from "firebase/storage";
@@ -17,10 +12,6 @@ import Loader from "../pages/auth/components/Loader";
 import UserTweets from "../database/UserTweets";
 import { BsFillPatchCheckFill } from "react-icons/bs";
 import LikedTweets from "../database/LikedTweets";
-
-library.add(fas);
-library.add(fab);
-library.add(far);
 
 function ProfilePage() {
   const currentUser = useSelector((state) => state.currUsr.value);

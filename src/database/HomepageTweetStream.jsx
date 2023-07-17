@@ -11,9 +11,7 @@ import { BsFillPatchCheckFill } from "react-icons/bs";
 
 const HomepageTweetStream = ({
   dispatchNewTweets,
-  newtweetsbuttonAnimation,
   setnewtweetsbuttonAnimation,
-  tweetLoaded,
   setTweetLoaded,
   setloadMoreTweets,
   loadMoreTweets,

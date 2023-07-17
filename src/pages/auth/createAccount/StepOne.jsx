@@ -1,15 +1,8 @@
-import React, { useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { library } from "@fortawesome/fontawesome-svg-core";
-import { fas } from "@fortawesome/free-solid-svg-icons";
-import { fab } from "@fortawesome/free-brands-svg-icons";
-import { far } from "@fortawesome/free-regular-svg-icons";
 import { Link } from "react-router-dom";
 import Datepicker from "tailwind-datepicker-react";
 
-library.add(fas);
-library.add(fab);
-library.add(far);
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const StepOne = ({
   setshowstepOne,
