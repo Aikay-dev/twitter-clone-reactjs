@@ -91,6 +91,7 @@ const LoginEmail = ({
               .then(() => {
                 // User deleted successfully
                 setacntnotfound(true);
+                toast.error("Account doesn't exist, sign up");
                 console.log("User deleted successfully");
               })
               .catch((error) => {
