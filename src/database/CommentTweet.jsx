@@ -28,6 +28,7 @@ const CommentTweet = ({
       console.log(tweetdata);
       const values = Object.values(tweetdata);
       console.log(values);
+      console.log(tweetsCardData)
       setcommentKeys(values);
       setloadedInitially(true);
     }
@@ -38,6 +39,7 @@ const CommentTweet = ({
     for (let i = 0; i < commentKeys.length; i++) {
       rtdbUsrTwtsRqsts(commentKeys[i]);
     }
+    console.log("done parsing all the tweets")
   }, [commentKeys]);
 
   function rtdbUsrTwtsRqsts(id) {
@@ -45,8 +47,15 @@ const CommentTweet = ({
     onValue(TweetDataref, (snapshot) => {
       const data = snapshot.val();
       console.log(data);
-      settweetsCardData((prevData) => [...prevData, data]); // Use functional update to avoid repeated data
+      settweetsCardData((prevData) => {
+        const newData = [...prevData];
+        newData.unshift(data);
+        return newData;
+      });
+      
       setcommentLoaded(true);
+      console.log("i just parsed a tweet")
+      console.log(tweetsCardData)
     });
   }
 
@@ -55,7 +64,7 @@ const CommentTweet = ({
       {!commentLoaded && <Loader />}
       {commentLoaded &&
         tweetsCardData.length > 0 &&
-        tweetsCardData.reverse().map((item, index) => {
+        tweetsCardData.map((item, index) => {
           if (!item) {
             return (
               <React.Fragment key={index}>
