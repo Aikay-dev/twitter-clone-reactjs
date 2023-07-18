@@ -80,25 +80,32 @@ const LoginEmail = ({
   const HandleSignIn = () => {
     signInWithPopup(auth, Provider)
       .then((result) => {
-        console.log(result);
+        console.log(result.user.email);
+
+        let userFound = false;
 
         for (let i = 0; i < usersEmail.length; i++) {
           if (usersEmail[i].email === result.user.email) {
-            window.location.href = "/Home";
-          } else {
-            result.user
-              .delete()
-              .then(() => {
-                // User deleted successfully
-                setacntnotfound(true);
-                toast.error("Account doesn't exist, sign up");
-                console.log("User deleted successfully");
-              })
-              .catch((error) => {
-                // An error occurred while deleting the user
-                console.error("Error deleting user:", error);
-              });
+            userFound = true;
+            break;
           }
+        }
+
+        if (userFound) {
+          /* window.location.href = "/Home"; */
+        } else {
+          result.user
+            .delete()
+            .then(() => {
+              // User deleted successfully
+              setacntnotfound(true);
+              toast.error("Account doesn't exist, sign up");
+              console.log("User deleted successfully");
+            })
+            .catch((error) => {
+              // An error occurred while deleting the user
+              console.error("Error deleting user:", error);
+            });
         }
       })
       .catch((error) => {

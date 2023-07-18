@@ -45,7 +45,7 @@ export const signInWithGoogle = () => {
   signInWithPopup(auth, Provider)
     .then((result) => {
       console.log(result);
-      window.location.href = "/Home";
+      /* window.location.href = "/Home"; */
     })
     .catch((error) => {
       console.log(error);
