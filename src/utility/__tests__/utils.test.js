@@ -1,6 +1,6 @@
 import randColor from "../randomColorgen";
-import { describe, expect, it } from "vitest";
-import { test } from "vitest";
+import { describe, expect, test } from "vitest";
+
 
 describe("randColor", () => {
   test("should return as random RGB color", () => {
