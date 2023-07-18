@@ -170,7 +170,6 @@ function FullTweet() {
         settweetingLoader(false);
         retrieveData();
         setcommentMounter(false);
-        /* setcommentMounter(true) */
         setImageToUpload(null);
         settweetData((prevData) => ({
           ...prevData,

@@ -19,16 +19,17 @@ const CommentTweet = ({
   const [tweetsCardData, settweetsCardData] = useState([]);
   const [commentKeys, setcommentKeys] = useState({});
   const [commentLoaded, setcommentLoaded] = useState(false);
-
+  const [loadedInitially, setloadedInitially] = useState(false);
   console.log(currentUser);
 
   useEffect(() => {
-    if (fulltweetData !== null) {
+    if (fulltweetData !== null && !loadedInitially) {
       const tweetdata = fulltweetData.comments;
       console.log(tweetdata);
       const values = Object.values(tweetdata);
       console.log(values);
       setcommentKeys(values);
+      setloadedInitially(true);
     }
   }, [fulltweetData]);
 
