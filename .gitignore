@@ -24,3 +24,5 @@ dist-ssr
 *.sw?
 
 shortcut.md
+
+__tests__/
