@@ -235,21 +235,21 @@ const Explore = () => {
               <AuthLoginButton
                 logo={googleSignButton}
                 classes={
-                  "rounded-full google-butt-login text-black mt-5 mb-3 next-signup-button next-signup-button-home-variant"
+                  "rounded-full google-butt-login text-black mt-5 mb-3 next-signup-button new-to-tweeter-button"
                 }
               />
             </div>
             <AuthLoginButton
               logo={appleSignButton}
               classes={
-                "rounded-full font-semibold flex items-center justify-center apple-butt-login apple-butt-login-home-variant"
+                "rounded-full font-semibold flex items-center justify-center apple-butt-login new-to-tweeter-button"
               }
             />
             <Link to="/Auth/Signup">
               <AuthLoginButton
                 logo={join_create_account}
                 classes={
-                  "rounded-full google-butt-login mt-3 font-semibold mb-5 create-acc-home"
+                  "rounded-full google-butt-login mt-3 font-semibold mb-5 new-to-tweeter-button"
                 }
               />
             </Link>

@@ -1770,6 +1770,10 @@
     width: var(--loginContentWidth1);
   }
 
+  .new-to-tweeter-button{
+    width: 250px;
+  }
+
   .homemain-head-search,
   .home-main-trends-for-you {
     width: 300px;
