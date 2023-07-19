@@ -87,7 +87,7 @@ const WhoToFollow = () => {
     }
   }, [selectedUsers]);
 
-  function handleUnFollow(userId) {
+  function handleUnFollowWhoCard(userId) {
     const CurrUsrUnfollowRef = ref(
       realTimeDatabase,
       `users/${currentUser.userId}/followingNumber`
@@ -156,7 +156,7 @@ const WhoToFollow = () => {
       });
   }
 
-  function handleFollow(userId) {
+  function handleFollowWhoCard(userId) {
     const CurrUsrfollowRef = ref(
       realTimeDatabase,
       `users/${currentUser.userId}/followingNumber`
@@ -255,7 +255,7 @@ const WhoToFollow = () => {
                       <span>
                         <button
                           onClick={() => {
-                            handleUnFollow(user.userId);
+                            handleUnFollowWhoCard(user.userId);
                           }}
                           style={{
                             backgroundColor: "var(--homeLabelColor)",
@@ -269,7 +269,7 @@ const WhoToFollow = () => {
                       <span>
                         <button
                           onClick={() => {
-                            handleFollow(user.userId);
+                            handleFollowWhoCard(user.userId);
                           }}
                           className="bg-white text-gray-900 text-sm px-4 w-28 py-1 rounded-full font-semibold"
                         >

@@ -92,7 +92,7 @@ const LoginEmail = ({
         }
 
         if (userFound) {
-          /* window.location.href = "/Home"; */
+          window.location.href = "/Home";
         } else {
           result.user
             .delete()

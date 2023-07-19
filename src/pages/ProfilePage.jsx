@@ -156,7 +156,6 @@ function ProfilePage() {
       setfollowState("following");
       setfollowStyle({ backgroundColor: "var(--homeLabelColor)" });
 
-      followedUpdate.followersNumber.push(currentUser.userId);
       if (followUpdate.followingNumber[0] === 0) {
         followUpdate.followingNumber = [profileDetails.userId];
       } else {
@@ -185,19 +184,18 @@ function ProfilePage() {
           holder.splice(index, 1);
           followUpdate.followingNumber = holder;
         }
+        updateNode("users/" + currentUser.userId, followUpdate);
       }
-      updateNode("users/" + currentUser.userId, followUpdate);
+
       const index2 = followedUpdate.followersNumber.indexOf(currentUser.userId);
       if (index2 !== -1) {
         if (followedUpdate.followersNumber.length === 1) {
           followedUpdate.followersNumber = [0];
         } else {
-          followedUpdate.followersNumber.splice(index, 1);
+          followedUpdate.followersNumber.splice(index2, 1);
         }
-      } else {
-        console.log("e no dey");
+        updateNode("users/" + profileDetails.userId, followedUpdate);
       }
-      updateNode("users/" + profileDetails.userId, followedUpdate);
     }
     // Update the currentUser object with the updated followUpdate
   }
@@ -568,7 +566,11 @@ function ProfilePage() {
           </section>
         </section>
       )}
-      {!gottenProfile && <div className=" homepage-center"><Loader /></div>}
+      {!gottenProfile && (
+        <div className=" homepage-center">
+          <Loader />
+        </div>
+      )}
       <HomeRight />
     </>
   );
