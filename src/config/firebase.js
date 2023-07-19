@@ -29,7 +29,6 @@ const firebaseConfig = {
 
 // Initialize Firebase
 export const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
 export const auth = getAuth(app);
 export const db = getFirestore();
 export const realTimeDatabase = getDatabase(app);
@@ -45,7 +44,7 @@ export const signInWithGoogle = () => {
   signInWithPopup(auth, Provider)
     .then((result) => {
       console.log(result);
-      /* window.location.href = "/Home"; */
+      window.location.href = "/Home";
     })
     .catch((error) => {
       console.log(error);

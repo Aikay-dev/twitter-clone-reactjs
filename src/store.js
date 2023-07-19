@@ -11,7 +11,7 @@ const userAuthStateSlice = createSlice({
 });
 
 const searchMountSlice = createSlice({
-  name: "UserAuthState",
+  name: "SearchMountState",
   initialState: { value: 0 },
   reducers: {
     changeState: (state, action) => {
