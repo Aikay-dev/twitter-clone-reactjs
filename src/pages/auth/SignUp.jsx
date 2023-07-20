@@ -241,12 +241,19 @@ const SignUp = ({ setshowSignUpCard }) => {
                 )}
               </div>
 
-              <AuthLoginButton
-                logo={appleSignButton}
-                classes={
-                  "rounded-full font-semibold flex items-center justify-center apple-butt-login"
-                }
-              />
+              <div
+                onClick={(e) => {
+                  e.preventDefault();
+                  toast.error("Apple auth disabled");
+                }}
+              >
+                <AuthLoginButton
+                  logo={appleSignButton}
+                  classes={
+                    "rounded-full font-semibold flex items-center justify-center apple-butt-login"
+                  }
+                />
+              </div>
               <div className="signup-or flex items-center justify-center absolute">
                 or
               </div>
@@ -328,7 +335,7 @@ const SignUp = ({ setshowSignUpCard }) => {
             setshowsignupPage={setshowsignupPage}
             stepOneDetails={stepOneDetails}
             setStepOneDetails={setStepOneDetails}
-            toast = {toast}
+            toast={toast}
           />
         )}
         {showStepFive && (

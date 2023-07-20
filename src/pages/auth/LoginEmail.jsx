@@ -152,12 +152,20 @@ const LoginEmail = ({
           )}
         </div>
 
-        <AuthLoginButton
-          logo={appleSignButton}
-          classes={
-            "rounded-full font-semibold flex items-center justify-center apple-butt-login"
-          }
-        />
+        <div
+          onClick={(e) => {
+            e.preventDefault();
+            toast.error("Apple auth disabled");
+          }}
+        >
+          <AuthLoginButton
+            logo={appleSignButton}
+            classes={
+              "rounded-full font-semibold flex items-center justify-center apple-butt-login"
+            }
+          />
+        </div>
+
         <div className="or-in-login flex items-center justify-center absolute">
           or
         </div>
@@ -204,10 +212,18 @@ const LoginEmail = ({
             }
           />
         </div>
-        <AuthLoginButton
-          logo={forgotpass}
-          classes={"rounded-full bg-black forgot-pass-siginin mb-10"}
-        />
+        <div
+          onClick={(e) => {
+            e.preventDefault();
+            toast.error("feature coming soon");
+          }}
+        >
+          <AuthLoginButton
+            logo={forgotpass}
+            classes={"rounded-full bg-black forgot-pass-siginin mb-10"}
+          />
+        </div>
+
         <p className="signin-dont-have">
           Don't have an account?{" "}
           <Link to={"/auth/Signup"} className="signup-link">
