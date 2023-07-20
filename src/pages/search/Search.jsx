@@ -136,7 +136,7 @@ const Search = () => {
         </div>
       )}
       <section className="homepage-center h-screen relative overflow-hidden">
-        <header className="homeBorder-bottom">
+        <header className="homeBorder-bottom z-10 bg-black search-header w-screen ">
           <div className="homepage-header sticky py-3 w-full flex h-16 px-4 gap-1 items-center justify-between">
             {auth.currentUser === null && (
               <Link
@@ -166,7 +166,7 @@ const Search = () => {
               onClick={() => {
                 dispatch(
                   setGoToSettingsFeat(
-                    "go-2-settings-blur homepage-auth-overlay h-screen fixed w-screen"
+                    "go-2-settings-blur homepage-auth-overlay z-20 h-screen fixed w-screen"
                   )
                 );
                 document.body.classList.add("overlay-open");
@@ -244,7 +244,7 @@ const Search = () => {
             </button>
           </div>
         </header>
-        <section className="h-screen overflow-y-scroll">
+        <section className="h-screen overflow-y-scroll pt-28">
           {PhotosTab && <PhotoSearch searchTweets={searchTweets} />}
           {topsearchTab && <TopSearch searchTweets={searchTweets} />}
           {PeopleTab && (
@@ -253,7 +253,7 @@ const Search = () => {
               searchPeople={searchPeople}
             />
           )}
-          <div className=" h-48"></div>
+          <div className=" h-60"></div>
         </section>
       </section>
       <section className="homepage-right h-screen">

@@ -472,7 +472,10 @@
 
 .main-tweet-card {
   border-bottom: var(--homeBorder);
-  border-top: var(--homeBorder);
+}
+
+.search-header{
+  position: absolute;
 }
 
 .top-mobile-nav {
@@ -1942,6 +1945,10 @@
     width: 100%;
     border-right: none;
   }
+
+  .search-header{
+    position: fixed;
+}
 
   .leftnavbackcover {
     display: block;
