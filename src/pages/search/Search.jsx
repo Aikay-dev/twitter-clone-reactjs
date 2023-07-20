@@ -136,8 +136,8 @@ const Search = () => {
         </div>
       )}
       <section className="homepage-center h-screen relative overflow-hidden">
-        <header className="homeBorder-bottom z-10 bg-black search-header w-screen ">
-          <div className="homepage-header sticky py-3 w-full flex h-16 px-4 gap-1 items-center justify-between">
+        <header className="homeBorder-bottom z-10 bg-black search-header w-full ">
+          <div className="homepage-header py-3 w-full flex h-16 px-4 gap-1 items-center justify-between">
             {auth.currentUser === null && (
               <Link
                 to="/"

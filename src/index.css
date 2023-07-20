@@ -1881,7 +1881,9 @@
     height: 100%;
   }
 
-
+  .search-header{
+    position: absolute;
+}
 
   .main-card-profile-pic {
     min-width: 40px;
@@ -1946,9 +1948,7 @@
     border-right: none;
   }
 
-  .search-header{
-    position: fixed;
-}
+
 
   .leftnavbackcover {
     display: block;
