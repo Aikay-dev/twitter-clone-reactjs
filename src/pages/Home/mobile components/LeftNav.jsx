@@ -35,7 +35,7 @@ const LeftNav = ({
   const dispatch = useDispatch();
   console.log(currentUser ? true : false);
   console.log(currentUser.username);
-  
+
   useEffect(() => {
     console.log(currentUser);
     if (Object.keys(currentUser).length > 0) {
@@ -70,17 +70,42 @@ const LeftNav = ({
             <FontAwesomeIcon icon="fas fa-xmark " />
           </div>
         </div>
-        <div className="home-nav-profile-image w-12 flex mx-3 justify-center items-center">
+        <Link
+          to={"/Home/" + currentUser.username}
+          className="home-nav-profile-image w-12 flex mx-3 justify-center items-center"
+        onClick={() => {
+          document.body.classList.remove("overlay-open");
+              dispatch(mobileNavLeftState(false));
+        }}
+        >
           <img
             src={currentUser.profile_picture}
             alt="user profile image"
             className="rounded-full w-10 h-10 max-h-10"
           />
+        </Link>
+        <div>
+          <Link
+          onClick={() => {
+            document.body.classList.remove("overlay-open");
+                dispatch(mobileNavLeftState(false));
+          }}
+            to={"/Home/" + currentUser.username}
+            className="mx-3 font-semibold text-lg mt-2"
+          >
+            {currentUser.displayName}
+          </Link>
         </div>
-        <p className="mx-3 font-semibold text-lg mt-2">
-          {currentUser.displayName}
-        </p>
-        <p className="mx-3 home-nav-username mb-3">{currentUser.username}</p>
+        <Link
+        onClick={() => {
+          document.body.classList.remove("overlay-open");
+              dispatch(mobileNavLeftState(false));
+        }}
+          to={"/Home/" + currentUser.username}
+          className="mx-3 home-nav-username mb-3"
+        >
+          {currentUser.username}
+        </Link>
         <div className="flex items-center gap-4 ml-3">
           <p>
             <span className="font-semibold">
