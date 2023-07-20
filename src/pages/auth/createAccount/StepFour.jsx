@@ -8,6 +8,7 @@ import { addDoc } from "firebase/firestore";
 import generateRandomString from "../../../utility/userIdAlgo.js";
 
 function StepFour({
+  toast,
   setshowstepOne,
   setshowStepTwo,
   setshowStepThree,
@@ -233,6 +234,9 @@ function StepFour({
                 stepOneDetails.password.length > 5
               ) {
                 AddNewUser();
+              } else if (stepOneDetails.password.length < 6) {
+                toast.error("Password should be greater than 6");
+                setNextLoad(false);
               }
             }}
             className="mt-10 step2-next w-full py-3 flex items-center rounded-full justify-center font-bold text-black"

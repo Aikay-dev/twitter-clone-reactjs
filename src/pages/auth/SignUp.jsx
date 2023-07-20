@@ -107,7 +107,7 @@ const SignUp = ({ setshowSignUpCard }) => {
   }, []);
 
   useEffect(() => {
-    if (windowHeight > 450) {
+    if (windowHeight > 550) {
       setsignupScrollState(
         "auth-form bg-black md:mx-auto md:w-authxlw md:h-authxlh p-2 md:rounded-2xl relative h-screen w-full"
       );
@@ -328,6 +328,7 @@ const SignUp = ({ setshowSignUpCard }) => {
             setshowsignupPage={setshowsignupPage}
             stepOneDetails={stepOneDetails}
             setStepOneDetails={setStepOneDetails}
+            toast = {toast}
           />
         )}
         {showStepFive && (
