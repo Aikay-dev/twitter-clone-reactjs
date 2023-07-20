@@ -117,7 +117,7 @@ const LeftNav = ({
           </p>
           <p>
             <span className="font-semibold">
-              {currentUser.followersNumber.length === 1
+              {currentUser.followingNumber[0] === 0
                 ? 0
                 : [currentUser.followersNumber.length]}
             </span>{" "}
