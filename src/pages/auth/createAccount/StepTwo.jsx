@@ -35,7 +35,7 @@ const StepTwo = ({
         Customize your experience
       </p>
       <p className="signup-box-def-spacing text-xl font-bold mb-4">
-        Track where you see Twitter content across the web
+        Track where you see Tweeter content across the web
       </p>
       <div className="flex signup-box-def-spacing justify-center items-start gap-5">
         <p className="text-sm mb-12">
@@ -74,7 +74,7 @@ const StepTwo = ({
         <a href="" className="signup-link">
           Cookie Use
         </a>
-        . Twitter may use your contact information, including your email address
+        . Tweeter may use your contact information, including your email address
         and phone number for purposes outlined in our Privacy Policy.{" "}
         <a href="" className="signup-link">
           Learn more
