@@ -43,21 +43,21 @@ export const Provider = new GoogleAuthProvider();
 export const signInWithGoogle = () => {
   signInWithPopup(auth, Provider)
     .then((result) => {
-      console.log(result);
+ 
       window.location.href = "/Home";
     })
     .catch((error) => {
-      console.log(error);
+ 
     });
 };
 
 export const signUpWithGoogle = () => {
   signInWithPopup(auth, Provider)
     .then((result) => {
-      console.log(result);
+ 
     })
     .catch((error) => {
-      console.log(error);
+ 
     });
 };
 
@@ -92,17 +92,17 @@ export const writeUserData = (
     likedTweets: [0],
   })
     .then(() => {
-      console.log("Data written successfully");
+ 
       window.location.href = "/Home";
     })
     .catch((error) => {
-      console.log("Error writing data:", error);
+ 
     });
 };
 
 const currentDate = new Date();
 const UserjoinedDate = getJoinedMonthYear(currentDate);
-console.log(UserjoinedDate);
+ 
 export const writeUserDataUserAndPass = (
   userId,
   name,
@@ -131,10 +131,10 @@ export const writeUserDataUserAndPass = (
     likedTweets: [0],
   })
     .then(() => {
-      console.log("Data written successfully");
+ 
     })
     .catch((error) => {
-      console.log("Error writing data:", error);
+ 
     });
 };
 
@@ -158,7 +158,7 @@ export const deleteUserWithEmailAndPassword = (email, password) => {
         .delete()
         .then(() => {
           // User deleted successfully
-          console.log("User deleted successfully");
+ 
         })
         .catch((error) => {
           // An error occurred while deleting the user
