@@ -1,18 +1,16 @@
-import React, { useEffect, useRef, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { fas } from "@fortawesome/free-solid-svg-icons";
 import { fab } from "@fortawesome/free-brands-svg-icons";
 import { far } from "@fortawesome/free-regular-svg-icons";
 import { blurChangeState } from "../../store";
-import { useDispatch } from "react-redux";
 import LoginEmail from "./LoginEmail";
 import LoginPassword from "./LoginPassword";
 import { colRef } from "../../config/firebase";
 import { getDocs } from "firebase/firestore";
 import Loader from "./components/Loader";
-import { auth } from "../../config/firebase";
 
 library.add(fas);
 library.add(fab);
@@ -52,7 +50,7 @@ const Login = () => {
     <>
       <form
         action=""
-        className="auth-form bg-black md:mx-auto md:w-authxlw md:h-authxlh p-2 md:rounded-2xl relative h-screen w-full"
+        className="auth-form bg-black overflow-y-scroll login-form-container md:mx-auto md:w-authxlw md:h-authxlh p-2 md:rounded-2xl relative h-screen w-full"
       >
         {authPage && (
           <>

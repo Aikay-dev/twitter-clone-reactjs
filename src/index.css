@@ -549,6 +549,10 @@
   border: 1px solid var(--homeLabelColor);
 }
 
+.login-form-container::-webkit-scrollbar{
+  display: none;
+}
+
 .profileMainEditButton:hover {
   background-color: var(--buttonHover);
 }
