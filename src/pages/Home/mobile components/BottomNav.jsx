@@ -9,6 +9,7 @@ import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 
 const BottomNav = ({
+  showNotifAlert,
   homeClicked,
   searchClicked,
   bellClicked,
@@ -53,6 +54,7 @@ const BottomNav = ({
       </Link>
       <Link to="/Home/Notifications">
         <button
+          className="relative"
           onClick={() => {
             setHomeClicked(false);
             setsearchClicked(false);
@@ -60,6 +62,11 @@ const BottomNav = ({
             setmessageClicked(false);
           }}
         >
+          {showNotifAlert && (
+            <div className="bluetext text-xs absolute right-0">
+              <FontAwesomeIcon icon="fa-solid fa-circle" />
+            </div>
+          )}
           {!bellClicked && <FontAwesomeIcon icon="fa-regular fa-bell" />}
           {bellClicked && <BsBellFill />}
         </button>

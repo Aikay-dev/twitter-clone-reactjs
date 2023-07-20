@@ -86,7 +86,7 @@ const Root = ({ authState, setAuthState, currentUser }) => {
     following: 0,
   });
   const [tweetCache, setTweetCache] = useState([]);
-  const [followingTweetsCache, setFollowingTweetsCache] = useState([])
+  const [followingTweetsCache, setFollowingTweetsCache] = useState([]);
   const [readyToShowButton, setreadyToShowButton] = useState(false);
   const [ForyouTab, setForyouTab] = useState(true);
   const [FollowingTab, setFollowingTab] = useState(false);
@@ -849,8 +849,8 @@ const Root = ({ authState, setAuthState, currentUser }) => {
                 setForyouTab={setForyouTab}
                 FollowingTab={FollowingTab}
                 setFollowingTab={setFollowingTab}
-                setFollowingTweetsCache ={setFollowingTweetsCache}
-followingTweetsCache ={followingTweetsCache}
+                setFollowingTweetsCache={setFollowingTweetsCache}
+                followingTweetsCache={followingTweetsCache}
               />
             )}
           {<Outlet />}
@@ -930,6 +930,7 @@ followingTweetsCache ={followingTweetsCache}
         </div>
         {authState !== null && (
           <BottomNav
+            showNotifAlert={showNotifAlert}
             homeClicked={homeClicked}
             setHomeClicked={setHomeClicked}
             searchClicked={searchClicked}
