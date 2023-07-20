@@ -958,6 +958,10 @@ followingTweetsCache ={followingTweetsCache}
           <div
             className="leftnavbackcover absolute top-0 h-screen w-screen"
             style={{ backgroundColor: "rgba(77, 91, 102, 0.5)" }}
+            onClick={() => {
+              document.body.classList.remove("overlay-open");
+              dispatch(mobileNavLeftState(false));
+            }}
           ></div>
         </>
       )}
