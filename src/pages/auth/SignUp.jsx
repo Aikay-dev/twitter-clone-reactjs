@@ -277,8 +277,8 @@ const SignUp = ({ setshowSignUpCard }) => {
               </div>
               <p className="sign-By-signingup">
                 By signing up, you agree to the{" "}
-                <Link className="signup-link">Terms of Service</Link> and{" "}
-                <Link className="signup-link">Privacy Policy</Link>, including{" "}
+                <a href="https://twitter.com/en/tos" target="blank" className="signup-link">Terms of Service</a> and{" "}
+                <a href="https://twitter.com/en/privacy" target="blank" className="signup-link">Privacy Policy</a>, including{" "}
                 <link rel="stylesheet" href="Cookie Use." />
               </p>
               <p className="sign-Have-an">
