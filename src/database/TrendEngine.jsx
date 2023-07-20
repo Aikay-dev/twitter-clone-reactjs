@@ -18,12 +18,13 @@ const TrendEngine = () => {
     onValue(wholeTweetsRef, (snapshot) => {
       let data = snapshot.val();
       const dataArr = Object.values(data);
-
       setTweets(dataArr);
     });
   }, []);
 
-  useEffect(() => {}, [tweets]);
+  useEffect(() => {
+    tweets.length > 0 ? trendGen() : false;
+  }, [tweets]);
 
   // Step 1: Extract tweet texts
   function trendGen() {
