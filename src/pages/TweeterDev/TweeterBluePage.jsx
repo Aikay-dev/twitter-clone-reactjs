@@ -17,7 +17,7 @@ function TweeterBluePage() {
   const dispatch = useDispatch();
   const mobNavleft = useSelector((state) => state.mobNavleft.value);
   const currentUser = useSelector((state) => state.currUsr.value);
-  
+
   return (
     <>
       <section className="homepage-center h-screen relative overflow-hidden">
@@ -28,11 +28,10 @@ function TweeterBluePage() {
               onClick={() => {
                 dispatch(mobileNavLeftState(true));
                 document.body.classList.add("overlay-open");
-                console.log(mobNavleft);
               }}
             >
               <img
-                src={currentUser? currentUser.profile_picture : ""}
+                src={currentUser ? currentUser.profile_picture : ""}
                 alt="user profile image"
                 className=" rounded-full w-8 h-8 max-h-8"
               />
@@ -92,7 +91,7 @@ function TweeterBluePage() {
               onClick={() => {
                 setaboutdevTab(false);
                 setservicesTab(false);
-                setblogTab(true)
+                setblogTab(true);
                 setcontactTab(false);
               }}
               className=" minwidthprofiletab h-16 w-full flex items-center justify-center cursor-pointer profilepageLikesbigTab"

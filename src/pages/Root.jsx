@@ -36,7 +36,7 @@ library.add(far);
 
 const Root = ({ authState, setAuthState, currentUser }) => {
   const dispatch = useDispatch();
-  console.log(currentUser);
+
   /* STATE MANAGEMENT */
   const [setNdpriv, setSetNdpriv] = useState(false);
   const [logoutspinner, setLogoutspinner] = useState(false);
@@ -94,7 +94,7 @@ const Root = ({ authState, setAuthState, currentUser }) => {
   /* END STATE MANAGEMENT */
   useEffect(() => {
     // Code to run when the component mounts and when the URL changes
-    console.log(window.location.pathname);
+
     if (
       window.location.pathname === "/Home" ||
       window.location.pathname === "/Home/"
@@ -137,7 +137,6 @@ const Root = ({ authState, setAuthState, currentUser }) => {
     // Clean up function for when the component unmounts or when the URL changes again
     return () => {
       // Code to run when the component unmounts or when the URL changes again
-      console.log("Component unmounted or URL changed again");
     };
   }, [window.location.href]);
 
@@ -149,7 +148,6 @@ const Root = ({ authState, setAuthState, currentUser }) => {
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((userAuthState) => {
       if (userAuthState !== null) {
-        console.log("New authentication state:", userAuthState.email);
         setAuthState(userAuthState.email);
         dispatch(checkAuthState(userAuthState.email));
       } else if (
@@ -254,12 +252,9 @@ const Root = ({ authState, setAuthState, currentUser }) => {
       setprofileTabButtonClicked(false);
     }
 
-    console.log(window.location.pathname);
-
     // Clean up function for when the component unmounts or when the URL changes again
     return () => {
       // Code to run when the component unmounts or when the URL changes again
-      console.log("Component unmounted or URL changed again");
     };
   }, [window.location.href]);
 
@@ -292,7 +287,6 @@ const Root = ({ authState, setAuthState, currentUser }) => {
   /* Manage states based on height */
 
   useEffect(() => {
-    console.log(currentUser);
     if (Object.keys(currentUser).length > 0) {
       if (currentUser.seenNotification) {
         if (
@@ -303,7 +297,6 @@ const Root = ({ authState, setAuthState, currentUser }) => {
           setshowNotifAlert(false);
         }
       } else {
-        console.log("no seenNotification");
       }
     }
   }, [currentUser]);
@@ -338,8 +331,6 @@ const Root = ({ authState, setAuthState, currentUser }) => {
       const fileName = Date.now() + "_" + imageToGrabLink.name;
       const TweetPics = strgRef(storage, `TweetPictures/${fileName}`);
       uploadBytes(TweetPics, imageToGrabLink).then((snapshot) => {
-        console.log("Upload complete");
-
         // Get the download URL of the uploaded file
         getDownloadURL(snapshot.ref)
           .then((downloadURL) => {
@@ -348,15 +339,11 @@ const Root = ({ authState, setAuthState, currentUser }) => {
               ...prevData,
               tweetImageLink: downloadURL,
             }));
-
-            console.log("File available at: " + downloadURL);
           })
           .catch((error) => {
-            console.log("Upload error: " + error.message);
             settweetingLoader(false);
           })
           .finally(() => {
-            console.log(tweetData);
             setUploadComplete(true);
           });
       });
@@ -368,7 +355,7 @@ const Root = ({ authState, setAuthState, currentUser }) => {
   useEffect(() => {
     if (uploadComplete) {
       pushupTweet();
-      console.log(tweetData);
+
       setUploadComplete(false);
     }
   }, [uploadComplete]);
@@ -385,7 +372,6 @@ const Root = ({ authState, setAuthState, currentUser }) => {
     const dbRef = ref(realTimeDatabase, path);
     update(dbRef, newData)
       .then(() => {
-        console.log("Data updated successfully");
         setprofileBlur(false);
         toast.success("Tweeted successfully");
         settweetingLoader(false);
@@ -410,9 +396,7 @@ const Root = ({ authState, setAuthState, currentUser }) => {
       "users/" + currentUser.userId + "/userTweets"
     );
     push(userTweetsRef, tweetData.tweetId)
-      .then(() => {
-        console.log("TweetId added to userTweets array.");
-      })
+      .then(() => {})
       .catch((error) => {
         console.error("Error adding tweetId to userTweets array:", error);
       });
@@ -550,10 +534,7 @@ const Root = ({ authState, setAuthState, currentUser }) => {
                     ) {
                       settweetingLoader(true);
                       finalUploadTweet();
-                      console.log(tweetData);
-                      console.log(tweetTextareaRef);
                     } else {
-                      console.log("not uploading");
                     }
                   }}
                   className=" flex justify-center items-center home-main-tweet-section-button text-white px-4 rounded-full py-1 font-semibold"
@@ -589,11 +570,8 @@ const Root = ({ authState, setAuthState, currentUser }) => {
                   .then(() => {
                     setLogoutspinner(false);
                     location.reload();
-                    console.log("user: signed out");
                   })
-                  .catch((err) => {
-                    console.log(err.message);
-                  });
+                  .catch((err) => {});
               }}
             >
               <FiLogOut />

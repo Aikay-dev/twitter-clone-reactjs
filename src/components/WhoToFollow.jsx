@@ -59,7 +59,9 @@ const WhoToFollow = () => {
 
   useEffect(() => {
     if (runPermit) {
-      const randomizedList = [...refneduserlist].sort(() => 0.5 - Math.random());
+      const randomizedList = [...refneduserlist].sort(
+        () => 0.5 - Math.random()
+      );
       const uniqueUsers = [...new Set(randomizedList)].slice(0, 3);
 
       uniqueUsers.forEach((user) => {
@@ -101,8 +103,6 @@ const WhoToFollow = () => {
 
     set(CurrUsrUnfollowRef, currentUserdataClone)
       .then(() => {
-        console.log("unfollowed successfully");
-
         const CurrUsrfollowRef = ref(
           realTimeDatabase,
           `users/${currentUser.userId}/followingNumber`
@@ -146,14 +146,10 @@ const WhoToFollow = () => {
                 setothrUsrFollowing(data);
               });
             })
-            .catch((error) => {
-              console.log("error: " + error);
-            });
+            .catch((error) => {});
         }
       })
-      .catch((error) => {
-        console.log("error: " + error);
-      });
+      .catch((error) => {});
   }
 
   function handleFollowWhoCard(userId) {
@@ -212,14 +208,10 @@ const WhoToFollow = () => {
                 setothrUsrFollowing(data);
               });
             })
-            .catch((error) => {
-              console.log("error: " + error);
-            });
+            .catch((error) => {});
         }
       })
-      .catch((error) => {
-        console.log("error: " + error);
-      });
+      .catch((error) => {});
   }
 
   return (

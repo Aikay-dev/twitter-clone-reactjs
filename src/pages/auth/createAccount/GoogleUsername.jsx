@@ -16,7 +16,6 @@ const GoogleUsername = ({
   setgoogleAuthLastStep,
 }) => {
   useEffect(() => {
-    console.log(stepOneDetails);
     setStepOneDetails({ ...stepOneDetails, email: currentLoggedUser.email });
   }, [currentLoggedUser]);
 
@@ -85,7 +84,7 @@ const GoogleUsername = ({
     let currentInfo = stepOneDetails;
     currentInfo.name = e;
     setStepOneDetails(currentInfo);
-    console.log(stepOneDetails);
+
     checkCompletion();
   };
 
@@ -93,7 +92,7 @@ const GoogleUsername = ({
     let currentInfo = stepOneDetails;
     currentInfo.email = e;
     setStepOneDetails(currentInfo);
-    console.log(stepOneDetails);
+
     checkCompletion();
   };
 
@@ -101,7 +100,7 @@ const GoogleUsername = ({
     let currentInfo = stepOneDetails;
     currentInfo.DOB = e;
     setStepOneDetails(currentInfo);
-    console.log(stepOneDetails);
+
     checkCompletion();
   };
 
@@ -170,7 +169,7 @@ const GoogleUsername = ({
                 setshowStepFive(false);
                 setshowsignupPage(false);
                 setgoogleUsernameStep(false);
-                setgoogleAuthLastStep(true)
+                setgoogleAuthLastStep(true);
               } else {
                 setRedMail(true);
               }

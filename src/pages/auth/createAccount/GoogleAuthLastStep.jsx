@@ -13,14 +13,11 @@ library.add(fas);
 library.add(fab);
 library.add(far);
 
-const GoogleAuthLastStep = ({
-  setshowSignUpCard,
-  stepOneDetails,
-}) => {
-  const [loader, setloader] = useState(false)
+const GoogleAuthLastStep = ({ setshowSignUpCard, stepOneDetails }) => {
+  const [loader, setloader] = useState(false);
   const currentDate = new Date();
-  const joinedDate = getJoinedMonthYear(currentDate)
-  console.log(joinedDate)
+  const joinedDate = getJoinedMonthYear(currentDate);
+
   return (
     <div>
       <div className="signup-box-def-spacing">
@@ -47,7 +44,7 @@ const GoogleAuthLastStep = ({
         <p className="my-3">Have fun and enjoy your stay.</p>
         <div
           onClick={() => {
-            setloader(true)
+            setloader(true);
             writeUserData(
               generateRandomString(10),
               "@" + stepOneDetails.name.replace(/\s/g, ""),
@@ -58,13 +55,12 @@ const GoogleAuthLastStep = ({
               joinedDate
             )
               .then(() => {
-                setloader(false)
+                setloader(false);
                 dispatch(blurChangeState({ display: "none" }));
                 setshowSignUpCard(false);
               })
               .catch((error) => {
-                console.log(error);
-                setloader(false)
+                setloader(false);
               });
           }}
           className="mt-10 step2-next w-full py-3 flex items-center rounded-full justify-center font-bold text-black"

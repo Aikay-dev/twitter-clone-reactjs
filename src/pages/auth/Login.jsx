@@ -18,11 +18,10 @@ library.add(fas);
 library.add(fab);
 library.add(far);
 
-
 const Login = () => {
   const [usersEmail, setUsersEmail] = useState([]);
   const [emailError, setEmailError] = useState({ display: "none" });
-  
+
   useEffect(() => {
     getDocs(colRef)
       .then((snapshot) => {
@@ -31,20 +30,15 @@ const Login = () => {
           usersMail.push({ ...doc.data(), id: doc.id });
         });
         setUsersEmail(usersMail);
-        console.log("first");
+
         setauthPage(true);
-        console.log("logged in", auth.currentUser);
       })
       .catch((err) => {
-        console.log(err.message);
         setauthPage(true);
       });
   }, []);
 
-  useEffect(() => {
-    console.log(usersEmail);
-    console.log("logged in", auth.currentUser);
-  }, [usersEmail]);
+  useEffect(() => {}, [usersEmail]);
 
   const [userAuth, setUserAuth] = useState({
     email: "",
@@ -103,7 +97,6 @@ const Login = () => {
                 renderLoader={renderLoader}
                 emailError={emailError}
                 setEmailError={setEmailError}
-                
               />
             )}
             {renderPassword && (

@@ -16,9 +16,9 @@ const FollowingTweets = ({
   followingTweetsCache,
 }) => {
   const currentUser = useSelector((state) => state.currUsr.value);
-  console.log(currentUser.followingNumber[0] === 0);
+
   const [tweetsCardData, settweetsCardData] = useState([]);
-  console.log(currentUser);
+
   const [tweetIds, settweetIds] = useState([]);
   const [loadingTweets, setloadingTweets] = useState(true);
   const [noTweets, setnoTweets] = useState(false);
@@ -29,8 +29,6 @@ const FollowingTweets = ({
       if (userTogetDataFrom.length === 1 && userTogetDataFrom[0] === 0) {
         setnoTweets(true);
         setloadingTweets(false);
-        console.log("not loadingTweets");
-        console.log("userTogetDataFrom : " + currentUser.followingNumber);
       } else {
         for (let i = 0; i < userTogetDataFrom.length; i++) {
           const TweetDataref = ref(
@@ -39,15 +37,13 @@ const FollowingTweets = ({
           );
           onValue(TweetDataref, (snapshot) => {
             const data = snapshot.val();
-            console.log(data);
-            console.log(i);
+
             const tweetsObj = data.userTweets;
             const tweets = Object.values(tweetsObj);
             settweetIds(tweets);
           });
         }
-        console.log("done getting tweets");
-        console.log(tweetIds);
+
         setloadingTweets(false);
       }
     } else {
@@ -57,9 +53,8 @@ const FollowingTweets = ({
   }, []);
 
   useEffect(() => {
-    console.log(tweetIds);
     let uniqueItems = [...new Set(tweetIds)];
-    console.log(uniqueItems); 
+
     rtdbUsrTwtsRqsts(uniqueItems);
   }, [tweetIds]);
 
@@ -68,10 +63,9 @@ const FollowingTweets = ({
       const TweetDataref = ref(realTimeDatabase, `tweetPool/${element}`);
       onValue(TweetDataref, (snapshot) => {
         const data = snapshot.val();
-        console.log(data);
+
         if (data) {
           settweetsCardData((prev) => [...prev, data].reverse());
-        console.log("reversing")
         }
       });
     });
@@ -79,7 +73,7 @@ const FollowingTweets = ({
 
   useEffect(() => {
     setFollowingTweetsCache(tweetsCardData);
-    console.log(tweetsCardData);
+
     setReadyForScroll(true);
   }, [tweetsCardData]);
 
@@ -147,7 +141,7 @@ const FollowingTweets = ({
                   </div>
                   <div className="main-tweet-card-content overflow-x-hidden">
                     {item.tweetText && <TextComponent text={item.tweetText} />}
-                    { item.tweetImageLink.length > 0 &&
+                    {item.tweetImageLink.length > 0 && (
                       <div className="main-tweet-image-border">
                         <img
                           src={item.tweetImageLink}
@@ -155,7 +149,7 @@ const FollowingTweets = ({
                           className="main-tweet-image"
                         />
                       </div>
-                    }
+                    )}
                     <div className="main-tweet-card-user-actions flex w-full pt-2 gap-6 overflow-x-scroll">
                       <button
                         className="flex gap-3 items-center main-tweet-comment-icon"

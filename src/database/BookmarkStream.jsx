@@ -12,14 +12,12 @@ import { BsFillPatchCheckFill } from "react-icons/bs";
 const BookmarkStream = () => {
   const currentUser = useSelector((state) => state.currUsr.value);
   const [tweetsCardData, settweetsCardData] = useState([]);
-  console.log(currentUser);
 
   useEffect(() => {
     settweetsCardData([]);
     const tweetdata = currentUser.bookmarkData;
-    console.log(tweetdata);
+
     for (const key in tweetdata) {
-      console.log(tweetdata[key]);
       rtdbUsrTwtsRqsts(tweetdata[key]);
     }
 
@@ -39,16 +37,15 @@ const BookmarkStream = () => {
     const TweetDataref = ref(realTimeDatabase, `tweetPool/${id}`);
     onValue(TweetDataref, (snapshot) => {
       const data = snapshot.val();
-      console.log(data);
+
       settweetsCardData((prevData) => [...prevData, data]); // Use functional update to avoid repeated data
     });
   }
 
   useEffect(() => {
     // Perform actions with the updated tweetsCardData
-    console.log(tweetsCardData);
+
     tweetsCardData.reverse();
-    console.log(tweetsCardData.length);
   }, [tweetsCardData]);
 
   return (

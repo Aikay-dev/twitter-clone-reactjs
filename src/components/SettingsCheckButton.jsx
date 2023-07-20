@@ -16,7 +16,6 @@ const checkBoxStyle = {
 };
 
 const CheckButton = () => {
-  
   const dispatch = useDispatch();
   const personalcheckbxs = useSelector((state) => state.setchbx.value);
   return (

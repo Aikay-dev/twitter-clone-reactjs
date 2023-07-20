@@ -25,18 +25,14 @@ const TopSearch = ({ searchTweets }) => {
         });
       }
       setfilteredTweets(uniqueTweets.reverse());
-      console.log(uniqueTweets);
 
       if (searchTweets[0] === null && searchTweets.length === 1) {
         setnotweetfound(true);
         setisLoading(false);
-        console.log("not clear");
       } else {
         setnotweetfound(false);
         setisLoading(false);
-        console.log("clear boy");
       }
-      console.log(searchTweets);
     }, 0);
   }, [searchTweets]);
 

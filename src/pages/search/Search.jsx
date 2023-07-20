@@ -17,9 +17,8 @@ import { onValue, ref } from "firebase/database";
 import { realTimeDatabase } from "../../config/firebase";
 
 const Search = () => {
-  console.log(auth.currentUser);
   const currentUser = useSelector((state) => state.currUsr.value);
-  console.log(currentUser);
+
   const ifBlur = useSelector((state) => state.user.value.display);
   const [showSignUpCard, setshowSignUpCard] = useState(false);
   const [topsearchTab, settopsearchTab] = useState(true);
@@ -34,7 +33,7 @@ const Search = () => {
   useEffect(() => {
     const currentDir = window.location.pathname;
     const extractedText = currentDir.split("/").filter(Boolean).pop();
-    console.log(extractedText);
+
     setsearchExtractText(extractedText);
   }, []);
 
@@ -49,8 +48,7 @@ const Search = () => {
       const tweetRef = ref(realTimeDatabase, "tweetPool/");
       onValue(tweetRef, (snapshot) => {
         const data = snapshot.val();
-        console.log(data);
-        console.log(searchPreText);
+
         const foundTweets = [];
 
         Object.values(data).forEach((element) => {
@@ -62,8 +60,6 @@ const Search = () => {
           });
         });
 
-        console.log(foundTweets);
-
         foundTweets.length > 0
           ? setSearchTweets(foundTweets)
           : setSearchTweets([null]);
@@ -72,31 +68,41 @@ const Search = () => {
       const userRef = ref(realTimeDatabase, "users/");
       onValue(userRef, (snapshot) => {
         const data = snapshot.val();
-        console.log(data);
+
         const foundUser = [];
 
         function stripEmojis(text) {
           // remove emojis from the text
-          return text.replace(/[\u{1F600}-\u{1F64F}\u{1F300}-\u{1F5FF}\u{1F680}-\u{1F6FF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}\u{1F900}-\u{1F9FF}\u{1F1E0}-\u{1F1FF}\u{1FAD0}-\u{1FAFF}\u{1F6F4}-\u{1F6FF}\u{1F3FB}-\u{1F3FF}]/gu, '');
+          return text.replace(
+            /[\u{1F600}-\u{1F64F}\u{1F300}-\u{1F5FF}\u{1F680}-\u{1F6FF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}\u{1F900}-\u{1F9FF}\u{1F1E0}-\u{1F1FF}\u{1FAD0}-\u{1FAFF}\u{1F6F4}-\u{1F6FF}\u{1F3FB}-\u{1F3FF}]/gu,
+            ""
+          );
         }
-        
-        Object.values(data).forEach(element => {
-          const displayNameRegex = stripEmojis(element.displayName.replace(/\s/g, ''));
-          const usernameRegex = stripEmojis(element.username.replace(/\s/g, ''));
-          const sanitizedSearchRegex = new RegExp(stripEmojis(searchPreText.replace(/\s/g, '')), 'i');
-                    
-          if (sanitizedSearchRegex.test(displayNameRegex) || sanitizedSearchRegex.test(usernameRegex)) {
+
+        Object.values(data).forEach((element) => {
+          const displayNameRegex = stripEmojis(
+            element.displayName.replace(/\s/g, "")
+          );
+          const usernameRegex = stripEmojis(
+            element.username.replace(/\s/g, "")
+          );
+          const sanitizedSearchRegex = new RegExp(
+            stripEmojis(searchPreText.replace(/\s/g, "")),
+            "i"
+          );
+
+          if (
+            sanitizedSearchRegex.test(displayNameRegex) ||
+            sanitizedSearchRegex.test(usernameRegex)
+          ) {
             foundUser.push(element);
-            console.log(foundUser);
-            setSearchPeople(foundUser)
+
+            setSearchPeople(foundUser);
           }
         });
-
-        console.log(foundUser);
       });
       setsearchPermit(false);
     } else {
-      console.log("no search permit");
     }
   }, [searchPreText, searchPermit]);
 
@@ -118,7 +124,6 @@ const Search = () => {
   const dispatch = useDispatch();
   const HandleSignIn = () => {
     const screenWidth = window.innerWidth;
-    console.log("first2");
 
     signInWithGoogle();
   };
@@ -264,7 +269,6 @@ const Search = () => {
               onClick={(e) => {
                 e.preventDefault();
                 HandleSignIn();
-                console.log("first");
               }}
             >
               <AuthLoginButton

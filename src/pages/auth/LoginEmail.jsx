@@ -74,14 +74,11 @@ const LoginEmail = ({
     let currentData = userAuth;
     currentData.email = e;
     setUserAuth(currentData);
-    console.log(userAuth);
   }
 
   const HandleSignIn = () => {
     signInWithPopup(auth, Provider)
       .then((result) => {
-        console.log(result.user.email);
-
         let userFound = false;
 
         for (let i = 0; i < usersEmail.length; i++) {
@@ -100,7 +97,6 @@ const LoginEmail = ({
               // User deleted successfully
               setacntnotfound(true);
               toast.error("Account doesn't exist, sign up");
-              console.log("User deleted successfully");
             })
             .catch((error) => {
               // An error occurred while deleting the user
@@ -109,11 +105,9 @@ const LoginEmail = ({
         }
       })
       .catch((error) => {
-        console.log(error);
         toast.error("Network Error");
       });
   };
-  console.log(usersEmail);
 
   return (
     <div className="login-info">

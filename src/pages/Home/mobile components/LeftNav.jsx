@@ -33,11 +33,8 @@ const LeftNav = ({
   setshowNotifAlert,
 }) => {
   const dispatch = useDispatch();
-  console.log(currentUser ? true : false);
-  console.log(currentUser.username);
 
   useEffect(() => {
-    console.log(currentUser);
     if (Object.keys(currentUser).length > 0) {
       if (currentUser.seenNotification) {
         if (
@@ -48,7 +45,6 @@ const LeftNav = ({
           setshowNotifAlert(false);
         }
       } else {
-        console.log("no seenNotification");
       }
     }
   }, [currentUser]);
@@ -73,10 +69,10 @@ const LeftNav = ({
         <Link
           to={"/Home/" + currentUser.username}
           className="home-nav-profile-image w-12 flex mx-3 justify-center items-center"
-        onClick={() => {
-          document.body.classList.remove("overlay-open");
-              dispatch(mobileNavLeftState(false));
-        }}
+          onClick={() => {
+            document.body.classList.remove("overlay-open");
+            dispatch(mobileNavLeftState(false));
+          }}
         >
           <img
             src={currentUser.profile_picture}
@@ -86,10 +82,10 @@ const LeftNav = ({
         </Link>
         <div>
           <Link
-          onClick={() => {
-            document.body.classList.remove("overlay-open");
-                dispatch(mobileNavLeftState(false));
-          }}
+            onClick={() => {
+              document.body.classList.remove("overlay-open");
+              dispatch(mobileNavLeftState(false));
+            }}
             to={"/Home/" + currentUser.username}
             className="mx-3 font-semibold text-lg mt-2"
           >
@@ -97,10 +93,10 @@ const LeftNav = ({
           </Link>
         </div>
         <Link
-        onClick={() => {
-          document.body.classList.remove("overlay-open");
-              dispatch(mobileNavLeftState(false));
-        }}
+          onClick={() => {
+            document.body.classList.remove("overlay-open");
+            dispatch(mobileNavLeftState(false));
+          }}
           to={"/Home/" + currentUser.username}
           className="mx-3 home-nav-username mb-3"
         >
@@ -252,11 +248,8 @@ const LeftNav = ({
                         .then(() => {
                           setLogoutspinner(false);
                           window.location.reload();
-                          console.log("user: signed out");
                         })
-                        .catch((err) => {
-                          console.log(err.message);
-                        });
+                        .catch((err) => {});
                     }}
                   >
                     Log out

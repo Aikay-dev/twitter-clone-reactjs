@@ -50,18 +50,13 @@ const SignUp = ({ setshowSignUpCard }) => {
           usersMail.push({ ...doc.data(), id: doc.id });
         });
         setUsersEmail(usersMail);
-        console.log("first");
-        console.log("logged in", auth.currentUser);
+
         setcurrentLoggedUser(auth.currentUser);
       })
-      .catch((err) => {
-        console.log(err.message);
-      });
+      .catch((err) => {});
   }, []);
 
   useEffect(() => {
-    console.log(usersEmail);
-
     setshowsignupPageLoader(false);
     setgoogleUsernameStep(false);
     setshowstepOne(false);
@@ -70,8 +65,6 @@ const SignUp = ({ setshowSignUpCard }) => {
     setshowStepFour(false);
     setshowStepFive(false);
     setshowsignupPage(true);
-
-    console.log("logged in", auth.currentUser);
   }, [usersEmail]);
 
   const dispatch = useDispatch();
@@ -133,15 +126,13 @@ const SignUp = ({ setshowSignUpCard }) => {
     setgoogleloader(true);
     signInWithPopup(auth, Provider)
       .then((result) => {
-        console.log(result.user.email);
-        console.log("users list:" + usersEmail);
         if (usersEmail.length < 1) {
           addDoc(colRef, {
             email: result.user.email,
           })
             .then((result) => {
               setgoogleloader(false);
-              console.log("push 1:", result);
+
               setgoogleUsernameStep(true);
               setshowstepOne(false);
               setshowStepTwo(false);
@@ -151,14 +142,11 @@ const SignUp = ({ setshowSignUpCard }) => {
               setshowsignupPage(false);
               setcurrentLoggedUser(auth.currentUser);
             })
-            .catch((error) => {
-              console.log(error);
-            });
+            .catch((error) => {});
         } else {
           let emailFound = false;
           for (let i = 0; i < usersEmail.length; i++) {
             if (usersEmail[i].email === result.user.email) {
-              console.log("email used already");
               setgoogleloader(false);
               setemailusedalready(true);
               emailFound = true;
@@ -171,7 +159,7 @@ const SignUp = ({ setshowSignUpCard }) => {
             })
               .then((result) => {
                 setgoogleloader(false);
-                console.log("push 2:", result);
+
                 setgoogleUsernameStep(true);
                 setshowstepOne(false);
                 setshowStepTwo(false);
@@ -182,21 +170,19 @@ const SignUp = ({ setshowSignUpCard }) => {
                 setcurrentLoggedUser(auth.currentUser);
               })
               .catch((error) => {
-                console.log(error);
                 setgoogleloader(false);
               });
           }
         }
       })
       .catch((error) => {
-        console.log(error);
         setgoogleloader(false);
       });
   }
 
   return (
     <>
-    <div>
+      <div>
         <Toaster
           position="bottom-center"
           toastOptions={{
@@ -307,7 +293,7 @@ const SignUp = ({ setshowSignUpCard }) => {
             setshowsignupPage={setshowsignupPage}
             stepOneDetails={stepOneDetails}
             setStepOneDetails={setStepOneDetails}
-            toast = {toast}
+            toast={toast}
           />
         )}
         {showStepTwo && (

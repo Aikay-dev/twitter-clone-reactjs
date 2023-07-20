@@ -19,7 +19,7 @@ function ProfilePage() {
   const [userProfileDetails, setuserProfileDetails] = useState({
     ...currentUser,
   });
-  console.log(userProfileDetails.bioData);
+
   const [profileTweetsTab, setprofileTweetsTab] = useState(true);
   const [profileLikesTab, setprofileLikesTab] = useState(false);
   const [profileBlur, setprofileBlur] = useState(false);
@@ -33,14 +33,13 @@ function ProfilePage() {
   useEffect(() => {
     const currentDir = window.location.pathname;
     const extractedText = currentDir.split("/").filter(Boolean).pop();
-    console.log(extractedText);
+
     setprofileDetailsOwner(decodeURIComponent(extractedText));
   }, []);
 
   useEffect(() => {
     return () => {
       // Code to run when the component unmounts or when the URL changes again
-      console.log("Component unmounted or URL changed again");
     };
   }, [window.location.pathname]);
 
@@ -49,13 +48,11 @@ function ProfilePage() {
       let ownersRef = ref(realTimeDatabase, "/users");
       onValue(ownersRef, (snapshot) => {
         const users = snapshot.val();
-        console.log(users);
 
         for (const key in users) {
           if (users.hasOwnProperty(key)) {
             const user = users[key];
             if (user.username === profileDetailsOwner) {
-              console.log(user);
               setprofileDetails(user);
               setgottenProfile(true);
             }
@@ -87,7 +84,6 @@ function ProfilePage() {
     const dbRef = ref(realTimeDatabase, path);
     update(dbRef, newData)
       .then(() => {
-        console.log("Data updated successfully");
         setprofileBlur(false);
       })
       .catch((error) => {
@@ -97,13 +93,11 @@ function ProfilePage() {
 
   function handleProfileImg(e) {
     setprflImgLoader(true);
-    console.log(e);
+
     const fileName = Date.now() + "_" + e.name;
     const profilePics = strgRef(storage, `profilePics/${fileName}`);
     uploadBytes(profilePics, e)
       .then((snapshot) => {
-        console.log("Upload complete");
-
         // Get the download URL of the uploaded file
         getDownloadURL(snapshot.ref).then((downloadURL) => {
           setuserProfileDetails({
@@ -113,13 +107,10 @@ function ProfilePage() {
           setupdatedPrfPic(downloadURL);
           setprflImgLoader(false);
 
-          console.log("File available at: " + downloadURL);
           // Perform further actions with the download URL as needed
         });
       })
-      .catch((error) => {
-        console.log("Upload error: " + error.message);
-      });
+      .catch((error) => {});
   }
 
   const updateProfileInfo = () => {
@@ -127,11 +118,9 @@ function ProfilePage() {
       userProfileDetails.displayName.length < 3 ||
       userProfileDetails.displayName.length > 15
     ) {
-      console.log(userProfileDetails.displayName.length);
     } else {
       updateNode("users/" + currentUser.userId, userProfileDetails);
       setprofileBlur(false);
-      console.log(userProfileDetails.displayName.length);
     }
   };
 
@@ -145,8 +134,6 @@ function ProfilePage() {
         setfollowStyle({ backgroundColor: "white" });
       }
     }
-    console.log("This is your profile details", profileDetails);
-    console.log("This is your profile details", currentUser.followingNumber[0]);
   }, [profileDetails]);
 
   function handleFollow() {

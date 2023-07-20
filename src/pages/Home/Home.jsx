@@ -79,7 +79,7 @@ const Home = ({
 
     const handleScroll = () => {
       const currentPosition = scrollContainer.scrollTop;
-      console.log("Current scroll position:", currentPosition);
+
       ForyouTab === true
         ? setmainTweetScrollOffset({
             ...mainTweetScrollOffset,
@@ -100,11 +100,7 @@ const Home = ({
     };
   }, []);
 
-  useEffect(() => {
-    console.log("maintoff");
-    console.log(mainTweetScrollOffset);
-    console.log(ForyouTab);
-  }, [mainTweetScrollOffset]);
+  useEffect(() => {}, [mainTweetScrollOffset]);
 
   useEffect(() => {
     const scrollContainer = mainhomesectionRef.current;
@@ -146,8 +142,6 @@ const Home = ({
       const fileName = Date.now() + "_" + imageToGrabLink.name;
       const TweetPics = strgRef(storage, `TweetPictures/${fileName}`);
       uploadBytes(TweetPics, imageToGrabLink).then((snapshot) => {
-        console.log("Upload complete");
-
         // Get the download URL of the uploaded file
         getDownloadURL(snapshot.ref)
           .then((downloadURL) => {
@@ -156,15 +150,11 @@ const Home = ({
               ...prevData,
               tweetImageLink: downloadURL,
             }));
-
-            console.log("File available at: " + downloadURL);
           })
           .catch((error) => {
-            console.log("Upload error: " + error.message);
             settweetingLoader(false);
           })
           .finally(() => {
-            console.log(tweetData);
             setUploadComplete(true);
           });
       });
@@ -176,14 +166,13 @@ const Home = ({
   useEffect(() => {
     if (currentUser.badgedUser) {
       settweetData({ ...tweetData, badgedUser: true });
-      console.log("badged user");
     }
   }, [currentUser]);
 
   useEffect(() => {
     if (uploadComplete) {
       pushupTweet();
-      console.log(tweetData);
+
       setUploadComplete(false);
     }
   }, [uploadComplete]);
@@ -200,7 +189,6 @@ const Home = ({
     const dbRef = ref(realTimeDatabase, path);
     update(dbRef, newData)
       .then(() => {
-        console.log("Data updated successfully");
         setdispatchNewTweets(true);
         toast.success("Tweeted successfully");
         tweetTextareaRef.current.style.height = "100px";
@@ -228,9 +216,7 @@ const Home = ({
       "users/" + currentUser.userId + "/userTweets"
     );
     push(userTweetsRef, tweetData.tweetId)
-      .then(() => {
-        console.log("TweetId added to userTweets array.");
-      })
+      .then(() => {})
       .catch((error) => {
         console.error("Error adding tweetId to userTweets array:", error);
       });
@@ -250,7 +236,6 @@ const Home = ({
     setnewtweetsbuttonAnimation(
       "absolute morenewtweetsbutton px-4 py-2 rounded-full"
     );
-    console.log("first");
   }
 
   return (
@@ -282,7 +267,6 @@ const Home = ({
               onClick={() => {
                 dispatch(mobileNavLeftState(true));
                 document.body.classList.add("overlay-open");
-                console.log(mobNavleft);
               }}
             >
               <img
@@ -423,10 +407,7 @@ const Home = ({
                   ) {
                     settweetingLoader(true);
                     finalUploadTweet();
-                    console.log(tweetData);
-                    console.log(tweetTextareaRef);
                   } else {
-                    console.log("not uploading");
                   }
                 }}
                 className=" flex justify-center items-center home-main-tweet-section-button text-white px-4 rounded-full py-1 font-semibold"

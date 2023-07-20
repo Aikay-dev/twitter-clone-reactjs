@@ -10,34 +10,30 @@ import NotificationStream from "../database/NotificationStream";
 
 function NotificationPage() {
   const currentUser = useSelector((state) => state.currUsr.value);
-  console.log(currentUser)
-    const dispatch = useDispatch();
-    const mobNavleft = useSelector((state) => state.mobNavleft.value);
-  
 
-    useEffect(() => {
+  const dispatch = useDispatch();
+  const mobNavleft = useSelector((state) => state.mobNavleft.value);
 
-        const seenUpdate = {...currentUser, seenNotification: currentUser.notificationData.length}
-        console.log(seenUpdate)
-        updateSeenNode("users/"+ currentUser.userId, seenUpdate)
-      
-    }, [])
-
-    const updateSeenNode = (path, newData) => {
-      const dbRef = ref(realTimeDatabase, path);
-      update(dbRef, newData)
-        .then(() => {
-          console.log("Data updated successfully");
-        })
-        .catch((error) => {
-          console.error("Error updating data:", error);
-          settweetingLoader(false);
-        });
+  useEffect(() => {
+    const seenUpdate = {
+      ...currentUser,
+      seenNotification: currentUser.notificationData.length,
     };
-    
 
-  
-    return (
+    updateSeenNode("users/" + currentUser.userId, seenUpdate);
+  }, []);
+
+  const updateSeenNode = (path, newData) => {
+    const dbRef = ref(realTimeDatabase, path);
+    update(dbRef, newData)
+      .then(() => {})
+      .catch((error) => {
+        console.error("Error updating data:", error);
+        settweetingLoader(false);
+      });
+  };
+
+  return (
     <>
       <section className="homepage-center h-screen relative overflow-hidden">
         <header className="flex flex-col px-5 pt-5 notificationheaderBorder profilePageHeader bg-black w-full">
@@ -47,11 +43,10 @@ function NotificationPage() {
               onClick={() => {
                 dispatch(mobileNavLeftState(true));
                 document.body.classList.add("overlay-open");
-                console.log(mobNavleft);
               }}
             >
               <img
-                src={currentUser? currentUser.profile_picture : ""}
+                src={currentUser ? currentUser.profile_picture : ""}
                 alt="user profile image"
                 className=" rounded-full w-8 h-8 max-h-8"
               />
@@ -71,7 +66,7 @@ function NotificationPage() {
           </div>
         </header>
         <section className="pt-32 overflow-y-scroll  h-screen notificationmainsection">
-          <NotificationStream streamData = {currentUser.notificationData}/>
+          <NotificationStream streamData={currentUser.notificationData} />
           <div className=" h-60"></div>
         </section>
       </section>

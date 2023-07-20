@@ -28,18 +28,14 @@ const PhotoSearch = ({ searchTweets }) => {
         return tweets.tweetImageLink.length !== 0;
       });
       setfilteredTweets(photoTweets);
-      console.log(photoTweets);
 
       if (searchTweets[0] === null && searchTweets.length === 1) {
         setnotweetfound(true);
         setisLoading(false);
-        console.log("not clear");
       } else {
         setnotweetfound(false);
         setisLoading(false);
-        console.log("clear boy");
       }
-      console.log(searchTweets);
     }, 0);
   }, [searchTweets]);
 

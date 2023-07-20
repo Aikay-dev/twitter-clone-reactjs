@@ -69,9 +69,9 @@ const HomepageTweetStream = ({
             .map((key) => tweetPoolData[key])
             .reverse();
           setTweets(initialTweets);
-          console.log(initialTweets);
+
           setIsLoading(false);
-          console.log(tweets);
+
           setTweetLoaded(true);
           UpdateListener();
         })
@@ -98,9 +98,9 @@ const HomepageTweetStream = ({
               .map((key) => tweetPoolData[key])
               .reverse();
             setTweets(initialTweets);
-            console.log(initialTweets);
+
             setIsLoading(false);
-            console.log(tweets);
+
             setTweetLoaded(true);
             UpdateListener();
           })
@@ -112,7 +112,6 @@ const HomepageTweetStream = ({
   };
 
   useEffect(() => {
-    console.log(tweets);
     setTweetCache(tweets);
     setReadyForScroll(true);
   }, [tweets]);
@@ -125,7 +124,7 @@ const HomepageTweetStream = ({
         get(tweetPoolRef)
           .then((snapshot) => {
             const tweetPoolData = snapshot.val();
-            console.log(tweetPoolData);
+
             const tweetKeys = Object.keys(tweetPoolData);
             const sortedKeys = tweetKeys.sort((a, b) => {
               return tweetPoolData[b].timestamp - tweetPoolData[a].timestamp;
@@ -133,7 +132,6 @@ const HomepageTweetStream = ({
 
             const dataRtrvDependency =
               Object.keys(tweetPoolData).length + startIndex;
-            console.log(dataRtrvDependency);
 
             if (dataRtrvDependency > 20) {
               const next20Keys = sortedKeys.slice(startIndex - 20, startIndex);
@@ -141,7 +139,6 @@ const HomepageTweetStream = ({
                 .map((key) => tweetPoolData[key])
                 .reverse();
               setTweets((prevTweets) => [...prevTweets, ...nextTweets]);
-              console.log(nextTweets);
 
               // Update the start index for the next batch
               setStartIndex((prevIndex) => prevIndex - 20);
@@ -151,7 +148,7 @@ const HomepageTweetStream = ({
                 .map((key) => tweetPoolData[key])
                 .reverse();
               setTweets((prevTweets) => [...prevTweets, ...nextTweets]);
-              console.log(nextTweets);
+
               setlimitStopper(false);
               // Update the start index for the next batch
               setStartIndex((prevIndex) => prevIndex + dataRtrvDependency);
@@ -174,10 +171,8 @@ const HomepageTweetStream = ({
 
       if (currentLength > previousLength) {
         lengthIncreases++; // Increment the count of length increases
-        console.log("Length increased:", currentLength);
 
         if (lengthIncreases === 3) {
-          console.log("supper dupa doooooo");
           setnewtweetsbuttonAnimation(
             "absolute morenewtweetsbutton morenewtweetsbuttonEnterAnimate px-4 py-2 rounded-full"
           );

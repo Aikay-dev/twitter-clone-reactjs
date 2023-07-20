@@ -21,21 +21,18 @@ function App() {
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((userAuthState) => {
       if (userAuthState !== null) {
-        console.log("New authentication state:", userAuthState.email);
         if (userRealTDBLoaded === true) {
           setLoadBird(false);
-          console.log("true else");
         } else {
-          console.log("false else");
           setLoadBird(true);
         }
-        console.log(auth.currentUser);
+
         setAuthState(userAuthState.email);
         dispatch(checkAuthState(userAuthState.email));
       } else {
         if (
           window.location.pathname !== "/Home/Explore" ||
-          window.location.pathname !== "/Home/Explore/" 
+          window.location.pathname !== "/Home/Explore/"
         ) {
           navigate("/Home/Explore");
           setLoadBird(false);
@@ -54,14 +51,13 @@ function App() {
         const CurrentRTDB = ref(realTimeDatabase, "users/");
         onValue(CurrentRTDB, (snapshot) => {
           data = snapshot.val();
-          console.log(data);
+
           findEmail(data);
         });
         return data;
       };
       realtimeData();
     }
-    console.log("from auh");
   }, [authState]);
 
   function findEmail(obj) {
@@ -69,12 +65,10 @@ function App() {
       for (let key in obj) {
         if (obj.hasOwnProperty(key)) {
           if (key === "email") {
-            console.log(obj[key]);
             if (obj[key] === auth.currentUser.email) {
-              console.log(obj);
               setcurrentUser(obj);
               setuserRealTDBLoaded(true);
-              dispatch(currentUserState(obj))
+              dispatch(currentUserState(obj));
             }
           } else if (typeof obj[key] === "object") {
             findEmail(obj[key]);

@@ -19,12 +19,10 @@ library.add(far);
 const UserTweets = ({ profileDetails }) => {
   const currentUser = profileDetails;
   const [tweetsCardData, settweetsCardData] = useState([]);
-  console.log(currentUser);
 
   useEffect(() => {
     settweetsCardData([]);
     const tweetdata = cleaner(currentUser.userTweets);
-    console.log(tweetdata);
 
     const tweetValues = Object.values(tweetdata);
     tweetValues.forEach((el) => {
@@ -62,7 +60,7 @@ const UserTweets = ({ profileDetails }) => {
     const TweetDataref = ref(realTimeDatabase, `tweetPool/${id}`);
     onValue(TweetDataref, (snapshot) => {
       const data = snapshot.val();
-      console.log(data);
+
       settweetsCardData((prevData) => [...prevData, data]); // Use functional update to avoid repeated data
     });
   }
@@ -70,7 +68,6 @@ const UserTweets = ({ profileDetails }) => {
   useEffect(() => {
     // Perform actions with the updated tweetsCardData
     tweetsCardData.reverse();
-    console.log(tweetsCardData);
   }, [tweetsCardData]);
 
   return (

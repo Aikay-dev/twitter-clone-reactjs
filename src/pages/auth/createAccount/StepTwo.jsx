@@ -16,7 +16,7 @@ const StepTwo = ({
       <div className="flex items-center ">
         <Link
           onClick={(e) => {
-            e.preventDefault()
+            e.preventDefault();
             setshowstepOne(true);
             setshowStepTwo(false);
             setshowStepThree(false);

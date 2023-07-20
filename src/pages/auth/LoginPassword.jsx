@@ -28,7 +28,6 @@ const LoginPassword = ({ userAuth, setUserAuth }) => {
     const dbRef = ref(realTimeDatabase, path);
     update(dbRef, newData)
       .then(() => {
-        console.log("Data updated successfully");
         navigate("/Home/");
         window.location.reload();
         setNextLoad(false);
@@ -56,7 +55,7 @@ const LoginPassword = ({ userAuth, setUserAuth }) => {
           ref={focus}
           onChange={(e) => {
             handlePassword(e.target.value);
-            console.log(userAuth);
+
             if (userAuth.password.length < 6) {
               setErrorOutline({ borderColor: "red" });
             } else {
@@ -111,14 +110,13 @@ const LoginPassword = ({ userAuth, setUserAuth }) => {
             signInWithEmailAndPassword(auth, userAuth.email, userAuth.password)
               .then((cred) => {
                 window.location.href = "/Home";
-                console.log("user logged in:", cred.user);
+
                 /* updateNodeSilent("users/" + tweetData.tweetId, tweetData); */
               })
               .catch((err) => {
                 setNextLoad(false);
                 setErrorOutline({ borderColor: "red" });
                 wv;
-                console.log(err.message);
               });
           }
         }}

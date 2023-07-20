@@ -27,9 +27,8 @@ library.add(fab);
 library.add(far);
 
 const Explore = () => {
-  console.log(auth.currentUser);
   const currentUser = useSelector((state) => state.currUsr.value);
-  console.log(currentUser);
+
   const ifBlur = useSelector((state) => state.user.value.display);
   const [showSignUpCard, setshowSignUpCard] = useState(false);
   const [happeningDataLoaded, sethappeningDataLoaded] = useState(false);
@@ -52,7 +51,6 @@ const Explore = () => {
   const mobNavleft = useSelector((state) => state.mobNavleft.value);
   const HandleSignIn = () => {
     const screenWidth = window.innerWidth;
-    console.log("first2");
 
     signInWithGoogle();
   };
@@ -64,7 +62,7 @@ const Explore = () => {
       const data = snapshot.val();
       if (data) {
         const dataArr = Object.values(data);
-        console.log(dataArr);
+
         let largestFollowercount = 0;
         let largestfollowerdata;
         dataArr.forEach((user) => {
@@ -81,8 +79,6 @@ const Explore = () => {
         Object.values(largestfollowerdata).length > 1
           ? handlemostfolloweddisp(largestfollowerdata)
           : setmostfollowedLoading(true);
-        console.log(largestFollowercount);
-        console.log(largestfollowerdata);
       }
     });
   }, []);
@@ -229,7 +225,6 @@ const Explore = () => {
               onClick={(e) => {
                 e.preventDefault();
                 HandleSignIn();
-                console.log("first");
               }}
             >
               <AuthLoginButton

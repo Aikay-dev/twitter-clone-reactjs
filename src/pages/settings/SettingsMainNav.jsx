@@ -54,7 +54,6 @@ const SettingsMainNav = ({ navStyleOnPop }) => {
       dispatch(exploreChangeState({ fontWeight: 100 }));
       dispatch(settingsChangeState({ fontWeight: "Bold" }));
     }
-    console.log("object");
   }, [navStyleOnPop]);
   return (
     <section className="settings-main-tab h-screen">

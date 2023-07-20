@@ -26,7 +26,6 @@ const SettingsPage = () => {
       dispatch(exploreChangeState({ fontWeight: "Bold" }));
     }
     setnavStyleOnPop(navStyleOnPop + 1);
-    console.log(window.location.pathname);
   };
 
   const [togglePermit, setTogglePermit] = useState(false);
@@ -34,11 +33,11 @@ const SettingsPage = () => {
     <SettingsContext.Provider value={{ togglePermit, setTogglePermit }}>
       <div className=" overflow-y-scroll xs:w-full">
         <div className="settings-page flex ">
-          {window.innerWidth > 1040 || window.location.pathname === "/Home/Settings/" ? (
-            <SettingsMainNav navStyleOnPop={navStyleOnPop} /> 
+          {window.innerWidth > 1040 ||
+          window.location.pathname === "/Home/Settings/" ? (
+            <SettingsMainNav navStyleOnPop={navStyleOnPop} />
           ) : (
             <Outlet />
-            
           )}
 
           {window.innerWidth > 1040 ? (

@@ -5,7 +5,7 @@ import BookmarkStream from "../database/BookmarkStream";
 
 function BookmarksPage() {
   const currentUser = useSelector((state) => state.currUsr.value);
-  console.log(currentUser);
+
   return (
     <>
       <section className="homepage-center h-screen relative overflow-hidden">

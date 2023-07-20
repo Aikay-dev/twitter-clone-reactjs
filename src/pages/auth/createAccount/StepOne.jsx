@@ -85,7 +85,7 @@ const StepOne = ({
     let currentInfo = stepOneDetails;
     currentInfo.name = e;
     setStepOneDetails(currentInfo);
-    console.log(stepOneDetails);
+
     if (stepOneDetails.name.length < 3 || stepOneDetails.name.length > 20) {
       setRedName(true);
       checkCompletion();
@@ -107,7 +107,7 @@ const StepOne = ({
     let currentInfo = stepOneDetails;
     currentInfo.email = e;
     setStepOneDetails(currentInfo);
-    console.log(stepOneDetails);
+
     checkCompletion();
   };
 
@@ -115,7 +115,7 @@ const StepOne = ({
     let currentInfo = stepOneDetails;
     currentInfo.DOB = e;
     setStepOneDetails(currentInfo);
-    console.log(stepOneDetails);
+
     checkCompletion();
   };
 
@@ -212,7 +212,6 @@ const StepOne = ({
             } else if (!emailRegex.test(stepOneDetails.email)) {
               setRedMail(true);
               toast.error("email format error");
-              console.log(stepOneDetails.name.length);
             } else {
               if (nextStagePass) {
                 setshowstepOne(false);

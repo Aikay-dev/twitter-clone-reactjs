@@ -15,9 +15,9 @@ library.add(far);
 
 function MessagesPage() {
   const currentUser = useSelector((state) => state.currUsr.value);
-  console.log(currentUser)
+
   const dispatch = useDispatch();
-    const mobNavleft = useSelector((state) => state.mobNavleft.value);
+  const mobNavleft = useSelector((state) => state.mobNavleft.value);
   return (
     <>
       <section className="homepage-center h-screen relative overflow-hidden">
@@ -28,11 +28,10 @@ function MessagesPage() {
               onClick={() => {
                 dispatch(mobileNavLeftState(true));
                 document.body.classList.add("overlay-open");
-                console.log(mobNavleft);
               }}
             >
               <img
-                src={currentUser? currentUser.profile_picture : ""}
+                src={currentUser ? currentUser.profile_picture : ""}
                 alt="user profile image"
                 className=" rounded-full w-8 h-8 max-h-8"
               />
@@ -58,7 +57,9 @@ function MessagesPage() {
               Drop a line, share Tweets and more with private conversations
               between you and others on Tweeter.{" "}
             </p>
-            <button className=" bg-orange-400 px-10 py-4 rounded-full messageWriteMessageButton font-semibold">Write your message</button>
+            <button className=" bg-orange-400 px-10 py-4 rounded-full messageWriteMessageButton font-semibold">
+              Write your message
+            </button>
           </div>
         </section>
       </section>

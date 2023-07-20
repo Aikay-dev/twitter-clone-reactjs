@@ -15,7 +15,7 @@ const PeopleSearch = ({ searchPeople }) => {
     onValue(userDirRef, (snapshot) => {
       let data = snapshot.val();
       let dataClone = { ...data };
-      console.log(dataClone);
+
       setuserlist(dataClone);
       setothrUsrFollowing(dataClone);
     });
@@ -28,7 +28,7 @@ const PeopleSearch = ({ searchPeople }) => {
       const data = snapshot.val();
       if (data) {
         let dataClone = [...data];
-        console.log(dataClone);
+
         setCurrUsrFollowing(dataClone);
       }
     });
@@ -37,11 +37,8 @@ const PeopleSearch = ({ searchPeople }) => {
   const filteredCurrentUser = searchPeople.filter((person) => {
     return person.userId !== currentUser.userId;
   });
-  console.log("after filter");
-  console.log(filteredCurrentUser);
 
   function followHandler(userId) {
-    console.log(userId);
     const CurrUsrfollowRef = ref(
       realTimeDatabase,
       `users/${currentUser.userId}/followingNumber`
@@ -49,22 +46,13 @@ const PeopleSearch = ({ searchPeople }) => {
     if (currUsrFollowing[0] === 0 && currUsrFollowing.length === 1) {
       let currUsrdataClone = [userId];
       set(CurrUsrfollowRef, currUsrdataClone)
-        .then(() => {
-          console.log("followed successfully");
-          console.log(currUsrdataClone)
-        })
-        .catch((error) => {
-          console.log("error: " + error);
-        });
+        .then(() => {})
+        .catch((error) => {});
     } else {
       let currUsrdataClone = [...currUsrFollowing, userId];
       set(CurrUsrfollowRef, currUsrdataClone)
-        .then(() => {
-          console.log("followed successfully");
-        })
-        .catch((error) => {
-          console.log("error: " + error);
-        });
+        .then(() => {})
+        .catch((error) => {});
     }
 
     const OtherUsrfollowRef = ref(
@@ -78,29 +66,20 @@ const PeopleSearch = ({ searchPeople }) => {
     ) {
       let otherUsrdataClone = [currentUser.userId];
       set(OtherUsrfollowRef, otherUsrdataClone)
-        .then(() => {
-          console.log("followed successfully");
-        })
-        .catch((error) => {
-          console.log("error: " + error);
-        });
+        .then(() => {})
+        .catch((error) => {});
     } else {
       let otherUsrdataClone = [
         ...othrUsrFollowing[userId].followersNumber,
         currentUser.userId,
       ];
       set(OtherUsrfollowRef, otherUsrdataClone)
-        .then(() => {
-          console.log("followed successfully");
-        })
-        .catch((error) => {
-          console.log("error: " + error);
-        });
+        .then(() => {})
+        .catch((error) => {});
     }
   }
 
   function UnFollowhandler(userId) {
-    console.log(userId);
     const CurrUsrUnfollowRef = ref(
       realTimeDatabase,
       `users/${currentUser.userId}/followingNumber`
@@ -109,22 +88,14 @@ const PeopleSearch = ({ searchPeople }) => {
     if (currUsrFollowing.length === 1) {
       let currentUserdataClone = [0];
       set(CurrUsrUnfollowRef, currentUserdataClone)
-        .then(() => {
-          console.log("unfollowed successfully");
-        })
-        .catch((error) => {
-          console.log("error: " + error);
-        });
+        .then(() => {})
+        .catch((error) => {});
     } else {
       let currentUserdataClone = [...currUsrFollowing];
       currentUserdataClone.splice(currentUserdataClone.indexOf(userId), 1);
       set(CurrUsrUnfollowRef, currentUserdataClone)
-        .then(() => {
-          console.log("unfollowed successfully");
-        })
-        .catch((error) => {
-          console.log("error: " + error);
-        });
+        .then(() => {})
+        .catch((error) => {});
     }
 
     const OtherUsrUnfollowRef = ref(
@@ -135,12 +106,8 @@ const PeopleSearch = ({ searchPeople }) => {
     if (othrUsrFollowing[userId].followersNumber.length === 1) {
       let otherUsrdataClone = [0];
       set(OtherUsrUnfollowRef, otherUsrdataClone)
-        .then(() => {
-          console.log("unfollowed successfully");
-        })
-        .catch((error) => {
-          console.log("error: " + error);
-        });
+        .then(() => {})
+        .catch((error) => {});
     } else {
       let otherUsrdataClone = [...othrUsrFollowing[userId].followersNumber];
       otherUsrdataClone.splice(
@@ -148,12 +115,8 @@ const PeopleSearch = ({ searchPeople }) => {
         1
       );
       set(OtherUsrUnfollowRef, otherUsrdataClone)
-        .then(() => {
-          console.log("unfollowed successfully");
-        })
-        .catch((error) => {
-          console.log("error: " + error);
-        });
+        .then(() => {})
+        .catch((error) => {});
     }
   }
 

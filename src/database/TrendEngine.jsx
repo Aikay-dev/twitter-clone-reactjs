@@ -6,10 +6,9 @@ import Loader from "../pages/auth/components/Loader";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 
-
 const TrendEngine = () => {
   const currentUser = useSelector((state) => state.currUsr.value);
-  console.log(currentUser)
+
   const [tweets, setTweets] = useState([]);
   const [loader, setloader] = useState(true);
   const [trends, setTrends] = useState([]);
@@ -19,14 +18,12 @@ const TrendEngine = () => {
     onValue(wholeTweetsRef, (snapshot) => {
       let data = snapshot.val();
       const dataArr = Object.values(data);
-      console.log(dataArr);
+
       setTweets(dataArr);
     });
   }, []);
 
-  useEffect(() => {
-    tweets.length > 1 ? trendGen(tweets) : console.log("Data not recieved yet");
-  }, [tweets]);
+  useEffect(() => {}, [tweets]);
 
   // Step 1: Extract tweet texts
   function trendGen() {
@@ -49,13 +46,9 @@ const TrendEngine = () => {
     const numTrends = 5;
     const topTrends = sortedTrends.slice(0, numTrends);
 
-    console.log("Top Trends:");
-    topTrends.forEach(([trend, count]) => {
-      console.log(`Trend: ${trend}, Count: ${count}`);
-    });
+    topTrends.forEach(([trend, count]) => {});
     setTrends(topTrends);
     setloader(false);
-    console.log(topTrends);
   }
 
   return (
@@ -65,7 +58,11 @@ const TrendEngine = () => {
           {trends.map((items, index) => {
             return (
               <Link
-              to={currentUser !== null ? `/Home/Search/${items[0]}`: "/Auth/Login"}
+                to={
+                  currentUser !== null
+                    ? `/Home/Search/${items[0]}`
+                    : "/Auth/Login"
+                }
                 key={index}
                 className="homepage-center-current-trend p-3 cursor-pointer flex items-center justify-between"
               >

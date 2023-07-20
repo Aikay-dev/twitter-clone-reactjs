@@ -50,29 +50,22 @@ function StepFour({
         addDoc(colRef, {
           email: stepOneDetails.email,
         })
-        .then((result) => {
-          console.log(result)
-          setshowstepOne(false);
-          setshowStepTwo(false);
-          setshowStepThree(false);
-          setshowStepFour(false);
-          setshowStepFive(true);
-          setshowsignupPage(false);
-          setNextLoad(false);
-        })
-          .catch((error) => {
-            console.log(error)
-        })
-
-        console.log("user created:", cred);
+          .then((result) => {
+            setshowstepOne(false);
+            setshowStepTwo(false);
+            setshowStepThree(false);
+            setshowStepFour(false);
+            setshowStepFive(true);
+            setshowsignupPage(false);
+            setNextLoad(false);
+          })
+          .catch((error) => {});
       })
-      .catch((error) => {
-        console.log(error.message);
-      });
+      .catch((error) => {});
 
-      writeUserDataUserAndPass(
+    writeUserDataUserAndPass(
       generateRandomString(10),
-      "@" + stepOneDetails.name.replace(/\s/g, ''),
+      "@" + stepOneDetails.name.replace(/\s/g, ""),
       stepOneDetails.email,
       "https://twirpz.files.wordpress.com/2015/06/twitter-avi-gender-balanced-figure.png",
       stepOneDetails.DOB,

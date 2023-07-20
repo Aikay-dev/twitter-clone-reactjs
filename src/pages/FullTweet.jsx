@@ -43,7 +43,6 @@ function FullTweet() {
   useEffect(() => {
     if (currentUser.badgedUser) {
       settweetData({ ...tweetData, badgedUser: true });
-      console.log("set true");
     }
   }, []);
 
@@ -58,15 +57,14 @@ function FullTweet() {
   const [showLike, setShowLike] = useState(false);
   const [showBookmark, setshowBookmark] = useState(false);
   const [pushupAfterImage, setpushupAfterImage] = useState(false);
-  const [tweetNotFound, settweetNotFound] = useState(false)
-  const [loader, setloader] = useState(true)
+  const [tweetNotFound, settweetNotFound] = useState(false);
+  const [loader, setloader] = useState(true);
   useEffect(() => {
     const url = window.location.pathname;
     const extractedTimestamp = url.substring(url.lastIndexOf("/") + 1);
     setTimestampdynmic(extractedTimestamp);
 
     retrieveData();
-    console.log("changed:", extractedTimestamp);
   }, [window.location.pathname, timestampdynmic]);
 
   function retrieveData() {
@@ -74,20 +72,18 @@ function FullTweet() {
       const url = window.location.pathname;
       const timestampdynmic = url.substring(url.lastIndexOf("/") + 1);
       setTimestampdynmic(timestampdynmic);
-      console.log("running check");
+
       const tweetPoolRef = ref(
         realTimeDatabase,
         `tweetPool/${timestampdynmic}`
       );
       onValue(tweetPoolRef, (snapshot) => {
         const data = snapshot.val();
-        console.log(data);
+
         if (data) {
           setLoadedFullTweet(true);
           setfulltweetData(data);
-          console.log("Data has been found");
         } else {
-          console.log("Data not found");
           setcommentTweet(true);
         }
       });
@@ -102,17 +98,16 @@ function FullTweet() {
       );
       onValue(tweetPoolRef, (snapshot) => {
         const data = snapshot.val();
-        console.log(data);
-        setfulltweetData(data);
-        if(data !== null){
-          setLoadedFullTweet(true)
-          settweetNotFound(true)
-          setloader(false)
-        }else{
-          setloader(false)
-          settweetNotFound(true)
-        }
 
+        setfulltweetData(data);
+        if (data !== null) {
+          setLoadedFullTweet(true);
+          settweetNotFound(true);
+          setloader(false);
+        } else {
+          setloader(false);
+          settweetNotFound(true);
+        }
       });
     }
   }, [commentTweet]);
@@ -140,20 +135,16 @@ function FullTweet() {
     if (fulltweetData) {
       for (let i = 0; i < fulltweetData.retweets.length; i++) {
         if (fulltweetData.retweets[i] === currentUser.userId) {
-          console.log("he retweeted");
           setRetweet(true);
         } else {
-          console.log("he did not retweet");
           setRetweet(false);
         }
       }
 
       for (let i = 0; i < fulltweetData.likes.length; i++) {
         if (fulltweetData.likes[i] === currentUser.userId) {
-          console.log("he liked");
           setShowLike(true);
         } else {
-          console.log("he did not like");
           setShowLike(false);
         }
       }
@@ -164,7 +155,6 @@ function FullTweet() {
     const dbRef = ref(realTimeDatabase, path);
     update(dbRef, newData)
       .then(() => {
-        console.log("Data updated successfully");
         toast.success("Commented successfully");
         setcommentTweet(false);
         settweetingLoader(false);
@@ -189,7 +179,6 @@ function FullTweet() {
     const dbRef = ref(realTimeDatabase, path);
     update(dbRef, newData)
       .then(() => {
-        console.log("Data updated successfully");
         toast.success("Retweet Updated");
         setcommentTweet(false);
         settweetingLoader(false);
@@ -213,9 +202,7 @@ function FullTweet() {
   const updateNodeSilent = (path, newData) => {
     const dbRef = ref(realTimeDatabase, path);
     update(dbRef, newData)
-      .then(() => {
-        console.log("Data updated successfully");
-      })
+      .then(() => {})
       .catch((error) => {
         console.error("Error updating data:", error);
         settweetingLoader(false);
@@ -243,7 +230,6 @@ function FullTweet() {
             profilePicture: currentUser.profile_picture,
           });
           updateNodeSilent("users/" + Key, userDataNotify);
-          console.log("TweetId added to comment Tweets array.");
         })
         .catch((error) => {
           console.error("Error adding tweetId to userTweets array:", error);
@@ -255,9 +241,7 @@ function FullTweet() {
         "commentTweetPool/" + timestampdynmic + "/comments"
       );
       push(commentTweetsRef, tweetData.tweetId)
-        .then(() => {
-          console.log("TweetId added to comment Tweets array.");
-        })
+        .then(() => {})
         .catch((error) => {
           console.error("Error adding tweetId to userTweets array:", error);
         });
@@ -271,7 +255,7 @@ function FullTweet() {
     }));
     if (currentUser.badgedUser) {
       settweetData({ ...tweetData, badgedUser: true });
-      console.log("kingin");
+
       updateTweetNode();
     } else {
       updateTweetNode();
@@ -283,8 +267,6 @@ function FullTweet() {
       const fileName = Date.now() + "_" + imageToGrabLink.name;
       const TweetPics = strgRef(storage, `TweetPictures/${fileName}`);
       uploadBytes(TweetPics, imageToGrabLink).then((snapshot) => {
-        console.log("Upload complete");
-
         // Get the download URL of the uploaded file
         getDownloadURL(snapshot.ref)
           .then((downloadURL) => {
@@ -294,15 +276,11 @@ function FullTweet() {
               tweetImageLink: downloadURL,
             }));
             setpushupAfterImage(true);
-            console.log("File available at: " + downloadURL);
           })
           .catch((error) => {
-            console.log("Upload error: " + error.message);
             settweetingLoader(false);
           })
-          .finally(() => {
-            console.log(tweetData);
-          });
+          .finally(() => {});
       });
     } else {
       pushupTweet();
@@ -379,7 +357,7 @@ function FullTweet() {
     });
 
     const fulldata2push = fulltweetData;
-    console.log(fulltweetData);
+
     const index = fulldata2push.retweets.indexOf(currentUser.userId);
 
     if (index !== -1) {
@@ -418,9 +396,7 @@ function FullTweet() {
       for (let i = 0; i < currentUser.bookmarkData.length; i++) {
         if (currentUser.bookmarkData[i] === fulltweetData.tweetId) {
           setshowBookmark(true);
-          console.log("its true boys");
         } else {
-          console.log("not true boys");
         }
       }
     }
@@ -430,7 +406,7 @@ function FullTweet() {
     const CurrentRTDB = ref(realTimeDatabase, "users/");
     onValue(CurrentRTDB, (snapshot) => {
       const data = snapshot.val();
-      console.log(data);
+
       setusrs(data);
       let foundKey = null;
 
@@ -441,12 +417,10 @@ function FullTweet() {
             data[key].username === fulltweetData.username
           ) {
             foundKey = data[key];
-            console.log(foundKey);
-            console.log(fulltweetData.username);
+
             setUserKey(foundKey);
             setKey(key);
-            console.log("data: ", data);
-            console.log("fulltweet: ", fulltweetData);
+
             break;
           }
         }
@@ -454,9 +428,7 @@ function FullTweet() {
     });
   }, [fulltweetData]);
 
-  useEffect(() => {
-    console.log(userKey);
-  }, [usrs, userKey]);
+  useEffect(() => {}, [usrs, userKey]);
 
   function handleLike() {
     const fulldata2push = fulltweetData;
@@ -467,7 +439,7 @@ function FullTweet() {
       userId: currentUser.userId,
       profilePicture: currentUser.profile_picture,
     });
-    console.log(fulltweetData);
+
     const index = fulldata2push.likes.indexOf(currentUser.userId);
     let updateUserLikes = { ...currentUser };
 
@@ -774,10 +746,7 @@ function FullTweet() {
                     ) {
                       settweetingLoader(true);
                       finalUploadTweet();
-                      console.log(tweetData);
-                      console.log(tweetTextareaRef);
                     } else {
-                      console.log("not uploading");
                     }
                   }}
                   className=" flex justify-center items-center home-main-tweet-section-button text-white px-4 rounded-full py-1 font-semibold"
@@ -803,10 +772,10 @@ function FullTweet() {
             </section>
           </section>
         )}
-        {!loadedFullTweet && loader &&  <Loader />}
+        {!loadedFullTweet && loader && <Loader />}
         {tweetNotFound && <div className=" pt-16 pl-3">Tweet Not found</div>}
       </section>
-      
+
       <HomeRight />
     </>
   );

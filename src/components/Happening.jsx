@@ -12,20 +12,17 @@ const Happening = ({ happeningDataLoaded, sethappeningDataLoaded }) => {
       .get("https://api.openligadb.de/getmatchdata/bl1/2020/8")
       .then((response) => {
         setSportData(response.data);
-        sethappeningDataLoaded(true)
-        console.log("loaded")
+        sethappeningDataLoaded(true);
       })
-      .catch((error) => {
-        console.log(error);
-      });
+      .catch((error) => {});
   }, []);
 
   let scoreCards = sportData.map((matches) => {
     `Team-1: ${matches.goals[0].scoreTeam1}, Team-2 ${matches.goals[0].scoreTeam2}`;
     return (
       <a
-      target="_blank"
-      href="https://www.bundesliga.com/en/bundesliga/table"
+        target="_blank"
+        href="https://www.bundesliga.com/en/bundesliga/table"
         className="homepage-center-whats-happening-card flex flex-col  justify-center  cursor-pointer py-2 px-3 mt-5 mb-5"
         key={sportData.indexOf(matches)}
       >

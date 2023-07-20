@@ -20,42 +20,36 @@ const CommentTweet = ({
   const [commentKeys, setcommentKeys] = useState({});
   const [commentLoaded, setcommentLoaded] = useState(false);
   const [loadedInitially, setloadedInitially] = useState(false);
-  console.log(currentUser);
 
   useEffect(() => {
     if (fulltweetData !== null && !loadedInitially) {
       const tweetdata = fulltweetData.comments;
-      console.log(tweetdata);
+
       const values = Object.values(tweetdata);
-      console.log(values);
-      console.log(tweetsCardData)
+
       setcommentKeys(values);
       setloadedInitially(true);
     }
   }, [fulltweetData]);
 
   useEffect(() => {
-    console.log(commentKeys);
     for (let i = 0; i < commentKeys.length; i++) {
       rtdbUsrTwtsRqsts(commentKeys[i]);
     }
-    console.log("done parsing all the tweets")
   }, [commentKeys]);
 
   function rtdbUsrTwtsRqsts(id) {
     const TweetDataref = ref(realTimeDatabase, `commentTweetPool/${id}`);
     onValue(TweetDataref, (snapshot) => {
       const data = snapshot.val();
-      console.log(data);
+
       settweetsCardData((prevData) => {
         const newData = [...prevData];
         newData.unshift(data);
         return newData;
       });
-      
+
       setcommentLoaded(true);
-      console.log("i just parsed a tweet")
-      console.log(tweetsCardData)
     });
   }
 

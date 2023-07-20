@@ -18,21 +18,20 @@ const StepThree = ({
 }) => {
   const [mailError, setMailError] = useState(true);
   const [checkmail, setCheckMail] = useState(true);
-  function handleEmails(mails){
-    for(let i = 0; i < mails.length; i++){
-        const mail = mails[i];
-        console.log(mail.email);
-        if(mail.email !== stepOneDetails.email){
-            setCheckMail(false);
-            setMailError(false)
-        }else{
-            console.log("mail exists");
-            setCheckMail(false)
-            setMailError(true)
-            return; // exit the function
-        }
+  function handleEmails(mails) {
+    for (let i = 0; i < mails.length; i++) {
+      const mail = mails[i];
+
+      if (mail.email !== stepOneDetails.email) {
+        setCheckMail(false);
+        setMailError(false);
+      } else {
+        setCheckMail(false);
+        setMailError(true);
+        return; // exit the function
+      }
     }
-}
+  }
 
   useEffect(() => {
     getDocs(colRef)
@@ -41,12 +40,10 @@ const StepThree = ({
         snapshot.docs.forEach((doc) => {
           usermail.push({ ...doc.data(), id: doc.id });
         });
-        console.log(usermail);
-        handleEmails(usermail)
+
+        handleEmails(usermail);
       })
-      .catch((error) => {
-        console.log(error.message);
-      });
+      .catch((error) => {});
   }, []);
   let focus = useRef(null);
   const handleFocusing = () => {
@@ -61,7 +58,6 @@ const StepThree = ({
     const formattedDate = `${month} ${day}, ${year}`;
     return formattedDate;
   }
-
 
   const formattedDate = getdateFormat();
 
