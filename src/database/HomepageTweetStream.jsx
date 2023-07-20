@@ -266,7 +266,7 @@ const HomepageTweetStream = ({
                           className="flex gap-3 items-center main-tweet-comment-icon"
                           aria-label="Comments"
                         >
-                          <div className="p p-1.5 rounded-full main-comment-icon-surround">
+                          <div className="py-1.5 rounded-full main-comment-icon-surround">
                             <FaRegCommentDots />
                           </div>
                           <span>
@@ -277,7 +277,7 @@ const HomepageTweetStream = ({
                           className="flex gap-3 items-center main-tweet-retweet-icon"
                           aria-label="Retweets"
                         >
-                          <div className="p p-1.5 rounded-full main-retweet-icon-surround">
+                          <div className="py-1.5 rounded-full main-retweet-icon-surround">
                             <FaRetweet />
                           </div>
                           <span>{tweetsItems.retweets.length - 1}</span>
@@ -286,7 +286,7 @@ const HomepageTweetStream = ({
                           className="flex gap-3 items-center main-tweet-like-icon"
                           aria-label="Likes"
                         >
-                          <div className="p p-1.5 rounded-full main-like-icon-surround">
+                          <div className="py-1.5 rounded-full main-like-icon-surround">
                             <AiOutlineHeart />
                           </div>
                           <span>{tweetsItems.likes.length - 1}</span>
