@@ -37,9 +37,9 @@ const TrendEngine = () => {
       const tokens = cleanedText.split(/\s+/);
 
       tokens.forEach((token) => {
-        if (token.length > 4) {
-          wordCount[token] = (wordCount[token] || 0) + 1;
-        }
+        token.length > 4
+          ? (wordCount[token] = (wordCount[token] || 0) + 1)
+          : false;
       });
     });
 
