@@ -94,7 +94,7 @@ const Explore = () => {
     <>
       <div>
         <Toaster
-          position="bottom-center"
+           position="top-center"
           toastOptions={{
             style: {
               backgroundColor: "rgb(29, 155, 240)",
