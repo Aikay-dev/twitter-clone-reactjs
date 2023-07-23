@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { searchMounttState } from "../store";
 
-const SearchBar = ({ currentUser }) => {
+const SearchBar = ({ currentUser, toast }) => {
   const [searchPreText, setsearchPreText] = useState("");
   const searchbarRef = useRef();
   const navigate = useNavigate();
@@ -27,34 +27,42 @@ const SearchBar = ({ currentUser }) => {
 
   function handleSearch(e) {
     e.preventDefault();
-    navigate(`/Home/Search/${searchPreText}`);
+    if (currentUser !== null) {
+      navigate(`/Home/Search/${searchPreText}`);
+    } else {
+      toast("Kindly login first", {
+        icon: "❗",
+      });
+    }
     remount();
   }
 
   return (
-    <div className="homepage-header-searchbar relative w-full">
-      <input
-        ref={searchbarRef}
-        value={searchPreText}
-        onChange={(e) => setsearchPreText(e.target.value)}
-        onKeyDown={(e) => {
-          if (e.key === "Enter") {
-            handleSearch(e);
-            remount();
-          }
-        }}
-        type="text"
-        className="homepage-header-searchbox h-10 rounded-full outline-none pl-16"
-        placeholder="Search Tweeter"
-      />
+    <>
+      <div className="homepage-header-searchbar relative w-full">
+        <input
+          ref={searchbarRef}
+          value={searchPreText}
+          onChange={(e) => setsearchPreText(e.target.value)}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              handleSearch(e);
+              remount();
+            }
+          }}
+          type="text"
+          className="homepage-header-searchbox h-10 rounded-full outline-none pl-16"
+          placeholder="Search Tweeter"
+        />
 
-      <label
-        onClick={handleSearch}
-        className="homepage-header-label absolute left-5 top-2 outline-none"
-      >
-        <FontAwesomeIcon icon="fas fa-magnifying-glass" />
-      </label>
-    </div>
+        <label
+          onClick={handleSearch}
+          className="homepage-header-label absolute left-5 top-2 outline-none"
+        >
+          <FontAwesomeIcon icon="fas fa-magnifying-glass" />
+        </label>
+      </div>
+    </>
   );
 };
 

@@ -22,6 +22,8 @@ import WhoToFollow from "../components/WhoToFollow";
 import { onValue, ref } from "firebase/database";
 import SmLoader from "./auth/components/SmLoader";
 import { useNavigate } from "react-router-dom";
+import toast, { Toaster } from "react-hot-toast";
+
 library.add(fas);
 library.add(fab);
 library.add(far);
@@ -90,6 +92,25 @@ const Explore = () => {
 
   return (
     <>
+      <div>
+        <Toaster
+          position="bottom-center"
+          toastOptions={{
+            style: {
+              backgroundColor: "rgb(29, 155, 240)",
+              color: "#ffffff",
+              padding: "10px",
+            },
+            success: {
+              iconTheme: {
+                primary: "green",
+                secondary: "white",
+              },
+            },
+          }}
+          reverseOrder={false}
+        />
+      </div>
       {showSignUpCard && (
         <div className="absolute z-10 explore-signup-card">
           <SignUp setshowSignUpCard={setshowSignUpCard} />
@@ -120,7 +141,7 @@ const Explore = () => {
               />
             </div>
           )}
-          <SearchBar currentUser={auth.currentUser} />
+          <SearchBar currentUser={auth.currentUser} toast={toast} />
           <Link
             onClick={() => {
               dispatch(blurChangeState({ display: "block" }));
@@ -266,6 +287,12 @@ const Explore = () => {
       <div
         className="absolute inset-0 flex justify-center items-center text-white homepage-auth-overlay"
         style={{ display: ifBlur }}
+        onClick={(e) => {
+          e.stopPropagation();
+          if (e.target === e.currentTarget) {
+            console.log("blur div");
+          }
+        }}
       >
         <Outlet />
       </div>
