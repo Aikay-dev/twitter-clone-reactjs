@@ -171,7 +171,18 @@ const LoginEmail = ({
         </div>
       </div>
 
-      <div className="sign-in-box flex pt-5 flex-col items-center justify-center ">
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+
+          if (emailRegex.test(userAuth.email)) {
+            checkEmailExists();
+          } else {
+            setErrorOutline({ borderColor: "red" });
+          }
+        }}
+        className="sign-in-box flex pt-5 flex-col items-center justify-center "
+      >
         <div className="relative">
           <input
             type="text"
@@ -230,7 +241,7 @@ const LoginEmail = ({
             Sign up
           </Link>
         </p>
-      </div>
+      </form>
     </div>
   );
 };

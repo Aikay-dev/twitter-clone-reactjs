@@ -48,7 +48,7 @@ const Login = () => {
   const [authPage, setauthPage] = useState(false);
   return (
     <>
-      <form
+      <div
         action=""
         className="auth-form bg-black overflow-y-scroll login-form-container md:mx-auto md:w-authxlw md:h-authxlh p-2 md:rounded-2xl relative h-screen w-full"
       >
@@ -104,7 +104,7 @@ const Login = () => {
           </>
         )}
         <div>{!authPage && <Loader />}</div>
-      </form>
+      </div>
     </>
   );
 };
