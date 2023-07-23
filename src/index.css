@@ -1542,11 +1542,6 @@
   transform: translate(-50%, -50%);
 }
 
-/* .search-log-notif{
-  width: 400px;
-  height: 400px;
-} */
-
 .home-nav-tweet-button {
   background: var(--blueText);
   padding: 8px 80px;

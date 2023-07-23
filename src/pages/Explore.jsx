@@ -189,7 +189,7 @@ const Explore = () => {
                       style={{ marginLeft: "9px" }}
                     />
                   </div>
-                  <p className="text-fuchsia-200 font-extrabold text-3xl">
+                  <p className="text-fuchsia-200 font-extrabold text-3xl pl-5">
                     #{mostfollowedData.followersNumber.length}
                   </p>
                 </div>
