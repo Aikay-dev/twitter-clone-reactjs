@@ -211,7 +211,7 @@ const Explore = () => {
           <div className="flex items-center justify-center">
             {mostfollowedLoading && <SmLoader />}
           </div>
-          <p className="homepage-center-info-trends text-xl font-extrabold pb-3 px-3">
+          <p className="homepage-center-info-trends text-xl font-extrabold pb-3 pt-2 px-3">
             Trends for you
           </p>
           <Trendstream />
